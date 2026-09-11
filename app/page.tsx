@@ -1,69 +1,46 @@
-import Image from "next/image";
+import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <section className="max-w-7xl mx-auto px-5 py-16 md:py-24">
+      <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-12 items-center">
+        <div>
+          <p className="eyebrow mb-6">Boosting premium / entregas rápidas</p>
+          <h1 className="display-font text-6xl md:text-8xl leading-[0.9] uppercase max-w-4xl">
+            Juega más.<br />
+            <span className="text-lime-300">Grindea menos.</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-slate-400 text-lg md:text-xl max-w-xl mt-8 leading-relaxed">
+            Servicios competitivos para subir de rango, desbloquear progreso y volver a la partida con ventaja.
           </p>
+          <div className="flex flex-wrap items-center gap-4 mt-10">
+            <Link href="/store" className="bg-lime-300 text-black px-7 py-4 rounded-lg font-black uppercase tracking-wide hover:bg-white transition-colors">
+              Explorar marketplace
+            </Link>
+            <Link href="/help" className="border border-lime-300/30 text-slate-200 px-7 py-4 rounded-lg font-bold hover:border-lime-300 hover:text-lime-300 transition-colors">
+              Cómo funciona
+            </Link>
+          </div>
+          <div className="flex gap-8 mt-12 text-sm text-slate-500">
+            <span><strong className="text-white block text-xl">24/7</strong> soporte activo</span>
+            <span><strong className="text-white block text-xl">100%</strong> checkout seguro</span>
+            <span><strong className="text-white block text-xl">1 día</strong> entrega media</span>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="panel-surface rounded-2xl p-5 rotate-1">
+          <div className="border border-lime-300/20 rounded-xl p-6 bg-[#111512]">
+            <div className="flex justify-between items-center mb-16">
+              <span className="eyebrow">Mission control</span>
+              <span className="text-xs text-lime-300 border border-lime-300/30 rounded-full px-3 py-1">LIVE</span>
+            </div>
+            <div className="space-y-5">
+              <div className="flex justify-between text-sm"><span className="text-slate-500">PLAYER STATUS</span><span className="text-lime-300">READY</span></div>
+              <div className="h-2 rounded-full bg-slate-800 overflow-hidden"><div className="h-full w-[82%] bg-lime-300" /></div>
+              <div className="flex justify-between items-end pt-5 border-t border-white/10"><span className="text-slate-500 text-sm">NEXT OBJECTIVE</span><strong className="text-2xl">RANK UP</strong></div>
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </section>
   );
 }
