@@ -1,74 +1,102 @@
-'use client';
-import { useState } from 'react';
+import Link from 'next/link';
+import { neon } from '@neondatabase/serverless';
+import { ensureOrdersTable, ORDER_STATUS_LABELS } from '../../lib/orders';
+import Icon from '../../components/Icon';
 
-export default function AdminProducts() {
-    const [products, setProducts] = useState([
-        { id: 1, name: 'GTA V - Cuenta Modded', price: 35 }
-    ]);
-    const [newName, setNewName] = useState('');
-    const [newPrice, setNewPrice] = useState('');
+export const dynamic = 'force-dynamic';
 
-    const handleAddProduct = (e) => {
-        e.preventDefault();
-        const newProduct = { id: Date.now(), name: newName, price: Number(newPrice) };
-        // Aquí harías un POST a tu API route (ej: /api/products)
-        setProducts([...products, newProduct]);
-        setNewName('');
-        setNewPrice('');
-    };
+export default async function AdminPage() {
+    const sql = neon(process.env.DATABASE_URL);
+    await sql`CREATE TABLE IF NOT EXISTS products (id SERIAL PRIMARY KEY, name VARCHAR(255) NOT NULL, price DECIMAL(10, 2) NOT NULL, game VARCHAR(120))`;
+    await ensureOrdersTable(sql);
 
-    const handleDelete = (id) => {
-        // Aquí harías un DELETE a tu API route
-        setProducts(products.filter(p => p.id !== id));
-    };
+    const ordersTotal = await sql`SELECT COUNT(*)::int AS total FROM orders`;
+    const revenue = await sql`SELECT COALESCE(SUM(total), 0)::numeric AS total FROM orders WHERE status <> 'cancelled'`;
+    const queued = await sql`SELECT COUNT(*)::int AS total FROM orders WHERE status = 'queued'`;
+    const inProgress = await sql`SELECT COUNT(*)::int AS total FROM orders WHERE status = 'in_progress'`;
+    const products = await sql`SELECT COUNT(*)::int AS total FROM products`;
+    const games = await sql`SELECT COUNT(*)::int AS total FROM games`;
+
+    const recent = await sql`SELECT * FROM orders ORDER BY id DESC LIMIT 5`;
+    const allItems = await sql`SELECT * FROM order_items ORDER BY id`;
+    const itemsByOrder = allItems.reduce((map, item) => {
+        if (!map[item.order_id]) map[item.order_id] = [];
+        map[item.order_id].push(item);
+        return map;
+    }, {});
+
+const metrics = [
+    { label: 'Total orders', value: String(ordersTotal[0]?.total ?? 0), icon: 'clipboard' },
+    { label: 'Revenue (open)', value: `$${Number(revenue[0]?.total ?? 0).toFixed(2)}`, icon: 'trending-up' },
+    { label: 'Queued', value: String(queued[0]?.total ?? 0), icon: 'clock' },
+    { label: 'In progress', value: String(inProgress[0]?.total ?? 0), icon: 'bolt' },
+    { label: 'Services', value: String(products[0]?.total ?? 0), icon: 'box' },
+    { label: 'Games', value: String(games[0]?.total ?? 0), icon: 'gamepad' },
+];
 
     return (
-        <div className="max-w-4xl">
-            <h1 className="text-3xl font-bold uppercase mb-8">Gestión de Productos</h1>
+        <div className="max-w-5xl">
+            <p className="eyebrow mb-3">Control room</p>
+            <h1 className="display-font text-5xl uppercase mb-8 text-white">Dashboard</h1>
 
-            {/* Formulario para agregar */}
-            <form onSubmit={handleAddProduct} className="bg-slate-900 p-6 rounded-xl border border-slate-800 mb-10 flex gap-4 items-end">
-                <div className="flex-grow">
-                    <label className="block text-sm text-slate-400 mb-2">Nombre del Servicio</label>
-                    <input
-                        type="text" required value={newName} onChange={(e) => setNewName(e.target.value)}
-                        className="w-full bg-slate-950 border border-slate-700 rounded p-3 text-white focus:border-purple-500 outline-none"
-                    />
-                </div>
-                <div className="w-32">
-                    <label className="block text-sm text-slate-400 mb-2">Precio ($)</label>
-                    <input
-                        type="number" required value={newPrice} onChange={(e) => setNewPrice(e.target.value)}
-                        className="w-full bg-slate-950 border border-slate-700 rounded p-3 text-white focus:border-purple-500 outline-none"
-                    />
-                </div>
-                <button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded transition-colors">
-                    Agregar
-                </button>
-            </form>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
+                {metrics.map((metric) => (
+                    <div key={metric.label} className="panel-surface rounded-2xl p-5">
+                        <div className="flex items-center justify-between">
+                            <p className="text-xs uppercase tracking-widest text-slate-400">{metric.label}</p>
+                            <Icon name={metric.icon} className="w-4 h-4 text-lime-300/70" />
+                        </div>
+                        <p className="display-font text-3xl text-lime-300 mt-2">{metric.value}</p>
+                    </div>
+                ))}
+            </div>
 
-            {/* Lista de productos activos */}
-            <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+            <div className="flex items-center gap-4 mb-6">
+                <h2 className="display-font text-3xl uppercase text-white">Latest orders</h2>
+                <div className="h-px bg-white/10 flex-1" />
+                <Link href="/admin/orders" className="text-sm text-lime-300 hover:text-white font-bold transition-colors">
+                    Manage all →
+                </Link>
+            </div>
+
+            <div className="panel-surface rounded-2xl overflow-hidden">
                 <table className="w-full text-left">
-                    <thead className="bg-slate-800 text-slate-300">
+                    <thead className="bg-white/5 text-slate-300">
                         <tr>
-                            <th className="p-4">Producto</th>
-                            <th className="p-4">Precio</th>
-                            <th className="p-4 text-right">Acción</th>
+                            <th className="p-4">#</th>
+                            <th className="p-4">Customer</th>
+                            <th className="p-4">Items</th>
+                            <th className="p-4">Total</th>
+                            <th className="p-4">Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {products.map(product => (
-                            <tr key={product.id} className="border-t border-slate-800">
-                                <td className="p-4">{product.name}</td>
-                                <td className="p-4 text-emerald-400 font-bold">${product.price}</td>
-                                <td className="p-4 text-right">
-                                    <button onClick={() => handleDelete(product.id)} className="text-red-400 hover:text-red-300 font-bold text-sm">
-                                        Eliminar
-                                    </button>
+                        {recent.length === 0 ? (
+                            <tr>
+                                <td colSpan="5" className="p-6 text-center text-slate-400">
+                                    No orders yet. Place a demo order from the store to see it here.
                                 </td>
                             </tr>
-                        ))}
+                        ) : (
+                            recent.map((order) => (
+                                <tr key={order.id} className="border-t border-white/10">
+                                    <td className="p-4 text-slate-400">#{order.id}</td>
+                                    <td className="p-4">
+                                        <p className="font-medium text-white">{order.customer_name}</p>
+                                        <p className="text-xs text-slate-400">{order.customer_email}</p>
+                                    </td>
+                                    <td className="p-4 text-sm text-slate-400">
+                                        {(itemsByOrder[order.id] ?? []).map((item) => item.name).join(', ') || '—'}
+                                    </td>
+                                    <td className="p-4 text-lime-300 font-bold">${Number(order.total).toFixed(2)}</td>
+                                    <td className="p-4">
+                                        <span className="data-readout text-[11px] uppercase tracking-widest text-slate-300">
+                                            {ORDER_STATUS_LABELS[order.status] || order.status}
+                                        </span>
+                                    </td>
+                                </tr>
+                            ))
+                        )}
                     </tbody>
                 </table>
             </div>

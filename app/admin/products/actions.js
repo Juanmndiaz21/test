@@ -1,9 +1,10 @@
 'use server'
 import { neon } from '@neondatabase/serverless';
-import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
+import { requireAdmin } from '../../../lib/guard';
 
 export async function addProduct(formData) {
+    await requireAdmin();
     const sql = neon(process.env.DATABASE_URL);
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS platform VARCHAR(80)`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS boost_amount INTEGER`;
@@ -33,6 +34,7 @@ export async function addProduct(formData) {
 }
 
 export async function deleteProduct(id) {
+    await requireAdmin();
     const sql = neon(process.env.DATABASE_URL);
 
     await sql`DELETE FROM products WHERE id = ${id}`;
@@ -42,6 +44,7 @@ export async function deleteProduct(id) {
 }
 
 export async function updateProduct(formData) {
+    await requireAdmin();
     const sql = neon(process.env.DATABASE_URL);
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS image_url TEXT`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS how_it_works TEXT`;
@@ -68,8 +71,7 @@ export async function updateProduct(formData) {
 }
 
 export async function updateProductSection(productId, section, items) {
-    const session = await getServerSession();
-    if (!session?.user) throw new Error('Debes iniciar sesión como administrador.');
+    await requireAdmin();
 
     const allowedColumns = {
         description: 'description',
@@ -78,7 +80,7 @@ export async function updateProductSection(productId, section, items) {
         faqs: 'faqs',
     };
     const column = allowedColumns[section];
-    if (!column) throw new Error('Sección no válida.');
+    if (!column) throw new Error('Invalid section.');
 
     const sql = neon(process.env.DATABASE_URL);
     const value = items.filter((item) => item.trim()).join('\n');

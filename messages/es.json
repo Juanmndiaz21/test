@@ -1,0 +1,245 @@
+{
+  "common": {
+    "brand": "Rowmodz",
+    "home": "Inicio",
+    "store": "Explorar juegos",
+    "support": "Soporte",
+    "contact": "Contacto",
+    "signIn": "Iniciar sesión",
+    "signUp": "Crear cuenta",
+    "myProfile": "Mi perfil",
+    "customerAccount": "Cuenta de cliente",
+    "administratorAccount": "Cuenta de administrador",
+    "controlRoom": "Sala de control · Productos",
+    "dashboard": "Panel",
+    "myCart": "Mi carrito",
+    "signOut": "Cerrar sesión",
+    "customerNote": "Cuenta de cliente — tus boosts se rastrean por email.",
+    "allPlatforms": "Todas las plataformas",
+    "available": "Disponible",
+    "usd": "USD",
+    "demoNote": "Demo checkout — no se procesa ningún pago real.",
+    "backToTop": "Volver arriba",
+    "navLanguage": "Idioma"
+  },
+  "siteHeader": {
+    "cartAria": "{count, plural, =0 {Carrito vacío} =1 {Carrito, 1 artículo} other {Carrito, # artículos}}"
+  },
+  "footer": {
+    "tagline": "Servicios de boosting competitivos para los juegos que juegas.",
+    "rights": "© {year} Rowmodz. Todos los derechos reservados.",
+    "demoDisclaimer": "Checkout demo — no se procesa ningún pago real.",
+    "navTitle": "Navegación"
+  },
+  "home": {
+    "titleMeta": "Servicios de boosting premium para tus juegos",
+    "heroTitleA": "Tú juegas.",
+    "heroTitleB": "Nosotros subimos.",
+    "heroSub": "Elige tu juego, di cuánto boost necesitas y vuelve a la partida. El trabajo sucio lo hacemos nosotros.",
+    "featuresTitle": "Todo lo que necesitas para subir de nivel",
+    "features": [
+      {
+        "title": "Multijugador y un jugador",
+        "text": "Los juegos se marcan como MP, SP o ambos, para que encuentres el servicio adecuado al modo que realmente juegas."
+      },
+      {
+        "title": "Boosts configurables",
+        "text": "La plataforma y la cantidad de boost se definen antes del checkout: tu selección es el pedido, sin pasos ocultos."
+      },
+      {
+        "title": "Un catálogo en vivo",
+        "text": "Cada juego, precio y servicio aquí es gestionado y actualizado por el equipo de Rowmodz."
+      },
+      {
+        "title": "Soporte cuando lo necesitas",
+        "text": "El centro de ayuda está a un clic desde cualquier página de la tienda."
+      }
+    ],
+    "reviewsTitle": "Reseñas",
+    "reviewsNote": "Reseñas de muestra — cámbialas por comentarios reales cuando lleguen.",
+    "reviews": [
+      {
+        "author": "Kai",
+        "tag": "GTA VI · PS5",
+        "text": "Definí mi plataforma y mi boost, y pasé por el checkout en menos de un minuto. Directo y claro."
+      },
+      {
+        "author": "Mara",
+        "tag": "CS2 · PC",
+        "text": "Las opciones de configuración son exactamente lo que dice el menú. Sin sorpresas en el checkout."
+      },
+      {
+        "author": "Devon",
+        "tag": "GTA VI · Xbox",
+        "text": "Una forma limpia de vender servicios rankeados: catálogo real, sin humo."
+      }
+    ],
+    "starsAria": "Valoración 5 de 5"
+  },
+  "landingCatalog": {
+    "searchLabel": "Buscar juegos",
+    "searchPlaceholder": "Buscar juegos…",
+    "noResults": "Sin resultados",
+    "noGamesMatch": "No hay juegos que coincidan con “{query}”.",
+    "popularTitle": "Juegos populares",
+    "browseAllTitle": "Explorar todos los juegos",
+    "serviceCount": "{count, plural, =1 {1 servicio} other {# servicios}}",
+    "productCount": "{count, plural, =1 {1 producto} other {# productos}}",
+    "modeBoth": "MP + SP",
+    "modeMultiplayer": "Multijugador",
+    "modeSingleplayer": "Un jugador",
+    "modeAll": "Todos los modos",
+    "findGameAria": "Encuentra un juego"
+  },
+  "store": {
+    "titleMeta": "Explorar juegos",
+    "eyebrow": "Explorar por título",
+    "title": "Explorar juegos",
+    "subtitle": "Encuentra un juego, revisa sus servicios y prepara tu próxima misión.",
+    "liveCatalog": "Catálogo en vivo",
+    "jumpTo": "Salta a",
+    "all": "Todo",
+    "featured": "Destacados",
+    "noGamesLetter": "No hay juegos que empiecen por esa letra.",
+    "catalogInProgress": "Catálogo en construcción",
+    "noServicesPublished": "Todavía no hay servicios publicados.",
+    "addProductsFromAdmin": "Vuelve pronto o añade productos desde el panel de administración.",
+    "serviceCount": "{count, plural, =1 {1 servicio} other {# servicios}}",
+    "backToBrowse": "← Volver a explorar juegos"
+  },
+  "gamePage": {
+    "titleMeta": "{game} · servicios",
+    "gameServices": "Servicios del juego",
+    "servicesCount": "{count, plural, =1 {1 servicio disponible para este juego.} other {# servicios disponibles para este juego.}}",
+    "noServicesYet": "Todavía sin servicios",
+    "readyForFirstService": "Este juego está listo para su primer servicio.",
+    "viewFullDescription": "Lee la descripción completa, los requisitos y las opciones de configuración.",
+    "available": "Disponible",
+    "allPlatforms": "Todas las plataformas",
+    "metadataDescription": "Servicios de boosting disponibles para {game}."
+  },
+  "product": {
+    "backTo": "← Volver a {game}",
+    "allPlatforms": "Todas las plataformas",
+    "available": "Disponible",
+    "defaultDescription": "Mejora tu cuenta o sube de rango: configurado según tu plataforma y tu cantidad de boost.",
+    "configLabel": "Configuración",
+    "configValue": "Plataforma y cantidad definidas antes del checkout",
+    "managedByLabel": "Gestionado por",
+    "managedByValue": "El equipo de Rowmodz",
+    "deliveryLabel": "Entrega",
+    "deliveryValue": "Los pedidos arrancan en 24 horas",
+    "matchConfig": "Config de partida",
+    "configureBoost": "Configura tu boost",
+    "platform": "Plataforma",
+    "boostAmount": "Cantidad de boost",
+    "servicePrice": "Precio del servicio",
+    "addConfiguration": "Añadir configuración",
+    "addedToCart": "Añadido al carrito",
+    "proceedToCheckout": "Ir al checkout →",
+    "toastAdded": "Añadido: {platform} · {boost}M boost",
+    "serviceGuide": "Guía del servicio",
+    "sectionDescription": "Descripción",
+    "sectionHowItWorks": "Cómo funciona",
+    "sectionRequirements": "Requisitos",
+    "sectionFaqs": "Preguntas frecuentes",
+    "fallbackDescription": "Un servicio fiable configurado según tus objetivos. Elige plataforma y cantidad arriba, y añádelo al carrito para continuar.",
+    "fallbackHowItWorks": [
+      "Elige la plataforma y la cantidad de servicio que necesitas.",
+      "Añade el servicio configurado al carrito y completa el pago.",
+      "Nuestro equipo procesa el pedido y te contacta con los siguientes pasos."
+    ],
+    "fallbackRequirements": [
+      "Proporciona la plataforma y los datos de la cuenta correctos tras el checkout.",
+      "Mantén la cuenta accesible durante la ventana de servicio.",
+      "No cambies las credenciales de la cuenta mientras se procesa el pedido."
+    ],
+    "fallbackFaqs": [
+      "¿Cuánto tarda la entrega? | La mayoría de los pedidos arrancan en 24 horas.",
+      "¿Puedo elegir otra plataforma después? | Elige la plataforma correcta antes de añadir el servicio."
+    ],
+    "faqFallbackAnswer": "Contacta con soporte para más información.",
+    "relatedTitle": "Productos relacionados"
+  },
+  "cart": {
+    "yourSelection": "Tu selección",
+    "itemCount": "{count, plural, =1 {1 artículo} other {# artículos}}",
+    "clearList": "Vaciar lista",
+    "remove": "Quitar {name}",
+    "decreaseQuantity": "Disminuir cantidad",
+    "increaseQuantity": "Aumentar cantidad",
+    "estimatedTotal": "Total estimado"
+  },
+  "checkout": {
+    "eyebrow": "Último paso",
+    "title": "Checkout",
+    "emptyTitle": "Tu selección está vacía",
+    "emptyText": "Todavía no hay nada configurado. Elige un juego, define tu plataforma y tu cantidad de boost, y vuelve aquí para terminar.",
+    "viewLadder": "Ver la escalera",
+    "infoTitle": "Checkout",
+    "infoText": "Esto es una demo: no se procesa ningún pago real. Tu pedido se registra para que el equipo gestione el boost.",
+    "nameLabel": "Nombre",
+    "namePlaceholder": "Tu nombre en el juego / de contacto",
+    "emailLabel": "Email",
+    "emailPlaceholder": "tu@ejemplo.com",
+    "payPal": "Pagar con PayPal",
+    "web3": "Pagar con Web3 (Cripto)",
+    "demoModeNote": "Modo demo: no se cobra nada y el pedido aparece en el panel de administración.",
+    "toastSuccess": "Pedido demo #{orderId} registrado — no se procesó ningún pago real.",
+    "placeInProgress": "Registrando pedido demo..."
+  },
+  "login": {
+    "accessTerminal": "Terminal de acceso",
+    "signInSub": "Inicia sesión para gestionar tus servicios y seguir tus boosts.",
+    "createSub": "Crea una cuenta gratuita. Los boosts se rastrean por email.",
+    "email": "Email",
+    "password": "Contraseña",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "processing": "PROCESANDO...",
+    "signInBtn": "INICIAR SESIÓN",
+    "createAccountBtn": "CREAR CUENTA",
+    "noAccount": "¿Aún no tienes cuenta?",
+    "createOne": "Crea una",
+    "hasAccount": "¿Ya tienes una cuenta?",
+    "signInLink": "Inicia sesión",
+    "setupToken": "Código de configuración",
+    "setupTokenHint": "Código de configuración para el primer administrador.",
+    "roleHint": "Las cuentas de cliente reciben el rol USER. La primera cuenta creada se convierte en administrador únicamente si introduces el código de configuración.",
+    "errorCompleteSecurity": "Completa primero la verificación de seguridad.",
+    "errorInvalid": "Credenciales inválidas. Revisa tu email y contraseña.",
+    "toastWelcome": "Sesión iniciada. Bienvenido de nuevo.",
+    "toastCreatedAdmin": "Cuenta creada: eres el administrador.",
+    "toastCreated": "Cuenta creada. Ya puedes iniciar sesión.",
+    "errorGeneric": "Algo salió mal al contactar con el servidor."
+  },
+  "help": {
+    "eyebrow": "Estamos aquí para ayudarte",
+    "title": "Soporte",
+    "faq1q": "¿Cómo se configura un servicio?",
+    "faq1a": "Abre un juego, elige un servicio y define tu plataforma y cantidad de boost. Esa configuración exacta es lo que añades al carrito y al pedido.",
+    "faq2q": "¿Qué pasa después del checkout?",
+    "faq2a": "Tu selección configurada se confirma y se elimina del carrito. Cada pedido del catálogo lo revisa el equipo de Rowmodz.",
+    "faq3q": "¿El pago con cripto funciona de verdad?",
+    "faq3a": "En esta versión no. El checkout es una demo: no se conecta ninguna wallet ni se realiza ninguna transacción en blockchain."
+  },
+  "contact": {
+    "titleMeta": "Contacto",
+    "eyebrow": "Hablemos",
+    "title": "Contacto",
+    "subtitle": "¿Dudas sobre tu boost, un pedido o el catálogo? Escríbenos y el equipo de Rowmodz te responderá.",
+    "name": "Nombre",
+    "email": "Email",
+    "subject": "Asunto (opcional)",
+    "message": "Mensaje",
+    "submit": "Enviar mensaje",
+    "submitting": "Enviando...",
+    "nameRequired": "Tu nombre es obligatorio.",
+    "emailInvalid": "Introduce un email válido.",
+    "messageTooShort": "El mensaje debe tener al menos 10 caracteres.",
+    "toastSuccess": "Mensaje enviado. El equipo te responderá pronto.",
+    "toastError": "No se pudo enviar el mensaje. Inténtalo de nuevo.",
+    "privacyNote": "Solo usamos tu email para responder tu consulta.",
+    "responseTime": "Respondemos en menos de 24 horas."
+  }
+}

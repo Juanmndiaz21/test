@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-11T12:00:00.000Z",
+  "title": "Design System: Rowmodz",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Promotion Violet",
+        "canonical": "oklch(71% 0.14 293)",
+        "tonalRamp": ["#2a1d4a", "#3a2a66", "#4d348c", "#6448b8", "#7d5be8", "#9d7cff", "#b9a5ff", "#d8c9ff"],
+        "purpose": "The single saturated accent. CTAs, the leader position, focus and selection. Pairs with near-black ink text."
+      },
+      "neutral-bg": {
+        "role": "neutral",
+        "displayName": "Night Violet",
+        "canonical": "oklch(16% 0.035 293)",
+        "tonalRamp": ["#0a0712", "#0d0914", "#120e1c", "#171229", "#1e1733", "#251c3f", "#2c234c", "#332a5a"],
+        "purpose": "The page ground."
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Plum Surface",
+        "canonical": "oklch(19% 0.045 293)",
+        "tonalRamp": ["#0e0b18", "#120e1c", "#171229", "#1d1632", "#231a3d", "#2a2049", "#322756", "#3a2e64"],
+        "purpose": "Raised surfaces: cards, panels, standings framing, selects, admin chrome."
+      },
+      "surface-deep": {
+        "role": "neutral",
+        "displayName": "Ink Violet",
+        "canonical": "oklch(12% 0.03 293)",
+        "tonalRamp": ["#08060e", "#0d0914", "#120d1c", "#181226", "#1e1730", "#251d3b", "#2c2346", "#342a52"],
+        "purpose": "Recessed ground (header/footer bar) and text on violet fills."
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Iced Lavender",
+        "canonical": "oklch(93% 0.02 293)",
+        "tonalRamp": ["#cdc3e6", "#d8d0ec", "#e2dbf2", "#ece6f6", "#f1ecfb", "#f7f3fd", "#fbf9fe", "#ffffff"],
+        "purpose": "Primary text."
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "Mist Slate",
+        "canonical": "oklch(69% 0.02 255)",
+        "tonalRamp": ["#4a5666", "#5b6979", "#6c7a8c", "#7e8ca0", "#94a3b8", "#a9b6c8", "#c0cbda", "#d8dfe8"],
+        "purpose": "Secondary/muted text. The floor for muted-text contrast on violet grounds (4.5:1)."
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Violet Hairline",
+        "canonical": "oklch(65% 0.13 293 / 0.16)",
+        "tonalRamp": ["#241c3f", "#2e2450", "#3a2e66", "#46367c", "#544195", "#624da5", "#7059b5", "#8066c6"],
+        "purpose": "Every border and divider."
+      },
+      "danger": {
+        "role": "neutral",
+        "displayName": "Match Abandon Red",
+        "canonical": "#f87171",
+        "tonalRamp": ["#7f2330", "#9a2d3c", "#b63a4a", "#d04c5e", "#f87171", "#ff9a97", "#ffbfbc", "#ffdedc"],
+        "purpose": "Destructive admin actions, error accents and error toasts only."
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display Caps",
+        "purpose": "The landing thesis and loudest statement, uppercase, one clause maximum."
+      },
+      "headline": {
+        "displayName": "Headline Caps",
+        "purpose": "Section titles across store, help, login and checkout."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card titles, config panel headings, product names."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paragraphs, descriptions, cart entries; ~65ch max."
+      },
+      "label": {
+        "displayName": "Eyebrow / data-readout",
+        "purpose": "Tracked mono labels (0.18em, uppercase) and tabular-nums figures."
+      }
+    },
+    "shadows": [
+      {
+        "name": "ambient-panel",
+        "value": "0 24px 70px rgba(0, 0, 0, 0.35)",
+        "purpose": "The single lift under panel-surface cards and the standings sheet."
+      }
+    ],
+    "motion": [
+      { "name": "hero-rise", "value": "0.6s cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Entrance rise for hero blocks." },
+      { "name": "ladder-row", "value": "0.5s cubic-bezier(0.16, 1, 0.3, 1) staggered 70ms", "purpose": "Standings rows rise in reading order." },
+      { "name": "rank-rule", "value": "0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.35s", "purpose": "The leader row's violet rule draws across the panel footer." },
+      { "name": "toast", "value": "0.25s ease-out / 0.28s ease-in", "purpose": "Toast enter/exit." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one action that matters per surface — the climb. Promotion Violet fill with near-black ink text, uppercase stacked label.",
+      "html": "<button class=\"ds-btn-primary\">View the ladder</button>",
+      "css": ".ds-btn-primary{background:#9d7cff;color:#0d0914;font-family:'Trebuchet MS','Segoe UI',sans-serif;font-weight:900;font-size:14px;text-transform:uppercase;letter-spacing:.05em;padding:16px 28px;border:none;border-radius:8px;cursor:pointer;transition:background .15s ease}.ds-btn-primary:hover{background:#c6affe}.ds-btn-primary:focus-visible{outline:2px solid #9d7cff;outline-offset:3px}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary path beside the primary — violet hairline border, lavender text that takes the accent on hover.",
+      "html": "<button class=\"ds-btn-ghost\">How promotions work</button>",
+      "css": ".ds-btn-ghost{background:transparent;color:#f1ecfb;font-family:'Trebuchet MS','Segoe UI',sans-serif;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.05em;padding:16px 28px;border:1px solid rgba(157,124,255,.3);border-radius:8px;cursor:pointer;transition:color .15s ease,border-color .15s ease}.ds-btn-ghost:hover{color:#9d7cff;border-color:#9d7cff}.ds-btn-ghost:focus-visible{outline:2px solid #9d7cff;outline-offset:3px}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Near-black translucent fill over the plum panel with a faint border; border and outline take the accent on focus.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"e.g. GTA V\">",
+      "css": ".ds-input{width:100%;background:rgba(0,0,0,.2);color:#f1ecfb;font-family:'Trebuchet MS','Segoe UI',sans-serif;font-size:15px;padding:12px;border:1px solid rgba(255,255,255,.1);border-radius:8px;outline:none;transition:border-color .15s ease}.ds-input:focus{border-color:#9d7cff;outline:2px solid #9d7cff;outline-offset:2px}.ds-input::placeholder{color:#94a3b8}.ds-input[readonly]{color:#9d7cff;cursor:not-allowed}"
+    },
+    {
+      "name": "Panel / Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Cherry-picked standing surface: plum at ~90%, hairline violet border, one ambient shadow, 16px corners.",
+      "html": "<div class=\"ds-card\"><strong style=\"color:#fff\">How promotions work</strong><p style=\"margin:.75rem 0 0;color:#94a3b8\">Your configuration is the order — no hidden steps.</p></div>",
+      "css": ".ds-card{background:rgba(23,18,41,.9);color:#f1ecfb;font-family:'Trebuchet MS','Segoe UI',sans-serif;font-size:16px;line-height:1.6;border:1px solid rgba(157,124,255,.16);border-radius:16px;padding:28px;box-shadow:0 24px 70px rgba(0,0,0,.35)}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Ink Violet sticky bar, hairline bottom border, Impact caps brand, muted links that go violet on hover.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-brand\" href=\"#\">ROWMODZ</a><a href=\"#\">Home</a><a href=\"#\">Browse games</a><a href=\"#\">Support</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:24px;padding:14px 20px;background:rgba(13,9,20,.9);border-bottom:1px solid rgba(157,124,255,.16);font-family:'Trebuchet MS','Segoe UI',sans-serif}.ds-brand{font-family:Impact,'Arial Narrow Bold',sans-serif;font-size:24px;letter-spacing:.02em;color:#f1ecfb;text-decoration:none}.ds-brand:hover{color:#f1ecfb}.ds-nav a:not(.ds-brand){color:#94a3b8;font-size:14px;font-weight:600;text-decoration:none;transition:color .15s ease}.ds-nav a:not(.ds-brand):hover{color:#9d7cff}.ds-nav a:focus-visible{outline:2px solid #9d7cff;outline-offset:3px}"
+    },
+    {
+      "name": "The Standings Panel (signature)",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "The product made visible: the live catalog as a season leaderboard. Mono header strip, hairline rows, leader wash, tabular positions and entry counts.",
+      "html": "<div class=\"ds-standings\"><div class=\"ds-standings-head\"><span>Season standings</span><span>Live catalog</span></div><div class=\"ds-standings-row\"><span class=\"ds-pos\">01</span><span class=\"ds-game\">GTA V<span class=\"ds-track\"><span class=\"ds-fill\"></span></span></span><span class=\"ds-entries\">14 entries</span></div><div class=\"ds-standings-row\"><span class=\"ds-pos\">02</span><span class=\"ds-game\">Call of Duty<span class=\"ds-track\"><span class=\"ds-fill ds-fill-dim\"></span></span></span><span class=\"ds-entries\">9 entries</span></div></div>",
+      "css": ".ds-standings{background:rgba(23,18,41,.9);border:1px solid rgba(157,124,255,.16);border-radius:16px;overflow:hidden;font-family:'Trebuchet MS','Segoe UI',sans-serif}.ds-standings-head{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid rgba(157,124,255,.16);color:#9d7cff;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.ds-standings-row{display:flex;align-items:center;gap:16px;padding:14px 20px;border-top:1px solid rgba(157,124,255,.16);color:#f1ecfb}.ds-standings-row:first-of-type{border-top:0;background:rgba(157,124,255,.06)}.ds-pos{width:24px;text-align:right;color:#94a3b8;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-size:14px}.ds-game{flex:1;min-width:0;color:#fff;font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ds-track{display:block;height:6px;border-radius:999px;background:rgba(255,255,255,.05);margin-top:6px;overflow:hidden}.ds-fill{display:block;height:100%;width:70%;border-radius:999px;background:#9d7cff}.ds-fill-dim{background:rgba(157,124,255,.4)}.ds-entries{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-size:14px;color:#94a3b8}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Season Standings",
+    "overview": "Rowmodz sells climbs, so the system renders the whole product as a competitive season standings sheet. Every surface borrows its grammar from the broadcast of a ranked tournament: the catalog is a live leaderboard ranked by the number of real services it carries, prices and boost amounts sit in tabular mono readouts like rating figures, and a match-detailed panel — the standings, the config slip, the promotion slip — carries each step of the funnel. The material world is a rank arena at night: deep night-violet ink, plum surfaces, and hairline violet rules, with exactly one saturated accent — Promotion Violet — reserved for the act of climbing. Condensed Impact caps shout the standings; quiet Trebuchet body reads the guidance; the mono face speaks the numbers. Movement is sparse and deliberate: the ladder rows rise on load and the leader row draws its violet rule, then the page rests. The old lime-and-near-black 'boosting shop' world is replaced, never polished.",
+    "keyCharacteristics": [
+      "One accent color, used only for the climb (CTAs, active ranks, focus, selected states).",
+      "The catalog is real data, rendered as standings — position, cover, game, entry track, entry count.",
+      "Condensed caps for hierarchy, quiet body for guidance, tabular mono for figures.",
+      "Violet-tinted hairline separators instead of heavy borders.",
+      "One orchestrated entrance motion per page, never scattered effects."
+    ],
+    "rules": [
+      {
+        "name": "The Promotion Violet Rule",
+        "body": "Exactly one saturated accent in the whole system: #9d7cff, spent only on the act of climbing — primary actions, the leader position, focus and selection. No second accent color, no green money, no yellow payment chips, no violet gradients.",
+        "section": "colors"
+      },
+      {
+        "name": "The Night-Scene Rule",
+        "body": "'Dark' here is a scene, not a default: the ground is always the night-violet ink family (#120e1c / #171229 / #0d0914). Whenever a grey reads greenish or blue-black — a throwback to a previous grey-on-black world — it is the wrong grey; shift it toward the plum family.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular-Figure Rule",
+        "body": "Every number is a rating readout: tabular mono (font-variant-numeric: tabular-nums, 0.08em tracking). Prices, entry counts, positions and boost amounts never render in the humanist body face.",
+        "section": "typography"
+      }
+    ],
+    "dos": [
+      "Do keep every muted text at or brighter than Mist Slate (#94a3b8) when it sits on a violet ground — the contrast floor is 4.5:1.",
+      "Do render positions, prices, counts and boost amounts in the tabular mono readout.",
+      "Do spend the Promotion Violet accent only on climbing actions and the leader position; keep its paired text near-black for contrast.",
+      "Do separate blocks with the violet hairline and generous padding; let the night-violet family carry the scene.",
+      "Do author numbers honestly from the catalog — the standings show real counts, never invented ranks or player counts.",
+      "Do give interactive elements the global accent focus outline."
+    ],
+    "donts": [
+      "Don't reintroduce a second accent (no lime, no payment gold, no money-green prices).",
+      "Don't put grey text on a violet fill unless it flips to near-black on hover.",
+      "Don't use unicode glyph icons — draw inline SVGs (check, cross, pencil, chevron); the '×' close/remove button and the '−'/'+' steppers are text, not icons.",
+      "Don't add neon glow, text shadows, shimmer, or gradient text; depth is tonal layering, not light effects.",
+      "Don't drift the ground back to grey-on-black or green-black; Night Violet is the scene.",
+      "Don't render the standings as decoration — the ladder is the live catalog and the funnel's front door."
+    ]
+  }
+}

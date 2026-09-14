@@ -1,0 +1,245 @@
+{
+  "common": {
+    "brand": "Rowmodz",
+    "home": "Home",
+    "store": "Browse games",
+    "support": "Support",
+    "contact": "Contact",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "myProfile": "My profile",
+    "customerAccount": "Customer account",
+    "administratorAccount": "Administrator account",
+    "controlRoom": "Control room · Products",
+    "dashboard": "Dashboard",
+    "myCart": "My cart",
+    "signOut": "Sign out",
+    "customerNote": "Customer account — your boosts are tracked by email.",
+    "allPlatforms": "All platforms",
+    "available": "Available",
+    "usd": "USD",
+    "demoNote": "Demo checkout — no real payment is processed.",
+    "backToTop": "Back to top",
+    "navLanguage": "Language"
+  },
+  "siteHeader": {
+    "cartAria": "{count, plural, =0 {Empty cart} =1 {Cart, 1 item} other {Cart, # items}}"
+  },
+  "footer": {
+    "tagline": "Competitive boosting services for the games you play.",
+    "rights": "© {year} Rowmodz. All rights reserved.",
+    "demoDisclaimer": "Demo checkout — no real payment is processed.",
+    "navTitle": "Navigation"
+  },
+  "home": {
+    "titleMeta": "Premium Game Boosting Services",
+    "heroTitleA": "You play.",
+    "heroTitleB": "We climb.",
+    "heroSub": "Pick your game, tell us how much boost you need, and get back to playing. We'll do the dirty work.",
+    "featuresTitle": "Everything you need to level up",
+    "features": [
+      {
+        "title": "Multiplayer & singleplayer",
+        "text": "Games are marked MP, SP or both, so you find the right service for the mode you actually play."
+      },
+      {
+        "title": "Configurable boosts",
+        "text": "Platform and boost amount are set before checkout — your selection is the order, no hidden steps."
+      },
+      {
+        "title": "A live catalog",
+        "text": "Every game, price and service here is managed and updated by the Rowmodz team."
+      },
+      {
+        "title": "Support when you need it",
+        "text": "The help center is one click away from any page in the store."
+      }
+    ],
+    "reviewsTitle": "Reviews",
+    "reviewsNote": "Sample reviews — swap these for real player feedback as it arrives.",
+    "reviews": [
+      {
+        "author": "Kai",
+        "tag": "GTA VI · PS5",
+        "text": "Set my platform and boost, checked out in under a minute. Straightforward and clear."
+      },
+      {
+        "author": "Mara",
+        "tag": "CS2 · PC",
+        "text": "The configuration options are exactly what the menu says. No surprises at checkout."
+      },
+      {
+        "author": "Devon",
+        "tag": "GTA VI · Xbox",
+        "text": "A clean way to sell ranked services — real catalog, no fluff."
+      }
+    ],
+    "starsAria": "Rated 5 out of 5"
+  },
+  "landingCatalog": {
+    "searchLabel": "Search games",
+    "searchPlaceholder": "Search games…",
+    "noResults": "No results",
+    "noGamesMatch": "No games match “{query}”.",
+    "popularTitle": "Popular games",
+    "browseAllTitle": "Browse all games",
+    "serviceCount": "{count, plural, =1 {1 service} other {# services}}",
+    "productCount": "{count, plural, =1 {1 product} other {# products}}",
+    "modeBoth": "MP + SP",
+    "modeMultiplayer": "Multiplayer",
+    "modeSingleplayer": "Singleplayer",
+    "modeAll": "All modes",
+    "findGameAria": "Find a game"
+  },
+  "store": {
+    "titleMeta": "Browse games",
+    "eyebrow": "Browse by title",
+    "title": "Browse games",
+    "subtitle": "Find a game, check its services and line up your next mission.",
+    "liveCatalog": "Live catalog",
+    "jumpTo": "Jump to",
+    "all": "All",
+    "featured": "Featured",
+    "noGamesLetter": "No games match that letter.",
+    "catalogInProgress": "Catalog in progress",
+    "noServicesPublished": "No services published yet.",
+    "addProductsFromAdmin": "Check back soon, or add products from the admin panel.",
+    "serviceCount": "{count, plural, =1 {1 service} other {# services}}",
+    "backToBrowse": "← Back to browse games"
+  },
+  "gamePage": {
+    "titleMeta": "{game} services",
+    "gameServices": "Game services",
+    "servicesCount": "{count, plural, =1 {1 service available for this game.} other {# services available for this game.}}",
+    "noServicesYet": "No services yet",
+    "readyForFirstService": "This game is ready for its first service.",
+    "viewFullDescription": "View the full description, requirements and configuration options.",
+    "available": "Available",
+    "allPlatforms": "All platforms",
+    "metadataDescription": "Boosting services available for {game}."
+  },
+  "product": {
+    "backTo": "← Back to {game}",
+    "allPlatforms": "All platforms",
+    "available": "Available",
+    "defaultDescription": "Improve your account or climb the rank — configured around your platform and boost amount.",
+    "configLabel": "Configuration",
+    "configValue": "Platform and amount set before checkout",
+    "managedByLabel": "Managed by",
+    "managedByValue": "The Rowmodz team",
+    "deliveryLabel": "Delivery",
+    "deliveryValue": "Orders start within 24 hours",
+    "matchConfig": "Match config",
+    "configureBoost": "Configure your boost",
+    "platform": "Platform",
+    "boostAmount": "Boost amount",
+    "servicePrice": "Service price",
+    "addConfiguration": "Add configuration",
+    "addedToCart": "Added to cart",
+    "proceedToCheckout": "Proceed to checkout →",
+    "toastAdded": "Added: {platform} · {boost}M boost",
+    "serviceGuide": "Service guide",
+    "sectionDescription": "Description",
+    "sectionHowItWorks": "How It Works",
+    "sectionRequirements": "Requirements",
+    "sectionFaqs": "Frequently Asked Questions",
+    "fallbackDescription": "A reliable service configured around your account goals. Select your platform and boost amount above, then add it to your cart to continue.",
+    "fallbackHowItWorks": [
+      "Select the platform and service amount you need.",
+      "Add the configured service to your cart and complete payment.",
+      "Our team processes your order and contacts you with the next steps."
+    ],
+    "fallbackRequirements": [
+      "Provide the correct platform and account details after checkout.",
+      "Keep the account accessible during the service window.",
+      "Do not change account credentials while the order is being processed."
+    ],
+    "fallbackFaqs": [
+      "How long does delivery take? | Most orders are started within 24 hours.",
+      "Can I choose another platform later? | Choose the correct platform before adding the service."
+    ],
+    "faqFallbackAnswer": "Contact support for more information.",
+    "relatedTitle": "Related products"
+  },
+  "cart": {
+    "yourSelection": "Your selection",
+    "itemCount": "{count, plural, =1 {1 item} other {# items}}",
+    "clearList": "Clear list",
+    "remove": "Remove {name}",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "estimatedTotal": "Estimated total"
+  },
+  "checkout": {
+    "eyebrow": "Last step",
+    "title": "Checkout",
+    "emptyTitle": "Your selection is empty",
+    "emptyText": "Nothing is configured yet. Pick a game, set your platform and boost amount, and come back here to finish.",
+    "viewLadder": "View the ladder",
+    "infoTitle": "Checkout",
+    "infoText": "This is a demo — no real payment is processed. Your order is recorded so the team can manage the boost.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your in-game / contact name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "payPal": "Pay with PayPal",
+    "web3": "Pay with Web3 (Crypto)",
+    "demoModeNote": "Demo mode — nothing is charged and the order appears in the admin panel.",
+    "toastSuccess": "Demo order #{orderId} recorded — no real payment was processed.",
+    "placeInProgress": "Placing demo order..."
+  },
+  "login": {
+    "accessTerminal": "Access terminal",
+    "signInSub": "Sign in to manage your services and track your boosts.",
+    "createSub": "Create a free account. Boosts are tracked by email.",
+    "email": "Email",
+    "password": "Password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "processing": "PROCESSING...",
+    "signInBtn": "SIGN IN",
+    "createAccountBtn": "CREATE ACCOUNT",
+    "noAccount": "No account yet?",
+    "createOne": "Create one",
+    "hasAccount": "Already have an account?",
+    "signInLink": "Sign In",
+    "setupToken": "Setup code",
+    "setupTokenHint": "Setup code for the first administrator.",
+    "roleHint": "Customer accounts get the USER role. The very first account created becomes the administrator only when the setup code is entered.",
+    "errorCompleteSecurity": "Complete the security check first.",
+    "errorInvalid": "Invalid credentials. Check your email and password.",
+    "toastWelcome": "Signed in. Welcome back.",
+    "toastCreatedAdmin": "Account created — you are the administrator.",
+    "toastCreated": "Account created. You can sign in now.",
+    "errorGeneric": "Something went wrong while contacting the server."
+  },
+  "help": {
+    "eyebrow": "We are here to help",
+    "title": "Support",
+    "faq1q": "How is a service configured?",
+    "faq1a": "Open a game, pick a service and set your platform and boost amount. That exact configuration is what you add to your cart and order.",
+    "faq2q": "What happens after checkout?",
+    "faq2a": "Your configured selection is confirmed and removed from the cart. Every order in the catalog is reviewed by the Rowmodz team.",
+    "faq3q": "Does the crypto payment really work?",
+    "faq3a": "Not in this build. Checkout is a demo — no wallet connection or blockchain transaction is actually performed."
+  },
+  "contact": {
+    "titleMeta": "Contact",
+    "eyebrow": "Let's talk",
+    "title": "Contact",
+    "subtitle": "Questions about your boost, an order or the catalog? Write to us and the Rowmodz team will get back to you.",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject (optional)",
+    "message": "Message",
+    "submit": "Send message",
+    "submitting": "Sending...",
+    "nameRequired": "Your name is required.",
+    "emailInvalid": "Enter a valid email address.",
+    "messageTooShort": "The message must be at least 10 characters.",
+    "toastSuccess": "Message sent. The team will get back to you soon.",
+    "toastError": "Could not send the message. Please try again.",
+    "privacyNote": "We only use your email to reply to your message.",
+    "responseTime": "We reply within 24 hours."
+  }
+}
