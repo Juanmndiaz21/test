@@ -13,12 +13,24 @@ export async function addProduct(formData) {
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS how_it_works TEXT`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS requirements TEXT`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS faqs TEXT`;
-    const name = formData.get('name');
-    const game = formData.get('game');
+    const name = String(formData.get('name') || '').trim();
+    const game = String(formData.get('game') || '').trim();
+    if (!name) throw new Error('Product name is required.');
+    if (!game) throw new Error('Game is required.');
+
+    const price = Number(formData.get('price'));
+    if (!Number.isFinite(price) || price <= 0) {
+        throw new Error('Price must be a positive number.');
+    }
+
+    const rawBoostAmount = formData.get('boost_amount');
+    const boostAmount = rawBoostAmount === null || rawBoostAmount === '' ? null : Number(rawBoostAmount);
+    if (boostAmount !== null && (!Number.isInteger(boostAmount) || boostAmount <= 0)) {
+        throw new Error('Boost amount must be a positive integer.');
+    }
+
     const description = formData.get('description');
-    const price = formData.get('price');
     const platform = formData.get('platform');
-    const boostAmount = formData.get('boost_amount');
     const imageUrl = formData.get('image_url');
     const howItWorks = formData.get('how_it_works');
     const requirements = formData.get('requirements');
@@ -26,7 +38,7 @@ export async function addProduct(formData) {
 
     await sql`
         INSERT INTO products (name, description, price, platform, boost_amount, game, image_url, how_it_works, requirements, faqs)
-        VALUES (${name}, ${description || null}, ${price}, ${platform || null}, ${boostAmount || null}, ${game || null}, ${imageUrl || null}, ${howItWorks || null}, ${requirements || null}, ${faqs || null})
+        VALUES (${name}, ${description || null}, ${price}, ${platform || null}, ${boostAmount}, ${game}, ${imageUrl || null}, ${howItWorks || null}, ${requirements || null}, ${faqs || null})
     `;
 
     revalidatePath('/store');
@@ -51,19 +63,38 @@ export async function updateProduct(formData) {
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS requirements TEXT`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS faqs TEXT`;
 
+    const id = Number(formData.get('id'));
+    if (!Number.isInteger(id) || id <= 0) throw new Error('Invalid product id.');
+
+    const name = String(formData.get('name') || '').trim();
+    const game = String(formData.get('game') || '').trim();
+    if (!name) throw new Error('Product name is required.');
+    if (!game) throw new Error('Game is required.');
+
+    const price = Number(formData.get('price'));
+    if (!Number.isFinite(price) || price <= 0) {
+        throw new Error('Price must be a positive number.');
+    }
+
+    const rawBoostAmount = formData.get('boost_amount');
+    const boostAmount = rawBoostAmount === null || rawBoostAmount === '' ? null : Number(rawBoostAmount);
+    if (boostAmount !== null && (!Number.isInteger(boostAmount) || boostAmount <= 0)) {
+        throw new Error('Boost amount must be a positive integer.');
+    }
+
     await sql`
         UPDATE products SET
-            name = ${formData.get('name')},
+            name = ${name},
             description = ${formData.get('description') || null},
-            price = ${formData.get('price')},
+            price = ${price},
             platform = ${formData.get('platform') || null},
-            boost_amount = ${formData.get('boost_amount') || null},
-            game = ${formData.get('game')},
+            boost_amount = ${boostAmount},
+            game = ${game},
             image_url = ${formData.get('image_url') || null},
             how_it_works = ${formData.get('how_it_works') || null},
             requirements = ${formData.get('requirements') || null},
             faqs = ${formData.get('faqs') || null}
-        WHERE id = ${formData.get('id')}
+        WHERE id = ${id}
     `;
 
     revalidatePath('/store');

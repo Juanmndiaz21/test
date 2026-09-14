@@ -1,10 +1,15 @@
 import { neon } from '@neondatabase/serverless';
+import { redirect } from 'next/navigation';
 import { ensureUsersTable } from '../../../lib/auth';
+import { getAdminSession } from '../../../lib/guard';
 import CreateAdminForm from '../../../components/CreateAdminForm';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminUsersPage() {
+    const session = await getAdminSession();
+    if (!session) redirect('/login');
+
     const sql = neon(process.env.DATABASE_URL);
     await ensureUsersTable(sql);
 

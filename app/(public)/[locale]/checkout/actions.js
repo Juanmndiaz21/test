@@ -26,7 +26,57 @@ export async function recordDemoOrder(prevState, formData) {
         const sql = neon(process.env.DATABASE_URL);
         await ensureOrdersTable(sql);
 
-        const total = items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 1), 0);
+        const productRows = await sql`SELECT * FROM products`;
+        const productsById = new Map();
+        const productsBySignature = new Map();
+        for (const product of productRows) {
+            productsById.set(Number(product.id), product);
+            const signature = [
+                String(product.name || '').trim().toLowerCase(),
+                String(product.game || '').trim().toLowerCase(),
+                product.platform || '',
+                product.boost_amount ?? '',
+            ].join('|');
+            productsBySignature.set(signature, product);
+        }
+
+        const baseName = (name) => String(name || '').split(' · ')[0].trim().toLowerCase();
+        const signatureFor = (item) => [
+            baseName(item.name),
+            String(item.game || item.name || '').trim().toLowerCase(),
+            item.platform || '',
+            item.boost_amount ?? '',
+        ].join('|');
+
+        const orderItems = [];
+        let total = 0;
+        for (const item of items) {
+            if (item === null || typeof item !== 'object') throw new Error('Invalid cart item.');
+
+            const quantity = Number(item.quantity);
+            if (!Number.isInteger(quantity) || quantity <= 0) throw new Error('Invalid quantity.');
+
+            const rawId = Number(item.id);
+            let product = Number.isInteger(rawId) && rawId > 0 ? productsById.get(rawId) : null;
+            if (!product) product = productsBySignature.get(signatureFor(item));
+            if (!product) throw new Error(`Unknown service: ${String(item.name || 'item')}`);
+
+            const unitPrice = Number(product.price);
+            if (!Number.isFinite(unitPrice) || unitPrice <= 0) throw new Error(`Invalid price for ${product.name}.`);
+
+            total += unitPrice * quantity;
+            orderItems.push({
+                name: product.name,
+                quantity,
+                unit_price: unitPrice,
+                platform: item.platform || product.platform || null,
+                boost_amount: item.boost_amount ? Number(item.boost_amount) : product.boost_amount ?? null,
+                game: item.game || product.game || null,
+            });
+        }
+
+        if (!Number.isFinite(total) || total <= 0) throw new Error('Invalid order total.');
+
         const inserted = await sql`
             INSERT INTO orders (customer_name, customer_email, payment_method, total)
             VALUES (${name}, ${emailKey}, 'demo', ${total.toFixed(2)})
@@ -34,17 +84,17 @@ export async function recordDemoOrder(prevState, formData) {
         `;
         const orderId = Number(inserted[0].id);
 
-        for (const item of items) {
+        for (const item of orderItems) {
             await sql`
                 INSERT INTO order_items (order_id, name, quantity, unit_price, platform, boost_amount, game)
                 VALUES (
                     ${orderId},
-                    ${String(item.name || 'Service')},
-                    ${Number(item.quantity || 1)},
-                    ${Number(item.price || 0)},
-                    ${item.platform || null},
-                    ${item.boost_amount ? Number(item.boost_amount) : null},
-                    ${item.game || null}
+                    ${item.name},
+                    ${item.quantity},
+                    ${item.unit_price},
+                    ${item.platform},
+                    ${item.boost_amount},
+                    ${item.game}
                 )
             `;
         }

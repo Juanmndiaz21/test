@@ -1,9 +1,14 @@
 import { neon } from '@neondatabase/serverless';
+import { redirect } from 'next/navigation';
 import { addProduct, deleteProduct, updateProduct } from './actions';
+import { getAdminSession } from '../../../lib/guard';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminProducts({ searchParams }) {
+    const session = await getAdminSession();
+    if (!session) redirect('/login');
+
     const sql = neon(process.env.DATABASE_URL);
     const params = await searchParams;
     const selectedGame = params?.game || '';

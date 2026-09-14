@@ -11,6 +11,7 @@ const initialState = { success: false, orderId: null, error: null };
 function serializeCart(cart) {
     return JSON.stringify(
         cart.map((item) => ({
+            id: item.id ?? null,
             name: item.name,
             quantity: item.quantity,
             price: item.price,
