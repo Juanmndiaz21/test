@@ -11,7 +11,11 @@
     "customerAccount": "Cuenta de cliente",
     "administratorAccount": "Cuenta de administrador",
     "controlRoom": "Sala de control · Productos",
-    "dashboard": "Panel",
+    "adminPanel": "Panel de administración",
+    "dashboard": "Panel general",
+    "services": "Catálogo de servicios",
+    "orders": "Órdenes de boost",
+    "reviews": "Moderación de reseñas",
     "myCart": "Mi carrito",
     "signOut": "Cerrar sesión",
     "customerNote": "Cuenta de cliente — tus boosts se rastrean por email.",
@@ -29,7 +33,15 @@
     "tagline": "Servicios de boosting competitivos para los juegos que juegas.",
     "rights": "© {year} Rowmodz. Todos los derechos reservados.",
     "demoDisclaimer": "Checkout demo — no se procesa ningún pago real.",
-    "navTitle": "Navegación"
+    "navTitle": "Navegación",
+    "navPlatform": "Plataforma",
+    "navSupport": "Soporte y Empleo",
+    "navLegal": "Legal y Políticas",
+    "terms": "Términos y Condiciones",
+    "privacy": "Política de Privacidad",
+    "refunds": "Reembolsos y Garantía de Devolución",
+    "contactUs": "Contáctanos",
+    "workWithUs": "Trabaja con Nosotros"
   },
   "home": {
     "titleMeta": "Servicios de boosting premium para tus juegos",
@@ -56,7 +68,18 @@
       }
     ],
     "reviewsTitle": "Reseñas",
-    "reviewsNote": "Reseñas de muestra — cámbialas por comentarios reales cuando lleguen.",
+    "reviewsNote": "Comentarios verificados de jugadores que completaron su ascenso en la temporada.",
+    "ctaTitle": "¿Listo para Subir?",
+    "ctaSub": "Elige tu juego, fija tu rango objetivo y deja que nuestro equipo verificado te lleve a la cima.",
+    "ctaButton": "Ver Tabla de Clasificación",
+    "ctaSecondary": "Todos los Servicios",
+    "autoRotating": "Rotación automática",
+    "paused": "Pausado",
+    "dragToScrub": "Arrastra para desplazar",
+    "play": "Reanudar",
+    "pause": "Pausar",
+    "prevReviews": "Reseñas anteriores",
+    "nextReviews": "Reseñas siguientes",
     "reviews": [
       {
         "author": "Kai",
@@ -89,7 +112,9 @@
     "modeMultiplayer": "Multijugador",
     "modeSingleplayer": "Un jugador",
     "modeAll": "Todos los modos",
-    "findGameAria": "Encuentra un juego"
+    "findGameAria": "Encuentra un juego",
+    "viewAllCatalog": "Explorar Catálogo Completo",
+    "clearSearch": "Limpiar búsqueda"
   },
   "store": {
     "titleMeta": "Explorar juegos",
@@ -105,10 +130,16 @@
     "noServicesPublished": "Todavía no hay servicios publicados.",
     "addProductsFromAdmin": "Vuelve pronto o añade productos desde el panel de administración.",
     "serviceCount": "{count, plural, =1 {1 servicio} other {# servicios}}",
+    "searchPlaceholder": "Buscar juegos por título…",
+    "searchLabel": "Buscar juegos",
+    "clearSearch": "Limpiar búsqueda",
+    "noGamesMatch": "No hay juegos que coincidan con “{query}”.",
+    "showingResults": "{count, plural, =1 {1 juego encontrado} other {# juegos encontrados}}",
     "backToBrowse": "← Volver a explorar juegos"
   },
   "gamePage": {
     "titleMeta": "{game} · servicios",
+    "backToBrowse": "Volver a explorar juegos",
     "gameServices": "Servicios del juego",
     "servicesCount": "{count, plural, =1 {1 servicio disponible para este juego.} other {# servicios disponibles para este juego.}}",
     "noServicesYet": "Todavía sin servicios",
@@ -133,11 +164,15 @@
     "configureBoost": "Configura tu boost",
     "platform": "Plataforma",
     "boostAmount": "Cantidad de boost",
+    "commendsMatchConfig": "Commends",
+    "configureCommends": "Configura tus commends",
+    "commendsAmount": "Cantidad de commends",
+    "toastCommends": "Añadido: {platform} · {boost} commends",
     "servicePrice": "Precio del servicio",
     "addConfiguration": "Añadir configuración",
     "addedToCart": "Añadido al carrito",
     "proceedToCheckout": "Ir al checkout →",
-    "toastAdded": "Añadido: {platform} · {boost}M boost",
+    "toastAdded": "Añadido: {platform} · {boost} boost",
     "serviceGuide": "Guía del servicio",
     "sectionDescription": "Descripción",
     "sectionHowItWorks": "Cómo funciona",
@@ -221,7 +256,13 @@
     "faq2q": "¿Qué pasa después del checkout?",
     "faq2a": "Tu selección configurada se confirma y se elimina del carrito. Cada pedido del catálogo lo revisa el equipo de Rowmodz.",
     "faq3q": "¿El pago con cripto funciona de verdad?",
-    "faq3a": "En esta versión no. El checkout es una demo: no se conecta ninguna wallet ni se realiza ninguna transacción en blockchain."
+    "faq3a": "En esta versión no. El checkout es una demo: no se conecta ninguna wallet ni se realiza ninguna transacción en blockchain.",
+    "types": {
+      "how-it-works": "Cómo funciona",
+      "faq": "Preguntas frecuentes",
+      "shipping-payment": "Envío y pago",
+      "refunds": "Devoluciones y reembolsos"
+    }
   },
   "contact": {
     "titleMeta": "Contacto",
@@ -241,5 +282,66 @@
     "toastError": "No se pudo enviar el mensaje. Inténtalo de nuevo.",
     "privacyNote": "Solo usamos tu email para responder tu consulta.",
     "responseTime": "Respondemos en menos de 24 horas."
+  },
+  "terms": {
+    "titleMeta": "Términos y Condiciones",
+    "eyebrow": "Acuerdos Legales",
+    "title": "Términos y Condiciones",
+    "lastUpdated": "Última actualización: Septiembre 2026",
+    "sec1Title": "1. Aceptación de los Términos",
+    "sec1Text": "Al acceder o contratar servicios en Rowmodz, aceptas estar sujeto a estos Términos y Condiciones y a todas las leyes y normativas aplicables.",
+    "sec2Title": "2. Servicios de Boosting y Coaching",
+    "sec2Text": "Rowmodz proporciona servicios digitales de progresión, entrenamiento y mejora en juegos ejecutados por jugadores verificados. El alcance, tiempos de entrega y rangos objetivo se configuran antes del checkout.",
+    "sec3Title": "3. Seguridad de la Cuenta y Responsabilidades",
+    "sec3Text": "Aceptas proporcionar información veraz sobre tu cuenta y plataforma. Nuestro equipo utiliza VPNs dedicadas y juego 100% manual sin inyecciones de código. No debes iniciar sesión durante las ventanas activas de servicio.",
+    "sec4Title": "4. Juego Limpio y Garantía de Servicio",
+    "sec4Text": "Toda progresión se realiza manualmente por jugadores de alto rango sin trampas, software de terceros ni bots. Si un servicio no puede completarse, estás respaldado por nuestra Garantía de Reembolso.",
+    "sec5Title": "5. Contacto y Consultas",
+    "sec5Text": "Para preguntas legales o aclaraciones sobre nuestros términos, escríbenos a support@rowmodz.gg o mediante nuestra página de Contacto."
+  },
+  "privacy": {
+    "titleMeta": "Política de Privacidad",
+    "eyebrow": "Protección de Datos",
+    "title": "Política de Privacidad",
+    "lastUpdated": "Última actualización: Septiembre 2026",
+    "sec1Title": "1. Información que Recopilamos",
+    "sec1Text": "Recopilamos los datos necesarios para tu pedido, incluyendo nombre en el juego, correo electrónico, plataforma seleccionada y objetivo de boost.",
+    "sec2Title": "2. Uso de la Información",
+    "sec2Text": "Tus datos se utilizan exclusivamente para coordinar el pedido, enviarte actualizaciones de progreso y dar soporte. Jamás vendemos ni compartimos tu información con terceros.",
+    "sec3Title": "3. Seguridad y Cifrado de Datos",
+    "sec3Text": "Todas las comunicaciones y accesos se protegen mediante cifrado TLS estándar de la industria. Las credenciales se descartan de inmediato tras finalizar el servicio con éxito.",
+    "sec4Title": "4. Tus Derechos",
+    "sec4Text": "Tienes derecho a solicitar una copia de tus datos o la eliminación completa de tu registro de cliente en cualquier momento contactando a nuestro equipo de soporte."
+  },
+  "refunds": {
+    "titleMeta": "Reembolsos y Garantía de Devolución",
+    "eyebrow": "Protección al Cliente",
+    "title": "Reembolsos y Garantía de Devolución",
+    "lastUpdated": "Última actualización: Septiembre 2026",
+    "sec1Title": "1. Garantía de Devolución del 100%",
+    "sec1Text": "Si tu pedido aún no ha sido asignado a un booster o la ejecución no ha comenzado, tienes derecho a un reembolso inmediato del 100% sin preguntas.",
+    "sec2Title": "2. Reembolsos Parciales Proporcionales",
+    "sec2Text": "Si un servicio se completa parcialmente y decides pausar o cancelar, calculamos un reembolso proporcional justo basado estrictamente en el rango o división alcanzada hasta ese momento.",
+    "sec3Title": "3. Garantía de Reemplazo de Booster",
+    "sec3Text": "Si un booster no cumple con los estándares o tiempos acordados, asignamos un sustituto de inmediato o reembolsamos el valor restante del servicio.",
+    "sec4Title": "4. Cómo Solicitar un Reembolso",
+    "sec4Text": "Simplemente comunícate con soporte indicando tu número de pedido a través de nuestro formulario de Contacto o chat. Las solicitudes se resuelven en menos de 24 horas."
+  },
+  "workWithUs": {
+    "titleMeta": "Trabaja con Nosotros",
+    "eyebrow": "Únete al Equipo",
+    "title": "Trabaja con Nosotros",
+    "subtitle": "¿Eres un jugador de élite? Únete a nuestro equipo verificado de boosters, coaches y especialistas en competitivo.",
+    "perk1Title": "Pagos Competitivos",
+    "perk1Text": "Obtén las comisiones más altas del mercado con pagos rápidos, confiables y automatizados.",
+    "perk2Title": "Horario Flexible",
+    "perk2Text": "Elige libremente los pedidos que deseas realizar en los horarios que mejor se adapten a tu rutina.",
+    "perk3Title": "Equipo de Élite",
+    "perk3Text": "Colabora con campeones y jugadores profesionales reconocidos en los principales títulos.",
+    "reqTitle": "Requisitos para Unirte",
+    "req1": "Estar en el Top 1% del ranking o historial competitivo demostrable en tu juego.",
+    "req2": "Historial impecable: cero programas de terceros, trampas o conductas antideportivas.",
+    "req3": "Comunicación constante, puntualidad y trato profesional con los clientes.",
+    "applyButton": "Postularse a través de Contacto"
   }
 }

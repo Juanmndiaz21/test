@@ -56,7 +56,7 @@ export async function deleteGame(name) {
     if (!game) throw new Error('The game name is required.');
 
     const sql = neon(process.env.DATABASE_URL);
-    const deleted = await sql`DELETE FROM games WHERE LOWER(name) = LOWER(${game})`;
+    const deleted = await sql`DELETE FROM games WHERE LOWER(name) = LOWER(${game}) RETURNING name`;
     await sql`UPDATE products SET game = NULL WHERE LOWER(game) = LOWER(${game})`;
 
     revalidatePath('/store');

@@ -2,6 +2,8 @@ import { neon } from '@neondatabase/serverless';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import ProductList from '@/components/ProductList';
 
+import { ensureAppSchema } from '@/lib/schema';
+
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }) {
@@ -19,16 +21,12 @@ export default async function Store({ params }) {
     const t = await getTranslations('store');
 
     const sql = neon(process.env.DATABASE_URL);
-    await sql`
-        CREATE TABLE IF NOT EXISTS games (
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(120) UNIQUE NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    `;
-    await sql`ALTER TABLE games ADD COLUMN IF NOT EXISTS image_url TEXT`;
-    const products = await sql`SELECT * FROM products ORDER BY id DESC`;
-    const games = await sql`SELECT name, image_url FROM games ORDER BY name ASC`;
+    await ensureAppSchema(sql);
+
+    const [products, games] = await Promise.all([
+        sql`SELECT * FROM products ORDER BY id DESC`,
+        sql`SELECT name, image_url FROM games ORDER BY name ASC`,
+    ]);
 
     return (
         <div className="max-w-7xl mx-auto px-5 py-12 md:py-16">

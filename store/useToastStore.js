@@ -1,14 +1,26 @@
 import { create } from 'zustand';
 
-const DEFAULT_DURATION = 6500;
-const EXIT_MS = 280;
+const DEFAULT_DURATION = 5000;
+const EXIT_MS = 300;
 
 export const useToastStore = create((set, get) => ({
     toasts: [],
-    show: (message, type = 'info', duration = DEFAULT_DURATION) => {
+    show: (message, type = 'info', opts = {}) => {
         const id = Math.random().toString(36).slice(2);
-        set((state) => ({ toasts: [...state.toasts, { id, message, type, leaving: false }] }));
-        setTimeout(() => get().dismiss(id), duration);
+        const duration = typeof opts === 'number' ? opts : (opts?.duration || DEFAULT_DURATION);
+        const title = typeof opts === 'object' ? opts?.title : null;
+        set((state) => ({
+            // Keep at most 4 toasts visible at a time to keep UI crisp
+            toasts: [...state.toasts.filter((t) => !t.leaving).slice(-3), {
+                id,
+                message,
+                type,
+                title,
+                duration,
+                leaving: false,
+            }],
+        }));
+        return id;
     },
     dismiss: (id) => {
         const target = get().toasts.find((toast) => toast.id === id);
@@ -19,7 +31,9 @@ export const useToastStore = create((set, get) => ({
         setTimeout(() => get().remove(id), EXIT_MS);
     },
     remove: (id) => set((state) => ({ toasts: state.toasts.filter((toast) => toast.id !== id) })),
-    success: (message) => get().show(message, 'success'),
-    error: (message) => get().show(message, 'error'),
-    info: (message) => get().show(message, 'info'),
+    clearAll: () => set({ toasts: [] }),
+    success: (message, opts) => get().show(message, 'success', opts),
+    error: (message, opts) => get().show(message, 'error', opts),
+    warning: (message, opts) => get().show(message, 'warning', opts),
+    info: (message, opts) => get().show(message, 'info', opts),
 }));

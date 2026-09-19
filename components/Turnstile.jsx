@@ -10,14 +10,19 @@ export default function Turnstile({ siteKey, onToken, onExpire }) {
         const sitekey = siteKey ?? process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
         if (!sitekey) return;
 
+        const currentContainer = containerRef.current;
+
         const render = () => {
-            if (!window.turnstile || loadedRef.current) return;
+            if (!window.turnstile || loadedRef.current || !currentContainer) return;
             loadedRef.current = true;
-            window.turnstile.render(containerRef.current, {
+            window.turnstile.render(currentContainer, {
                 sitekey,
                 theme: 'dark',
                 callback: (token) => onToken?.(token),
-                'expired-callback': () => onExpire?.() && onToken?.(''),
+                'expired-callback': () => {
+                    onExpire?.();
+                    onToken?.('');
+                },
                 'error-callback': () => onExpire?.(),
             });
         };
@@ -34,9 +39,9 @@ export default function Turnstile({ siteKey, onToken, onExpire }) {
         document.body.appendChild(script);
 
         return () => {
-            if (window.turnstile && containerRef.current) {
+            if (window.turnstile && currentContainer) {
                 try {
-                    window.turnstile.remove(containerRef.current);
+                    window.turnstile.remove(currentContainer);
                 } catch {
                     /* ignore */
                 }

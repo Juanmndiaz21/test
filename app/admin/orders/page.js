@@ -80,7 +80,7 @@ export default async function AdminOrdersPage() {
                                             <p className="text-sm text-slate-300 mb-2">{order.booster ? `→ ${order.booster}` : 'Unassigned'}</p>
                                             <AssignBoosterForm orderId={order.id} currentBooster={order.booster} />
                                         </td>
-                                        <td className="p-4 text-sm text-slate-400 whitespace-nowrap">{new Date(order.created_at).toLocaleString('en')}</td>
+                                        <td suppressHydrationWarning className="p-4 text-sm text-slate-400 whitespace-nowrap">{new Date(order.created_at).toLocaleString('en')}</td>
                                     </tr>
                                 );
                             })

@@ -2,6 +2,7 @@ import { neon } from '@neondatabase/serverless';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import ProductDetail from '@/components/ProductDetail';
+import { getServiceOptions } from '@/lib/settings';
 
 export const dynamic = 'force-dynamic';
 
@@ -26,7 +27,9 @@ export default async function ProductPage({ params }) {
         LIMIT 4
     `;
 
-    return <ProductDetail product={product} relatedProducts={relatedProducts} />;
+    const { options } = await getServiceOptions(sql);
+
+    return <ProductDetail product={product} relatedProducts={relatedProducts} defaultOptions={options} />;
 }
 
 export async function generateMetadata({ params }) {

@@ -47,7 +47,7 @@ export default async function AdminUsersPage() {
                                             {user.role || 'ADMIN'}
                                         </span>
                                     </td>
-                                    <td className="p-4 text-sm text-slate-400">{new Date(user.created_at).toLocaleString('en')}</td>
+                                    <td suppressHydrationWarning className="p-4 text-sm text-slate-400">{new Date(user.created_at).toLocaleString('en')}</td>
                                 </tr>
                             ))
                         )}

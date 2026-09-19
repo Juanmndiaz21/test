@@ -12,6 +12,7 @@ export default function DeleteGameButton({ game }) {
     const [isPending, startTransition] = useTransition();
 
     if (status !== 'authenticated' || !session?.user) return null;
+    if (status !== 'authenticated' || session?.user?.role !== 'ADMIN') return null;
 
     const matches = typed.trim() === game;
 

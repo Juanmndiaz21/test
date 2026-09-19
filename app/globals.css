@@ -113,6 +113,42 @@ textarea {
   transform-origin: left center;
 }
 
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee var(--marquee-duration, 35s) linear infinite;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-reverse var(--marquee-duration, 35s) linear infinite;
+}
+
+.marquee-paused {
+  animation-play-state: paused !important;
+}
+
 .display-font {
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   letter-spacing: 0.02em;
@@ -141,31 +177,31 @@ textarea {
 @keyframes toast-in {
   from {
     opacity: 0;
-    transform: translateY(-0.75rem) scale(0.98);
+    transform: translate3d(2rem, 0, 0) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
 @keyframes toast-out {
   from {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0) scale(1);
   }
   to {
     opacity: 0;
-    transform: translateX(1.5rem);
+    transform: translate3d(2.5rem, 0, 0) scale(0.95);
   }
 }
 
 .animate-toast-in {
-  animation: toast-in 0.25s ease-out both;
+  animation: toast-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .animate-toast-out {
-  animation: toast-out 0.28s ease-in both;
+  animation: toast-out 0.28s cubic-bezier(0.4, 0, 1, 1) both;
 }
 
 @keyframes toast-life {
@@ -175,10 +211,6 @@ textarea {
   to {
     width: 0%;
   }
-}
-
-.animate-toast-life {
-  animation: toast-life 5.5s linear forwards;
 }
 
 details.faq-row summary::-webkit-details-marker {

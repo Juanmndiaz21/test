@@ -14,6 +14,7 @@ export default function EditGameButton({ game }) {
     const [isPending, startTransition] = useTransition();
 
     if (status !== 'authenticated' || !session?.user) return null;
+    if (status !== 'authenticated' || session?.user?.role !== 'ADMIN') return null;
 
     const openModal = () => {
         setName(game?.name || '');

@@ -13,8 +13,26 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  compress: true,
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
+  experimental: {
+    optimizePackageImports: ['motion', 'animejs', 'next-intl'],
+  },
   async headers() {
-    return [{ source: "/(.*)", headers: securityHeaders }];
+    return [
+      {
+        source: "/(.*\\.(?:ico|png|svg|jpg|jpeg|webp|avif|woff2))",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
+        ],
+      },
+      {
+        source: "/(.*)",
+        headers: securityHeaders,
+      },
+    ];
   },
 };
 

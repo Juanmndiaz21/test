@@ -35,7 +35,7 @@ export default async function LocaleLayout({ children, params }) {
 
     return (
         <html lang={locale}>
-            <body className="text-slate-50 selection:bg-lime-300 selection:text-black min-h-screen flex flex-col">
+            <body className="text-slate-50 selection:bg-[#9d7cff] selection:text-[#0d0914] min-h-screen flex flex-col">
                 <AuthSession>
                     <NextIntlClientProvider messages={messages}>
                         <SiteHeader />

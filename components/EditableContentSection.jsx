@@ -11,7 +11,7 @@ export default function EditableContentSection({ productId, section, title, init
     const [editingIndex, setEditingIndex] = useState(null);
     const [draft, setDraft] = useState('');
     const [isPending, startTransition] = useTransition();
-    const isAdmin = Boolean(session?.user);
+    const isAdmin = session?.user?.role === 'ADMIN';
 
     const save = (nextItems) => {
         setItems(nextItems);

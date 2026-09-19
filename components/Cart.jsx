@@ -1,6 +1,7 @@
 'use client';
 import { useTranslations } from 'next-intl';
 import { useCartStore } from '../store/useCartStore';
+import { toast } from '../utils/toast';
 
 export default function Cart() {
     const { cart, getTotal, getItemCount, updateQuantity, removeFromCart, clearCart } = useCartStore();
@@ -9,6 +10,16 @@ export default function Cart() {
 
     if (cart.length === 0) return null;
 
+    const handleClear = () => {
+        clearCart();
+        toast.warning(t('clearList') || 'Cart cleared');
+    };
+
+    const handleRemove = (item) => {
+        removeFromCart(item.key);
+        toast.info(t('remove', { name: item.name }) || `Removed ${item.name}`);
+    };
+
     return (
         <div className="panel-surface p-6 rounded-2xl">
             <div className="flex justify-between items-center mb-6">
@@ -16,7 +27,7 @@ export default function Cart() {
                     <h2 className="display-font text-2xl uppercase text-slate-200">{t('yourSelection')}</h2>
                     <p className="text-xs text-slate-400 mt-1">{t('itemCount', { count: getItemCount() })}</p>
                 </div>
-                <button onClick={clearCart} className="text-xs text-red-300 hover:text-white transition-colors">
+                <button onClick={handleClear} className="text-xs text-red-300 hover:text-white transition-colors cursor-pointer">
                     {t('clearList')}
                 </button>
             </div>
@@ -31,7 +42,7 @@ export default function Cart() {
                                     ${item.price} × {item.quantity} = <span className="font-bold">${(item.price * item.quantity).toFixed(2)}</span>
                                 </p>
                             </div>
-                            <button onClick={() => removeFromCart(item.key)} aria-label={t('remove', { name: item.name })} className="shrink-0 text-red-400 hover:text-red-300 font-bold text-sm">
+                            <button onClick={() => handleRemove(item)} aria-label={t('remove', { name: item.name })} className="shrink-0 text-red-400 hover:text-red-300 font-bold text-sm cursor-pointer">
                                 ×
                             </button>
                         </div>

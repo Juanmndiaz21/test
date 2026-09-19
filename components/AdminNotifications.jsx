@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Icon from './Icon';
 import { ORDER_STATUS_LABELS } from '../lib/orders';
 
@@ -26,6 +27,7 @@ const STATUS_DOT = {
 };
 
 export default function AdminNotifications() {
+    const router = useRouter();
     const [data, setData] = useState({ queued: 0, inProgress: 0, recent: [] });
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -39,7 +41,7 @@ export default function AdminNotifications() {
                 const response = await fetch('/api/admin/notifications');
                 if (!response.ok) {
                     if (response.status === 401) {
-                        window.location.href = '/login';
+                        router.push('/login');
                         return;
                     }
                     return;

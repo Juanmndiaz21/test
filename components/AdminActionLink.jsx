@@ -7,6 +7,7 @@ export default function AdminActionLink({ game }) {
     const { data: session, status } = useSession();
 
     if (status !== 'authenticated' || !session?.user) return null;
+    if (status !== 'authenticated' || session?.user?.role !== 'ADMIN') return null;
 
     return (
         <Link href={`/admin/products?game=${encodeURIComponent(game)}`} className="bg-lime-300 hover:bg-white text-black font-black px-5 py-3 rounded-lg transition-colors">

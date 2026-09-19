@@ -1,0 +1,463 @@
+[
+  {
+    "id": "067743bf-1a72-468e-bd3d-5d9e2a686c8e",
+    "product_id": "21",
+    "rating": 5,
+    "title": "Fastt",
+    "content": "BEST SELLER!",
+    "author": "Artem425243",
+    "status": "approved",
+    "created_at": "2026-09-18T23:30:25.205Z"
+  },
+  {
+    "id": "3b9af8b7-5805-476e-b2a1-de9ba1f62a13",
+    "product_id": "22",
+    "rating": 5,
+    "title": "GOOD",
+    "content": "everything was the best and the fast, I recommend.",
+    "author": "Denis8075",
+    "status": "approved",
+    "created_at": "2026-09-18T23:30:46.808Z",
+    "updated_at": "2026-09-18T23:31:23.572Z"
+  },
+  {
+    "id": "2d9229aa-c4d5-4099-b710-8b46ed38aa65",
+    "product_id": "21",
+    "rating": 5,
+    "title": "the best",
+    "content": "the best gta salesman I've seen. to customers who buy a lot from him, makes nice gifts and without bans",
+    "author": "z0xdI",
+    "status": "approved",
+    "created_at": "2026-09-18T23:31:57.901Z"
+  },
+  {
+    "id": "459b7505-2bd6-42c7-9651-d20bb37b363f",
+    "product_id": "21",
+    "rating": 5,
+    "title": "love",
+    "content": "love ts seller",
+    "author": "ShopiTopi",
+    "status": "approved",
+    "created_at": "2026-09-18T23:32:25.430Z"
+  },
+  {
+    "id": "b852125e-df05-4100-a48c-5dbbf4b0c813",
+    "product_id": "22",
+    "rating": 5,
+    "title": "fastest",
+    "content": "fastest seller in the gta online",
+    "author": "ShopiTopi",
+    "status": "approved",
+    "created_at": "2026-09-18T23:32:39.979Z"
+  },
+  {
+    "id": "214778b5-195a-4f2b-b0a1-542351805436",
+    "product_id": "21",
+    "rating": 5,
+    "title": "the best",
+    "content": "the best salesman did it fast and low price everyone recommend him",
+    "author": "z0xdI",
+    "status": "approved",
+    "created_at": "2026-09-18T23:33:11.273Z"
+  },
+  {
+    "id": "3ab94e60-67f5-4ab4-aee4-55d4f5f3b671",
+    "product_id": "21",
+    "rating": 5,
+    "title": "good seller",
+    "content": "good seller explains everything, I recommend",
+    "author": "Vergil1993",
+    "status": "approved",
+    "created_at": "2026-09-18T23:33:25.087Z"
+  },
+  {
+    "id": "3a8b2895-31b5-413f-acb1-27ae956dd027",
+    "product_id": "21",
+    "rating": 5,
+    "title": "❤️❤️❤️❤️",
+    "content": "❤️❤️❤️❤️",
+    "author": "Legionbro22",
+    "status": "approved",
+    "created_at": "2026-09-18T23:33:42.362Z"
+  },
+  {
+    "id": "f3e51675-9609-4398-8e74-07af0356e619",
+    "product_id": "24",
+    "rating": 5,
+    "title": "Very good",
+    "content": "Very good",
+    "author": "RAMPAGE1230",
+    "status": "approved",
+    "created_at": "2026-09-18T23:33:56.509Z"
+  },
+  {
+    "id": "a7a29edc-dc42-42a9-91b5-1d9f456a55ac",
+    "product_id": "21",
+    "rating": 5,
+    "title": "everything is great",
+    "content": "everything is great, you can take it",
+    "author": "cyberqery",
+    "status": "approved",
+    "created_at": "2026-09-18T23:34:08.829Z"
+  },
+  {
+    "id": "25cbebae-4120-4143-b046-7fa818bf4797",
+    "product_id": "22",
+    "rating": 5,
+    "title": "n1",
+    "content": "n1",
+    "author": "agikona",
+    "status": "approved",
+    "created_at": "2026-09-18T23:34:17.358Z"
+  },
+  {
+    "id": "3e4ab313-181b-4bd5-b3dd-5a713dbd3a01",
+    "product_id": "22",
+    "rating": 5,
+    "title": "everything went great",
+    "content": "everything went great, you can trust me and order again <33 thx",
+    "author": "cyberqery",
+    "status": "approved",
+    "created_at": "2026-09-18T23:34:30.270Z"
+  },
+  {
+    "id": "92488028-58b2-4bdb-a079-8582bfb0d5d7",
+    "product_id": "21",
+    "rating": 5,
+    "title": "rly good",
+    "content": "this guy know what he doing, instantly and rly good <3",
+    "author": "agikona",
+    "status": "approved",
+    "created_at": "2026-09-18T23:34:46.480Z"
+  },
+  {
+    "id": "f5cdc03b-3cda-43d2-9757-f2f623896869",
+    "product_id": "24",
+    "rating": 5,
+    "title": "instant delivery",
+    "content": "instant delivery very nice seller",
+    "author": "henryhiggs444",
+    "status": "approved",
+    "created_at": "2026-09-18T23:35:01.157Z"
+  },
+  {
+    "id": "b4c1724f-26b8-40c6-a9cd-96c3956c8750",
+    "product_id": "21",
+    "rating": 5,
+    "title": "Best",
+    "content": "Best outfit creator :) rep+",
+    "author": "Hxnzik",
+    "status": "approved",
+    "created_at": "2026-09-18T23:35:22.558Z"
+  },
+  {
+    "id": "2e5ef506-4630-42d4-acd4-3c894dfa0172",
+    "product_id": "21",
+    "rating": 5,
+    "title": "Perfect",
+    "content": "Perfect, the seller is helpful and kind.",
+    "author": "Hxnzik",
+    "status": "approved",
+    "created_at": "2026-09-18T23:35:35.691Z"
+  },
+  {
+    "id": "62aa6805-4a97-42b6-835e-bf420cac9ad8",
+    "product_id": "22",
+    "rating": 5,
+    "title": "good",
+    "content": "good",
+    "author": "TitBsf",
+    "status": "approved",
+    "created_at": "2026-09-18T23:35:46.528Z"
+  },
+  {
+    "id": "50f58291-adcf-43c9-ab07-946317572ea8",
+    "product_id": "24",
+    "rating": 5,
+    "title": "Fast",
+    "content": "Fast and safe",
+    "author": "EfeAlp",
+    "status": "approved",
+    "created_at": "2026-09-18T23:35:59.517Z"
+  },
+  {
+    "id": "9b1d3984-f11e-4549-a16e-9f651f60af06",
+    "product_id": "22",
+    "rating": 5,
+    "title": "Great",
+    "content": "Great",
+    "author": "Privet1Xpro1X",
+    "status": "approved",
+    "created_at": "2026-09-18T23:36:16.218Z"
+  },
+  {
+    "id": "cb65eccd-5dff-4e78-8814-c443bde8a2c6",
+    "product_id": "22",
+    "rating": 5,
+    "title": "Best!",
+    "content": "Best!",
+    "author": "polloboyshawtykilla",
+    "status": "approved",
+    "created_at": "2026-09-18T23:36:26.005Z"
+  },
+  {
+    "id": "c70e04c9-cb73-4fad-b477-271be10ddbf4",
+    "product_id": "21",
+    "rating": 5,
+    "title": "+rep",
+    "content": "+rep",
+    "author": "vladlen631",
+    "status": "approved",
+    "created_at": "2026-09-18T23:36:36.740Z"
+  },
+  {
+    "id": "16bac16d-cb04-4c02-a3fe-2d07e3687d84",
+    "product_id": "22",
+    "rating": 5,
+    "title": "best modded car seller",
+    "content": "best modded car seller",
+    "author": "gorelka333",
+    "status": "approved",
+    "created_at": "2026-09-18T23:36:47.641Z"
+  },
+  {
+    "id": "6bc0254b-9c5e-4d9e-a8c9-073a786ee113",
+    "product_id": "21",
+    "rating": 5,
+    "title": "+rep",
+    "content": "+rep",
+    "author": "deepiek",
+    "status": "approved",
+    "created_at": "2026-09-18T23:36:58.293Z"
+  },
+  {
+    "id": "c2dc0254-ce9e-430f-ba49-de7fdeafa8ab",
+    "product_id": "21",
+    "rating": 5,
+    "title": "Fast",
+    "content": "Fast and explained the progress pretty good",
+    "author": "AdenotLevi",
+    "status": "approved",
+    "created_at": "2026-09-18T23:37:13.969Z"
+  },
+  {
+    "id": "ea1e48ff-127e-42b2-9176-e96cfe339a42",
+    "product_id": "22",
+    "rating": 5,
+    "title": "very good",
+    "content": "very good service, can recommend !",
+    "author": "nazmps",
+    "status": "approved",
+    "created_at": "2026-09-18T23:37:24.807Z"
+  },
+  {
+    "id": "b772f37f-980f-4804-befe-874fa482115a",
+    "product_id": "21",
+    "rating": 5,
+    "title": "Best",
+    "content": "Best 👍",
+    "author": "Woxaaa",
+    "status": "approved",
+    "created_at": "2026-09-18T23:37:37.554Z"
+  },
+  {
+    "id": "8b5d74e9-6143-4563-b781-bb996cffae17",
+    "product_id": "21",
+    "rating": 5,
+    "title": "Awesome!",
+    "content": "Awesome!",
+    "author": "Dados69",
+    "status": "approved",
+    "created_at": "2026-09-18T23:37:55.425Z"
+  },
+  {
+    "id": "0aa2fd03-5728-4c10-aae1-cbeeed0f58aa",
+    "product_id": "21",
+    "rating": 5,
+    "title": "nice seller",
+    "content": "nice seller , all fast, he answered a lot of my questions, sometimes I thought he was tired of me :D",
+    "author": "Vergil1993",
+    "status": "approved",
+    "created_at": "2026-09-18T23:38:11.048Z"
+  },
+  {
+    "id": "3f988195-c226-465d-b339-3a7c7547b1d6",
+    "product_id": "21",
+    "rating": 5,
+    "title": "n1 seller",
+    "content": "n1 seller in this market, buy mod car, outfit and other only from he, best price, fastest service and so good support, he give a gift for me and helped with everything, if it were possible I would give this bro 1000 stars",
+    "author": "Spiritous",
+    "status": "approved",
+    "created_at": "2026-09-18T23:38:25.761Z"
+  },
+  {
+    "id": "d9408c94-7d36-4f71-bc58-ba0137fec3fe",
+    "product_id": "21",
+    "rating": 5,
+    "title": "the order was executed very well",
+    "content": "заказ выполнен очень хорошо,и для меня,человека из России,цена очень приемлимая,автор просто красавчик)\r\nthe order was executed very well, and for me, a person from Russia, the price is very acceptable, the author is just great)",
+    "author": "pauchok1337",
+    "status": "approved",
+    "created_at": "2026-09-18T23:39:05.314Z"
+  },
+  {
+    "id": "273589d5-6354-4438-af2e-1735a582f9dd",
+    "product_id": "22",
+    "rating": 5,
+    "title": "100000000/10",
+    "content": "100000000/10 i love this guy",
+    "author": "karolek2137",
+    "status": "approved",
+    "created_at": "2026-09-18T23:39:22.682Z"
+  },
+  {
+    "id": "2eb60e38-a2bd-42f7-a673-1e0ca63d2108",
+    "product_id": "21",
+    "rating": 5,
+    "title": "really nice",
+    "content": "really nice guy would buy again 10/10",
+    "author": "purev4mp",
+    "status": "approved",
+    "created_at": "2026-09-18T23:39:36.483Z"
+  },
+  {
+    "id": "09035ccf-51f9-492e-a38e-89e419fbd936",
+    "product_id": "22",
+    "rating": 5,
+    "title": "TOP",
+    "content": "TOP SELLER!!",
+    "author": "MrAndronLV",
+    "status": "approved",
+    "created_at": "2026-09-18T23:39:53.125Z"
+  },
+  {
+    "id": "2d911bb3-fc83-4ae7-b0ea-6730d5a3445c",
+    "product_id": "21",
+    "rating": 5,
+    "title": "amazing",
+    "content": "amazing seller",
+    "author": "Kawazaki33xd",
+    "status": "approved",
+    "created_at": "2026-09-18T23:40:06.122Z"
+  },
+  {
+    "id": "deb86cdc-aa5d-4a62-adf5-9c64744453b5",
+    "product_id": "21",
+    "rating": 5,
+    "title": "I’ve shopped here",
+    "content": "I’ve shopped here many times and I’m always satisfied! This store is very trustworthy, with fast and responsive service. I got unique cars and outfits that stand out in GTA 5 Online, and they feel super exclusive! Highly recommended for anyone looking to shop here. Thank you!",
+    "author": "Bossgaming62",
+    "status": "approved",
+    "created_at": "2026-09-18T23:40:31.290Z"
+  },
+  {
+    "id": "d4e2af58-923a-4dc1-b1af-8e353cdbb799",
+    "product_id": "21",
+    "rating": 5,
+    "title": "It went very well",
+    "content": "It went very well, even with a bonus skin added",
+    "author": "TitBsf",
+    "status": "approved",
+    "created_at": "2026-09-18T23:40:50.637Z"
+  },
+  {
+    "id": "bf2ceb91-475c-481a-bab4-bc2e8a600b2f",
+    "product_id": "24",
+    "rating": 5,
+    "title": "amazing",
+    "content": "amazing",
+    "author": "Bossgaming62",
+    "status": "approved",
+    "created_at": "2026-09-18T23:41:01.104Z"
+  },
+  {
+    "id": "d04e9dc9-f6b5-4467-b553-fbdd46c96122",
+    "product_id": "22",
+    "rating": 5,
+    "title": "Everything is fine",
+    "content": "Everything is fine",
+    "author": "Mihail448384",
+    "status": "approved",
+    "created_at": "2026-09-18T23:41:16.826Z"
+  },
+  {
+    "id": "47e724be-6d83-4fdb-b55a-a7e1a056506e",
+    "product_id": "24",
+    "rating": 5,
+    "title": "Fast",
+    "content": "Fast",
+    "author": "ZetTotoose",
+    "status": "approved",
+    "created_at": "2026-09-18T23:41:31.235Z"
+  },
+  {
+    "id": "275c63c5-c328-49f0-a9fc-da1a3e11c8cb",
+    "product_id": "24",
+    "rating": 5,
+    "title": "bueno",
+    "content": "bueno",
+    "author": "hxwoshop",
+    "status": "approved",
+    "created_at": "2026-09-18T23:41:52.431Z"
+  },
+  {
+    "id": "46f27347-4591-4288-864a-59febac5cb51",
+    "product_id": "21",
+    "rating": 5,
+    "title": "The best seller",
+    "content": "He gave me several gifts+super good with custumers+super fast and accurate deliveries.\r\nThe best is in this page",
+    "author": "Jades1",
+    "status": "approved",
+    "created_at": "2026-09-18T23:42:11.722Z"
+  },
+  {
+    "id": "5abf080e-a7eb-47d9-a13d-57418f679e91",
+    "product_id": "21",
+    "rating": 5,
+    "title": "Super nice",
+    "content": "Super nice seller even gave me free stuff 10/10",
+    "author": "Eric2991",
+    "status": "approved",
+    "created_at": "2026-09-18T23:42:24.833Z"
+  },
+  {
+    "id": "4e28db2a-4dd2-4e0e-91bf-971b0c785f66",
+    "product_id": "22",
+    "rating": 5,
+    "title": "Good",
+    "content": "Good",
+    "author": "HappyBonBon",
+    "status": "approved",
+    "created_at": "2026-09-18T23:42:33.548Z"
+  },
+  {
+    "id": "ffbbcaba-278a-4783-874d-38a1dea072b2",
+    "product_id": "21",
+    "rating": 5,
+    "title": "fast and clear!",
+    "content": "everything was fast and clear!",
+    "author": "de0sonic",
+    "status": "approved",
+    "created_at": "2026-09-18T23:42:46.638Z"
+  },
+  {
+    "id": "51282ef5-6a6f-4969-8f57-59ad0fd55207",
+    "product_id": "22",
+    "rating": 5,
+    "title": "perfect",
+    "content": "Bought already 7 cars! All perfect 🤩",
+    "author": "Yvngrrrrr",
+    "status": "approved",
+    "created_at": "2026-09-18T23:43:06.802Z"
+  },
+  {
+    "id": "86b53c56-79ee-461d-b324-efc2594b8603",
+    "product_id": "24",
+    "rating": 5,
+    "title": "good price",
+    "content": "fast and good price",
+    "author": "kylesnk",
+    "status": "approved",
+    "created_at": "2026-09-18T23:43:15.232Z"
+  }
+]

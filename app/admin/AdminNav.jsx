@@ -11,6 +11,8 @@ const NAV_ITEMS = [
     { href: '/admin/products', label: 'Service catalog', icon: 'box' },
     { href: '/admin/users', label: 'Users & roles', icon: 'users' },
     { href: '/admin/help', label: 'Edit help', icon: 'circle-help' },
+    { href: '/admin/reviews', label: 'Reviews', icon: 'star' },
+    { href: '/admin/contact', label: 'Messages', icon: 'mail' },
 ];
 
 export default function AdminNav({ email, role }) {

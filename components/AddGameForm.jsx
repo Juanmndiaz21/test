@@ -13,6 +13,7 @@ export default function AddGameForm() {
     const [isPending, startTransition] = useTransition();
 
     if (status !== 'authenticated' || !session?.user) return null;
+    if (status !== 'authenticated' || session?.user?.role !== 'ADMIN') return null;
 
     const handleSubmit = (event) => {
         event.preventDefault();

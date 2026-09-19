@@ -1,13 +1,22 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useEffect } from 'react';
 import { updateOrderStatus } from './actions';
 import { ORDER_STATUSES, ORDER_STATUS_LABELS } from '../../../lib/orders';
+import { toast } from '../../../utils/toast';
 
 const initialState = { success: null, error: null };
 
 export default function OrderStatusForm({ orderId, currentStatus }) {
     const [state, formAction, isPending] = useActionState(updateOrderStatus, initialState);
+
+    useEffect(() => {
+        if (state?.success) {
+            toast.success(state.success);
+        } else if (state?.error) {
+            toast.error(state.error);
+        }
+    }, [state]);
 
     return (
         <form action={formAction} className="flex items-center gap-2">

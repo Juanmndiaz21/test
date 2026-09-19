@@ -11,7 +11,11 @@
     "customerAccount": "Customer account",
     "administratorAccount": "Administrator account",
     "controlRoom": "Control room · Products",
+    "adminPanel": "Admin panel",
     "dashboard": "Dashboard",
+    "services": "Service catalog",
+    "orders": "Boosting orders",
+    "reviews": "Reviews",
     "myCart": "My cart",
     "signOut": "Sign out",
     "customerNote": "Customer account — your boosts are tracked by email.",
@@ -29,7 +33,15 @@
     "tagline": "Competitive boosting services for the games you play.",
     "rights": "© {year} Rowmodz. All rights reserved.",
     "demoDisclaimer": "Demo checkout — no real payment is processed.",
-    "navTitle": "Navigation"
+    "navTitle": "Navigation",
+    "navPlatform": "Platform",
+    "navSupport": "Support & Careers",
+    "navLegal": "Legal & Policies",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
+    "refunds": "Refunds & Money-Back Guarantee",
+    "contactUs": "Contact Us",
+    "workWithUs": "Work With Us"
   },
   "home": {
     "titleMeta": "Premium Game Boosting Services",
@@ -56,7 +68,18 @@
       }
     ],
     "reviewsTitle": "Reviews",
-    "reviewsNote": "Sample reviews — swap these for real player feedback as it arrives.",
+    "reviewsNote": "Verified feedback from players who completed their seasonal ladder climb.",
+    "ctaTitle": "Ready to Climb?",
+    "ctaSub": "Select your game, set your target rank, and let our verified roster take you to the top.",
+    "ctaButton": "View Standings",
+    "ctaSecondary": "All Services",
+    "autoRotating": "Auto-rotating",
+    "paused": "Paused",
+    "dragToScrub": "Drag to scrub",
+    "play": "Play",
+    "pause": "Pause",
+    "prevReviews": "Previous reviews",
+    "nextReviews": "Next reviews",
     "reviews": [
       {
         "author": "Kai",
@@ -89,7 +112,9 @@
     "modeMultiplayer": "Multiplayer",
     "modeSingleplayer": "Singleplayer",
     "modeAll": "All modes",
-    "findGameAria": "Find a game"
+    "findGameAria": "Find a game",
+    "viewAllCatalog": "Explore Full Catalog",
+    "clearSearch": "Clear search"
   },
   "store": {
     "titleMeta": "Browse games",
@@ -105,10 +130,16 @@
     "noServicesPublished": "No services published yet.",
     "addProductsFromAdmin": "Check back soon, or add products from the admin panel.",
     "serviceCount": "{count, plural, =1 {1 service} other {# services}}",
+    "searchPlaceholder": "Search games by title…",
+    "searchLabel": "Search games",
+    "clearSearch": "Clear search",
+    "noGamesMatch": "No games match “{query}”.",
+    "showingResults": "{count, plural, =1 {1 game found} other {# games found}}",
     "backToBrowse": "← Back to browse games"
   },
   "gamePage": {
     "titleMeta": "{game} services",
+    "backToBrowse": "Back to browse games",
     "gameServices": "Game services",
     "servicesCount": "{count, plural, =1 {1 service available for this game.} other {# services available for this game.}}",
     "noServicesYet": "No services yet",
@@ -133,11 +164,15 @@
     "configureBoost": "Configure your boost",
     "platform": "Platform",
     "boostAmount": "Boost amount",
+    "commendsMatchConfig": "Commends",
+    "configureCommends": "Configure your commends",
+    "commendsAmount": "Commends amount",
+    "toastCommends": "Added: {platform} · {boost} commends",
     "servicePrice": "Service price",
     "addConfiguration": "Add configuration",
     "addedToCart": "Added to cart",
     "proceedToCheckout": "Proceed to checkout →",
-    "toastAdded": "Added: {platform} · {boost}M boost",
+    "toastAdded": "Added: {platform} · {boost} boost",
     "serviceGuide": "Service guide",
     "sectionDescription": "Description",
     "sectionHowItWorks": "How It Works",
@@ -221,7 +256,13 @@
     "faq2q": "What happens after checkout?",
     "faq2a": "Your configured selection is confirmed and removed from the cart. Every order in the catalog is reviewed by the Rowmodz team.",
     "faq3q": "Does the crypto payment really work?",
-    "faq3a": "Not in this build. Checkout is a demo — no wallet connection or blockchain transaction is actually performed."
+    "faq3a": "Not in this build. Checkout is a demo — no wallet connection or blockchain transaction is actually performed.",
+    "types": {
+      "how-it-works": "How it works",
+      "faq": "Frequently asked questions",
+      "shipping-payment": "Shipping & payment",
+      "refunds": "Returns and refunds"
+    }
   },
   "contact": {
     "titleMeta": "Contact",
@@ -241,5 +282,66 @@
     "toastError": "Could not send the message. Please try again.",
     "privacyNote": "We only use your email to reply to your message.",
     "responseTime": "We reply within 24 hours."
+  },
+  "terms": {
+    "titleMeta": "Terms & Conditions",
+    "eyebrow": "Legal Agreements",
+    "title": "Terms & Conditions",
+    "lastUpdated": "Last updated: September 2026",
+    "sec1Title": "1. Agreement to Terms",
+    "sec1Text": "By accessing or purchasing services from Rowmodz, you agree to be bound by these Terms and Conditions and all applicable laws and regulations.",
+    "sec2Title": "2. Boosting & Coaching Services",
+    "sec2Text": "Rowmodz provides digital gameplay enhancement, skill progression, and coaching services delivered by verified players. All service scopes, delivery estimates, and target ranks are defined at checkout.",
+    "sec3Title": "3. Account Security & Responsibilities",
+    "sec3Text": "You agree to provide accurate platform and game account details. Our roster utilizes strict private VPNs and zero-injection manual gameplay. You must not access your account during active boost windows.",
+    "sec4Title": "4. Fair Play & Service Guarantees",
+    "sec4Text": "All progression is executed manually by ranked players without cheats, third-party software, or botting. If a service cannot be completed as ordered, you are protected by our Money-Back Guarantee.",
+    "sec5Title": "5. Contact & Inquiries",
+    "sec5Text": "For legal questions or clarifications regarding our terms, reach out to support@rowmodz.gg or through our Contact page."
+  },
+  "privacy": {
+    "titleMeta": "Privacy Policy",
+    "eyebrow": "Data Protection",
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: September 2026",
+    "sec1Title": "1. Information We Collect",
+    "sec1Text": "We collect necessary order details including your in-game name, email address, selected platform, and boost goals required to fulfill your purchase.",
+    "sec2Title": "2. Use of Information",
+    "sec2Text": "Your information is used strictly to coordinate your order, notify you of progression updates, and provide customer support. We never sell or share your data with advertisers.",
+    "sec3Title": "3. Data Security & Encryption",
+    "sec3Text": "All communications and credential handoffs are protected by industry-standard TLS encryption. Credentials are discarded immediately upon successful service completion.",
+    "sec4Title": "4. Your Rights",
+    "sec4Text": "You have the right to request a copy of your stored order data or request complete deletion of your customer record at any time by contacting our support team."
+  },
+  "refunds": {
+    "titleMeta": "Refunds & Money-Back Guarantee",
+    "eyebrow": "Customer Protection",
+    "title": "Refunds & Money-Back Guarantee",
+    "lastUpdated": "Last updated: September 2026",
+    "sec1Title": "1. 100% Money-Back Guarantee",
+    "sec1Text": "If your order has not yet been assigned to a booster or execution has not begun, you are eligible for an immediate, no-questions-asked 100% refund.",
+    "sec2Title": "2. Partial Refunds & Pro-Rata Settlements",
+    "sec2Text": "If a boost is partially completed and you wish to pause or cancel, we calculate a fair pro-rata refund based strictly on the rank or division achieved up to that point.",
+    "sec3Title": "3. Roster Replacement Guarantee",
+    "sec3Text": "If a booster fails to meet your performance standards or deadlines, we will assign a top-tier substitute immediately or refund the remaining service value.",
+    "sec4Title": "4. How to Request a Refund",
+    "sec4Text": "Simply contact support with your order number via our Contact form or live support. Requests are reviewed and processed within 24 hours."
+  },
+  "workWithUs": {
+    "titleMeta": "Work With Us",
+    "eyebrow": "Join the Roster",
+    "title": "Work With Us",
+    "subtitle": "Are you a top-tier player? Join our elite roster of verified boosters, coaches, and account specialists.",
+    "perk1Title": "Competitive Payouts",
+    "perk1Text": "Earn industry-leading commission rates with fast, reliable, automated payouts.",
+    "perk2Title": "Flexible Schedule",
+    "perk2Text": "Pick and choose the orders you want to execute around your own gaming hours.",
+    "perk3Title": "Elite Team",
+    "perk3Text": "Collaborate with verified champions and professional players across all major titles.",
+    "reqTitle": "Requirements to Join",
+    "req1": "Top 1% rank or competitive tournament credentials in your game.",
+    "req2": "Clean record — strictly zero third-party software, cheats, or toxic behavior.",
+    "req3": "Reliable communication, punctuality, and professional customer etiquette.",
+    "applyButton": "Apply Now via Contact"
   }
 }

@@ -1,12 +1,21 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useEffect } from 'react';
 import { createAdmin } from '../app/login/actions';
+import { toast } from '../utils/toast';
 
 const initialState = { success: null, error: null };
 
 export default function CreateAdminForm() {
     const [state, formAction, isPending] = useActionState(createAdmin, initialState);
+
+    useEffect(() => {
+        if (state?.success) {
+            toast.success(state.success, { title: 'Admin Created' });
+        } else if (state?.error) {
+            toast.error(state.error);
+        }
+    }, [state]);
 
     return (
         <form action={formAction} className="panel-surface p-6 rounded-2xl space-y-4">
