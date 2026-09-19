@@ -68,11 +68,14 @@ export default function Login() {
                 }
             } else {
                 const res = await registerUser(email, password, turnstileToken, setupToken);
-                if (res.success) {
+                if (res?.success) {
                     toast.success(res.role === 'ADMIN' ? t('toastCreatedAdmin') : t('toastCreated'));
                     setError('');
                     setPassword('');
                     setIsLogin(true);
+                    rotateChallenge();
+                } else {
+                    setError(res?.error || t('errorGeneric'));
                     rotateChallenge();
                 }
             }
