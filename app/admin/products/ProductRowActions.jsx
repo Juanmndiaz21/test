@@ -81,13 +81,22 @@ export function ProductEditDrawer({ product, defaultOptions }) {
                         <input name="price" type="number" step="0.01" defaultValue={product.price} required className="w-full bg-black/20 border border-white/10 rounded-lg p-2 text-white" />
                     </div>
                     <div>
+                        <label className="block text-xs text-slate-400 mb-1">Original / Was Price ($) <span className="text-[10px] text-slate-500">(strikethrough)</span></label>
+                        <input name="original_price" type="number" step="0.01" defaultValue={product.original_price ?? ''} placeholder="e.g. 35.00" className="w-full bg-black/20 border border-white/10 rounded-lg p-2 text-white" />
+                    </div>
+                    <div>
                         <label className="block text-xs text-slate-400 mb-1">Platform</label>
-                        <select name="platform" defaultValue={product.platform || 'PC'} className="w-full bg-[#171229] border border-white/10 rounded-lg p-2 text-white">
-                            <option>PC</option>
-                            <option>PlayStation</option>
-                            <option>Xbox</option>
-                            <option>All</option>
+                        <select name="platform" defaultValue={product.platform || 'PlayStation/Xbox'} className="w-full bg-[#171229] border border-white/10 rounded-lg p-2 text-white">
+                            <option value="PlayStation/Xbox">PlayStation / Xbox</option>
+                            <option value="PlayStation">PlayStation</option>
+                            <option value="Xbox">Xbox</option>
+                            <option value="PC">PC</option>
+                            <option value="PC/PlayStation/Xbox">All (PC / PlayStation / Xbox)</option>
                         </select>
+                    </div>
+                    <div>
+                        <label className="block text-xs text-slate-400 mb-1">Card Features / Bullet Points <span className="text-[10px] text-slate-500">(one per line)</span></label>
+                        <textarea name="features" defaultValue={product.features || ''} placeholder="Cash Amount Selected&#10;Rank Amount Selected&#10;Fast Run (Optional Addon)" rows="3" className="w-full bg-black/20 border border-white/10 rounded-lg p-2 text-white font-mono text-xs" />
                     </div>
                     <div>
                         <label className="block text-xs text-slate-400 mb-1">Image URL</label>

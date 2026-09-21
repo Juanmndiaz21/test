@@ -35,6 +35,8 @@ export async function addProduct(formData) {
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS how_it_works TEXT`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS requirements TEXT`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS faqs TEXT`;
+    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS original_price DECIMAL(10, 2)`;
+    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS features TEXT`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS boost_options JSONB`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS commends_options JSONB`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS options JSONB`;
@@ -50,6 +52,9 @@ export async function addProduct(formData) {
         throw new Error('Price must be a positive number.');
     }
 
+    const rawOriginalPrice = formData.get('original_price');
+    const originalPrice = rawOriginalPrice === null || rawOriginalPrice === '' ? null : Number(rawOriginalPrice);
+
     const rawBoostAmount = formData.get('boost_amount');
     const boostAmount = rawBoostAmount === null || rawBoostAmount === '' ? null : Number(rawBoostAmount);
     if (boostAmount !== null && (!Number.isInteger(boostAmount) || boostAmount <= 0)) {
@@ -62,12 +67,13 @@ export async function addProduct(formData) {
     const howItWorks = formData.get('how_it_works');
     const requirements = formData.get('requirements');
     const faqs = formData.get('faqs');
+    const features = formData.get('features');
     const options = parseProductOptions(formData, 'options');
     const finalOptions = options.length > 0 ? options : parseProductOptions(formData, 'boost');
 
     await sql`
-        INSERT INTO products (name, description, price, platform, boost_amount, game, image_url, how_it_works, requirements, faqs, boost_options, commends_options, options)
-        VALUES (${name}, ${description || null}, ${price}, ${platform || null}, ${boostAmount}, ${game}, ${imageUrl || null}, ${howItWorks || null}, ${requirements || null}, ${faqs || null}, ${JSON.stringify(finalOptions)}::jsonb, NULL, ${JSON.stringify(finalOptions)}::jsonb)
+        INSERT INTO products (name, description, price, original_price, features, platform, boost_amount, game, image_url, how_it_works, requirements, faqs, boost_options, commends_options, options)
+        VALUES (${name}, ${description || null}, ${price}, ${originalPrice}, ${features || null}, ${platform || null}, ${boostAmount}, ${game}, ${imageUrl || null}, ${howItWorks || null}, ${requirements || null}, ${faqs || null}, ${JSON.stringify(finalOptions)}::jsonb, NULL, ${JSON.stringify(finalOptions)}::jsonb)
     `;
 
     revalidatePath('/store');
@@ -109,6 +115,9 @@ export async function updateProduct(formData) {
         throw new Error('Price must be a positive number.');
     }
 
+    const rawOriginalPrice = formData.get('original_price');
+    const originalPrice = rawOriginalPrice === null || rawOriginalPrice === '' ? null : Number(rawOriginalPrice);
+
     const rawBoostAmount = formData.get('boost_amount');
     const boostAmount = rawBoostAmount === null || rawBoostAmount === '' ? null : Number(rawBoostAmount);
     if (boostAmount !== null && (!Number.isInteger(boostAmount) || boostAmount <= 0)) {
@@ -123,6 +132,8 @@ export async function updateProduct(formData) {
             name = ${name},
             description = ${formData.get('description') || null},
             price = ${price},
+            original_price = ${originalPrice},
+            features = ${formData.get('features') || null},
             platform = ${formData.get('platform') || null},
             boost_amount = ${boostAmount},
             game = ${game},

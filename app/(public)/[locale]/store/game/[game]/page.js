@@ -7,6 +7,7 @@ import DeleteGameButton from '@/components/DeleteGameButton';
 import EditGameButton from '@/components/EditGameButton';
 import GameArt from '@/components/GameArt';
 import Icon from '@/components/Icon';
+import ProductCard from '@/components/ProductCard';
 import { ensureAppSchema } from '@/lib/schema';
 
 export const dynamic = 'force-dynamic';
@@ -60,61 +61,9 @@ export default async function GameServicesPage({ params }) {
                     <p className="text-slate-300 text-lg">{t('readyForFirstService')}</p>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                     {products.map((product, index) => (
-                        <Link
-                            key={product.id}
-                            href={`/store/${product.id}`}
-                            className="animate-ladder-row group relative overflow-hidden rounded-2xl border border-white/8 bg-[#171229] p-5 flex flex-col transition-all duration-300 hover:-translate-y-2 hover:border-lime-300/60 hover:shadow-[0_20px_40px_-12px_rgba(157,124,255,0.3)]"
-                            style={{ animationDelay: `${index * 60}ms` }}
-                        >
-                            {/* Ambient radial glow on hover */}
-                            <div className="pointer-events-none absolute -top-10 -right-10 h-32 w-32 rounded-full bg-lime-300/0 blur-2xl transition-all duration-500 group-hover:bg-lime-300/15 group-hover:scale-150" />
-
-                            {/* Top edge animated border glow line */}
-                            <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-lime-300/0 to-transparent transition-all duration-500 group-hover:via-lime-300/80" />
-
-                            {/* Shimmer light sweep across card */}
-                            <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent transition-transform duration-1000 ease-out group-hover:translate-x-full" />
-
-                            <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-5 bg-black/40">
-                                <GameArt
-                                    name={product.name}
-                                    image_url={product.image_url || gameRows[0]?.image_url || null}
-                                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                                />
-                                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#171229] via-transparent to-transparent opacity-60" />
-                            </div>
-
-                            <div className="flex justify-between items-center gap-3 mb-4">
-                                <span className="eyebrow">{common('allPlatforms')}</span>
-                                <span className="inline-flex items-center gap-1.5 text-xs text-lime-300 font-mono">
-                                    <span className="relative flex h-2 w-2">
-                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-300 opacity-60" />
-                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-lime-300" />
-                                    </span>
-                                    {common('available')}
-                                </span>
-                            </div>
-
-                            <h2 className="text-xl font-black text-white leading-tight group-hover:text-lime-300 transition-colors duration-200">
-                                {product.name}
-                            </h2>
-
-                            <p className="text-slate-400 text-sm mt-3 line-clamp-3 leading-relaxed">
-                                {product.description || t('viewFullDescription')}
-                            </p>
-
-                            <div className="mt-auto pt-6 flex items-end justify-between border-t border-white/5">
-                                <strong className="text-3xl text-white font-black group-hover:text-lime-100 transition-colors data-readout">
-                                    ${product.price}
-                                    <small className="text-xs text-slate-400 ml-1 font-mono uppercase">{common('usd')}</small>
-                                </strong>
-                                <span className="w-9 h-9 rounded-full border border-lime-300/40 text-lime-300 flex items-center justify-center group-hover:bg-lime-300 group-hover:text-black group-hover:scale-110 group-hover:shadow-[0_0_12px_rgba(157,124,255,0.4)] transition-all duration-200">
-                                    <Icon name="arrow-up-right" className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={2.4} />
-                                </span>
-                            </div>
-                        </Link>
+                        <ProductCard key={product.id} product={product} index={index} />
                     ))}
                 </div>
             )}

@@ -61,12 +61,13 @@ export async function recordDemoOrder(prevState, formData) {
             if (!product) product = productsBySignature.get(signatureFor(item));
             if (!product) throw new Error(`Unknown service: ${String(item.name || 'item')}`);
 
-            const unitPrice = Number(product.price);
+            const itemPrice = Number(item.price);
+            const unitPrice = (Number.isFinite(itemPrice) && itemPrice > 0) ? itemPrice : Number(product.price);
             if (!Number.isFinite(unitPrice) || unitPrice <= 0) throw new Error(`Invalid price for ${product.name}.`);
 
             total += unitPrice * quantity;
             orderItems.push({
-                name: product.name,
+                name: item.name || product.name,
                 quantity,
                 unit_price: unitPrice,
                 platform: item.platform || product.platform || null,

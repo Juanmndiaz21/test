@@ -37,16 +37,25 @@ export default function AddProductForm({ selectedGame, initialOptions }) {
             <ProductOptionsEditor initialOptions={initialOptions} />
             <div className="w-full">
                 <label className="block text-sm text-slate-400 mb-2">Price ($)</label>
-                <input name="price" type="number" step="0.01" required placeholder="35" className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-lime-300 outline-none" />
+                <input name="price" type="number" step="0.01" required placeholder="25.00" className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-lime-300 outline-none" />
+            </div>
+            <div className="w-full">
+                <label className="block text-sm text-slate-400 mb-2">Original / Was Price ($) <span className="text-xs text-slate-500">(strikethrough)</span></label>
+                <input name="original_price" type="number" step="0.01" placeholder="35.00" className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-lime-300 outline-none" />
             </div>
             <div className="w-full">
                 <label className="block text-sm text-slate-400 mb-2">Platform</label>
-                <select name="platform" defaultValue="PC" className="w-full bg-[#171229] border border-white/10 rounded-lg p-3 text-white focus:border-lime-300 outline-none">
-                    <option>PC</option>
-                    <option>PlayStation</option>
-                    <option>Xbox</option>
-                    <option>All</option>
+                <select name="platform" defaultValue="PlayStation/Xbox" className="w-full bg-[#171229] border border-white/10 rounded-lg p-3 text-white focus:border-lime-300 outline-none">
+                    <option value="PlayStation/Xbox">PlayStation / Xbox</option>
+                    <option value="PlayStation">PlayStation</option>
+                    <option value="Xbox">Xbox</option>
+                    <option value="PC">PC</option>
+                    <option value="PC/PlayStation/Xbox">All (PC / PlayStation / Xbox)</option>
                 </select>
+            </div>
+            <div className="w-full md:col-span-2">
+                <label className="block text-sm text-slate-400 mb-2">Card Features / Bullet Points <span className="text-xs text-slate-500">(one per line, shown on card)</span></label>
+                <textarea name="features" rows="3" placeholder="Cash Amount Selected&#10;Rank Amount Selected&#10;Fast Run (Optional Addon)" className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white font-mono text-sm focus:border-lime-300 outline-none" />
             </div>
             <div className="w-full md:col-span-2">
                 <label className="block text-sm text-slate-400 mb-2">Description</label>

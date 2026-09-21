@@ -46,7 +46,12 @@ export default async function AdminProducts({ searchParams }) {
                                     <td className="p-4 text-slate-400">#{product.id}</td>
                                     <td className="p-4 font-medium text-white">{product.name}</td>
                                     <td className="p-4 text-sm text-slate-400">{product.game || 'General'} · {product.platform === 'All' ? 'All platforms' : (product.platform || 'All')} · {product.boost_amount ? `${product.boost_amount}M` : 'Variable'}</td>
-                                    <td className="p-4 text-lime-300 font-bold">${product.price} USD</td>
+                                    <td className="p-4">
+                                        <div className="text-lime-300 font-bold">${product.price} USD</div>
+                                        {product.original_price ? (
+                                            <div className="text-xs text-slate-500 line-through">${product.original_price} USD</div>
+                                        ) : null}
+                                    </td>
                                     <td className="p-4 text-right">
                                         <ProductEditDrawer product={product} defaultOptions={options} />
                                         <ProductDeleteButton productId={product.id} productName={product.name} />
