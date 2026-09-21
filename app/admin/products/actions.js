@@ -37,6 +37,7 @@ export async function addProduct(formData) {
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS faqs TEXT`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS original_price DECIMAL(10, 2)`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS features TEXT`;
+    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS configurator_data JSONB`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS boost_options JSONB`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS commends_options JSONB`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS options JSONB`;
@@ -68,12 +69,17 @@ export async function addProduct(formData) {
     const requirements = formData.get('requirements');
     const faqs = formData.get('faqs');
     const features = formData.get('features');
+    const rawConfiguratorData = formData.get('configurator_data');
+    let configuratorData = null;
+    if (rawConfiguratorData) {
+        try { configuratorData = JSON.parse(rawConfiguratorData); } catch {}
+    }
     const options = parseProductOptions(formData, 'options');
     const finalOptions = options.length > 0 ? options : parseProductOptions(formData, 'boost');
 
     await sql`
-        INSERT INTO products (name, description, price, original_price, features, platform, boost_amount, game, image_url, how_it_works, requirements, faqs, boost_options, commends_options, options)
-        VALUES (${name}, ${description || null}, ${price}, ${originalPrice}, ${features || null}, ${platform || null}, ${boostAmount}, ${game}, ${imageUrl || null}, ${howItWorks || null}, ${requirements || null}, ${faqs || null}, ${JSON.stringify(finalOptions)}::jsonb, NULL, ${JSON.stringify(finalOptions)}::jsonb)
+        INSERT INTO products (name, description, price, original_price, features, configurator_data, platform, boost_amount, game, image_url, how_it_works, requirements, faqs, boost_options, commends_options, options)
+        VALUES (${name}, ${description || null}, ${price}, ${originalPrice}, ${features || null}, ${configuratorData ? JSON.stringify(configuratorData) : null}::jsonb, ${platform || null}, ${boostAmount}, ${game}, ${imageUrl || null}, ${howItWorks || null}, ${requirements || null}, ${faqs || null}, ${JSON.stringify(finalOptions)}::jsonb, NULL, ${JSON.stringify(finalOptions)}::jsonb)
     `;
 
     revalidatePath('/store');
@@ -97,6 +103,9 @@ export async function updateProduct(formData) {
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS how_it_works TEXT`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS requirements TEXT`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS faqs TEXT`;
+    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS original_price DECIMAL(10, 2)`;
+    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS features TEXT`;
+    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS configurator_data JSONB`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS boost_options JSONB`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS commends_options JSONB`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS options JSONB`;
@@ -124,28 +133,61 @@ export async function updateProduct(formData) {
         throw new Error('Boost amount must be a positive integer.');
     }
 
+    const rawConfiguratorData = formData.get('configurator_data');
+    let configuratorData = undefined;
+    if (rawConfiguratorData !== null && rawConfiguratorData !== undefined) {
+        try {
+            configuratorData = rawConfiguratorData.trim() ? JSON.parse(rawConfiguratorData) : null;
+        } catch {
+            configuratorData = null;
+        }
+    }
+
     const options = parseProductOptions(formData, 'options');
     const finalOptions = options.length > 0 ? options : parseProductOptions(formData, 'boost');
 
-    await sql`
-        UPDATE products SET
-            name = ${name},
-            description = ${formData.get('description') || null},
-            price = ${price},
-            original_price = ${originalPrice},
-            features = ${formData.get('features') || null},
-            platform = ${formData.get('platform') || null},
-            boost_amount = ${boostAmount},
-            game = ${game},
-            image_url = ${formData.get('image_url') || null},
-            how_it_works = ${formData.get('how_it_works') || null},
-            requirements = ${formData.get('requirements') || null},
-            faqs = ${formData.get('faqs') || null},
-            boost_options = ${JSON.stringify(finalOptions)}::jsonb,
-            commends_options = NULL,
-            options = ${JSON.stringify(finalOptions)}::jsonb
-        WHERE id = ${id}
-    `;
+    if (configuratorData !== undefined) {
+        await sql`
+            UPDATE products SET
+                name = ${name},
+                description = ${formData.get('description') || null},
+                price = ${price},
+                original_price = ${originalPrice},
+                features = ${formData.get('features') || null},
+                configurator_data = ${configuratorData ? JSON.stringify(configuratorData) : null}::jsonb,
+                platform = ${formData.get('platform') || null},
+                boost_amount = ${boostAmount},
+                game = ${game},
+                image_url = ${formData.get('image_url') || null},
+                how_it_works = ${formData.get('how_it_works') || null},
+                requirements = ${formData.get('requirements') || null},
+                faqs = ${formData.get('faqs') || null},
+                boost_options = ${JSON.stringify(finalOptions)}::jsonb,
+                commends_options = NULL,
+                options = ${JSON.stringify(finalOptions)}::jsonb
+            WHERE id = ${id}
+        `;
+    } else {
+        await sql`
+            UPDATE products SET
+                name = ${name},
+                description = ${formData.get('description') || null},
+                price = ${price},
+                original_price = ${originalPrice},
+                features = ${formData.get('features') || null},
+                platform = ${formData.get('platform') || null},
+                boost_amount = ${boostAmount},
+                game = ${game},
+                image_url = ${formData.get('image_url') || null},
+                how_it_works = ${formData.get('how_it_works') || null},
+                requirements = ${formData.get('requirements') || null},
+                faqs = ${formData.get('faqs') || null},
+                boost_options = ${JSON.stringify(finalOptions)}::jsonb,
+                commends_options = NULL,
+                options = ${JSON.stringify(finalOptions)}::jsonb
+            WHERE id = ${id}
+        `;
+    }
 
     revalidatePath('/store');
     revalidatePath('/admin/products');

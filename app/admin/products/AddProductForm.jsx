@@ -4,6 +4,7 @@ import { useRef, useTransition } from 'react';
 import { addProduct } from './actions';
 import { toast } from '../../../utils/toast';
 import ProductOptionsEditor from './ProductOptionsEditor';
+import ConfiguratorEditor from './ConfiguratorEditor';
 
 export default function AddProductForm({ selectedGame, initialOptions }) {
     const formRef = useRef(null);
@@ -35,6 +36,9 @@ export default function AddProductForm({ selectedGame, initialOptions }) {
                 <input name="game" type="text" required defaultValue={selectedGame} readOnly={Boolean(selectedGame)} placeholder="e.g. GTA V" className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white read-only:text-lime-300 read-only:cursor-not-allowed focus:border-lime-300 outline-none" />
             </div>
             <ProductOptionsEditor initialOptions={initialOptions} />
+            <div className="w-full md:col-span-2">
+                <ConfiguratorEditor />
+            </div>
             <div className="w-full">
                 <label className="block text-sm text-slate-400 mb-2">Price ($)</label>
                 <input name="price" type="number" step="0.01" required placeholder="25.00" className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-lime-300 outline-none" />

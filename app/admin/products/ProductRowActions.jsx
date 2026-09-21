@@ -4,6 +4,7 @@ import { useState, useTransition } from 'react';
 import { deleteProduct, updateProduct } from './actions';
 import { toast } from '../../../utils/toast';
 import ProductOptionsEditor from './ProductOptionsEditor';
+import ConfiguratorEditor from './ConfiguratorEditor';
 
 export function ProductDeleteButton({ productId, productName }) {
     const [isPending, startTransition] = useTransition();
@@ -76,6 +77,7 @@ export function ProductEditDrawer({ product, defaultOptions }) {
                         <input name="game" type="text" required defaultValue={product.game || ''} className="w-full bg-black/20 border border-white/10 rounded-lg p-2 text-white" />
                     </div>
                     <ProductOptionsEditor initialOptions={effectiveOptions} compact />
+                    <ConfiguratorEditor initialData={product.configurator_data} />
                     <div>
                         <label className="block text-xs text-slate-400 mb-1">Price ($)</label>
                         <input name="price" type="number" step="0.01" defaultValue={product.price} required className="w-full bg-black/20 border border-white/10 rounded-lg p-2 text-white" />

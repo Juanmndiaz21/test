@@ -66,9 +66,9 @@ export default function ProductTrustBadges() {
                 return (
                     <div
                         key={index}
-                        className="panel-surface rounded-2xl p-4 border border-white/10 bg-[#171229] flex items-center gap-3.5 hover:border-amber-500/30 transition-colors"
+                        className="panel-surface rounded-2xl p-4 border border-white/10 bg-[#171229] flex items-center gap-3.5 hover:border-[#9d7cff]/40 transition-colors"
                     >
-                        <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0">
+                        <div className="w-11 h-11 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/20 flex items-center justify-center text-[#9d7cff] shrink-0 shadow-[0_0_12px_rgba(157,124,255,0.15)]">
                             <IconComponent className="w-5 h-5" />
                         </div>
                         <div className="min-w-0">

@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useCartStore } from '../store/useCartStore';
 import { toast } from '../utils/toast';
 import { Link } from '../i18n/navigation';
 import Icon from './Icon';
 
-const GTA_PACKAGES = [
+const DEFAULT_PACKAGES = [
     { id: 'pkg-10m', label: '10 Million Cash', amount: 10, price: 25.0, wasPrice: 35.0 },
     { id: 'pkg-15m', label: '15 Million Cash', amount: 15, price: 30.0, wasPrice: 42.0 },
     { id: 'pkg-20m', label: '20 Million Cash', amount: 20, price: 35.0, wasPrice: 49.0 },
@@ -29,7 +29,22 @@ const GTA_PACKAGES = [
     { id: 'pkg-2b', label: '2 Billion Cash', amount: 2000, price: 1450.0, wasPrice: 2000.0 },
 ];
 
-const GTA_ADDONS = [
+const DEFAULT_VERSIONS = {
+    PlayStation: [
+        { id: 'ps4', label: 'PS4 (Standard Edition)' },
+        { id: 'ps5', label: 'PS5 (Expanded & Enhanced Edition)' },
+    ],
+    Xbox: [
+        { id: 'xbox_one', label: 'Xbox One (Standard Edition)' },
+        { id: 'xbox_series', label: 'Xbox Series X|S (Expanded & Enhanced Edition)' },
+    ],
+    PC: [
+        { id: 'pc_enhanced', label: 'PC (Enhanced / Steam / Rockstar)' },
+        { id: 'pc_legacy', label: 'PC (Epic Games / Legacy)' },
+    ],
+};
+
+const DEFAULT_ADDONS = [
     { id: 'bunker', label: '51/51 Bunker Research Unlocked', originalPrice: 60.0, discountedPrice: 54.0 },
     { id: 'skills', label: 'Max Skills', originalPrice: 60.0, discountedPrice: 54.0 },
     { id: 'rank120', label: 'Rank 120', originalPrice: 72.2, discountedPrice: 65.0 },
@@ -42,59 +57,75 @@ export default function GtaOrderConfigurator({ product }) {
     const t = useTranslations('product');
     const addToCart = useCartStore((state) => state.addToCart);
 
-    // 1. Platform
-    const [platform, setPlatform] = useState('PlayStation');
+    // Dynamic config resolution from product.configurator_data
+    const configData = product?.configurator_data || {};
+    const packages = useMemo(() => {
+        return Array.isArray(configData.packages) && configData.packages.length > 0
+            ? configData.packages
+            : DEFAULT_PACKAGES;
+    }, [configData.packages]);
 
-    // 2. Version / Edition
+    const versionsCatalog = useMemo(() => {
+        return configData.versions && typeof configData.versions === 'object'
+            ? configData.versions
+            : DEFAULT_VERSIONS;
+    }, [configData.versions]);
+
+    const addonsCatalog = useMemo(() => {
+        return Array.isArray(configData.addons) && configData.addons.length > 0
+            ? configData.addons
+            : DEFAULT_ADDONS;
+    }, [configData.addons]);
+
+    // Step 1: Platform (starts null for progressive disclosure)
+    const [platform, setPlatform] = useState(null);
+
+    // Step 2: Version
+    const [version, setVersion] = useState(null);
+
+    // Current versions for selected platform
     const versionsByPlatform = useMemo(() => {
-        if (platform === 'PlayStation') {
-            return [
-                { id: 'ps4', label: 'PS4 (Standard Edition)' },
-                { id: 'ps5', label: 'PS5 (Expanded & Enhanced Edition)' },
-            ];
-        }
-        if (platform === 'Xbox') {
-            return [
-                { id: 'xbox_one', label: 'Xbox One (Standard Edition)' },
-                { id: 'xbox_series', label: 'Xbox Series X|S (Expanded & Enhanced Edition)' },
-            ];
-        }
-        return [
-            { id: 'pc_enhanced', label: 'PC (Enhanced / Steam / Rockstar)' },
-            { id: 'pc_legacy', label: 'PC (Epic Games / Legacy)' },
+        if (!platform) return [];
+        return versionsCatalog[platform] || [
+            { id: 'std', label: `${platform} Edition` },
         ];
-    }, [platform]);
+    }, [platform, versionsCatalog]);
 
-    const [version, setVersion] = useState(versionsByPlatform[0]?.id || 'ps4');
-
-    // Ensure version matches platform when platform switches
     const currentVersionLabel = useMemo(() => {
         const found = versionsByPlatform.find((v) => v.id === version);
-        return found ? found.label : versionsByPlatform[0]?.label || '';
+        return found ? found.label : (version || '');
     }, [version, versionsByPlatform]);
 
-    // 3. Package
-    const [selectedPackageId, setSelectedPackageId] = useState(GTA_PACKAGES[0].id);
+    // Step 3: Package
+    const [selectedPackageId, setSelectedPackageId] = useState(packages[0]?.id || 'pkg-10m');
     const [showAllPackages, setShowAllPackages] = useState(false);
 
-    const selectedPackage = useMemo(() => {
-        return GTA_PACKAGES.find((p) => p.id === selectedPackageId) || GTA_PACKAGES[0];
-    }, [selectedPackageId]);
+    // Update selectedPackage if packages change
+    useEffect(() => {
+        if (packages.length > 0 && !packages.some((p) => p.id === selectedPackageId)) {
+            setSelectedPackageId(packages[0].id);
+        }
+    }, [packages, selectedPackageId]);
 
-    // 4. Addons
+    const selectedPackage = useMemo(() => {
+        return packages.find((p) => p.id === selectedPackageId) || packages[0] || { price: 25.0, wasPrice: 35.0, label: 'Package', amount: 10 };
+    }, [packages, selectedPackageId]);
+
+    // Step 4: Addons
     const [selectedAddons, setSelectedAddons] = useState(new Set());
 
     // Filter available addons for current platform/version
     const availableAddons = useMemo(() => {
-        return GTA_ADDONS.filter((addon) => {
+        return addonsCatalog.filter((addon) => {
             if (addon.platformOnly && addon.platformOnly !== platform) return false;
             if (addon.versionOnly) {
-                if (addon.versionOnly === 'PS5' && version !== 'ps5') return false;
-                if (addon.versionOnly === 'PS4' && version !== 'ps4') return false;
+                const cleanVersion = String(version || '').toLowerCase();
+                const req = String(addon.versionOnly).toLowerCase();
+                if (!cleanVersion.includes(req)) return false;
             }
             return true;
         });
-    }, [platform, version]);
+    }, [addonsCatalog, platform, version]);
 
     const toggleAddon = (addonId) => {
         setSelectedAddons((prev) => {
@@ -108,15 +139,15 @@ export default function GtaOrderConfigurator({ product }) {
         });
     };
 
-    // 5. Total calculation
+    // Step 5: Totals
     const { finalTotal, wasTotal } = useMemo(() => {
-        let current = selectedPackage.price;
-        let was = selectedPackage.wasPrice;
+        let current = Number(selectedPackage.price) || 0;
+        let was = Number(selectedPackage.wasPrice) || (current * 1.35);
 
         availableAddons.forEach((addon) => {
             if (selectedAddons.has(addon.id)) {
-                current += addon.discountedPrice;
-                was += addon.originalPrice;
+                current += Number(addon.discountedPrice) || 0;
+                was += Number(addon.originalPrice) || 0;
             }
         });
 
@@ -151,14 +182,14 @@ export default function GtaOrderConfigurator({ product }) {
         toast.success(`GTA V ${selectedPackage.label} added to cart!`, { title: 'Added to Cart' });
     };
 
-    const visiblePackages = showAllPackages ? GTA_PACKAGES : GTA_PACKAGES.slice(0, 6);
+    const visiblePackages = showAllPackages ? packages : packages.slice(0, 6);
 
     return (
         <div className="panel-surface rounded-2xl p-6 sm:p-8 border border-white/10 bg-[#171229] space-y-7 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
             {/* Header */}
             <div className="flex items-center justify-between gap-4 pb-5 border-b border-white/10">
                 <div className="flex items-center gap-3.5">
-                    <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/25 text-[#9d7cff] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(157,124,255,0.2)]">
                         <Icon name="sliders" className="w-5 h-5" />
                     </div>
                     <div>
@@ -166,22 +197,27 @@ export default function GtaOrderConfigurator({ product }) {
                             Configure your order
                         </h2>
                         <p className="text-xs text-slate-400 mt-0.5">
-                            Choose the setup that fits you
+                            Choose your platform and setup step by step
                         </p>
                     </div>
                 </div>
 
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-mono font-bold uppercase tracking-wider">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#9d7cff]/10 border border-[#9d7cff]/25 text-[#9d7cff] text-[11px] font-mono font-bold uppercase tracking-wider">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#9d7cff] animate-pulse" />
                     Secure
                 </span>
             </div>
 
-            {/* 1. SELECT YOUR PLATFORM */}
-            <div>
-                <label className="flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-slate-300 mb-3">
-                    <span>SELECT YOUR PLATFORM</span>
-                    <span className="text-amber-500">•</span>
+            {/* STEP 1: SELECT YOUR PLATFORM */}
+            <div className="animate-ladder-row">
+                <label className="flex items-center justify-between text-xs font-mono font-bold uppercase tracking-wider text-slate-300 mb-3">
+                    <span className="flex items-center gap-2">
+                        <span className="text-[#9d7cff] font-black">[01]</span>
+                        <span>SELECT YOUR PLATFORM</span>
+                    </span>
+                    {platform && (
+                        <span className="text-[10px] text-[#9d7cff] font-mono lowercase">selected: {platform}</span>
+                    )}
                 </label>
 
                 <div className="grid grid-cols-3 gap-2.5">
@@ -193,14 +229,12 @@ export default function GtaOrderConfigurator({ product }) {
                                 type="button"
                                 onClick={() => {
                                     setPlatform(p);
-                                    if (p === 'PlayStation') setVersion('ps4');
-                                    else if (p === 'Xbox') setVersion('xbox_one');
-                                    else setVersion('pc_enhanced');
+                                    setVersion(null); // Reset version so user chooses edition for this platform
                                 }}
                                 className={`py-3 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border flex items-center justify-center ${
                                     active
-                                        ? 'bg-amber-500/10 border-amber-500 text-white shadow-[0_0_15px_rgba(245,158,11,0.25)] font-black'
-                                        : 'bg-black/20 border-white/10 text-slate-300 hover:border-white/25 hover:text-white'
+                                        ? 'bg-[#9d7cff]/15 border-[#9d7cff] text-white shadow-[0_0_20px_rgba(157,124,255,0.3)] font-black ring-1 ring-[#9d7cff]/50'
+                                        : 'bg-black/30 border-white/10 text-slate-300 hover:border-[#9d7cff]/50 hover:text-white'
                                 }`}
                             >
                                 {p}
@@ -210,163 +244,213 @@ export default function GtaOrderConfigurator({ product }) {
                 </div>
 
                 {/* Account Notice Box */}
-                <div className="mt-3.5 p-3.5 rounded-xl bg-black/30 border border-white/5 text-xs text-slate-300 leading-relaxed">
-                    This boost will be applied to your account. Account information will be collected after checkout.
+                <div className="mt-3.5 p-3.5 rounded-xl bg-black/40 border border-white/5 text-xs text-slate-300 leading-relaxed flex items-start gap-2.5">
+                    <Icon name="check" className="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5" />
+                    <span>This boost will be applied to your account. Account information will be collected after checkout.</span>
                 </div>
             </div>
 
-            {/* 2. SELECT YOUR VERSION */}
-            <div>
-                <label className="flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-slate-300 mb-3">
-                    <span>SELECT YOUR VERSION</span>
-                    <span className="text-amber-500">•</span>
-                </label>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {versionsByPlatform.map((v) => {
-                        const active = version === v.id;
-                        return (
-                            <button
-                                key={v.id}
-                                type="button"
-                                onClick={() => setVersion(v.id)}
-                                className={`py-3 px-3.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border text-center ${
-                                    active
-                                        ? 'bg-amber-500/10 border-amber-500 text-white shadow-[0_0_15px_rgba(245,158,11,0.25)] font-black'
-                                        : 'bg-black/20 border-white/10 text-slate-300 hover:border-white/25 hover:text-white'
-                                }`}
-                            >
-                                {v.label}
-                            </button>
-                        );
-                    })}
-                </div>
-            </div>
-
-            {/* 3. SELECT YOUR PACKAGE */}
-            <div>
-                <label className="flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-slate-300 mb-3">
-                    <span>SELECT YOUR PACKAGE</span>
-                    <span className="text-amber-500">•</span>
-                </label>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {visiblePackages.map((pkg) => {
-                        const active = selectedPackageId === pkg.id;
-                        return (
-                            <button
-                                key={pkg.id}
-                                type="button"
-                                onClick={() => setSelectedPackageId(pkg.id)}
-                                className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
-                                    active
-                                        ? 'bg-amber-500/10 border-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.25)]'
-                                        : 'bg-black/20 border-white/10 hover:border-white/25'
-                                }`}
-                            >
-                                <span className={`block text-xs sm:text-sm font-black ${active ? 'text-white' : 'text-slate-200'}`}>
-                                    {pkg.label}
-                                </span>
-                                <span className={`block text-xs font-mono mt-1 ${active ? 'text-amber-400 font-bold' : 'text-slate-400'}`}>
-                                    ${pkg.price.toFixed(2)}
-                                </span>
-                            </button>
-                        );
-                    })}
-                </div>
-
-                <button
-                    type="button"
-                    onClick={() => setShowAllPackages((prev) => !prev)}
-                    className="w-full mt-3 py-2.5 rounded-xl border border-dashed border-white/15 bg-white/[0.02] hover:bg-white/5 hover:border-white/30 text-xs font-mono font-bold text-slate-300 transition-colors cursor-pointer"
-                >
-                    {showAllPackages ? 'Show fewer options' : `Show all ${GTA_PACKAGES.length} options`}
-                </button>
-            </div>
-
-            {/* 4. SAVE 10% WITH ADDONS */}
-            <div>
-                <div className="inline-block bg-amber-500 text-black font-black text-[11px] uppercase tracking-wider px-2.5 py-1 rounded-md mb-3 shadow-sm">
-                    SAVE 10% WITH ADDONS
-                </div>
-
-                <div className="space-y-2">
-                    {availableAddons.map((addon) => {
-                        const isChecked = selectedAddons.has(addon.id);
-                        return (
-                            <label
-                                key={addon.id}
-                                onClick={() => toggleAddon(addon.id)}
-                                className={`flex items-center justify-between gap-3 p-3.5 rounded-xl border cursor-pointer select-none transition-colors ${
-                                    isChecked
-                                        ? 'bg-amber-500/10 border-amber-500/50'
-                                        : 'bg-black/20 border-white/10 hover:border-white/20'
-                                }`}
-                            >
-                                <div className="flex items-center gap-3 min-w-0">
-                                    <div
-                                        className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${
-                                            isChecked
-                                                ? 'bg-amber-500 border-amber-500 text-black'
-                                                : 'border-white/30 bg-black/40'
-                                        }`}
-                                    >
-                                        {isChecked && (
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} className="w-3 h-3">
-                                                <path d="M20 6 9 17l-5-5" />
-                                            </svg>
-                                        )}
-                                    </div>
-                                    <span className="text-xs sm:text-sm font-bold text-white leading-tight">
-                                        {addon.label}
-                                    </span>
-                                </div>
-
-                                <span className="px-2.5 py-1 rounded-full bg-black/40 border border-white/10 text-xs font-mono font-bold text-slate-300 shrink-0">
-                                    ${addon.discountedPrice.toFixed(2)}
-                                </span>
-                            </label>
-                        );
-                    })}
-                </div>
-            </div>
-
-            {/* Total Summary and Order Action */}
-            <div className="pt-6 border-t border-white/10 space-y-4">
-                <div className="p-4 rounded-xl bg-black/30 border border-white/10 flex items-center justify-between">
-                    <span className="text-xs font-mono uppercase tracking-widest font-bold text-slate-400">
-                        TOTAL
-                    </span>
-                    <div className="text-right">
-                        {wasTotal > finalTotal && (
-                            <span className="text-xs font-mono text-slate-500 line-through mr-2">
-                                ${wasTotal.toFixed(2)}
-                            </span>
+            {/* STEP 2: SELECT YOUR VERSION (Revealed after Platform is chosen) */}
+            {platform && (
+                <div className="animate-ladder-row pt-5 border-t border-white/10 space-y-3">
+                    <label className="flex items-center justify-between text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
+                        <span className="flex items-center gap-2">
+                            <span className="text-[#9d7cff] font-black">[02]</span>
+                            <span>SELECT YOUR VERSION</span>
+                        </span>
+                        {version && (
+                            <span className="text-[10px] text-[#9d7cff] font-mono">ready</span>
                         )}
-                        <strong className="text-2xl sm:text-3xl font-black text-white data-readout">
-                            ${finalTotal.toFixed(2)}
-                        </strong>
+                    </label>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        {versionsByPlatform.map((v) => {
+                            const active = version === v.id;
+                            return (
+                                <button
+                                    key={v.id}
+                                    type="button"
+                                    onClick={() => setVersion(v.id)}
+                                    className={`py-3 px-3.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border text-center ${
+                                        active
+                                            ? 'bg-[#9d7cff]/15 border-[#9d7cff] text-white shadow-[0_0_20px_rgba(157,124,255,0.3)] font-black ring-1 ring-[#9d7cff]/50'
+                                            : 'bg-black/30 border-white/10 text-slate-300 hover:border-[#9d7cff]/50 hover:text-white'
+                                    }`}
+                                >
+                                    {v.label}
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
+            )}
 
-                <button
-                    type="button"
-                    onClick={handleAddToCart}
-                    className="w-full bg-amber-500 hover:bg-white text-black font-black uppercase tracking-wider py-4 rounded-xl transition-all duration-200 active:scale-[0.98] shadow-[0_0_25px_rgba(245,158,11,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.4)] cursor-pointer text-sm"
-                >
-                    {added ? 'Added to cart! (Add more)' : 'Add to cart'}
-                </button>
+            {/* STEP 3 & STEP 4: PACKAGES & ADDONS (Revealed after Version is chosen) */}
+            {platform && version && (
+                <>
+                    {/* STEP 3: SELECT YOUR PACKAGE */}
+                    <div className="animate-ladder-row pt-5 border-t border-white/10 space-y-3">
+                        <div className="flex items-center justify-between">
+                            <label className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
+                                <span className="text-[#9d7cff] font-black">[03]</span>
+                                <span>SELECT YOUR PACKAGE</span>
+                            </label>
 
-                {added && (
-                    <Link
-                        href="/checkout"
-                        className="block text-center text-xs font-mono font-bold uppercase tracking-wider text-amber-400 hover:text-white transition-colors"
-                    >
-                        Proceed to Checkout →
-                    </Link>
-                )}
-            </div>
+                            <span className="text-[11px] font-mono text-slate-400">
+                                {packages.length} packages available
+                            </span>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            {visiblePackages.map((pkg) => {
+                                const active = selectedPackageId === pkg.id;
+                                const pkgPrice = Number(pkg.price);
+                                const pkgWas = Number(pkg.wasPrice);
+
+                                return (
+                                    <button
+                                        key={pkg.id}
+                                        type="button"
+                                        onClick={() => setSelectedPackageId(pkg.id)}
+                                        className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between gap-2 ${
+                                            active
+                                                ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_20px_rgba(157,124,255,0.25)] ring-1 ring-[#9d7cff]/50'
+                                                : 'bg-black/30 border-white/10 hover:border-[#9d7cff]/40 hover:bg-black/40'
+                                        }`}
+                                    >
+                                        <div className="min-w-0">
+                                            <strong className="block text-xs sm:text-sm font-bold text-white leading-tight truncate">
+                                                {pkg.label}
+                                            </strong>
+                                            {pkgWas > pkgPrice && (
+                                                <span className="text-[11px] font-mono text-slate-400 line-through mt-0.5 block">
+                                                    ${pkgWas.toFixed(2)}
+                                                </span>
+                                            )}
+                                        </div>
+
+                                        <div className="text-right shrink-0">
+                                            <span className="text-sm sm:text-base font-black text-[#9d7cff] data-readout">
+                                                ${pkgPrice.toFixed(2)}
+                                            </span>
+                                        </div>
+                                    </button>
+                                );
+                            })}
+                        </div>
+
+                        {packages.length > 6 && (
+                            <button
+                                type="button"
+                                onClick={() => setShowAllPackages(!showAllPackages)}
+                                className="w-full py-2.5 px-4 rounded-xl border border-white/10 bg-white/5 hover:border-[#9d7cff]/50 hover:text-white text-xs font-mono font-bold uppercase tracking-wider text-[#9d7cff] transition-all cursor-pointer flex items-center justify-center gap-2"
+                            >
+                                <span>{showAllPackages ? 'Show fewer packages' : `Show all ${packages.length} packages`}</span>
+                                <Icon
+                                    name="arrow-down"
+                                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                                        showAllPackages ? 'rotate-180' : ''
+                                    }`}
+                                />
+                            </button>
+                        )}
+                    </div>
+
+                    {/* STEP 4: SAVE 10% WITH ADDONS */}
+                    {availableAddons.length > 0 && (
+                        <div className="animate-ladder-row pt-5 border-t border-white/10 space-y-3">
+                            <div className="flex items-center justify-between">
+                                <label className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
+                                    <span className="text-[#9d7cff] font-black">[04]</span>
+                                    <span>SAVE 10% WITH ADDONS</span>
+                                </label>
+
+                                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#9d7cff]/15 border border-[#9d7cff]/30 text-[#9d7cff] font-bold">
+                                    10% OFF APPLIED
+                                </span>
+                            </div>
+
+                            <div className="space-y-2">
+                                {availableAddons.map((addon) => {
+                                    const checked = selectedAddons.has(addon.id);
+                                    const discPrice = Number(addon.discountedPrice) || 0;
+                                    const origPrice = Number(addon.originalPrice) || 0;
+
+                                    return (
+                                        <label
+                                            key={addon.id}
+                                            className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
+                                                checked
+                                                    ? 'bg-[#9d7cff]/10 border-[#9d7cff]/50 shadow-[0_0_15px_rgba(157,124,255,0.15)]'
+                                                    : 'bg-black/30 border-white/10 hover:border-white/20'
+                                            }`}
+                                        >
+                                            <div className="flex items-center gap-3 min-w-0">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={checked}
+                                                    onChange={() => toggleAddon(addon.id)}
+                                                    className="w-4 h-4 rounded accent-[#9d7cff] cursor-pointer shrink-0"
+                                                />
+                                                <span className="text-xs sm:text-sm font-bold text-white leading-tight">
+                                                    {addon.label}
+                                                </span>
+                                            </div>
+
+                                            <div className="text-right shrink-0 flex items-center gap-2">
+                                                {origPrice > discPrice && (
+                                                    <span className="text-[11px] font-mono text-slate-400 line-through">
+                                                        ${origPrice.toFixed(2)}
+                                                    </span>
+                                                )}
+                                                <span className="px-2.5 py-1 rounded-full bg-[#9d7cff]/15 border border-[#9d7cff]/25 text-xs font-mono font-bold text-[#9d7cff]">
+                                                    ${discPrice.toFixed(2)}
+                                                </span>
+                                            </div>
+                                        </label>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* TOTAL SUMMARY & ADD TO CART */}
+                    <div className="animate-ladder-row pt-6 border-t border-white/10 space-y-4">
+                        <div className="p-4 rounded-xl bg-black/40 border border-[#9d7cff]/30 flex items-center justify-between shadow-[0_0_20px_rgba(157,124,255,0.12)]">
+                            <span className="text-xs font-mono uppercase tracking-widest font-bold text-slate-400">
+                                TOTAL
+                            </span>
+                            <div className="text-right">
+                                {wasTotal > finalTotal && (
+                                    <span className="text-xs font-mono text-slate-400 line-through mr-2">
+                                        ${wasTotal.toFixed(2)}
+                                    </span>
+                                )}
+                                <strong className="text-2xl sm:text-3xl font-black text-white data-readout">
+                                    ${finalTotal.toFixed(2)}
+                                </strong>
+                            </div>
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={handleAddToCart}
+                            className="w-full bg-[#9d7cff] hover:bg-white text-[#0d0914] font-black uppercase tracking-wider py-4 rounded-xl transition-all duration-200 active:scale-[0.98] shadow-[0_0_25px_rgba(157,124,255,0.35)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] cursor-pointer text-sm"
+                        >
+                            {added ? 'Added to cart! (Add more)' : 'Add to cart'}
+                        </button>
+
+                        {added && (
+                            <Link
+                                href="/checkout"
+                                className="block text-center text-xs font-mono font-bold uppercase tracking-wider text-[#9d7cff] hover:text-white transition-colors"
+                            >
+                                Proceed to Checkout →
+                            </Link>
+                        )}
+                    </div>
+                </>
+            )}
         </div>
     );
 }
-

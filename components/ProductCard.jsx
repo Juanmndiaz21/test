@@ -67,11 +67,11 @@ export default function ProductCard({ product, index = 0 }) {
                     {product.name}
                 </h3>
 
-                {/* Bullet Points with Orange Accent Dots */}
+                {/* Bullet Points with Promotion Violet Accent Dots */}
                 <ul className="my-4 space-y-2 text-xs text-slate-300 font-medium">
                     {features.map((feat, i) => (
                         <li key={i} className="flex items-center gap-2">
-                            <span className="h-1.5 w-1.5 rounded-full bg-amber-500 shrink-0 shadow-[0_0_6px_rgba(245,158,11,0.8)]" />
+                            <span className="h-1.5 w-1.5 rounded-full bg-[#9d7cff] shrink-0 shadow-[0_0_8px_rgba(157,124,255,0.8)]" />
                             <span className="truncate">{feat}</span>
                         </li>
                     ))}
@@ -85,17 +85,17 @@ export default function ProductCard({ product, index = 0 }) {
                         FROM
                     </span>
                     {wasPrice && wasPrice > price && (
-                        <span className="block text-xs font-mono text-slate-400 line-through decoration-amber-500/80">
+                        <span className="block text-xs font-mono text-slate-400 line-through decoration-[#9d7cff]/60">
                             WAS ${wasPrice.toFixed(2)}
                         </span>
                     )}
-                    <strong className="text-2xl font-black text-amber-400 data-readout leading-tight block">
+                    <strong className="text-2xl font-black text-[#9d7cff] data-readout leading-tight block">
                         ${price.toFixed(2)}
                     </strong>
                 </div>
 
                 <span
-                    className="w-10 h-10 rounded-full bg-white/5 border border-white/15 text-white flex items-center justify-center group-hover:bg-amber-500 group-hover:text-black group-hover:border-amber-400 group-hover:shadow-[0_0_18px_rgba(245,158,11,0.5)] group-hover:scale-105 transition-all duration-200 shrink-0 cursor-pointer"
+                    className="w-10 h-10 rounded-full bg-white/5 border border-white/15 text-white flex items-center justify-center group-hover:bg-[#9d7cff] group-hover:text-[#0d0914] group-hover:border-[#9d7cff] group-hover:shadow-[0_0_18px_rgba(157,124,255,0.5)] group-hover:scale-105 transition-all duration-200 shrink-0 cursor-pointer"
                     aria-label="View product"
                 >
                     <Icon name="arrow-right" className="w-4 h-4" strokeWidth={2.4} />
