@@ -73,6 +73,11 @@ export async function recordDemoOrder(prevState, formData) {
                 platform: item.platform || product.platform || null,
                 boost_amount: item.boost_amount ? Number(item.boost_amount) : product.boost_amount ?? null,
                 game: item.game || product.game || null,
+                details: {
+                    edition: item.edition || null,
+                    package: item.package || null,
+                    addons: Array.isArray(item.addons) ? item.addons : [],
+                },
             });
         }
 
@@ -87,7 +92,7 @@ export async function recordDemoOrder(prevState, formData) {
 
         for (const item of orderItems) {
             await sql`
-                INSERT INTO order_items (order_id, name, quantity, unit_price, platform, boost_amount, game)
+                INSERT INTO order_items (order_id, name, quantity, unit_price, platform, boost_amount, game, details)
                 VALUES (
                     ${orderId},
                     ${item.name},
@@ -95,7 +100,8 @@ export async function recordDemoOrder(prevState, formData) {
                     ${item.unit_price},
                     ${item.platform},
                     ${item.boost_amount},
-                    ${item.game}
+                    ${item.game},
+                    ${item.details ? JSON.stringify(item.details) : null}::jsonb
                 )
             `;
         }

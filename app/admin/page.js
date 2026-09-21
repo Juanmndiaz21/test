@@ -85,8 +85,30 @@ const metrics = [
                                         <p className="font-medium text-white">{order.customer_name}</p>
                                         <p className="text-xs text-slate-400">{order.customer_email}</p>
                                     </td>
-                                    <td className="p-4 text-sm text-slate-400">
-                                        {(itemsByOrder[order.id] ?? []).map((item) => item.name).join(', ') || '—'}
+                                    <td className="p-4 text-sm">
+                                        {(itemsByOrder[order.id] ?? []).length === 0 ? (
+                                            <span className="text-slate-500">—</span>
+                                        ) : (
+                                            (itemsByOrder[order.id] ?? []).map((item) => {
+                                                const details = item.details || {};
+                                                const addons = Array.isArray(details.addons) ? details.addons : [];
+                                                return (
+                                                    <div key={item.id} className="space-y-1 my-1">
+                                                        <span className="text-white font-medium block leading-tight">{item.name}</span>
+                                                        {addons.length > 0 && (
+                                                            <div className="flex flex-wrap items-center gap-1 text-[11px]">
+                                                                <span className="text-[#9d7cff] font-mono font-bold text-[10px] uppercase">Addons:</span>
+                                                                {addons.map((addon, aIdx) => (
+                                                                    <span key={aIdx} className="px-1.5 py-0.5 rounded bg-[#9d7cff]/15 text-[#9d7cff] text-[10px] font-mono">
+                                                                        {addon}
+                                                                    </span>
+                                                                ))}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                );
+                                            })
+                                        )}
                                     </td>
                                     <td className="p-4 text-lime-300 font-bold">${Number(order.total).toFixed(2)}</td>
                                     <td className="p-4">

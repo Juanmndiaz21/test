@@ -41,7 +41,7 @@ export default async function AdminOrdersPage() {
                         <tr>
                             <th className="p-4">#</th>
                             <th className="p-4">Customer</th>
-                            <th className="p-4">Service</th>
+                            <th className="p-4">Order Details & Addons</th>
                             <th className="p-4">Total</th>
                             <th className="p-4">Status</th>
                             <th className="p-4">Booster</th>
@@ -58,7 +58,6 @@ export default async function AdminOrdersPage() {
                         ) : (
                             orders.map((order) => {
                                 const items = itemsByOrder[order.id] ?? [];
-                                const itemLabel = items.map((item) => `${item.name}${item.platform ? ` · ${item.platform}` : ''}${item.boost_amount ? ` · ${item.boost_amount}M` : ''} × ${item.quantity}`).join(', ');
                                 return (
                                     <tr key={order.id} className="border-t border-white/10 align-top">
                                         <td className="p-4 text-slate-400 font-bold">#{order.id}</td>
@@ -66,7 +65,79 @@ export default async function AdminOrdersPage() {
                                             <p className="font-medium text-white">{order.customer_name}</p>
                                             <p className="text-xs text-slate-400">{order.customer_email}</p>
                                         </td>
-                                        <td className="p-4 text-sm text-slate-400 max-w-xs">{itemLabel || '—'}</td>
+                                        <td className="p-4 text-sm max-w-md">
+                                            {items.length === 0 ? (
+                                                <span className="text-slate-500">—</span>
+                                            ) : (
+                                                <div className="space-y-3">
+                                                    {items.map((item) => {
+                                                        const details = item.details || {};
+                                                        const addons = Array.isArray(details.addons) ? details.addons : [];
+                                                        return (
+                                                            <div key={item.id} className="p-3 rounded-xl bg-black/30 border border-white/10 space-y-2">
+                                                                <div className="flex items-start justify-between gap-2">
+                                                                    <strong className="text-white font-bold leading-snug block text-xs sm:text-sm">
+                                                                        {item.name}
+                                                                    </strong>
+                                                                    <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-white/10 text-slate-300 shrink-0">
+                                                                        ×{item.quantity}
+                                                                    </span>
+                                                                </div>
+
+                                                                {/* Badges: Game, Platform, Edition, Package */}
+                                                                <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-mono">
+                                                                    {item.game && (
+                                                                        <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-slate-300">
+                                                                            {item.game}
+                                                                        </span>
+                                                                    )}
+                                                                    {item.platform && (
+                                                                        <span className="px-2 py-0.5 rounded bg-[#9d7cff]/15 border border-[#9d7cff]/30 text-[#9d7cff] font-bold">
+                                                                            {item.platform}
+                                                                        </span>
+                                                                    )}
+                                                                    {details.edition && (
+                                                                        <span className="px-2 py-0.5 rounded bg-black/40 border border-white/10 text-slate-300">
+                                                                            {details.edition}
+                                                                        </span>
+                                                                    )}
+                                                                    {details.package && (
+                                                                        <span className="px-2 py-0.5 rounded bg-black/40 border border-white/10 text-slate-300">
+                                                                            {details.package}
+                                                                        </span>
+                                                                    )}
+                                                                    {item.boost_amount && !details.package && (
+                                                                        <span className="px-2 py-0.5 rounded bg-black/40 border border-white/10 text-slate-300">
+                                                                            {item.boost_amount}M Boost
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+
+                                                                {/* ADDONS / SAVE 10% WITH ADDONS */}
+                                                                {addons.length > 0 && (
+                                                                    <div className="pt-2 border-t border-white/5 space-y-1">
+                                                                        <span className="block text-[10px] font-mono uppercase tracking-wider text-[#9d7cff] font-bold">
+                                                                            Addons (10% OFF applied):
+                                                                        </span>
+                                                                        <div className="flex flex-wrap gap-1">
+                                                                            {addons.map((addon, aIdx) => (
+                                                                                <span
+                                                                                    key={aIdx}
+                                                                                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#9d7cff]/10 border border-[#9d7cff]/20 text-[11px] text-slate-200"
+                                                                                >
+                                                                                    <span className="w-1.5 h-1.5 rounded-full bg-[#9d7cff]" />
+                                                                                    {addon}
+                                                                                </span>
+                                                                            ))}
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            )}
+                                        </td>
                                         <td className="p-4 text-lime-300 font-bold whitespace-nowrap">${Number(order.total).toFixed(2)}</td>
                                         <td className="p-4">
                                             <span className={`inline-block border rounded-full px-3 py-1 data-readout text-[11px] uppercase tracking-widest ${STATUS_BADGE[order.status] || STATUS_BADGE.queued}`}>
