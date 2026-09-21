@@ -4,6 +4,7 @@ import { getAdminSession } from '../../../lib/guard';
 import { ensureOrdersTable, ORDER_STATUS_LABELS } from '../../../lib/orders';
 import OrderStatusForm from './OrderStatusForm';
 import AssignBoosterForm from './AssignBoosterForm';
+import OrderDetailsModal from './OrderDetailsModal';
 
 export const dynamic = 'force-dynamic';
 
@@ -31,7 +32,7 @@ export default async function AdminOrdersPage() {
     }, {});
 
     return (
-        <div className="max-w-6xl">
+        <div className="max-w-7xl">
             <p className="eyebrow mb-3">Control room</p>
             <h1 className="display-font text-5xl uppercase mb-8 text-white">Boosting orders</h1>
 
@@ -46,12 +47,13 @@ export default async function AdminOrdersPage() {
                             <th className="p-4">Status</th>
                             <th className="p-4">Booster</th>
                             <th className="p-4">Placed</th>
+                            <th className="p-4 text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {orders.length === 0 ? (
                             <tr>
-                                <td colSpan="7" className="p-10 text-center text-slate-400">
+                                <td colSpan="8" className="p-10 text-center text-slate-400">
                                     No orders yet. Place a demo order from the store checkout to manage it here.
                                 </td>
                             </tr>
@@ -152,6 +154,9 @@ export default async function AdminOrdersPage() {
                                             <AssignBoosterForm orderId={order.id} currentBooster={order.booster} />
                                         </td>
                                         <td suppressHydrationWarning className="p-4 text-sm text-slate-400 whitespace-nowrap">{new Date(order.created_at).toLocaleString('en')}</td>
+                                        <td className="p-4 text-right whitespace-nowrap">
+                                            <OrderDetailsModal order={order} items={items} />
+                                        </td>
                                     </tr>
                                 );
                             })
