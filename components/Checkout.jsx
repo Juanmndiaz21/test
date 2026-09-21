@@ -18,6 +18,9 @@ function serializeCart(cart) {
             platform: item.platform || null,
             boost_amount: item.boost_amount || null,
             game: item.game || item.name || null,
+            edition: item.edition || null,
+            package: item.package || null,
+            addons: Array.isArray(item.addons) ? item.addons : [],
         }))
     );
 }

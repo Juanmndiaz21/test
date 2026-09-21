@@ -38,7 +38,19 @@ export default function Cart() {
                         <div className="flex justify-between items-start gap-3">
                             <div className="min-w-0">
                                 <p className="font-medium text-slate-200 break-words">{item.name}</p>
-                                <p className="text-xs text-lime-300 mt-1">
+                                {Array.isArray(item.addons) && item.addons.length > 0 && (
+                                    <div className="mt-2 flex flex-wrap gap-1">
+                                        {item.addons.map((addon, aIdx) => (
+                                            <span
+                                                key={aIdx}
+                                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#9d7cff]/15 border border-[#9d7cff]/30 text-[#c8b4ff] text-[11px] font-mono"
+                                            >
+                                                <span className="text-[#9d7cff]">✓</span> {addon}
+                                            </span>
+                                        ))}
+                                    </div>
+                                )}
+                                <p className="text-xs text-lime-300 mt-2">
                                     ${item.price} × {item.quantity} = <span className="font-bold">${(item.price * item.quantity).toFixed(2)}</span>
                                 </p>
                             </div>
