@@ -55,6 +55,8 @@ export function ProductEditDrawer({ product, defaultOptions }) {
         ? product.options
         : (product.boost_options?.length ? product.boost_options : defaultOptions);
 
+    const isGTA = String(product.game || '').toLowerCase().includes('gta') || String(product.name || '').toLowerCase().includes('gta');
+
     return (
         <div className="text-left mb-3">
             <button
@@ -76,8 +78,8 @@ export function ProductEditDrawer({ product, defaultOptions }) {
                         <label className="block text-xs text-slate-400 mb-1">Game</label>
                         <input name="game" type="text" required defaultValue={product.game || ''} className="w-full bg-black/20 border border-white/10 rounded-lg p-2 text-white" />
                     </div>
-                    <ProductOptionsEditor initialOptions={effectiveOptions} compact />
-                    <ConfiguratorEditor initialData={product.configurator_data} />
+                    {!isGTA && <ProductOptionsEditor initialOptions={effectiveOptions} compact />}
+                    {isGTA && <ConfiguratorEditor initialData={product.configurator_data} />}
                     <div>
                         <label className="block text-xs text-slate-400 mb-1">Price ($)</label>
                         <input name="price" type="number" step="0.01" defaultValue={product.price} required className="w-full bg-black/20 border border-white/10 rounded-lg p-2 text-white" />

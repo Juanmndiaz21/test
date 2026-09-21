@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useTransition } from 'react';
+import { useRef, useState, useTransition } from 'react';
 import { addProduct } from './actions';
 import { toast } from '../../../utils/toast';
 import ProductOptionsEditor from './ProductOptionsEditor';
@@ -9,6 +9,9 @@ import ConfiguratorEditor from './ConfiguratorEditor';
 export default function AddProductForm({ selectedGame, initialOptions }) {
     const formRef = useRef(null);
     const [isPending, startTransition] = useTransition();
+    const [game, setGame] = useState(selectedGame || '');
+
+    const isGTA = game.toLowerCase().includes('gta');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -19,6 +22,7 @@ export default function AddProductForm({ selectedGame, initialOptions }) {
                 await addProduct(fd);
                 toast.success('Service created successfully!', { title: 'Product Added' });
                 formRef.current?.reset();
+                setGame(selectedGame || '');
             } catch (err) {
                 toast.error(err.message || 'Failed to add service');
             }
@@ -33,12 +37,23 @@ export default function AddProductForm({ selectedGame, initialOptions }) {
             </div>
             <div className="w-full">
                 <label className="block text-sm text-slate-400 mb-2">Game</label>
-                <input name="game" type="text" required defaultValue={selectedGame} readOnly={Boolean(selectedGame)} placeholder="e.g. GTA V" className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white read-only:text-lime-300 read-only:cursor-not-allowed focus:border-lime-300 outline-none" />
+                <input
+                    name="game"
+                    type="text"
+                    required
+                    value={game}
+                    onChange={(e) => setGame(e.target.value)}
+                    readOnly={Boolean(selectedGame)}
+                    placeholder="e.g. GTA V"
+                    className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white read-only:text-lime-300 read-only:cursor-not-allowed focus:border-lime-300 outline-none"
+                />
             </div>
-            <ProductOptionsEditor initialOptions={initialOptions} />
-            <div className="w-full md:col-span-2">
-                <ConfiguratorEditor />
-            </div>
+            {!isGTA && <ProductOptionsEditor initialOptions={initialOptions} />}
+            {isGTA && (
+                <div className="w-full md:col-span-2">
+                    <ConfiguratorEditor />
+                </div>
+            )}
             <div className="w-full">
                 <label className="block text-sm text-slate-400 mb-2">Price ($)</label>
                 <input name="price" type="number" step="0.01" required placeholder="25.00" className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-lime-300 outline-none" />
