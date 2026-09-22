@@ -18,6 +18,7 @@ export async function addGame(formData) {
     await sql`ALTER TABLE games ADD COLUMN IF NOT EXISTS mode TEXT`;
     await sql`INSERT INTO games (name, image_url, mode) VALUES (${name}, ${imageUrl || null}, ${mode}) ON CONFLICT (name) DO UPDATE SET image_url = EXCLUDED.image_url, mode = EXCLUDED.mode`;
     revalidatePath('/store');
+    revalidatePath('/admin/categories');
 }
 
 export async function updateGameCategory(formData) {
@@ -47,6 +48,7 @@ export async function updateGameCategory(formData) {
     revalidatePath('/store');
     revalidatePath(`/store/game/${encodeURIComponent(originalName)}`);
     revalidatePath('/admin/products');
+    revalidatePath('/admin/categories');
 }
 
 export async function deleteGame(name) {
@@ -62,6 +64,7 @@ export async function deleteGame(name) {
     revalidatePath('/store');
     revalidatePath(`/store/game/${encodeURIComponent(game)}`);
     revalidatePath('/admin/products');
+    revalidatePath('/admin/categories');
 
     return { success: true, game, removed: (deleted?.length ?? 0) > 0 };
 }

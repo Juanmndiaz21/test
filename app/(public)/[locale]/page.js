@@ -8,7 +8,7 @@ import Icon from '@/components/Icon';
 import { getApprovedReviews } from '@/lib/reviews';
 import { ensureAppSchema } from '@/lib/schema';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 
 const FEATURE_META = [
     {
@@ -65,18 +65,51 @@ export default async function Home({ params }) {
     const features = t.raw('features') ?? [];
     const fallbackReviews = t.raw('reviews') ?? [];
     const reviews = (dbApprovedReviews && dbApprovedReviews.length > 0) ? dbApprovedReviews : fallbackReviews;
+    const faqs = t.raw('faqs') ?? [];
+    const faqTitle = t('faqTitle');
+    const faqSubtitle = t('faqSubtitle');
+
+    const faqSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: (faqs || []).map((faq) => ({
+            '@type': 'Question',
+            name: faq.q,
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: faq.a,
+            },
+        })),
+    };
 
     return (
         <>
-            {/* Hero Section with Rested Night-Arena Depth */}
-            <section aria-label="Hero" className="relative max-w-7xl mx-auto px-5 pt-16 md:pt-24">
+            {/* Hero Section matching reference banner */}
+            <section aria-label="Hero" className="relative max-w-7xl mx-auto px-5 pt-12 pb-10 md:pt-16 md:pb-14 text-center">
                 <HeroEffects />
-                <div className="max-w-3xl relative z-10">
-                    <h1 className="display-font text-6xl md:text-8xl leading-[0.9] uppercase">
-                        {t('heroTitleA')}
-                        <span className="block text-[#9d7cff]">{t('heroTitleB')}</span>
+                <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
+                    {/* Centered Brand Logo with Violet Glow */}
+                    <div className="relative mb-5">
+                        <div
+                            aria-hidden="true"
+                            className="absolute inset-0 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#9d7cff]/30 blur-2xl scale-125 mx-auto"
+                        />
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            src="/logo.png"
+                            alt="Rowmodz"
+                            className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain drop-shadow-[0_4px_20px_rgba(157,124,255,0.45)]"
+                        />
+                    </div>
+
+                    {/* H1 with SEO keywords: Game Boosting Services + Brand Hero Title */}
+                    <h1 className="font-['Trebuchet_MS',sans-serif] text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mt-1 sm:mt-2">
+                        Game Boosting Services{' '}
+                        <span className="block text-[#9d7cff]">{t('heroTitle')}</span>
                     </h1>
-                    <p className="text-slate-300 text-lg md:text-xl mt-8 leading-relaxed max-w-xl">
+
+                    {/* Subtitle Description */}
+                    <p className="text-slate-300 text-sm sm:text-base md:text-lg mt-4 max-w-2xl mx-auto font-normal leading-relaxed">
                         {t('heroSub')}
                     </p>
                 </div>
@@ -168,6 +201,43 @@ export default async function Home({ params }) {
                     {t('reviewsNote')}
                 </p>
                 <ReviewGrid reviews={reviews} starsAria={t('starsAria')} />
+            </section>
+
+            {/* FAQ Section for AI Search (GEO) and Player Trust */}
+            <section aria-label={faqTitle} className="max-w-7xl mx-auto px-5 py-16 md:py-24">
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+                />
+                <div className="flex items-center gap-4 mb-4">
+                    <div className="flex items-center gap-3">
+                        <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/20 text-[#9d7cff]">
+                            <Icon name="circle-help" className="w-5 h-5" />
+                        </span>
+                        <h2 className="display-font text-4xl md:text-5xl uppercase text-white">{faqTitle}</h2>
+                    </div>
+                    <div className="h-px bg-white/10 flex-1" />
+                </div>
+                <p className="text-sm text-slate-300 mb-10 max-w-2xl">
+                    {faqSubtitle}
+                </p>
+
+                <div className="grid md:grid-cols-2 gap-5">
+                    {(faqs || []).map((faq, i) => (
+                        <div
+                            key={i}
+                            className="panel-surface rounded-2xl border border-white/10 bg-[#171229] p-6 sm:p-7 flex flex-col justify-between hover:border-[#9d7cff]/40 transition-colors shadow-[0_16px_36px_rgba(0,0,0,0.25)]"
+                        >
+                            <h3 className="font-['Trebuchet_MS',sans-serif] text-lg font-bold text-white mb-3 flex items-start gap-2.5">
+                                <span className="text-[#9d7cff] font-mono text-sm font-black mt-0.5">[{`0${i + 1}`}]</span>
+                                <span>{faq.q}</span>
+                            </h3>
+                            <p className="text-slate-300 text-sm leading-relaxed font-normal">
+                                {faq.a}
+                            </p>
+                        </div>
+                    ))}
+                </div>
             </section>
 
             {/* Closing Conversion Anchor */}

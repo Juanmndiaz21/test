@@ -1,12 +1,25 @@
 'use client';
 
 import { memo } from 'react';
+import { FaPlaystation } from 'react-icons/fa6';
 
 function normalize(str = '') {
     return str.toLowerCase().replace(/[^a-z0-9]/g, '');
 }
 
 function GameLogo({ name = '', imageUrl = null, className = '' }) {
+    if (imageUrl) {
+        return (
+            <img
+                src={imageUrl}
+                alt={name || ''}
+                loading="lazy"
+                decoding="async"
+                className={`max-h-full max-w-full object-contain filter drop-shadow transition-transform duration-150 group-hover:scale-105 ${className}`}
+            />
+        );
+    }
+
     const key = normalize(name);
 
     // 1. GTA / GTA V
@@ -495,8 +508,8 @@ function GameLogo({ name = '', imageUrl = null, className = '' }) {
     if (key === 'psnavatars') {
         return (
             <div className={`flex flex-col items-center justify-center text-center select-none ${className}`}>
-                <div className="w-5 h-5 rounded-full bg-slate-700 border border-slate-500 flex items-center justify-center text-[10px] mb-0.5">
-                    😎
+                <div className="w-5 h-5 rounded-full bg-[#171229] border border-white/20 flex items-center justify-center text-[#9d7cff] mb-0.5">
+                    <FaPlaystation className="w-3 h-3" />
                 </div>
                 <span className="font-mono text-[8px] text-slate-300 font-bold uppercase">
                     PSN AVATARS

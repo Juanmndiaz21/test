@@ -7,63 +7,58 @@ import GameLogo from './GameLogo';
 import Icon from './Icon';
 
 const PopularGameCard = memo(function PopularGameCard({ game, index, t }) {
-    const isLeader = index === 0;
-
     return (
         <Link
             href={`/store/game/${encodeURIComponent(game.name)}`}
-            className="animate-ladder-row group relative aspect-square w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-[#171229] block transition-all duration-200 ease-out hover:border-[#9d7cff]/60 hover:shadow-[0_16px_36px_rgba(0,0,0,0.45)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 motion-reduce:transition-none select-none"
+            className="animate-ladder-row group relative aspect-square w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-[#171229] block transition-all duration-300 ease-out hover:-translate-y-2 hover:border-[#9d7cff]/70 hover:shadow-[0_24px_48px_rgba(0,0,0,0.7),0_0_35px_rgba(157,124,255,0.25)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 motion-reduce:transition-none select-none"
             style={{ animationDelay: `${index * 60}ms` }}
         >
+            {/* Top Rim Highlight */}
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent z-20" />
+
+            {/* Shimmer light reflection sweep */}
+            <div className="pointer-events-none absolute -inset-full bg-gradient-to-r from-transparent via-white/[0.08] to-transparent -rotate-45 translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out z-20" />
+
+            {/* Ambient Neon Violet Glow on hover */}
+            <div className="pointer-events-none absolute -bottom-6 inset-x-8 h-16 bg-[#9d7cff]/30 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+
             {/* Game Artwork */}
             <div className="w-full h-full overflow-hidden bg-black/40">
                 <GameArt
                     name={game.name}
                     image_url={game.image_url}
                     priority={index < 2}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 motion-reduce:transition-none"
                 />
             </div>
 
             {/* Tonal Dark Gradient Scrim for Contrast Floor */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0d0914] via-[#0d0914]/60 to-transparent transition-opacity duration-200 ease-out group-hover:via-[#0d0914]/75 z-10" />
-
-            {/* Standings Rank Badge */}
-            <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-20">
-                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full backdrop-blur-md text-xs font-mono font-bold shadow-sm transition-colors duration-200 ${
-                    isLeader
-                        ? 'bg-black/85 border border-[#9d7cff]/50 text-[#9d7cff]'
-                        : 'bg-black/80 border border-white/15 text-slate-300 group-hover:border-white/30 group-hover:text-white'
-                }`}>
-                    <Icon name="crown" className={`w-3.5 h-3.5 ${isLeader ? 'text-[#9d7cff]' : 'text-slate-400'}`} />
-                    <span className="data-readout">#{index + 1}</span>
-                </span>
-            </div>
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0d0914] via-[#0d0914]/40 to-transparent transition-opacity duration-300 ease-out group-hover:via-[#0d0914]/65 z-10" />
 
             {/* Card Content & Action Target */}
             <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 z-20 flex flex-col justify-end">
-                <h3 className="display-font text-2xl sm:text-3xl uppercase text-white leading-tight tracking-wide group-hover:text-[#9d7cff] transition-colors duration-150 line-clamp-1">
+                <h3 className="display-font text-2xl sm:text-3xl uppercase text-white leading-tight tracking-wide group-hover:text-[#9d7cff] group-hover:translate-x-1 transition-all duration-300 line-clamp-1 drop-shadow-md">
                     {game.name}
                 </h3>
 
-                <div className="mt-2.5 pt-2.5 border-t border-white/10 flex items-center justify-between">
-                    <span className="text-xs font-mono font-medium text-slate-300 group-hover:text-white transition-colors duration-150 inline-flex items-center gap-2">
+                <div className="mt-2.5 pt-2.5 border-t border-white/10 flex items-center justify-between gap-2">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/50 backdrop-blur-md border border-white/10 group-hover:border-[#9d7cff]/40 group-hover:bg-black/70 group-hover:shadow-[0_0_12px_rgba(157,124,255,0.2)] transition-all duration-300">
                         <span className="relative flex h-2 w-2" aria-hidden="true">
-                            {isLeader ? (
-                                <>
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9d7cff]/80 motion-reduce:hidden" />
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#9d7cff]" />
-                                </>
-                            ) : (
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#9d7cff]/80" />
-                            )}
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9d7cff]/80 motion-reduce:hidden" />
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#9d7cff]" />
                         </span>
-                        <span className="data-readout">{t('serviceCount', { count: game.services })}</span>
-                    </span>
+                        <span className="text-xs font-mono font-bold text-slate-200 group-hover:text-white transition-colors duration-200 data-readout">
+                            {t('serviceCount', { count: game.services })}
+                        </span>
+                    </div>
 
-                    {/* Action Target: Immediate 150ms Acknowledgment on Hover & Focus */}
-                    <span className="w-8 h-8 rounded-full border border-white/15 bg-white/5 text-white flex items-center justify-center font-bold transition-all duration-150 ease-out group-hover:bg-[#9d7cff] group-hover:text-[#0d0914] group-hover:border-[#9d7cff] motion-reduce:transition-none">
-                        <Icon name="arrow-up-right" className="w-4 h-4 transition-transform duration-150 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none" strokeWidth={2.4} />
+                    {/* Action Target: Elevated arrow button */}
+                    <span className="w-10 h-10 rounded-full border border-white/20 bg-black/60 backdrop-blur-md text-white flex items-center justify-center font-bold transition-all duration-300 ease-out group-hover:bg-[#9d7cff] group-hover:text-[#0d0914] group-hover:border-[#9d7cff] group-hover:shadow-[0_0_24px_rgba(157,124,255,0.7)] group-hover:scale-110 shrink-0 shadow-lg">
+                        <Icon
+                            name="arrow-up-right"
+                            className="w-5 h-5 transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-110 motion-reduce:transition-none"
+                            strokeWidth={2.4}
+                        />
                     </span>
                 </div>
             </div>
@@ -189,7 +184,7 @@ export default function LandingCatalog({ games }) {
                             <div className="flex items-center gap-4 mb-8 mt-14">
                                 <div className="flex items-center gap-3">
                                     <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/20 text-[#9d7cff]">
-                                        <Icon name="crown" className="w-5 h-5" />
+                                        <Icon name="sparkles" className="w-5 h-5" />
                                     </span>
                                     <h2 className="display-font text-3xl md:text-4xl uppercase text-white">{t('popularTitle')}</h2>
                                 </div>

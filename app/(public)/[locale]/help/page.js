@@ -37,24 +37,24 @@ export default async function Help({ params }) {
             {groups.length === 0 ? (
                 <div className="space-y-6">
                     <div className="panel-surface p-6 rounded-2xl">
-                        <h2 className="text-xl font-bold text-lime-300 mb-2">{t('faq1q')}</h2>
+                        <h2 className="text-xl font-bold text-[#9d7cff] mb-2">{t('faq1q')}</h2>
                         <p className="text-slate-400">{t('faq1a')}</p>
                     </div>
 
                     <div className="panel-surface p-6 rounded-2xl">
-                        <h2 className="text-xl font-bold text-lime-300 mb-2">{t('faq2q')}</h2>
+                        <h2 className="text-xl font-bold text-[#9d7cff] mb-2">{t('faq2q')}</h2>
                         <p className="text-slate-400">{t('faq2a')}</p>
                     </div>
 
                     <div className="panel-surface p-6 rounded-2xl">
-                        <h2 className="text-xl font-bold text-lime-300 mb-2">{t('faq3q')}</h2>
+                        <h2 className="text-xl font-bold text-[#9d7cff] mb-2">{t('faq3q')}</h2>
                         <p className="text-slate-400">{t('faq3a')}</p>
                     </div>
                 </div>
             ) : (
                 groups.map((group) => (
                     <section key={group.id} className="mb-10">
-                        <h2 className="display-font text-2xl uppercase text-lime-300 mb-4">{t(`types.${group.id}`)}</h2>
+                        <h2 className="display-font text-2xl uppercase text-[#9d7cff] mb-4">{t(`types.${group.id}`)}</h2>
                         <div className="space-y-6">
                             {group.items.map((entry) => (
                                 <div key={entry.id} className="panel-surface p-6 rounded-2xl">

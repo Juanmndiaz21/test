@@ -3,8 +3,8 @@
 import { useState, useTransition } from 'react';
 import { deleteProduct, updateProduct } from './actions';
 import { toast } from '../../../utils/toast';
-import ProductOptionsEditor from './ProductOptionsEditor';
 import ConfiguratorEditor from './ConfiguratorEditor';
+import ImageUploadField from './ImageUploadField';
 
 export function ProductDeleteButton({ productId, productName }) {
     const [isPending, startTransition] = useTransition();
@@ -51,18 +51,12 @@ export function ProductEditDrawer({ product, defaultOptions }) {
         });
     };
 
-    const effectiveOptions = product.options?.length
-        ? product.options
-        : (product.boost_options?.length ? product.boost_options : defaultOptions);
-
-    const isGTA = String(product.game || '').toLowerCase().includes('gta') || String(product.name || '').toLowerCase().includes('gta');
-
     return (
         <div className="text-left mb-3">
             <button
                 type="button"
                 onClick={() => setOpen(!open)}
-                className="text-lime-300 hover:text-white font-bold text-sm cursor-pointer"
+                className="text-[#9d7cff] hover:text-white font-bold text-sm cursor-pointer"
             >
                 {open ? 'Close edit' : 'Edit content'}
             </button>
@@ -78,8 +72,7 @@ export function ProductEditDrawer({ product, defaultOptions }) {
                         <label className="block text-xs text-slate-400 mb-1">Game</label>
                         <input name="game" type="text" required defaultValue={product.game || ''} className="w-full bg-black/20 border border-white/10 rounded-lg p-2 text-white" />
                     </div>
-                    {!isGTA && <ProductOptionsEditor initialOptions={effectiveOptions} compact />}
-                    {isGTA && <ConfiguratorEditor initialData={product.configurator_data} />}
+                    <ConfiguratorEditor initialData={product.configurator_data} />
                     <div>
                         <label className="block text-xs text-slate-400 mb-1">Price ($)</label>
                         <input name="price" type="number" step="0.01" defaultValue={product.price} required className="w-full bg-black/20 border border-white/10 rounded-lg p-2 text-white" />
@@ -102,10 +95,7 @@ export function ProductEditDrawer({ product, defaultOptions }) {
                         <label className="block text-xs text-slate-400 mb-1">Card Features / Bullet Points <span className="text-[10px] text-slate-500">(one per line)</span></label>
                         <textarea name="features" defaultValue={product.features || ''} placeholder="Cash Amount Selected&#10;Rank Amount Selected&#10;Fast Run (Optional Addon)" rows="3" className="w-full bg-black/20 border border-white/10 rounded-lg p-2 text-white font-mono text-xs" />
                     </div>
-                    <div>
-                        <label className="block text-xs text-slate-400 mb-1">Image URL</label>
-                        <input name="image_url" type="url" defaultValue={product.image_url || ''} placeholder="Image URL" className="w-full bg-black/20 border border-white/10 rounded-lg p-2 text-white" />
-                    </div>
+                    <ImageUploadField defaultValue={product.image_url} compact />
                     <div>
                         <label className="block text-xs text-slate-400 mb-1">Description</label>
                         <textarea name="description" defaultValue={product.description || ''} placeholder="Description" rows="2" className="w-full bg-black/20 border border-white/10 rounded-lg p-2 text-white" />
@@ -125,7 +115,7 @@ export function ProductEditDrawer({ product, defaultOptions }) {
                     <button
                         type="submit"
                         disabled={isPending}
-                        className="w-full bg-lime-300 text-black font-black py-2 rounded-lg cursor-pointer hover:bg-white transition-colors disabled:opacity-50"
+                        className="w-full bg-[#9d7cff] text-[#0d0914] font-black py-2 rounded-lg cursor-pointer hover:bg-white transition-colors disabled:opacity-50"
                     >
                         {isPending ? 'Saving...' : 'Save changes'}
                     </button>

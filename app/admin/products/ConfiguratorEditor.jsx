@@ -97,6 +97,33 @@ export default function ConfiguratorEditor({ initialData }) {
         });
     };
 
+    // Platform handlers (add/remove entire platform from versions)
+    const removePlatform = (platformToRemove) => {
+        setConfig((prev) => {
+            const nextVersions = { ...prev.versions };
+            delete nextVersions[platformToRemove];
+            return {
+                ...prev,
+                versions: nextVersions,
+            };
+        });
+    };
+
+    const addPlatform = (platformToAdd) => {
+        setConfig((prev) => {
+            const fallbackVersions = DEFAULT_CONFIG.versions[platformToAdd] || [
+                { id: `${platformToAdd.toLowerCase()}_std`, label: `${platformToAdd} Edition` },
+            ];
+            return {
+                ...prev,
+                versions: {
+                    ...prev.versions,
+                    [platformToAdd]: prev.versions?.[platformToAdd] || fallbackVersions,
+                },
+            };
+        });
+    };
+
     // Package handlers
     const updatePackage = (index, patch) => {
         setConfig((prev) => {
@@ -389,46 +416,120 @@ export default function ConfiguratorEditor({ initialData }) {
                     )}
 
                     {/* 3. VERSIONS TAB */}
-                    {activeTab === 'versions' && (
-                        <div className="space-y-4 max-h-80 overflow-y-auto pr-1">
-                            {['PlayStation', 'Xbox', 'PC'].map((plat) => {
-                                const list = config.versions[plat] || [];
-                                return (
-                                    <div key={plat} className="p-2.5 rounded-lg bg-black/20 border border-white/5 space-y-2">
-                                        <div className="flex items-center justify-between">
-                                            <strong className="text-xs font-bold text-slate-200">{plat}</strong>
-                                            <button
-                                                type="button"
-                                                onClick={() => addVersion(plat)}
-                                                className="text-[11px] text-[#9d7cff] hover:underline cursor-pointer"
-                                            >
-                                                + Add {plat} Version
-                                            </button>
-                                        </div>
+                    {activeTab === 'versions' && (() => {
+                        const standardPlatforms = ['PlayStation', 'Xbox', 'PC'];
+                        const activePlatforms = Object.keys(config.versions || {}).filter(
+                            (p) => Array.isArray(config.versions[p])
+                        );
+                        const disabledPlatforms = standardPlatforms.filter(
+                            (p) => !activePlatforms.includes(p)
+                        );
 
-                                        {list.map((ver, vIdx) => (
-                                            <div key={ver.id || vIdx} className="flex items-center gap-2">
-                                                <input
-                                                    type="text"
-                                                    value={ver.label}
-                                                    onChange={(e) => updateVersion(plat, vIdx, e.target.value)}
-                                                    className="flex-1 bg-black/40 border border-white/10 rounded p-1.5 text-xs text-white"
-                                                    placeholder="Version label (e.g. PS5 Edition)"
-                                                />
+                        return (
+                            <div className="space-y-4 max-h-80 overflow-y-auto pr-1">
+                                {/* Notice & Quick Add for removed platforms */}
+                                {disabledPlatforms.length > 0 && (
+                                    <div className="p-2.5 rounded-lg bg-[#9d7cff]/10 border border-dashed border-[#9d7cff]/30 flex flex-wrap items-center justify-between gap-2">
+                                        <div className="text-[11px] text-slate-300">
+                                            <span className="text-[#9d7cff] font-bold">Excluded platforms:</span> {disabledPlatforms.join(', ')}
+                                        </div>
+                                        <div className="flex items-center gap-1.5">
+                                            {disabledPlatforms.map((plat) => (
                                                 <button
+                                                    key={plat}
                                                     type="button"
-                                                    onClick={() => removeVersion(plat, vIdx)}
-                                                    className="text-red-400 hover:text-red-300 text-xs px-1 font-bold cursor-pointer"
+                                                    onClick={() => addPlatform(plat)}
+                                                    className="px-2 py-0.5 text-xs font-bold rounded bg-[#9d7cff]/20 hover:bg-[#9d7cff] text-[#9d7cff] hover:text-[#0d0914] border border-[#9d7cff]/40 transition-colors cursor-pointer"
                                                 >
-                                                    ✕
+                                                    + Add {plat}
                                                 </button>
-                                            </div>
-                                        ))}
+                                            ))}
+                                        </div>
                                     </div>
-                                );
-                            })}
-                        </div>
-                    )}
+                                )}
+
+                                {activePlatforms.length === 0 ? (
+                                    <div className="p-6 text-center rounded-lg bg-black/30 border border-white/10 space-y-3">
+                                        <p className="text-xs text-slate-400">
+                                            All platforms have been removed. Add at least one platform:
+                                        </p>
+                                        <div className="flex justify-center gap-2">
+                                            {standardPlatforms.map((plat) => (
+                                                <button
+                                                    key={plat}
+                                                    type="button"
+                                                    onClick={() => addPlatform(plat)}
+                                                    className="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#9d7cff] text-[#0d0914] hover:bg-white transition-colors cursor-pointer"
+                                                >
+                                                    + Add {plat}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ) : (
+                                    activePlatforms.map((plat) => {
+                                        const list = config.versions[plat] || [];
+                                        return (
+                                            <div key={plat} className="p-3 rounded-lg bg-black/30 border border-white/10 space-y-2.5">
+                                                <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                                                    <div className="flex items-center gap-2">
+                                                        <strong className="text-xs font-bold text-white tracking-wide">{plat}</strong>
+                                                        <span className="text-[10px] font-mono text-[#9d7cff] px-2 py-0.5 rounded-full bg-[#9d7cff]/10 border border-[#9d7cff]/20">
+                                                            {list.length} {list.length === 1 ? 'edition' : 'editions'}
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex items-center gap-2.5">
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => addVersion(plat)}
+                                                            className="text-[11px] text-[#9d7cff] hover:underline cursor-pointer font-bold"
+                                                        >
+                                                            + Add Edition
+                                                        </button>
+                                                        <span className="text-slate-600 text-xs">|</span>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => removePlatform(plat)}
+                                                            className="text-[11px] text-red-400 hover:text-red-300 hover:underline cursor-pointer font-bold"
+                                                            title={`Remove ${plat} platform`}
+                                                        >
+                                                            Remove {plat}
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                {list.length === 0 ? (
+                                                    <p className="text-[11px] text-slate-500 italic py-1">
+                                                        No editions for {plat}. Click &quot;+ Add Edition&quot; or &quot;Remove {plat}&quot;.
+                                                    </p>
+                                                ) : (
+                                                    list.map((ver, vIdx) => (
+                                                        <div key={ver.id || vIdx} className="flex items-center gap-2">
+                                                            <input
+                                                                type="text"
+                                                                value={ver.label}
+                                                                onChange={(e) => updateVersion(plat, vIdx, e.target.value)}
+                                                                className="flex-1 bg-black/40 border border-white/10 rounded p-1.5 text-xs text-white"
+                                                                placeholder="Version label (e.g. PS5 Edition)"
+                                                            />
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => removeVersion(plat, vIdx)}
+                                                                className="text-red-400 hover:text-red-300 text-xs px-1 font-bold cursor-pointer"
+                                                                title="Remove edition"
+                                                            >
+                                                                ✕
+                                                            </button>
+                                                        </div>
+                                                    ))
+                                                )}
+                                            </div>
+                                        );
+                                    })
+                                )}
+                            </div>
+                        );
+                    })()}
                 </div>
             )}
         </div>

@@ -2,10 +2,12 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { Link } from '../i18n/navigation';
 import { useCartStore } from '../store/useCartStore';
 import { toast } from '../utils/toast';
 import Icon from './Icon';
 import { PlayStationIcon, XboxIcon, PcIcon } from './PlatformBadges';
+import { resolveConfiguratorPlatforms } from '../lib/platforms';
 
 const DEFAULT_PACKAGES = [
     { id: 'pkg-10m', label: '10 Million Cash', amount: 10, price: 25.0, wasPrice: 35.0 },
@@ -77,11 +79,29 @@ export default function GtaOrderConfigurator({ product }) {
             : DEFAULT_ADDONS;
     }, [configData.addons]);
 
-    // Step 1: Platform (starts null for progressive disclosure)
-    const [platform, setPlatform] = useState(null);
+    // Available platforms determined by product.platform AND configData.versions
+    const availablePlatforms = useMemo(() => {
+        return resolveConfiguratorPlatforms(product?.platform, versionsCatalog);
+    }, [product?.platform, versionsCatalog]);
+
+    // Step 1: Platform (auto-selected if only 1 platform is available)
+    const [platform, setPlatform] = useState(() => {
+        const initialAllowed = resolveConfiguratorPlatforms(product?.platform, versionsCatalog);
+        return initialAllowed.length === 1 ? initialAllowed[0] : null;
+    });
 
     // Step 2: Version
     const [version, setVersion] = useState(null);
+
+    // Synchronize platform selection if availablePlatforms changes
+    useEffect(() => {
+        if (availablePlatforms.length === 1) {
+            setPlatform(availablePlatforms[0]);
+        } else if (platform && !availablePlatforms.includes(platform)) {
+            setPlatform(null);
+            setVersion(null);
+        }
+    }, [availablePlatforms, platform]);
 
     // Current versions for selected platform
     const versionsByPlatform = useMemo(() => {
@@ -90,6 +110,13 @@ export default function GtaOrderConfigurator({ product }) {
             { id: 'std', label: `${platform} Edition` },
         ];
     }, [platform, versionsCatalog]);
+
+    // Auto-select version if the selected platform only has 1 edition
+    useEffect(() => {
+        if (platform && versionsByPlatform.length === 1 && !version) {
+            setVersion(versionsByPlatform[0].id);
+        }
+    }, [platform, versionsByPlatform, version]);
 
     const currentVersionLabel = useMemo(() => {
         const found = versionsByPlatform.find((v) => v.id === version);
@@ -179,7 +206,7 @@ export default function GtaOrderConfigurator({ product }) {
         });
 
         setAdded(true);
-        toast.success(`GTA V ${selectedPackage.label} added to cart!`, { title: 'Added to Cart' });
+        toast.success(`${product.name || 'Service'} (${selectedPackage.label}) added to cart!`, { title: 'Added to Cart' });
     };
 
     const visiblePackages = showAllPackages ? packages : packages.slice(0, 6);
@@ -220,8 +247,14 @@ export default function GtaOrderConfigurator({ product }) {
                     )}
                 </label>
 
-                <div className="grid grid-cols-3 gap-2.5">
-                    {['PlayStation', 'Xbox', 'PC'].map((p) => {
+                <div className={`grid gap-2.5 ${
+                    availablePlatforms.length === 1
+                        ? 'grid-cols-1'
+                        : availablePlatforms.length === 2
+                        ? 'grid-cols-2'
+                        : 'grid-cols-3'
+                }`}>
+                    {availablePlatforms.map((p) => {
                         const active = platform === p;
                         return (
                             <button
@@ -233,13 +266,13 @@ export default function GtaOrderConfigurator({ product }) {
                                 }}
                                 className={`py-3 px-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border flex items-center justify-center gap-2 ${
                                     active
-                                        ? 'bg-[#9d7cff]/15 border-[#9d7cff] text-white shadow-[0_0_20px_rgba(157,124,255,0.3)] font-black ring-1 ring-[#9d7cff]/50'
+                                        ? 'bg-[#9d7cff]/15 border-[#9d7cff] text-white shadow-[0_4px_16px_rgba(0,0,0,0.3)] font-black ring-1 ring-[#9d7cff]/50'
                                         : 'bg-black/30 border-white/10 text-slate-300 hover:border-[#9d7cff]/50 hover:text-white'
                                 }`}
                             >
-                                {p === 'PlayStation' && <PlayStationIcon className="w-4 h-4 text-[#9d7cff]" />}
-                                {p === 'Xbox' && <XboxIcon className="w-4 h-4 text-emerald-400" />}
-                                {p === 'PC' && <PcIcon className="w-4 h-4 text-sky-400" />}
+                                {p === 'PlayStation' && <PlayStationIcon className={`w-4 h-4 ${active ? 'text-[#9d7cff]' : 'text-slate-400'}`} />}
+                                {p === 'Xbox' && <XboxIcon className={`w-4 h-4 ${active ? 'text-[#9d7cff]' : 'text-slate-400'}`} />}
+                                {p === 'PC' && <PcIcon className={`w-4 h-4 ${active ? 'text-[#9d7cff]' : 'text-slate-400'}`} />}
                                 <span>{p}</span>
                             </button>
                         );

@@ -29,8 +29,8 @@ export default async function AdminLayout({ children }) {
     }
 
     return (
-        <html lang={locale}>
-            <body className="text-slate-200 min-h-screen selection:bg-[#9d7cff] selection:text-[#0d0914] flex flex-col">
+        <html lang={locale} suppressHydrationWarning>
+            <body suppressHydrationWarning className="text-slate-200 min-h-screen selection:bg-[#9d7cff] selection:text-[#0d0914] flex flex-col">
                 <AuthSession>
                     <NextIntlClientProvider messages={messages} locale={locale}>
                         <SiteHeader />

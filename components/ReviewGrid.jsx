@@ -245,9 +245,9 @@ export default function ReviewGrid({ reviews = [], starsAria }) {
                         Verified
                     </span>
                 </div>
-                <h3 className="font-['Trebuchet_MS',sans-serif] font-bold text-white text-base mb-2 line-clamp-1">
+                <p className="font-['Trebuchet_MS',sans-serif] font-bold text-white text-base mb-2 line-clamp-1">
                     {review.title || 'Verified Climb'}
-                </h3>
+                </p>
                 <blockquote className="text-slate-300 text-sm md:text-base leading-relaxed line-clamp-4 font-normal">
                     &ldquo;{review.content}&rdquo;
                 </blockquote>

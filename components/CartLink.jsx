@@ -25,7 +25,7 @@ export default function CartLink({ className = '', iconClassName = 'w-[19px] h-[
         >
             <Icon name="cart" className={iconClassName} strokeWidth={2} />
             {displayCount > 0 && (
-                <span className="absolute -top-1 -right-1 min-w-4 h-4 px-1 rounded-full bg-lime-300 text-black text-[10px] font-black flex items-center justify-center leading-none shadow-[0_0_8px_rgba(157,124,255,0.5)]">
+                <span className="absolute -top-1 -right-1 min-w-4 h-4 px-1 rounded-full bg-[#9d7cff] text-[#0d0914] text-[10px] font-black flex items-center justify-center leading-none shadow-[0_2px_6px_rgba(0,0,0,0.4)]">
                     {displayCount > 99 ? '99+' : displayCount}
                 </span>
             )}

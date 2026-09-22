@@ -45,9 +45,9 @@
   },
   "home": {
     "titleMeta": "Servicios de boosting premium para tus juegos",
-    "heroTitleA": "Tú juegas.",
-    "heroTitleB": "Nosotros subimos.",
-    "heroSub": "Elige tu juego, di cuánto boost necesitas y vuelve a la partida. El trabajo sucio lo hacemos nosotros.",
+    "heroBrand": "Rowmodz:",
+    "heroTitle": "Servicios de Boosting Seguros y Confiables",
+    "heroSub": "Rowmodz ofrece servicios de boosting seguros y profesionales para ayudarte a alcanzar tu máximo nivel.",
     "featuresTitle": "Todo lo que necesitas para subir de nivel",
     "features": [
       {
@@ -73,6 +73,26 @@
     "ctaSub": "Elige tu juego, fija tu rango objetivo y deja que nuestro equipo verificado te lleve a la cima.",
     "ctaButton": "Ver Tabla de Clasificación",
     "ctaSecondary": "Todos los Servicios",
+    "faqTitle": "Preguntas Frecuentes",
+    "faqSubtitle": "Respuestas claras sobre seguridad, plataformas compatibles, velocidad de entrega y cómo funciona nuestro servicio.",
+    "faqs": [
+      {
+        "q": "¿Cómo funciona el servicio de boosting en Rowmodz?",
+        "a": "Rowmodz transforma el servicio de boosting en una experiencia intuitiva, transparente y profesional. Primero, exploras nuestro catálogo en vivo, que incluye títulos competitivos como GTA V, Counter-Strike 2, Call of Duty y Fortnite. A través de nuestro Configurador Interactivo, seleccionas tu plataforma exacta (PC, PlayStation 5 o Xbox Series X|S) y personalizas tu paquete de servicio, ya sea ascenso de rango competitivo, paquetes de dinero, trofeos o subida de niveles. Una vez confirmado el pedido, se asigna de inmediato a un jugador profesional verificado de nuestro equipo élite. El especialista ejecuta el servicio utilizando estrictos protocolos de seguridad y VPN emparejada con tu ubicación geográfica. Podrás seguir el avance de tu pedido en tiempo real con soporte al cliente disponible las 24 horas del día hasta que tu objetivo sea alcanzado al 100%."
+      },
+      {
+        "q": "¿Es seguro para mi cuenta de juego?",
+        "a": "La seguridad, confidencialidad e integridad de tu cuenta son nuestra máxima prioridad. Todos los boosters de Rowmodz operan bajo estricto contrato de juego limpio, prohibiendo de manera absoluta el uso de software de terceros, trampas, bots o exploits. Todo el juego se realiza 100% a mano por profesionales de alto nivel. Además, utilizamos conexiones VPN seguras que replican tu ciudad y país habitual de conexión, haciendo que los servidores del juego reconozcan un inicio de sesión doméstico habitual. Para mayor tranquilidad, protegemos tus credenciales con encriptación de extremo a extremo, jugamos en modo desconectado/invisible para que tus contactos no sean interrumpidos y respaldamos cada servicio con una garantía de reembolso del 100%."
+      },
+      {
+        "q": "¿Qué plataformas están soportadas (PC, PS5, Xbox)?",
+        "a": "Rowmodz ofrece cobertura integral en los principales ecosistemas de videojuegos del mercado. En PC, soportamos plataformas como Steam, Epic Games Store, Battle.net y el lanzador de Rockstar Games. En consolas, brindamos compatibilidad total para PlayStation 4 y PlayStation 5 (incluidas las ediciones Expanded & Enhanced de nueva generación), así como para Xbox One y Xbox Series X|S. Al configurar tu servicio en nuestra tienda, la interfaz adapta de forma dinámica las opciones, ediciones y addons exclusivos para tu hardware, garantizando un servicio totalmente compatible y sin complicaciones técnicas."
+      },
+      {
+        "q": "¿Cuánto tiempo tarda la entrega del servicio?",
+        "a": "La rapidez y la precisión son sellos distintivos de Rowmodz. Una vez realizado tu pedido, nuestro sistema de despacho lo asigna a un booster disponible especializado en tu título, comenzando habitualmente en un lapso de 15 a 30 minutos. El tiempo total de finalización depende de la magnitud del boost contratado, completándose la gran mayoría de aumentos de rango, paquetes de dinero o niveles en cuestión de pocas horas. Durante todo el proceso recibirás actualizaciones periódicas y contarás con nuestro equipo de soporte disponible 24/7 para coordinar horarios de juego personalizados."
+      }
+    ],
     "autoRotating": "Rotación automática",
     "paused": "Pausado",
     "dragToScrub": "Arrastra para desplazar",
@@ -153,6 +173,16 @@
     "viewFullDescription": "Lee la descripción completa, los requisitos y las opciones de configuración.",
     "available": "Disponible",
     "allPlatforms": "Todas las plataformas",
+    "noServicesForPlatform": "No hay servicios disponibles para {platform}",
+    "noServicesForPlatformDesc": "Actualmente no hay servicios etiquetados específicamente para {platform}.",
+    "showAllPlatforms": "Mostrar todas las plataformas",
+    "servicesCountBadge": "{count, plural, =1 {1 servicio} other {# servicios}}",
+    "searchServices": "Buscar servicios…",
+    "searchLabel": "Buscar servicios",
+    "clearSearch": "Limpiar búsqueda",
+    "clearAllFilters": "Limpiar todos los filtros",
+    "noServicesMatchQuery": "Ningún servicio coincide con “{query}”",
+    "noServicesMatchQueryDesc": "Intenta ajustar los términos de búsqueda o cambiar el filtro de plataforma.",
     "metadataDescription": "Servicios de boosting disponibles para {game}."
   },
   "product": {

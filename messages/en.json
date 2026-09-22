@@ -45,9 +45,9 @@
   },
   "home": {
     "titleMeta": "Premium Game Boosting Services",
-    "heroTitleA": "You play.",
-    "heroTitleB": "We climb.",
-    "heroSub": "Pick your game, tell us how much boost you need, and get back to playing. We'll do the dirty work.",
+    "heroBrand": "Rowmodz:",
+    "heroTitle": "Trusted & Legit Game Boosting Services",
+    "heroSub": "Rowmodz offers trusted game boosting and services to help gamers succeed.",
     "featuresTitle": "Everything you need to level up",
     "features": [
       {
@@ -73,6 +73,26 @@
     "ctaSub": "Select your game, set your target rank, and let our verified roster take you to the top.",
     "ctaButton": "View Standings",
     "ctaSecondary": "All Services",
+    "faqTitle": "Frequently Asked Questions",
+    "faqSubtitle": "Clear answers on security, supported platforms, delivery speed, and how our boosting works.",
+    "faqs": [
+      {
+        "q": "How does game boosting work at Rowmodz?",
+        "a": "Rowmodz streamlines game boosting into an intuitive, transparent experience. First, you browse our live game catalog—including competitive titles like GTA V, Counter-Strike 2, Call of Duty, and Fortnite. Using our Interactive Configurator, you select your exact gaming platform (PC, PlayStation 5, or Xbox Series X|S) and choose your specific service package, such as rank progression, in-game currency, trophy unlocks, or level milestones. Once your order is placed, it is assigned immediately to a thoroughly vetted, high-ranking professional booster from our elite roster. Our specialist connects to your match or lobbies using bank-grade security protocols and country-matched VPN routing. You can follow your boost progress in real time with continuous milestone tracking and 24/7 dedicated support until your desired rank is completely delivered."
+      },
+      {
+        "q": "Is game boosting safe for my account?",
+        "a": "Account security and privacy are the highest priorities at Rowmodz. Every booster on our roster is under strict contractual compliance to never use bots, third-party injection scripts, cheats, or automated software of any kind. All boosting is executed 100% by hand by top-tier human players. Furthermore, our boosters utilize premium localized VPN connections that match your geographical city and IP location, ensuring game servers see only standard residential login activity. For additional peace of mind, we employ end-to-end encryption for all order credentials, operate in stealth offline mode during gameplay, and back every single purchase with a comprehensive 100% money-back guarantee and account protection policy."
+      },
+      {
+        "q": "What platforms are supported (PC, PlayStation, Xbox)?",
+        "a": "Rowmodz provides comprehensive multi-platform coverage across all major gaming ecosystems. For PC players, we support all prominent distribution clients, including Steam, Epic Games Store, Battle.net, and Rockstar Games Launcher. For console enthusiasts, we fully support both PlayStation 4 and PlayStation 5 (including next-generation Enhanced editions) as well as Xbox One and Xbox Series X|S. When configuring your order, our system automatically adapts available packages, trophy milestones, and edition-specific options to your chosen hardware, ensuring seamless compatibility and flawless execution across every supported platform."
+      },
+      {
+        "q": "How fast is delivery and order fulfillment?",
+        "a": "Speed and reliability define the Rowmodz standard. After completing your order, our automated dispatcher routes your request to an active booster specializing in your game, typically picking up your order within 15 to 30 minutes. Delivery timelines depend on the magnitude of the boost, but most standard rank upgrades, cash packages, and level tiers are completed within a few hours. Throughout the process, you receive status updates, and our 24/7 customer support team is always available to answer questions or schedule custom playtime windows around your personal gaming routine."
+      }
+    ],
     "autoRotating": "Auto-rotating",
     "paused": "Paused",
     "dragToScrub": "Drag to scrub",
@@ -153,6 +173,16 @@
     "viewFullDescription": "View the full description, requirements and configuration options.",
     "available": "Available",
     "allPlatforms": "All platforms",
+    "noServicesForPlatform": "No services available for {platform}",
+    "noServicesForPlatformDesc": "There are currently no services tagged specifically for {platform}.",
+    "showAllPlatforms": "Show all platforms",
+    "servicesCountBadge": "{count, plural, =1 {1 service} other {# services}}",
+    "searchServices": "Search services…",
+    "searchLabel": "Search services",
+    "clearSearch": "Clear search",
+    "clearAllFilters": "Clear all filters",
+    "noServicesMatchQuery": "No services match “{query}”",
+    "noServicesMatchQueryDesc": "Try adjusting your search terms or clearing your platform filter.",
     "metadataDescription": "Boosting services available for {game}."
   },
   "product": {

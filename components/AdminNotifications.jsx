@@ -19,9 +19,9 @@ function timeAgo(value) {
 }
 
 const STATUS_DOT = {
-    queued: 'bg-lime-300',
-    in_progress: 'bg-lime-400',
-    completed: 'bg-lime-200',
+    queued: 'bg-[#9d7cff]',
+    in_progress: 'bg-[#b59dff]',
+    completed: 'bg-[#c6affe]',
     delivered: 'bg-white',
     cancelled: 'bg-red-400',
 };
@@ -59,11 +59,12 @@ export default function AdminNotifications() {
 
         load();
         const interval = setInterval(load, POLL_MS);
+
         return () => {
             active = false;
             clearInterval(interval);
         };
-    }, []);
+    }, [router]);
 
     useEffect(() => {
         if (!open) return;
@@ -91,11 +92,11 @@ export default function AdminNotifications() {
                 aria-expanded={open}
                 aria-haspopup="dialog"
                 aria-label={`Notifications, ${badge} ${badge === 1 ? 'order' : 'orders'} waiting`}
-                className="relative inline-flex items-center justify-center h-9 w-9 rounded-lg border border-white/10 bg-white/5 text-slate-300 hover:border-lime-300/40 hover:text-lime-300 transition-colors"
+                className="relative inline-flex items-center justify-center h-9 w-9 rounded-lg border border-white/10 bg-white/5 text-slate-300 hover:border-[#9d7cff]/40 hover:text-[#9d7cff] transition-colors cursor-pointer"
             >
                 <Icon name="bell" className="w-4.5 h-4.5" />
                 {badge > 0 && (
-                    <span className="absolute -top-1.5 -right-1.5 min-w-5 h-5 px-1 rounded-full bg-lime-300 text-black text-[11px] font-black flex items-center justify-center">
+                    <span className="absolute -top-1.5 -right-1.5 min-w-5 h-5 px-1 rounded-full bg-[#9d7cff] text-[#0d0914] text-[11px] font-black flex items-center justify-center">
                         {badge}
                     </span>
                 )}
@@ -105,11 +106,11 @@ export default function AdminNotifications() {
                 <div
                     role="dialog"
                     aria-label="Order notifications"
-                    className="absolute left-0 top-full mt-2 w-[22rem] max-w-[calc(100vw-2rem)] panel-surface rounded-xl overflow-hidden z-50 border-lime-300/20"
+                    className="absolute left-0 top-full mt-2 w-[22rem] max-w-[calc(100vw-2rem)] panel-surface rounded-xl overflow-hidden z-50 border border-[#9d7cff]/20 shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
                 >
                     <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between">
                         <p className="font-bold text-white flex items-center gap-2">
-                            <Icon name="bell" className="w-4 h-4 text-lime-300" />
+                            <Icon name="bell" className="w-4 h-4 text-[#9d7cff]" />
                             Notifications
                         </p>
                         <span className="text-xs text-slate-400">
@@ -120,7 +121,7 @@ export default function AdminNotifications() {
                     <div className="max-h-80 overflow-y-auto">
                         {loading && data.recent.length === 0 ? (
                             <div className="flex items-center gap-3 px-4 py-4 text-sm text-slate-400">
-                                <span className="h-4 w-4 rounded-full border-2 border-lime-300/40 border-t-lime-300 animate-spin" />
+                                <span className="h-4 w-4 rounded-full border-2 border-[#9d7cff]/40 border-t-[#9d7cff] animate-spin" />
                                 Loading…
                             </div>
                         ) : data.recent.length === 0 ? (
@@ -147,14 +148,6 @@ export default function AdminNotifications() {
                             ))
                         )}
                     </div>
-
-                    <Link
-                        href="/admin/orders"
-                        onClick={() => setOpen(false)}
-                        className="block w-full text-center px-4 py-3 text-sm font-bold text-lime-300 hover:bg-lime-300 hover:text-black transition-colors"
-                    >
-                        Manage all orders
-                    </Link>
                 </div>
             )}
         </div>

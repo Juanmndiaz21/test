@@ -26,10 +26,7 @@ export default function PlatformBadges({ platform = 'PC', size = 'md' }) {
     const hasXbox = p.includes('xbox') || p.includes('all');
     const hasPc = p.includes('pc') || p.includes('all') || (!hasPlayStation && !hasXbox);
 
-    const sizeClasses = size === 'sm'
-        ? 'w-6 h-6'
-        : 'w-7 h-7';
-
+    const sizeClasses = size === 'sm' ? 'w-6 h-6' : 'w-7 h-7';
     const iconSize = size === 'sm' ? 'w-3 h-3' : 'w-3.5 h-3.5';
 
     return (
@@ -37,7 +34,7 @@ export default function PlatformBadges({ platform = 'PC', size = 'md' }) {
             {hasPlayStation && (
                 <span
                     title="PlayStation"
-                    className={`${sizeClasses} rounded-full bg-[#1b1b22]/85 backdrop-blur-md border border-white/20 text-white flex items-center justify-center shadow-sm hover:scale-105 transition-transform`}
+                    className={`${sizeClasses} rounded-full bg-[#171229]/90 backdrop-blur-md border border-white/20 text-slate-200 hover:text-white hover:border-[#9d7cff]/60 flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-colors`}
                 >
                     <PlayStationIcon className={iconSize} />
                 </span>
@@ -45,7 +42,7 @@ export default function PlatformBadges({ platform = 'PC', size = 'md' }) {
             {hasXbox && (
                 <span
                     title="Xbox"
-                    className={`${sizeClasses} rounded-full bg-[#107c10]/85 backdrop-blur-md border border-[#2ca243]/50 text-white flex items-center justify-center shadow-sm hover:scale-105 transition-transform`}
+                    className={`${sizeClasses} rounded-full bg-[#171229]/90 backdrop-blur-md border border-white/20 text-slate-200 hover:text-white hover:border-[#9d7cff]/60 flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-colors`}
                 >
                     <XboxIcon className={iconSize} />
                 </span>
@@ -53,7 +50,7 @@ export default function PlatformBadges({ platform = 'PC', size = 'md' }) {
             {hasPc && (
                 <span
                     title="PC"
-                    className={`${sizeClasses} rounded-full bg-[#0078d4]/80 backdrop-blur-md border border-[#3ba0e9]/50 text-white flex items-center justify-center shadow-sm hover:scale-105 transition-transform`}
+                    className={`${sizeClasses} rounded-full bg-[#171229]/90 backdrop-blur-md border border-white/20 text-slate-200 hover:text-white hover:border-[#9d7cff]/60 flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-colors`}
                 >
                     <PcIcon className={iconSize} />
                 </span>

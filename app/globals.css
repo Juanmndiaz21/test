@@ -225,6 +225,43 @@ details.faq-row[open] .faq-toggle {
   transform: rotate(45deg);
 }
 
+/* ── Loading skeleton shimmer ── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(157, 124, 255, 0.04) 0%,
+    rgba(157, 124, 255, 0.12) 40%,
+    rgba(157, 124, 255, 0.04) 80%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.8s ease-in-out infinite;
+}
+
+/* ── Loading spinner ring ── */
+@keyframes loading-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-loading-spin {
+  animation: loading-spin 3s linear infinite;
+}
+
+/* ── Loading logo pulse ── */
+@keyframes logo-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+.animate-logo-pulse {
+  animation: logo-pulse 3.5s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;
