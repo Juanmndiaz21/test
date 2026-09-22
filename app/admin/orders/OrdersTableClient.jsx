@@ -91,103 +91,69 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
     }, [orders, itemsByOrder, searchTerm, statusFilter]);
 
     return (
-        <div className="space-y-8">
-            {/* 1. TOP STATS CARDS */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {/* Total Orders */}
-                <div className="panel-surface rounded-2xl p-5 border border-white/10 relative overflow-hidden group hover:border-[#9d7cff]/40 transition-colors">
-                    <div className="flex items-center justify-between text-slate-400 mb-2">
-                        <span className="text-[11px] font-mono uppercase tracking-wider font-bold">Total Orders</span>
-                        <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-300">
-                            <Icon name="box" className="w-4 h-4" />
-                        </div>
-                    </div>
-                    <div className="text-3xl font-black text-white display-font tracking-wide">
+        <div className="space-y-6">
+            {/* 1. STATS RESUMEN */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+                <div className="panel-surface rounded-xl p-4 border border-white/10">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
+                        Total Órdenes
+                    </span>
+                    <strong className="text-2xl font-black text-white font-mono">
                         {stats.totalOrders}
-                    </div>
-                    <p className="text-[11px] text-slate-400 font-mono mt-1">Recorded in database</p>
+                    </strong>
                 </div>
 
-                {/* Active in Pipeline */}
-                <div className="panel-surface rounded-2xl p-5 border border-white/10 relative overflow-hidden group hover:border-[#9d7cff]/40 transition-colors">
-                    <div className="flex items-center justify-between text-slate-400 mb-2">
-                        <span className="text-[11px] font-mono uppercase tracking-wider font-bold">In Pipeline</span>
-                        <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
-                            <Icon name="bolt" className="w-4 h-4" />
-                        </div>
-                    </div>
-                    <div className="text-3xl font-black text-amber-300 display-font tracking-wide flex items-center gap-2">
+                <div className="panel-surface rounded-xl p-4 border border-white/10">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
+                        En Proceso / Cola
+                    </span>
+                    <strong className="text-2xl font-black text-amber-300 font-mono">
                         {stats.activeCount}
-                        {stats.activeCount > 0 && (
-                            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                        )}
-                    </div>
-                    <p className="text-[11px] text-slate-400 font-mono mt-1">Queued & in progress</p>
+                    </strong>
                 </div>
 
-                {/* Orders With Addons */}
-                <div className="panel-surface rounded-2xl p-5 border border-white/10 relative overflow-hidden group hover:border-[#9d7cff]/40 transition-colors">
-                    <div className="flex items-center justify-between text-slate-400 mb-2">
-                        <span className="text-[11px] font-mono uppercase tracking-wider font-bold">With Addons</span>
-                        <div className="w-8 h-8 rounded-lg bg-[#9d7cff]/15 border border-[#9d7cff]/30 flex items-center justify-center text-[#9d7cff]">
-                            <Icon name="sparkles" className="w-4 h-4" />
-                        </div>
-                    </div>
-                    <div className="text-3xl font-black text-[#9d7cff] display-font tracking-wide">
+                <div className="panel-surface rounded-xl p-4 border border-white/10">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
+                        Con Addons (+10% Off)
+                    </span>
+                    <strong className="text-2xl font-black text-[#9d7cff] font-mono">
                         {stats.ordersWithAddonsCount}
-                    </div>
-                    <p className="text-[11px] text-[#c8b4ff]/70 font-mono mt-1">Save 10% addons attached</p>
+                    </strong>
                 </div>
 
-                {/* Total Volume */}
-                <div className="panel-surface rounded-2xl p-5 border border-white/10 relative overflow-hidden group hover:border-[#9d7cff]/40 transition-colors">
-                    <div className="flex items-center justify-between text-slate-400 mb-2">
-                        <span className="text-[11px] font-mono uppercase tracking-wider font-bold">Gross Volume</span>
-                        <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-                            <Icon name="wallet" className="w-4 h-4" />
-                        </div>
-                    </div>
-                    <div className="text-3xl font-black text-white display-font tracking-wide">
-                        ${stats.totalRevenue}
-                    </div>
-                    <p className="text-[11px] text-slate-400 font-mono mt-1">Total revenue processed</p>
+                <div className="panel-surface rounded-xl p-4 border border-white/10">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
+                        Total Facturado
+                    </span>
+                    <strong className="text-2xl font-black text-white font-mono">
+                        ${stats.totalRevenue} <small className="text-xs text-slate-400">USD</small>
+                    </strong>
                 </div>
             </div>
 
-            {/* 2. SEARCH & FILTER CONTROLS */}
-            <div className="panel-surface rounded-2xl p-4 sm:p-5 border border-white/10 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-                {/* Search Input */}
-                <div className="relative flex-1 max-w-md">
+            {/* 2. BARRA DE BÚSQUEDA Y FILTROS */}
+            <div className="panel-surface rounded-xl p-3 sm:p-4 border border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                <div className="relative flex-1 max-w-sm">
                     <Icon
                         name="search"
-                        className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
+                        className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
                     />
                     <input
                         type="text"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="Search by order #, customer, email, game or addon..."
-                        className="w-full bg-black/40 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-white placeholder:text-slate-500 focus:border-[#9d7cff] outline-none transition-colors"
+                        placeholder="Buscar por #orden, cliente, juego o addon..."
+                        className="w-full bg-black/30 border border-white/10 rounded-lg pl-9 pr-3 py-1.5 text-xs sm:text-sm text-white placeholder:text-slate-500 focus:border-[#9d7cff] outline-none transition-colors"
                     />
-                    {searchTerm && (
-                        <button
-                            type="button"
-                            onClick={() => setSearchTerm('')}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs cursor-pointer"
-                        >
-                            Clear
-                        </button>
-                    )}
                 </div>
 
-                {/* Filter Pills */}
-                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
                     {[
-                        { id: 'all', label: 'All Orders', count: orders.length },
-                        { id: 'queued', label: 'Queued', count: orders.filter((o) => o.status === 'queued').length },
-                        { id: 'in_progress', label: 'In Progress', count: orders.filter((o) => o.status === 'in_progress').length },
-                        { id: 'completed', label: 'Completed', count: orders.filter((o) => o.status === 'completed' || o.status === 'delivered').length },
-                        { id: 'with_addons', label: '✨ With Addons', count: stats.ordersWithAddonsCount },
+                        { id: 'all', label: 'Todas' },
+                        { id: 'queued', label: 'En Cola' },
+                        { id: 'in_progress', label: 'En Proceso' },
+                        { id: 'completed', label: 'Completadas' },
+                        { id: 'with_addons', label: 'Con Addons' },
                     ].map((tab) => {
                         const active = statusFilter === tab.id;
                         return (
@@ -195,54 +161,39 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
                                 key={tab.id}
                                 type="button"
                                 onClick={() => setStatusFilter(tab.id)}
-                                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold whitespace-nowrap transition-all cursor-pointer border ${
+                                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer border ${
                                     active
-                                        ? 'bg-[#9d7cff]/20 border-[#9d7cff] text-[#f1ecfb] shadow-[0_0_15px_rgba(157,124,255,0.25)]'
+                                        ? 'bg-[#9d7cff]/20 border-[#9d7cff] text-white shadow-sm'
                                         : 'bg-black/20 border-white/5 text-slate-400 hover:text-white hover:border-white/15'
                                 }`}
                             >
-                                {tab.label}{' '}
-                                <span
-                                    className={`ml-1 text-[10px] px-1.5 py-0.5 rounded-full ${
-                                        active ? 'bg-[#9d7cff] text-[#0d0914] font-black' : 'bg-white/10 text-slate-300'
-                                    }`}
-                                >
-                                    {tab.count}
-                                </span>
+                                {tab.label}
                             </button>
                         );
                     })}
                 </div>
             </div>
 
-            {/* 3. ORDERS TABLE */}
-            <div className="panel-surface rounded-2xl border border-white/10 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+            {/* 3. TABLA DE ÓRDENES */}
+            <div className="panel-surface rounded-xl border border-white/10 overflow-hidden shadow-lg">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="bg-black/50 border-b border-white/10 text-slate-400 font-mono text-[11px] uppercase tracking-wider">
-                                <th className="p-4 pl-5">Order</th>
-                                <th className="p-4">Customer</th>
-                                <th className="p-4">Configured Services & Addons</th>
-                                <th className="p-4">Total</th>
-                                <th className="p-4">Status</th>
-                                <th className="p-4">Booster</th>
-                                <th className="p-4 text-right pr-5">Inspection</th>
+                            <tr className="bg-black/40 border-b border-white/10 text-slate-400 font-mono text-xs uppercase tracking-wider">
+                                <th className="p-3.5 pl-4"># Orden</th>
+                                <th className="p-3.5">Cliente</th>
+                                <th className="p-3.5">Servicio</th>
+                                <th className="p-3.5">Total</th>
+                                <th className="p-3.5">Estado</th>
+                                <th className="p-3.5">Booster</th>
+                                <th className="p-3.5 text-right pr-4">Acción</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-white/5">
+                        <tbody className="divide-y divide-white/5 text-sm">
                             {filteredOrders.length === 0 ? (
                                 <tr>
-                                    <td colSpan="7" className="p-12 text-center text-slate-400">
-                                        <div className="max-w-md mx-auto space-y-3">
-                                            <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-slate-400">
-                                                <Icon name="search" className="w-6 h-6" />
-                                            </div>
-                                            <h4 className="text-white font-bold text-base">No matching orders found</h4>
-                                            <p className="text-xs text-slate-500">
-                                                Try changing your search terms or selecting a different filter tab above.
-                                            </p>
-                                        </div>
+                                    <td colSpan="7" className="p-8 text-center text-slate-400">
+                                        No se encontraron órdenes con esos criterios.
                                     </td>
                                 </tr>
                             ) : (
@@ -256,48 +207,39 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
                                     return (
                                         <tr
                                             key={order.id}
-                                            className="hover:bg-white/[0.02] transition-colors group align-top"
+                                            className="hover:bg-white/[0.02] transition-colors align-top"
                                         >
-                                            {/* 1. Order ID & Date */}
-                                            <td className="p-4 pl-5 whitespace-nowrap">
-                                                <div className="space-y-1">
-                                                    <span className="inline-flex items-center gap-1.5 font-mono font-bold text-sm text-white px-2 py-0.5 rounded-lg bg-black/40 border border-white/10">
-                                                        #{order.id}
-                                                    </span>
-                                                    <span className="block text-[11px] font-mono text-slate-500">
-                                                        {new Date(order.created_at).toLocaleDateString('en', {
-                                                            month: 'short',
-                                                            day: 'numeric',
-                                                            hour: '2-digit',
-                                                            minute: '2-digit',
-                                                        })}
-                                                    </span>
-                                                </div>
+                                            {/* 1. Orden & Fecha */}
+                                            <td className="p-3.5 pl-4 whitespace-nowrap">
+                                                <strong className="font-mono text-white text-sm block">
+                                                    #{order.id}
+                                                </strong>
+                                                <span className="text-[11px] text-slate-400 font-mono block mt-0.5">
+                                                    {new Date(order.created_at).toLocaleDateString('es', {
+                                                        month: 'short',
+                                                        day: 'numeric',
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                    })}
+                                                </span>
                                             </td>
 
-                                            {/* 2. Customer */}
-                                            <td className="p-4">
-                                                <div className="flex items-center gap-3">
-                                                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#9d7cff]/30 to-[#9d7cff]/10 border border-[#9d7cff]/30 text-[#f1ecfb] font-bold text-xs flex items-center justify-center shrink-0 uppercase">
-                                                        {(order.customer_name || 'U').charAt(0)}
-                                                    </div>
-                                                    <div className="min-w-0">
-                                                        <strong className="block text-sm font-bold text-white truncate max-w-[150px]">
-                                                            {order.customer_name || 'Anonymous'}
-                                                        </strong>
-                                                        <span className="block text-xs font-mono text-slate-400 truncate max-w-[150px]">
-                                                            {order.customer_email}
-                                                        </span>
-                                                    </div>
-                                                </div>
+                                            {/* 2. Cliente */}
+                                            <td className="p-3.5">
+                                                <p className="font-bold text-white leading-snug">
+                                                    {order.customer_name || 'Sin nombre'}
+                                                </p>
+                                                <p className="text-xs text-slate-400 font-mono mt-0.5 truncate max-w-[170px]">
+                                                    {order.customer_email}
+                                                </p>
                                             </td>
 
-                                            {/* 3. Items, Config, Badges, Addons */}
-                                            <td className="p-4 max-w-sm">
+                                            {/* 3. Servicio & Resumen de Addons */}
+                                            <td className="p-3.5 max-w-sm">
                                                 {items.length === 0 ? (
-                                                    <span className="text-slate-500 text-xs font-mono">—</span>
+                                                    <span className="text-slate-500 text-xs">—</span>
                                                 ) : (
-                                                    <div className="space-y-2.5">
+                                                    <div className="space-y-1.5">
                                                         {items.map((item) => {
                                                             const details = item.details || {};
                                                             const addons = Array.isArray(details.addons) ? details.addons : [];
@@ -306,66 +248,41 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
                                                                 'border-white/10 bg-white/5 text-slate-300';
 
                                                             return (
-                                                                <div
-                                                                    key={item.id}
-                                                                    className="p-3 rounded-xl bg-black/40 border border-white/10 space-y-2 hover:border-[#9d7cff]/30 transition-colors"
-                                                                >
-                                                                    {/* Item title */}
-                                                                    <div className="flex items-start justify-between gap-2">
-                                                                        <span className="text-xs font-bold text-white leading-snug">
+                                                                <div key={item.id} className="space-y-1">
+                                                                    <div className="flex items-center gap-1.5">
+                                                                        <span className="font-semibold text-white text-xs leading-snug">
                                                                             {item.name}
                                                                         </span>
-                                                                        <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-white/10 text-slate-300 shrink-0">
-                                                                            ×{item.quantity}
-                                                                        </span>
+                                                                        {item.quantity > 1 && (
+                                                                            <span className="px-1.5 py-0.2 rounded text-[10px] font-mono bg-white/10 text-slate-300">
+                                                                                ×{item.quantity}
+                                                                            </span>
+                                                                        )}
                                                                     </div>
 
-                                                                    {/* Badges: Game, Platform, Edition, Package */}
+                                                                    {/* Badges de soporte */}
                                                                     <div className="flex flex-wrap items-center gap-1 text-[10px] font-mono">
                                                                         {item.platform && (
-                                                                            <span
-                                                                                className={`px-2 py-0.5 rounded border font-bold ${platformColor}`}
-                                                                            >
+                                                                            <span className={`px-1.5 py-0.2 rounded border font-bold ${platformColor}`}>
                                                                                 {item.platform}
                                                                             </span>
                                                                         )}
                                                                         {details.edition && (
-                                                                            <span className="px-2 py-0.5 rounded bg-black/60 border border-white/10 text-slate-300 truncate max-w-[140px]">
+                                                                            <span className="px-1.5 py-0.2 rounded bg-black/40 border border-white/10 text-slate-300">
                                                                                 {details.edition}
                                                                             </span>
                                                                         )}
                                                                         {details.package && (
-                                                                            <span className="px-2 py-0.5 rounded bg-black/60 border border-white/10 text-slate-300">
+                                                                            <span className="px-1.5 py-0.2 rounded bg-black/40 border border-white/10 text-slate-300">
                                                                                 {details.package}
                                                                             </span>
                                                                         )}
-                                                                        {item.boost_amount && !details.package && (
-                                                                            <span className="px-2 py-0.5 rounded bg-black/60 border border-white/10 text-slate-300">
-                                                                                {item.boost_amount}M Boost
+                                                                        {addons.length > 0 && (
+                                                                            <span className="px-1.5 py-0.2 rounded bg-[#9d7cff]/15 border border-[#9d7cff]/30 text-[#9d7cff] font-bold">
+                                                                                ✨ {addons.length} Addons
                                                                             </span>
                                                                         )}
                                                                     </div>
-
-                                                                    {/* Highlighted Addons Section */}
-                                                                    {addons.length > 0 && (
-                                                                        <div className="pt-2 border-t border-white/5 space-y-1.5">
-                                                                            <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold text-[#9d7cff] uppercase">
-                                                                                <Icon name="sparkles" className="w-3 h-3 text-[#9d7cff]" />
-                                                                                <span>SAVE 10% ADDONS ({addons.length}):</span>
-                                                                            </div>
-                                                                            <div className="flex flex-wrap gap-1">
-                                                                                {addons.map((addon, aIdx) => (
-                                                                                    <span
-                                                                                        key={aIdx}
-                                                                                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#9d7cff]/15 border border-[#9d7cff]/30 text-[10px] text-[#f1ecfb] font-mono font-medium"
-                                                                                    >
-                                                                                        <span className="text-[#9d7cff] font-black">✓</span>
-                                                                                        <span className="truncate max-w-[130px]">{addon}</span>
-                                                                                    </span>
-                                                                                ))}
-                                                                            </div>
-                                                                        </div>
-                                                                    )}
                                                                 </div>
                                                             );
                                                         })}
@@ -374,55 +291,45 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
                                             </td>
 
                                             {/* 4. Total */}
-                                            <td className="p-4 whitespace-nowrap">
-                                                <div className="space-y-0.5">
-                                                    <span className="text-base font-black text-white font-mono tracking-tight block">
-                                                        ${Number(order.total).toFixed(2)}
-                                                    </span>
-                                                    <span className="text-[10px] font-mono uppercase text-slate-500 block">
-                                                        USD · demo
-                                                    </span>
-                                                </div>
+                                            <td className="p-3.5 whitespace-nowrap">
+                                                <strong className="text-white font-mono font-bold block">
+                                                    ${Number(order.total).toFixed(2)}
+                                                </strong>
+                                                <span className="text-[10px] font-mono text-slate-400 uppercase">
+                                                    USD
+                                                </span>
                                             </td>
 
-                                            {/* 5. Status */}
-                                            <td className="p-4 whitespace-nowrap">
-                                                <div className="space-y-2">
+                                            {/* 5. Estado */}
+                                            <td className="p-3.5 whitespace-nowrap">
+                                                <div className="space-y-1.5">
                                                     <span
-                                                        className={`inline-flex items-center gap-1.5 border rounded-full px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider ${
+                                                        className={`inline-block border rounded-full px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider ${
                                                             STATUS_BADGE[order.status] || STATUS_BADGE.queued
                                                         }`}
                                                     >
-                                                        <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
                                                         {ORDER_STATUS_LABELS[order.status] || order.status}
                                                     </span>
-                                                    <div>
-                                                        <OrderStatusForm orderId={order.id} currentStatus={order.status} />
-                                                    </div>
+                                                    <OrderStatusForm orderId={order.id} currentStatus={order.status} />
                                                 </div>
                                             </td>
 
                                             {/* 6. Booster */}
-                                            <td className="p-4 whitespace-nowrap">
-                                                <div className="space-y-2">
+                                            <td className="p-3.5 whitespace-nowrap">
+                                                <div className="space-y-1.5">
                                                     <span className="block text-xs font-mono text-slate-300">
                                                         {order.booster ? (
-                                                            <span className="inline-flex items-center gap-1 text-[#c8b4ff]">
-                                                                <Icon name="gamepad" className="w-3.5 h-3.5 text-[#9d7cff]" />
-                                                                {order.booster}
-                                                            </span>
+                                                            <span className="text-[#c8b4ff]">→ {order.booster}</span>
                                                         ) : (
-                                                            <span className="text-slate-500 italic text-[11px]">Unassigned</span>
+                                                            <span className="text-slate-500 italic text-[11px]">Sin asignar</span>
                                                         )}
                                                     </span>
-                                                    <div>
-                                                        <AssignBoosterForm orderId={order.id} currentBooster={order.booster} />
-                                                    </div>
+                                                    <AssignBoosterForm orderId={order.id} currentBooster={order.booster} />
                                                 </div>
                                             </td>
 
-                                            {/* 7. Action: Ver detalles button */}
-                                            <td className="p-4 pr-5 text-right whitespace-nowrap">
+                                            {/* 7. Acción: Ver detalle */}
+                                            <td className="p-3.5 pr-4 text-right whitespace-nowrap">
                                                 <OrderDetailsModal order={order} items={items} />
                                             </td>
                                         </tr>
@@ -432,12 +339,6 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
                         </tbody>
                     </table>
                 </div>
-            </div>
-
-            {/* Footer notice */}
-            <div className="flex items-center justify-between text-xs text-slate-500 font-mono pt-2">
-                <span>Total records displayed: {filteredOrders.length} of {orders.length}</span>
-                <span>Operational pipeline: Queued → In progress → Completed → Delivered</span>
             </div>
         </div>
     );

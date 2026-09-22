@@ -8,7 +8,7 @@ import { Link } from '../i18n/navigation';
 import { DEFAULT_OPTIONS } from '../lib/serviceDefaults';
 import EditableContentSection from './EditableContentSection';
 import GameArt from './GameArt';
-import PlatformBadges from './PlatformBadges';
+import PlatformBadges, { PlayStationIcon, XboxIcon, PcIcon } from './PlatformBadges';
 import ProductTrustBadges from './ProductTrustBadges';
 import GtaOrderConfigurator from './GtaOrderConfigurator';
 import ProductCard from './ProductCard';
@@ -102,10 +102,29 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
                             <p className="eyebrow mb-3">{t(isCS2 ? 'commendsMatchConfig' : 'matchConfig')}</p>
                             <h2 className="text-2xl font-black text-white mb-7">{t(isCS2 ? 'configureCommends' : 'configureBoost')}</h2>
 
-                            <label className="block text-sm font-bold text-slate-300 mb-2" htmlFor="platform">{t('platform')}</label>
-                            <select id="platform" value={platform} onChange={(event) => setPlatform(event.target.value)} className="w-full bg-[#171229] border border-white/10 rounded-lg p-3 text-white focus:border-lime-300 focus-visible:ring-2 focus-visible:ring-lime-300 focus-visible:outline-none mb-6">
-                                {platforms.map((option) => <option key={option}>{option}</option>)}
-                            </select>
+                            <label className="block text-sm font-bold text-slate-300 mb-2">{t('platform')}</label>
+                            <div className="grid grid-cols-3 gap-2.5 mb-6">
+                                {['PlayStation', 'Xbox', 'PC'].map((p) => {
+                                    const active = platform.toLowerCase() === p.toLowerCase();
+                                    return (
+                                        <button
+                                            key={p}
+                                            type="button"
+                                            onClick={() => setPlatform(p)}
+                                            className={`py-3 px-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border flex items-center justify-center gap-2 ${
+                                                active
+                                                    ? 'bg-[#9d7cff]/15 border-[#9d7cff] text-white shadow-[0_0_15px_rgba(157,124,255,0.3)] font-black ring-1 ring-[#9d7cff]/50'
+                                                    : 'bg-black/30 border-white/10 text-slate-300 hover:border-[#9d7cff]/50 hover:text-white'
+                                            }`}
+                                        >
+                                            {p === 'PlayStation' && <PlayStationIcon className="w-4 h-4 text-[#9d7cff]" />}
+                                            {p === 'Xbox' && <XboxIcon className="w-4 h-4 text-emerald-400" />}
+                                            {p === 'PC' && <PcIcon className="w-4 h-4 text-sky-400" />}
+                                            <span>{p}</span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
 
                             <label className="block text-sm font-bold text-slate-300 mb-2" htmlFor="boost-amount">{t(isCS2 ? 'commendsAmount' : 'boostAmount')}</label>
                             <select id="boost-amount" value={boostAmount} onChange={(event) => setBoostAmount(event.target.value)} className="w-full bg-[#171229] border border-white/10 rounded-lg p-3 text-white focus:border-lime-300 focus-visible:ring-2 focus-visible:ring-lime-300 focus-visible:outline-none">

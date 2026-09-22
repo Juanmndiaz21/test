@@ -314,21 +314,6 @@ export default function ReviewGrid({ reviews = [], starsAria }) {
                     >
                         <Icon name="chevron-right" className="w-4 h-4" strokeWidth={2.4} />
                     </button>
-
-                    {/* Speed Multiplier */}
-                    <button
-                        type="button"
-                        onClick={() => setSpeedMultiplier((s) => (s === 1 ? 1.8 : 1))}
-                        title={`Speed: ${speedMultiplier > 1 ? 'Fast' : 'Normal'}`}
-                        aria-label={`Playback speed: ${speedMultiplier > 1 ? '1.8x' : '1.0x'}`}
-                        className={`min-h-[40px] px-3.5 rounded-lg border text-xs font-mono font-bold data-readout transition-colors flex items-center justify-center cursor-pointer focus-visible:outline-2 focus-visible:outline-[#9d7cff] ${
-                            speedMultiplier > 1
-                                ? 'border-[#9d7cff]/50 bg-[#9d7cff]/10 text-[#9d7cff]'
-                                : 'border-white/15 bg-white/5 text-slate-300 hover:bg-white/10'
-                        }`}
-                    >
-                        {speedMultiplier > 1 ? '1.8x' : '1.0x'}
-                    </button>
                 </div>
             </div>
 

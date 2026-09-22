@@ -23,7 +23,7 @@ export default async function AdminOrdersPage() {
     }, {});
 
     return (
-        <div className="max-w-7xl space-y-8 animate-ladder-row">
+        <div className="max-w-7xl space-y-8">
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-white/10">
                 <div>

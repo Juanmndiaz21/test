@@ -4,8 +4,8 @@ import { useState, useMemo, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useCartStore } from '../store/useCartStore';
 import { toast } from '../utils/toast';
-import { Link } from '../i18n/navigation';
 import Icon from './Icon';
+import { PlayStationIcon, XboxIcon, PcIcon } from './PlatformBadges';
 
 const DEFAULT_PACKAGES = [
     { id: 'pkg-10m', label: '10 Million Cash', amount: 10, price: 25.0, wasPrice: 35.0 },
@@ -231,13 +231,16 @@ export default function GtaOrderConfigurator({ product }) {
                                     setPlatform(p);
                                     setVersion(null); // Reset version so user chooses edition for this platform
                                 }}
-                                className={`py-3 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border flex items-center justify-center ${
+                                className={`py-3 px-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border flex items-center justify-center gap-2 ${
                                     active
                                         ? 'bg-[#9d7cff]/15 border-[#9d7cff] text-white shadow-[0_0_20px_rgba(157,124,255,0.3)] font-black ring-1 ring-[#9d7cff]/50'
                                         : 'bg-black/30 border-white/10 text-slate-300 hover:border-[#9d7cff]/50 hover:text-white'
                                 }`}
                             >
-                                {p}
+                                {p === 'PlayStation' && <PlayStationIcon className="w-4 h-4 text-[#9d7cff]" />}
+                                {p === 'Xbox' && <XboxIcon className="w-4 h-4 text-emerald-400" />}
+                                {p === 'PC' && <PcIcon className="w-4 h-4 text-sky-400" />}
+                                <span>{p}</span>
                             </button>
                         );
                     })}
