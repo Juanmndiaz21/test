@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 
-export default function Turnstile({ siteKey, onToken, onExpire }) {
+export default function Turnstile({ siteKey, onToken, onExpire, action }) {
     const containerRef = useRef(null);
     const loadedRef = useRef(false);
 
@@ -17,6 +17,7 @@ export default function Turnstile({ siteKey, onToken, onExpire }) {
             loadedRef.current = true;
             window.turnstile.render(currentContainer, {
                 sitekey,
+                ...(action ? { action } : {}),
                 theme: 'dark',
                 callback: (token) => onToken?.(token),
                 'expired-callback': () => {

@@ -165,6 +165,7 @@ export default function Login() {
                     <div className="pt-1">
                         <Turnstile
                             key={turnstileEpoch}
+                            action={isLogin ? 'login' : 'signup'}
                             onToken={setTurnstileToken}
                             onExpire={() => setTurnstileToken('')}
                         />
