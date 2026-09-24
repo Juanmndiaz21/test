@@ -1,4 +1,4 @@
-# Rowmodz
+# OGmodz
 
 Marketplace de boosting y servicios para videojuegos. Compra boosts, cuentas modded y servicios competitivos con configuración por plataforma y cantidad.
 

@@ -20,7 +20,7 @@ export default function RootLoading() {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         src="/logo.png"
-                        alt="Rowmodz"
+                        alt="OGmodz"
                         className="w-8 h-8 object-contain animate-logo-pulse select-none"
                     />
                 </div>
@@ -30,7 +30,7 @@ export default function RootLoading() {
             <div className="mt-6 flex items-center gap-2.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#9d7cff] animate-pulse" />
                 <span className="text-[11px] font-mono font-bold uppercase tracking-[0.24em] text-slate-300">
-                    Rowmodz Standings
+                    OGmodz Standings
                 </span>
             </div>
         </div>

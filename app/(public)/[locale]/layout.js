@@ -15,12 +15,12 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
     const { locale } = await params;
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://test-nu-eosin-53.vercel.app');
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://ogmodz.com');
 
     const isEs = locale === 'es';
     const title = isEs
-        ? 'Rowmodz — Servicios Premium de Game Boosting | Sube de Rango y Nivel'
-        : 'Rowmodz — Premium Game Boosting Services | Rank & Level Up';
+        ? 'OGmodz — Servicios Premium de Game Boosting | Sube de Rango y Nivel'
+        : 'OGmodz — Premium Game Boosting Services | Rank & Level Up';
     const description = isEs
         ? 'Servicios profesionales de boosting para GTA V, CS2 y más. Elige tu plataforma, configura tu boost y recibe entrega inmediata y segura.'
         : 'Competitive boosting services for GTA V, CS2, and more. Pick your platform, set your boost amount, and get back to the match.';
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }) {
         metadataBase: new URL(baseUrl),
         title: {
             default: title,
-            template: '%s · Rowmodz',
+            template: '%s · OGmodz',
         },
         description,
         alternates: {
@@ -44,13 +44,13 @@ export async function generateMetadata({ params }) {
             title,
             description,
             url: `/${locale}`,
-            siteName: 'Rowmodz',
+            siteName: 'OGmodz',
             images: [
                 {
                     url: '/og-image.png',
                     width: 1200,
                     height: 630,
-                    alt: 'Rowmodz Game Boosting Services',
+                    alt: 'OGmodz Game Boosting Services',
                 },
             ],
             locale: isEs ? 'es_ES' : 'en_US',
@@ -76,7 +76,7 @@ export default async function LocaleLayout({ children, params }) {
     setRequestLocale(locale);
 
     const messages = await getMessages();
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://test-nu-eosin-53.vercel.app');
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://ogmodz.com');
 
     const schemaData = {
         '@context': 'https://schema.org',
@@ -84,7 +84,7 @@ export default async function LocaleLayout({ children, params }) {
             {
                 '@type': 'Organization',
                 '@id': `${baseUrl}/#organization`,
-                name: 'Rowmodz',
+                name: 'OGmodz',
                 url: `${baseUrl}/${locale}`,
                 logo: `${baseUrl}/logo.png`,
                 description: 'Competitive game boosting services for popular competitive titles.',
@@ -101,7 +101,7 @@ export default async function LocaleLayout({ children, params }) {
                 '@type': 'WebSite',
                 '@id': `${baseUrl}/#website`,
                 url: `${baseUrl}/${locale}`,
-                name: 'Rowmodz',
+                name: 'OGmodz',
                 publisher: {
                     '@id': `${baseUrl}/#organization`,
                 },

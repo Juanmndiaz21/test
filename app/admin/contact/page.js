@@ -104,7 +104,7 @@ export default async function AdminContactPage() {
 
                                 <div className="flex items-center gap-3">
                                     <a
-                                        href={`mailto:${msg.email}?subject=Re: ${encodeURIComponent(msg.subject || 'Rowmodz inquiry')}`}
+                                        href={`mailto:${msg.email}?subject=Re: ${encodeURIComponent(msg.subject || 'OGmodz inquiry')}`}
                                         className="inline-flex items-center gap-1.5 text-xs text-lime-300 hover:text-white font-bold transition-colors"
                                     >
                                         <Icon name="mail" className="w-3.5 h-3.5" />

@@ -8,8 +8,8 @@ import { getMessages, getLocale } from 'next-intl/server';
 import '../globals.css';
 
 export const metadata = {
-    title: 'Admin · Rowmodz',
-    description: 'Rowmodz control room — orders, products and users.',
+    title: 'Admin · OGmodz',
+    description: 'OGmodz control room — orders, products and users.',
 };
 
 export default async function AdminLayout({ children }) {

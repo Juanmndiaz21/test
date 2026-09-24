@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "generatedAt": "2026-09-11T12:00:00.000Z",
-  "title": "Design System: Rowmodz",
+  "title": "Design System: OGmodz",
   "extensions": {
     "colorMeta": {
       "primary": {
@@ -140,7 +140,7 @@
       "kind": "nav",
       "refersTo": "nav",
       "description": "Ink Violet sticky bar, hairline bottom border, Impact caps brand, muted links that go violet on hover.",
-      "html": "<nav class=\"ds-nav\"><a class=\"ds-brand\" href=\"#\">ROWMODZ</a><a href=\"#\">Home</a><a href=\"#\">Browse games</a><a href=\"#\">Support</a></nav>",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-brand\" href=\"#\">OGMODZ</a><a href=\"#\">Home</a><a href=\"#\">Browse games</a><a href=\"#\">Support</a></nav>",
       "css": ".ds-nav{display:flex;align-items:center;gap:24px;padding:14px 20px;background:rgba(13,9,20,.9);border-bottom:1px solid rgba(157,124,255,.16);font-family:'Trebuchet MS','Segoe UI',sans-serif}.ds-brand{font-family:Impact,'Arial Narrow Bold',sans-serif;font-size:24px;letter-spacing:.02em;color:#f1ecfb;text-decoration:none}.ds-brand:hover{color:#f1ecfb}.ds-nav a:not(.ds-brand){color:#94a3b8;font-size:14px;font-weight:600;text-decoration:none;transition:color .15s ease}.ds-nav a:not(.ds-brand):hover{color:#9d7cff}.ds-nav a:focus-visible{outline:2px solid #9d7cff;outline-offset:3px}"
     },
     {
@@ -154,7 +154,7 @@
   ],
   "narrative": {
     "northStar": "The Season Standings",
-    "overview": "Rowmodz sells climbs, so the system renders the whole product as a competitive season standings sheet. Every surface borrows its grammar from the broadcast of a ranked tournament: the catalog is a live leaderboard ranked by the number of real services it carries, prices and boost amounts sit in tabular mono readouts like rating figures, and a match-detailed panel — the standings, the config slip, the promotion slip — carries each step of the funnel. The material world is a rank arena at night: deep night-violet ink, plum surfaces, and hairline violet rules, with exactly one saturated accent — Promotion Violet — reserved for the act of climbing. Condensed Impact caps shout the standings; quiet Trebuchet body reads the guidance; the mono face speaks the numbers. Movement is sparse and deliberate: the ladder rows rise on load and the leader row draws its violet rule, then the page rests. The old lime-and-near-black 'boosting shop' world is replaced, never polished.",
+    "overview": "OGmodz sells climbs, so the system renders the whole product as a competitive season standings sheet. Every surface borrows its grammar from the broadcast of a ranked tournament: the catalog is a live leaderboard ranked by the number of real services it carries, prices and boost amounts sit in tabular mono readouts like rating figures, and a match-detailed panel — the standings, the config slip, the promotion slip — carries each step of the funnel. The material world is a rank arena at night: deep night-violet ink, plum surfaces, and hairline violet rules, with exactly one saturated accent — Promotion Violet — reserved for the act of climbing. Condensed Impact caps shout the standings; quiet Trebuchet body reads the guidance; the mono face speaks the numbers. Movement is sparse and deliberate: the ladder rows rise on load and the leader row draws its violet rule, then the page rests. The old lime-and-near-black 'boosting shop' world is replaced, never polished.",
     "keyCharacteristics": [
       "One accent color, used only for the climb (CTAs, active ranks, focus, selected states).",
       "The catalog is real data, rendered as standings — position, cover, game, entry track, entry count.",

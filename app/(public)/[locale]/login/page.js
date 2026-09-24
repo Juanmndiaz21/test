@@ -94,7 +94,7 @@ export default function Login() {
 
                 <p className="eyebrow mb-3">{t('accessTerminal')}</p>
                 <h2 className="display-font text-4xl text-white mb-2 tracking-tight">
-                    ROWMODZ
+                    OGMODZ
                 </h2>
                 <p className="text-sm text-slate-400 mb-7">
                     {isLogin ? t('signInSub') : t('createSub')}

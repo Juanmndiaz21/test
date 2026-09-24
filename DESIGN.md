@@ -1,5 +1,5 @@
 ---
-name: Rowmodz
+name: OGmodz
 description: Competitive boosting marketplace as a live rank standings sheet — night-violet, one bright violet accent, standings caps with tabular readouts.
 colors:
   primary: "#9d7cff"
@@ -83,13 +83,13 @@ components:
     padding: "12px"
 ---
 
-# Design System: Rowmodz
+# Design System: OGmodz
 
 ## Overview
 
 **Creative North Star: "The Season Standings"**
 
-Rowmodz sells climbs, so the system renders the whole product as a competitive season standings sheet. Every surface borrows its grammar from the broadcast of a ranked tournament: the catalog is a live leaderboard ranked by the number of real services it carries, prices and boost amounts sit in tabular mono readouts like rating figures, and a match-detailed panel — the standings, the config slip, the promotion slip — carries each step of the funnel.
+OGmodz sells climbs, so the system renders the whole product as a competitive season standings sheet. Every surface borrows its grammar from the broadcast of a ranked tournament: the catalog is a live leaderboard ranked by the number of real services it carries, prices and boost amounts sit in tabular mono readouts like rating figures, and a match-detailed panel — the standings, the config slip, the promotion slip — carries each step of the funnel.
 
 The material world is a rank arena at night: deep night-violet ink, plum surfaces, and hairline violet rules, with exactly one saturated accent — Promotion Violet — reserved for the act of climbing. Condensed Impact caps shout the standings; quiet Trebuchet body reads the guidance; the mono face speaks the numbers. Movement is sparse and deliberate: the ladder rows rise on load and the leader row draws its violet rule, then the page rests. The old lime-and-near-black "boosting shop" world is replaced, never polished.
 
@@ -174,7 +174,7 @@ Corners are gently rounded: inputs and buttons at 8px, menus and panels at 12px,
 - **Read-only:** accent violet text (game field locked to a category), `cursor-not-allowed`.
 
 ### Navigation
-Sticky header of Ink Violet at 90% with a 1px hairline bottom border; wordmark is Impact caps ("ROWMODZ"), links are muted lavender with accent violet hover. The profile menu floats a Plum 12px panel with hairline rows, a violet highlight on the admin entry, and violet-fill hover states where the accent keeps its black text. Admin uses a fixed flex sidebar in Plum with a hairline right border.
+Sticky header of Ink Violet at 90% with a 1px hairline bottom border; wordmark is Impact caps ("OGMODZ"), links are muted lavender with accent violet hover. The profile menu floats a Plum 12px panel with hairline rows, a violet highlight on the admin entry, and violet-fill hover states where the accent keeps its black text. Admin uses a fixed flex sidebar in Plum with a hairline right border.
 
 ### Label / Chips
 "Available"-style status chips are a 1px accent-border pill, 11px label weight, at low intensity (20% border, 1px). The "Sign Up"/"Add to cart" feel of dense chips belongs to the primary-button system.

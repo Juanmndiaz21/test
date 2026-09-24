@@ -20,7 +20,7 @@ Marketplace de boosting y servicios para videojuegos: comprar boosts, cuentas mo
 
 ## Positioning
 
-Marca y profesionalismo por encima del precio: Rowmodz busca transmitir confianza y calidad de servicio premium frente a los boosters genéricos. El mecanismo diferenciador confirmado es la configuración transparente por plataforma y cantidad, apoyado en una imagen de marca premium. No usar promesas ni claims de servicios no verificados.
+Marca y profesionalismo por encima del precio: OGmodz busca transmitir confianza y calidad de servicio premium frente a los boosters genéricos. El mecanismo diferenciador confirmado es la configuración transparente por plataforma y cantidad, apoyado en una imagen de marca premium. No usar promesas ni claims de servicios no verificados.
 
 ## Operating Context
 
@@ -41,8 +41,8 @@ Marca y profesionalismo por encima del precio: Rowmodz busca transmitir confianz
 
 ## Brand Commitments
 
-- Confirmado: nombre de marca **Rowmodz**, estética **dark gamer** (dark theme).
-- Confirmado y aplicado (rediseño 2026-09-11): rebranding a **Rowmodz** en logo, metadata, footer, copy y admin; mundo visual **"Ranked Ladder"** violeta oscuro (escalera de rangos como interfaz), código y tokens en `app/globals.css`, diseño documentado en `DESIGN.md`.
+- Confirmado: nombre de marca **OGmodz**, estética **dark gamer** (dark theme).
+- Confirmado y aplicado (rediseño 2026-09-11): rebranding a **OGmodz** en logo, metadata, footer, copy y admin; mundo visual **"Ranked Ladder"** violeta oscuro (escalera de rangos como interfaz), código y tokens en `app/globals.css`, diseño documentado en `DESIGN.md`.
 - Voz (confirmada en critique 2026-09-11): **todo el copy de la UI en inglés**, del inicio al checkout. El español actual del cuerpo de página es deuda a traducir, no voz deseada.
 
 ## Evidence on Hand

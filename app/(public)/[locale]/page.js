@@ -97,7 +97,7 @@ export default async function Home({ params }) {
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src="/logo.png"
-                            alt="Rowmodz"
+                            alt="OGmodz"
                             className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain drop-shadow-[0_4px_20px_rgba(157,124,255,0.45)]"
                         />
                     </div>

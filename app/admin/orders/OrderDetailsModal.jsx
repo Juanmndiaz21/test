@@ -53,7 +53,7 @@ export default function OrderDetailsModal({ order, items = [] }) {
         try {
             const lines = [
                 `=======================================`,
-                `ROWMODZ // DETALLES DE LA ORDEN #${order.id}`,
+                `OGMODZ // DETALLES DE LA ORDEN #${order.id}`,
                 `=======================================`,
                 `Fecha: ${new Date(order.created_at).toLocaleString()}`,
                 `Cliente: ${order.customer_name} (${order.customer_email})`,

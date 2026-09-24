@@ -52,7 +52,7 @@ export const useCartStore = create(
             clearCart: () => set({ cart: [] }),
         }),
         {
-            name: 'rowmodz-cart-storage',
+            name: 'ogmodz-cart-storage',
         }
     )
 );
