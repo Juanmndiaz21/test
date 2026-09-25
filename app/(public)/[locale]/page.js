@@ -10,6 +10,21 @@ import { ensureAppSchema } from '@/lib/schema';
 
 export const revalidate = 3600;
 
+export async function generateMetadata({ params }) {
+    const { locale } = await params;
+    const isEs = locale === 'es';
+    return {
+        alternates: {
+            canonical: isEs ? '/' : '/en',
+            languages: {
+                es: '/',
+                en: '/en',
+                'x-default': '/',
+            },
+        },
+    };
+}
+
 const FEATURE_META = [
     {
         icon: 'gamepad',
@@ -102,9 +117,9 @@ export default async function Home({ params }) {
                         />
                     </div>
 
-                    {/* H1 with SEO keywords: Game Boosting Services + Brand Hero Title */}
+                    {/* H1 with SEO keywords: Brand Hero Title */}
                     <h1 className="font-['Trebuchet_MS',sans-serif] text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mt-1 sm:mt-2">
-                        Game Boosting Services{' '}
+                        {t('heroH1')}{' '}
                         <span className="block text-[#9d7cff]">{t('heroTitle')}</span>
                     </h1>
 

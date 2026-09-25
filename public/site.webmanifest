@@ -1,0 +1,21 @@
+{
+  "name": "OGmodz",
+  "short_name": "OGmodz",
+  "description": "Servicios Premium de Game Boosting",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0914",
+  "theme_color": "#9d7cff",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
