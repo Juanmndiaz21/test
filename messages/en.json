@@ -286,14 +286,53 @@
     "errorGeneric": "Something went wrong while contacting the server."
   },
   "help": {
-    "eyebrow": "We are here to help",
-    "title": "Support",
-    "faq1q": "How is a service configured?",
-    "faq1a": "Open a game, pick a service and set your platform and boost amount. That exact configuration is what you add to your cart and order.",
-    "faq2q": "What happens after checkout?",
-    "faq2a": "Your configured selection is confirmed and removed from the cart. Every order in the catalog is reviewed by the OGmodz team.",
-    "faq3q": "Does the crypto payment really work?",
-    "faq3a": "Not in this build. Checkout is a demo — no wallet connection or blockchain transaction is actually performed.",
+    "eyebrow": "24/7 Customer Care",
+    "title": "Support Center",
+    "subtitle": "Our team is here to help you with any questions or issues you may have. Get the support you need through our multiple contact channels.",
+    "channelsHeading": "Contact Channels",
+    "channels": {
+      "liveChat": {
+        "title": "Live Chat Support",
+        "desc": "Get immediate assistance with our live chat support available 24/7.",
+        "action": "Sign In to Start Chat",
+        "actionAuth": "Start Live Chat"
+      },
+      "discord": {
+        "title": "Discord Community",
+        "desc": "Join our Discord server for instant support and community help.",
+        "action": "Join Discord"
+      },
+      "email": {
+        "title": "Email Support",
+        "desc": "Send us an email and we'll get back to you within 24 hours.",
+        "action": "Send Email"
+      }
+    },
+    "faqHeading": "Frequently Asked Questions",
+    "faqs": [
+      {
+        "q": "How long does delivery take?",
+        "a": "Most of our digital products are delivered instantly after payment confirmation. For account-based products, delivery is typically within 24 hours. You will receive a notification email once your order is ready."
+      },
+      {
+        "q": "What payment methods do you accept?",
+        "a": "We accept credit/debit cards, PayPal, cryptocurrency (Bitcoin, Ethereum, etc.), and various regional payment methods. All payments are processed securely."
+      },
+      {
+        "q": "What is your refund policy?",
+        "a": "We offer a 7-day money-back guarantee for most products if they don't work as described. Please note that some account-based products may have different refund policies, which will be clearly stated on the product page."
+      },
+      {
+        "q": "Is my personal information secure?",
+        "a": "Yes, we take data security very seriously. We use industry-standard encryption for all transactions and never store your payment information. Your personal details are only used to process your orders and are never shared with third parties."
+      }
+    ],
+    "faq1q": "How long does delivery take?",
+    "faq1a": "Most of our digital products are delivered instantly after payment confirmation. For account-based products, delivery is typically within 24 hours. You will receive a notification email once your order is ready.",
+    "faq2q": "What payment methods do you accept?",
+    "faq2a": "We accept credit/debit cards, PayPal, cryptocurrency (Bitcoin, Ethereum, etc.), and various regional payment methods. All payments are processed securely.",
+    "faq3q": "What is your refund policy?",
+    "faq3a": "We offer a 7-day money-back guarantee for most products if they don't work as described. Please note that some account-based products may have different refund policies, which will be clearly stated on the product page.",
     "types": {
       "how-it-works": "How it works",
       "faq": "Frequently asked questions",

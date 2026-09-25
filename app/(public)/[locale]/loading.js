@@ -19,8 +19,9 @@ export default function RootLoading() {
                 <div className="absolute inset-0 flex items-center justify-center">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                        src="/logo.png"
-                        alt="OGmodz"
+                        src="/logo-v3.png"
+                        alt="OG MODZ"
+                        loading="eager"
                         className="w-8 h-8 object-contain animate-logo-pulse select-none"
                     />
                 </div>

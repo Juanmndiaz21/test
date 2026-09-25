@@ -63,9 +63,14 @@ export async function generateMetadata({ params }) {
             images: ['/og-image.png'],
         },
         icons: {
-            icon: '/logo.png',
-            apple: '/logo.png',
+            icon: [
+                { url: '/favicon.ico?v=4', sizes: 'any' },
+                { url: '/favicon-32.png?v=4', type: 'image/png', sizes: '32x32' },
+                { url: '/icon-192.png?v=4', type: 'image/png', sizes: '192x192' },
+            ],
+            apple: '/apple-touch-icon.png?v=4',
         },
+        manifest: '/site.webmanifest',
     };
 }
 

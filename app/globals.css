@@ -262,6 +262,12 @@ details.faq-row[open] .faq-toggle {
   animation: logo-pulse 3.5s ease-in-out infinite;
 }
 
+/* ── UI Performance Optimization: Skip offscreen layout/paint ── */
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;

@@ -46,7 +46,8 @@
   "home": {
     "titleMeta": "Servicios de boosting premium para tus juegos",
     "heroBrand": "OGmodz:",
-    "heroTitle": "Servicios de Boosting Seguros y Confiables",
+    "heroH1": "Servicios de Game Boosting",
+    "heroTitle": "Seguros, Rápidos y Confiables",
     "heroSub": "OGmodz ofrece servicios de boosting seguros y profesionales para ayudarte a alcanzar tu máximo nivel.",
     "featuresTitle": "Todo lo que necesitas para subir de nivel",
     "features": [
@@ -285,14 +286,53 @@
     "errorGeneric": "Algo salió mal al contactar con el servidor."
   },
   "help": {
-    "eyebrow": "Estamos aquí para ayudarte",
-    "title": "Soporte",
-    "faq1q": "¿Cómo se configura un servicio?",
-    "faq1a": "Abre un juego, elige un servicio y define tu plataforma y cantidad de boost. Esa configuración exacta es lo que añades al carrito y al pedido.",
-    "faq2q": "¿Qué pasa después del checkout?",
-    "faq2a": "Tu selección configurada se confirma y se elimina del carrito. Cada pedido del catálogo lo revisa el equipo de OGmodz.",
-    "faq3q": "¿El pago con cripto funciona de verdad?",
-    "faq3a": "En esta versión no. El checkout es una demo: no se conecta ninguna wallet ni se realiza ninguna transacción en blockchain.",
+    "eyebrow": "Atención 24/7",
+    "title": "Centro de Soporte",
+    "subtitle": "Nuestro equipo está aquí para ayudarte con cualquier consulta o problema. Obtén la asistencia que necesitas a través de nuestros múltiples canales de contacto.",
+    "channelsHeading": "Canales de contacto",
+    "channels": {
+      "liveChat": {
+        "title": "Soporte por Chat en Vivo",
+        "desc": "Obtén asistencia inmediata con nuestro soporte de chat en vivo disponible 24/7.",
+        "action": "Iniciar Sesión para Chatear",
+        "actionAuth": "Iniciar Chat en Vivo"
+      },
+      "discord": {
+        "title": "Comunidad de Discord",
+        "desc": "Únete a nuestro servidor de Discord para soporte instantáneo y ayuda de la comunidad.",
+        "action": "Unirse a Discord"
+      },
+      "email": {
+        "title": "Soporte por Correo",
+        "desc": "Envíanos un correo electrónico y te responderemos en un plazo máximo de 24 horas.",
+        "action": "Enviar Correo"
+      }
+    },
+    "faqHeading": "Preguntas Frecuentes",
+    "faqs": [
+      {
+        "q": "¿Cuánto tarda la entrega?",
+        "a": "La mayoría de nuestros productos digitales se entregan al instante tras la confirmación del pago. Para productos basados en cuentas, la entrega se realiza generalmente en menos de 24 horas. Recibirás un correo de notificación en cuanto tu pedido esté listo."
+      },
+      {
+        "q": "¿Qué métodos de pago aceptan?",
+        "a": "Aceptamos tarjetas de crédito/débito, PayPal, criptomonedas (Bitcoin, Ethereum, etc.) y diversos métodos de pago regionales. Todos los pagos se procesan de forma segura."
+      },
+      {
+        "q": "¿Cuál es su política de reembolso?",
+        "a": "Ofrecemos una garantía de reembolso de 7 días para la mayoría de los productos si no funcionan según lo descrito. Ten en cuenta que algunos productos basados en cuentas pueden tener políticas distintas, las cuales se detallan claramente en la página del producto."
+      },
+      {
+        "q": "¿Está segura mi información personal?",
+        "a": "Sí, nos tomamos la seguridad de los datos muy en serio. Utilizamos cifrado estándar de la industria para todas las transacciones y nunca almacenamos tu información de pago. Tus datos personales solo se utilizan para procesar tus pedidos y nunca se comparten con terceros."
+      }
+    ],
+    "faq1q": "¿Cuánto tarda la entrega?",
+    "faq1a": "La mayoría de nuestros productos digitales se entregan al instante tras la confirmación del pago. Para productos basados en cuentas, la entrega se realiza generalmente en menos de 24 horas. Recibirás un correo de notificación en cuanto tu pedido esté listo.",
+    "faq2q": "¿Qué métodos de pago aceptan?",
+    "faq2a": "Aceptamos tarjetas de crédito/débito, PayPal, criptomonedas (Bitcoin, Ethereum, etc.) y diversos métodos de pago regionales. Todos los pagos se procesan de forma segura.",
+    "faq3q": "¿Cuál es su política de reembolso?",
+    "faq3a": "Ofrecemos una garantía de reembolso de 7 días para la mayoría de los productos si no funcionan según lo descrito. Ten en cuenta que algunos productos basados en cuentas pueden tener políticas distintas, las cuales se detallan claramente en la página del producto.",
     "types": {
       "how-it-works": "Cómo funciona",
       "faq": "Preguntas frecuentes",

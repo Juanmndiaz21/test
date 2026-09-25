@@ -15,11 +15,11 @@ export default async function Footer() {
                     <div className="sm:col-span-2">
                         <Link href="/" aria-label={common('brand')} className="inline-block">
                             <Image
-                                src="/logo.png"
+                                src="/logo-v3.svg"
                                 alt={common('brand')}
-                                width={886}
-                                height={281}
-                                className="h-8 w-auto"
+                                width={922}
+                                height={176}
+                                className="h-8 md:h-9 w-auto object-contain"
                             />
                         </Link>
                         <p className="text-sm text-slate-300 mt-4 max-w-sm leading-relaxed">

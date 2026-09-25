@@ -48,6 +48,7 @@ import {
     LuSparkles,
     LuLayers,
 } from 'react-icons/lu';
+import { SiDiscord } from 'react-icons/si';
 
 const ICONS = {
     search: LuSearch,
@@ -60,6 +61,7 @@ const ICONS = {
     'chevron-right': LuChevronRight,
     menu: LuMenu,
     globe: LuGlobe,
+    discord: SiDiscord,
     message: LuMessageSquare,
     cart: LuShoppingCart,
     box: LuBox,

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useDeferredValue } from 'react';
+import { useState, useMemo, useDeferredValue, memo } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '../i18n/navigation';
 import AddGameForm from './AddGameForm';
@@ -8,6 +8,34 @@ import GameLogo from './GameLogo';
 import Icon from './Icon';
 
 const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '#'];
+
+const GameCardItem = memo(function GameCardItem({ game, gameProducts, image, t, index }) {
+    return (
+        <Link
+            href={`/store/game/${encodeURIComponent(game)}`}
+            className="animate-ladder-row text-left group relative overflow-hidden panel-surface rounded-2xl p-4.5 border border-white/10 bg-[#171229] transition-all duration-200 hover:border-[#9d7cff]/60 hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(0,0,0,0.4)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-[-2px]"
+            style={{ animationDelay: `${index * 25}ms` }}
+        >
+            <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#14101e] border border-white/10 p-1 flex items-center justify-center shrink-0 group-hover:border-[#9d7cff]/50 transition-colors">
+                    <GameLogo name={game} imageUrl={image} />
+                </div>
+                <div className="min-w-0 flex-1">
+                    <strong className="block text-white text-base font-bold leading-tight truncate group-hover:text-[#9d7cff] transition-colors">
+                        {game}
+                    </strong>
+                    <span className="block text-slate-400 uppercase tracking-wider mt-1.5 inline-flex items-center gap-1.5 text-xs font-mono">
+                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#9d7cff]" aria-hidden="true" />
+                        <span className="data-readout">{t('serviceCount', { count: gameProducts.length })}</span>
+                    </span>
+                </div>
+                <span className="w-8 h-8 rounded-full border border-white/15 bg-white/5 text-slate-300 flex items-center justify-center group-hover:bg-[#9d7cff] group-hover:text-[#0d0914] group-hover:border-[#9d7cff] group-hover:scale-105 transition-all duration-150 shrink-0">
+                    <Icon name="arrow-right" className="w-3.5 h-3.5" />
+                </span>
+            </div>
+        </Link>
+    );
+});
 
 export default function ProductList({ products, games: catalogGames = [] }) {
     const t = useTranslations('store');
@@ -168,32 +196,16 @@ export default function ProductList({ products, games: catalogGames = [] }) {
                     )}
                 </div>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 content-auto">
                     {visibleGames.map(([game, gameProducts], index) => (
-                        <Link
+                        <GameCardItem
                             key={game}
-                            href={`/store/game/${encodeURIComponent(game)}`}
-                            className="animate-ladder-row text-left group relative overflow-hidden panel-surface rounded-2xl p-4.5 border border-white/10 bg-[#171229] transition-all duration-200 hover:border-[#9d7cff]/60 hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(0,0,0,0.4)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-[-2px]"
-                            style={{ animationDelay: `${index * 25}ms` }}
-                        >
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-[#14101e] border border-white/10 p-1 flex items-center justify-center shrink-0 group-hover:border-[#9d7cff]/50 transition-colors">
-                                    <GameLogo name={game} imageUrl={gameImages[game]} />
-                                </div>
-                                <div className="min-w-0 flex-1">
-                                    <strong className="block text-white text-base font-bold leading-tight truncate group-hover:text-[#9d7cff] transition-colors">
-                                        {game}
-                                    </strong>
-                                    <span className="block text-slate-400 uppercase tracking-wider mt-1.5 inline-flex items-center gap-1.5 text-xs font-mono">
-                                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#9d7cff]" aria-hidden="true" />
-                                        <span className="data-readout">{t('serviceCount', { count: gameProducts.length })}</span>
-                                    </span>
-                                </div>
-                                <span className="w-8 h-8 rounded-full border border-white/15 bg-white/5 text-slate-300 flex items-center justify-center group-hover:bg-[#9d7cff] group-hover:text-[#0d0914] group-hover:border-[#9d7cff] group-hover:scale-105 transition-all duration-150 shrink-0">
-                                    <Icon name="arrow-right" className="w-3.5 h-3.5" />
-                                </span>
-                            </div>
-                        </Link>
+                            game={game}
+                            gameProducts={gameProducts}
+                            image={gameImages[game]}
+                            t={t}
+                            index={index}
+                        />
                     ))}
                 </div>
             )}

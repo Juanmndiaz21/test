@@ -21,6 +21,7 @@ export async function GET() {
 
         return NextResponse.json({ message: "Tables created successfully" }, { status: 200 });
     } catch (error) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        console.error('Setup endpoint error:', error);
+        return NextResponse.json({ error: 'No se pudo completar la configuración inicial.' }, { status: 500 });
     }
 }

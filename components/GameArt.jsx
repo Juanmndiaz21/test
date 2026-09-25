@@ -8,6 +8,7 @@ function GameArt({ name, image_url: imageUrl, className = '', priority = false }
                 src={imageUrl}
                 alt={name}
                 loading={priority ? 'eager' : 'lazy'}
+                fetchPriority={priority ? 'high' : 'auto'}
                 decoding="async"
                 className={`object-cover ${className}`}
             />

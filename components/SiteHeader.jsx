@@ -30,13 +30,13 @@ export default function SiteHeader() {
             <div className="max-w-7xl mx-auto px-5 py-4 flex justify-between items-center gap-5">
                 <Link href="/" className="shrink-0" aria-label={t('brand')}>
                     <Image
-                        src="/logo.png"
+                        src="/logo-v3.svg"
                         alt={t('brand')}
-                        width={886}
-                        height={281}
+                        width={922}
+                        height={176}
                         priority
                         loading="eager"
-                        className="h-7 w-auto md:h-8"
+                        className="h-7 sm:h-7.5 md:h-8 w-auto object-contain"
                     />
                 </Link>
 

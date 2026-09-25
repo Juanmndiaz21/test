@@ -66,6 +66,32 @@ const PopularGameCard = memo(function PopularGameCard({ game, index, t }) {
     );
 });
 
+const BrowseGameCard = memo(function BrowseGameCard({ game, t }) {
+    return (
+        <Link
+            href={`/store/game/${encodeURIComponent(game.name)}`}
+            title={game.name}
+            aria-label={game.name}
+            className="group relative aspect-[1.12/1] sm:aspect-square rounded-xl sm:rounded-2xl border border-white/10 bg-[#161224] hover:bg-[#1f1833] hover:border-[#9d7cff]/80 flex items-center justify-center p-2.5 sm:p-3 md:p-3.5 transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(0,0,0,0.7),0_0_20px_rgba(157,124,255,0.25)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 select-none overflow-hidden"
+        >
+            {/* Background Game Logo (dims and scales smoothly on hover) */}
+            <div className="w-full h-full flex items-center justify-center transition-all duration-200 group-hover:scale-105 group-hover:opacity-20">
+                <GameLogo name={game.name} imageUrl={game.image_url} />
+            </div>
+
+            {/* Inside-Card Hover Overlay matching reference design with brand colors */}
+            <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-[#0d0914]/85 backdrop-blur-[2px] p-2 flex flex-col items-center justify-center text-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-all duration-200 ease-out z-10 pointer-events-none select-none">
+                <span className="font-['Trebuchet_MS',sans-serif] font-black text-xs text-white uppercase tracking-wider leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] line-clamp-2 px-1">
+                    {game.name}
+                </span>
+                <span className="mt-1 sm:mt-1.5 inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-[#9d7cff]/25 border border-[#9d7cff]/70 text-white font-mono font-bold text-[11px] uppercase tracking-wider shadow-[0_0_10px_rgba(157,124,255,0.3)]">
+                    {t('productCount', { count: game.services || 0 })}
+                </span>
+            </div>
+        </Link>
+    );
+});
+
 const REFERENCE_IMAGE_ORDER = [
     'gta v', 'gta', 'arc raiders', 'cod', 'bo7', 'bo2', 'bo1', 'mw4', 'fortnite', 'roblox', 'elden ring',
     'forza horizon 6', 'forza 6', 'rdr2', 'rdr ii', 'borderlands 4', 'fc 26', 'overwatch', 'apex legends',
@@ -259,30 +285,9 @@ export default function LandingCatalog({ games }) {
                                 </button>
                             </div>
                         ) : (
-                            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-11 gap-2.5 sm:gap-3 md:gap-3.5 pt-4">
+                            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-11 gap-2.5 sm:gap-3 md:gap-3.5 pt-4 content-auto">
                                 {browseFiltered.map((game) => (
-                                    <Link
-                                        key={game.name}
-                                        href={`/store/game/${encodeURIComponent(game.name)}`}
-                                        title={game.name}
-                                        aria-label={game.name}
-                                        className="group relative aspect-[1.12/1] sm:aspect-square rounded-xl sm:rounded-2xl border border-white/10 bg-[#161224] hover:bg-[#1f1833] hover:border-[#9d7cff]/80 flex items-center justify-center p-2.5 sm:p-3 md:p-3.5 transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(0,0,0,0.7),0_0_20px_rgba(157,124,255,0.25)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 select-none overflow-hidden"
-                                    >
-                                        {/* Background Game Logo (dims and scales smoothly on hover) */}
-                                        <div className="w-full h-full flex items-center justify-center transition-all duration-200 group-hover:scale-105 group-hover:opacity-20">
-                                            <GameLogo name={game.name} imageUrl={game.image_url} />
-                                        </div>
-
-                                        {/* Inside-Card Hover Overlay matching reference design with brand colors */}
-                                        <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-[#0d0914]/85 backdrop-blur-[2px] p-2 flex flex-col items-center justify-center text-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-all duration-200 ease-out z-10 pointer-events-none select-none">
-                                            <span className="font-['Trebuchet_MS',sans-serif] font-black text-[11px] sm:text-xs text-white uppercase tracking-wider leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] line-clamp-2 px-1">
-                                                {game.name}
-                                            </span>
-                                            <span className="mt-1 sm:mt-1.5 inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-[#9d7cff]/25 border border-[#9d7cff]/70 text-white font-mono font-bold text-[8px] sm:text-[9px] uppercase tracking-wider shadow-[0_0_10px_rgba(157,124,255,0.3)]">
-                                                {t('productCount', { count: game.services || 0 })}
-                                            </span>
-                                        </div>
-                                    </Link>
+                                    <BrowseGameCard key={game.name} game={game} t={t} />
                                 ))}
                             </div>
                         )}

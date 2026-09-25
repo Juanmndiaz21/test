@@ -2,7 +2,7 @@
 import { neon } from '@neondatabase/serverless';
 import bcrypt from 'bcryptjs';
 import { ensureUsersTable } from '../../lib/auth';
-import { getAdminSession } from '../../lib/guard';
+import { requireAdmin } from '../../lib/guard';
 import { verifyTurnstile } from '../../lib/turnstile';
 import { rateLimit } from '../../lib/rateLimit';
 
@@ -58,12 +58,12 @@ export async function registerUser(email, password, turnstile, setupToken) {
 
 export async function createAdmin(prevState, formData) {
     try {
-        await getAdminSession();
+        await requireAdmin();
 
         const email = String(formData.get('email') || '').trim().toLowerCase();
         const password = String(formData.get('password') || '');
         if (!email) throw new Error('The email is required.');
-        if (password.length < 6) throw new Error('The password must be at least 6 characters.');
+        if (password.length < 8) throw new Error('The password must be at least 8 characters.');
 
         const sql = neon(process.env.DATABASE_URL);
         await ensureUsersTable(sql);

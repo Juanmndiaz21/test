@@ -1,7 +1,7 @@
 import { neon } from '@neondatabase/serverless';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import ProductList from '@/components/ProductList';
-
+import PageHeaderBanner from '@/components/PageHeaderBanner';
 import { ensureAppSchema } from '@/lib/schema';
 
 export const dynamic = 'force-dynamic';
@@ -9,9 +9,18 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({ params }) {
     const { locale } = await params;
     const t = await getTranslations({ locale, namespace: 'store' });
+    const isEs = locale === 'es';
     return {
         title: t('titleMeta'),
         description: t('subtitle'),
+        alternates: {
+            canonical: isEs ? '/store' : '/en/store',
+            languages: {
+                es: '/store',
+                en: '/en/store',
+                'x-default': '/store',
+            },
+        },
     };
 }
 
@@ -29,17 +38,17 @@ export default async function Store({ params }) {
     ]);
 
     return (
-        <div className="max-w-7xl mx-auto px-5 py-12 md:py-16">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-                <div>
-                    <p className="eyebrow mb-3">{t('eyebrow')}</p>
-                    <h1 className="display-font text-5xl md:text-6xl uppercase text-white">{t('title')}</h1>
-                    <p className="text-slate-400 mt-3 max-w-xl">{t('subtitle')}</p>
-                </div>
-                <div className="text-xs uppercase tracking-wider text-slate-400 border border-white/10 rounded-full px-4 py-2">{t('liveCatalog')}</div>
-            </div>
+        <div className="min-h-screen bg-[#1A1A24] text-slate-100 pb-20">
+            <PageHeaderBanner
+                title={t('title')}
+                subtitle={t('subtitle')}
+                badge={t('liveCatalog')}
+                maxWidth="max-w-7xl"
+            />
 
-            <ProductList products={products} games={games} />
+            <div className="max-w-7xl mx-auto px-5 py-10 sm:py-12">
+                <ProductList products={products} games={games} />
+            </div>
         </div>
     );
 }

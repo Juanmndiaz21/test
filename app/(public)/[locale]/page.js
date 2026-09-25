@@ -1,9 +1,11 @@
+import Image from 'next/image';
 import { neon } from '@neondatabase/serverless';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import LandingCatalog from '@/components/LandingCatalog';
 import HeroEffects from '@/components/HeroEffects';
 import Reveal from '@/components/Reveal';
 import ReviewGrid from '@/components/ReviewGrid';
+import FaqAccordion from '@/components/FaqAccordion';
 import Icon from '@/components/Icon';
 import { getApprovedReviews } from '@/lib/reviews';
 import { ensureAppSchema } from '@/lib/schema';
@@ -104,16 +106,19 @@ export default async function Home({ params }) {
                 <HeroEffects />
                 <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
                     {/* Centered Brand Logo with Violet Glow */}
-                    <div className="relative mb-5">
+                    <div className="relative mb-5 flex items-center justify-center">
                         <div
                             aria-hidden="true"
-                            className="absolute inset-0 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#9d7cff]/30 blur-2xl scale-125 mx-auto"
+                            className="absolute inset-0 w-40 h-12 sm:w-52 sm:h-14 md:w-60 md:h-16 rounded-full bg-[#9d7cff]/25 blur-2xl scale-125 mx-auto"
                         />
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                            src="/logo.png"
-                            alt="OGmodz"
-                            className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain drop-shadow-[0_4px_20px_rgba(157,124,255,0.45)]"
+                        <Image
+                            src="/logo-v3.svg"
+                            alt="OG MODZ"
+                            width={922}
+                            height={176}
+                            priority
+                            loading="eager"
+                            className="relative h-10 sm:h-12 md:h-14 w-auto object-contain drop-shadow-[0_4px_24px_rgba(146,37,207,0.45)]"
                         />
                     </div>
 
@@ -134,7 +139,7 @@ export default async function Home({ params }) {
             <LandingCatalog games={ladder} />
 
             {/* Tournament Protocol & Service Integrity */}
-            <section aria-label={t('featuresTitle')} className="max-w-7xl mx-auto px-5 py-16 md:py-24">
+            <section aria-label={t('featuresTitle')} className="max-w-7xl mx-auto px-5 py-16 md:py-24 content-auto">
                 <div className="flex items-center gap-4 mb-12">
                     <div className="flex items-center gap-3">
                         <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/20 text-[#9d7cff]">
@@ -202,7 +207,7 @@ export default async function Home({ params }) {
             </section>
 
             {/* Verified Player Reviews */}
-            <section aria-label={t('reviewsTitle')} className="max-w-7xl mx-auto px-5 py-16 md:py-24">
+            <section aria-label={t('reviewsTitle')} className="max-w-7xl mx-auto px-5 py-16 md:py-24 content-auto">
                 <div className="flex items-center gap-4 mb-4">
                     <div className="flex items-center gap-3">
                         <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/20 text-[#9d7cff]">
@@ -219,14 +224,14 @@ export default async function Home({ params }) {
             </section>
 
             {/* FAQ Section for AI Search (GEO) and Player Trust */}
-            <section aria-label={faqTitle} className="max-w-7xl mx-auto px-5 py-16 md:py-24">
+            <section aria-label={faqTitle} className="max-w-7xl mx-auto px-5 py-16 md:py-24 content-auto">
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
                 />
                 <div className="flex items-center gap-4 mb-4">
                     <div className="flex items-center gap-3">
-                        <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/20 text-[#9d7cff]">
+                        <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[#9225CF]/10 border border-[#9225CF]/20 text-[#9225CF]">
                             <Icon name="circle-help" className="w-5 h-5" />
                         </span>
                         <h2 className="display-font text-4xl md:text-5xl uppercase text-white">{faqTitle}</h2>
@@ -237,26 +242,11 @@ export default async function Home({ params }) {
                     {faqSubtitle}
                 </p>
 
-                <div className="grid md:grid-cols-2 gap-5">
-                    {(faqs || []).map((faq, i) => (
-                        <div
-                            key={i}
-                            className="panel-surface rounded-2xl border border-white/10 bg-[#171229] p-6 sm:p-7 flex flex-col justify-between hover:border-[#9d7cff]/40 transition-colors shadow-[0_16px_36px_rgba(0,0,0,0.25)]"
-                        >
-                            <h3 className="font-['Trebuchet_MS',sans-serif] text-lg font-bold text-white mb-3 flex items-start gap-2.5">
-                                <span className="text-[#9d7cff] font-mono text-sm font-black mt-0.5">[{`0${i + 1}`}]</span>
-                                <span>{faq.q}</span>
-                            </h3>
-                            <p className="text-slate-300 text-sm leading-relaxed font-normal">
-                                {faq.a}
-                            </p>
-                        </div>
-                    ))}
-                </div>
+                <FaqAccordion faqs={faqs} />
             </section>
 
             {/* Closing Conversion Anchor */}
-            <section aria-label="Ready to climb" className="max-w-7xl mx-auto px-5 pb-20 md:pb-28">
+            <section aria-label="Ready to climb" className="max-w-7xl mx-auto px-5 pb-20 md:pb-28 content-auto">
                 <div className="panel-surface rounded-3xl border border-white/10 bg-[#171229] p-8 sm:p-12 md:p-16 text-center relative overflow-hidden shadow-[0_24px_70px_rgba(0,0,0,0.35)]">
                     <div className="max-w-2xl mx-auto relative z-10">
                         <span className="eyebrow inline-block mb-3 text-[#9d7cff]">SEASON STANDINGS ACTIVE</span>

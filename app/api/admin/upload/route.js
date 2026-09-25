@@ -8,9 +8,10 @@ const ALLOWED_MIME_TYPES = new Set([
     'image/jpeg',
     'image/jpg',
     'image/webp',
-    'image/svg+xml',
     'image/gif',
 ]);
+
+const ALLOWED_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif']);
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
@@ -22,11 +23,10 @@ export async function GET() {
         await mkdir(uploadDir, { recursive: true });
 
         const dirents = await readdir(uploadDir, { withFileTypes: true });
-        const imageExtensions = new Set(['.png', '.jpg', '.jpeg', '.webp', '.svg', '.gif']);
 
         const filesWithStats = await Promise.all(
             dirents
-                .filter((d) => d.isFile() && imageExtensions.has(path.extname(d.name).toLowerCase()))
+                .filter((d) => d.isFile() && ALLOWED_EXTENSIONS.has(path.extname(d.name).toLowerCase()))
                 .map(async (d) => {
                     const filePath = path.join(uploadDir, d.name);
                     const fileStat = await stat(filePath);
@@ -71,7 +71,7 @@ export async function POST(request) {
         const mimeType = file.type || '';
         if (!ALLOWED_MIME_TYPES.has(mimeType.toLowerCase())) {
             return NextResponse.json(
-                { error: 'Invalid file type. Allowed: PNG, JPEG, WebP, SVG, GIF' },
+                { error: 'Invalid file type. Allowed: PNG, JPEG, WebP, GIF' },
                 { status: 400 }
             );
         }
@@ -79,6 +79,13 @@ export async function POST(request) {
         // Sanitize base name and preserve extension
         const originalName = file.name || 'image.png';
         const ext = path.extname(originalName).toLowerCase() || '.png';
+        if (!ALLOWED_EXTENSIONS.has(ext)) {
+            return NextResponse.json(
+                { error: 'Invalid file extension. Allowed: PNG, JPEG, WebP, GIF' },
+                { status: 400 }
+            );
+        }
+
         const baseName = path
             .basename(originalName, ext)
             .replace(/[^a-zA-Z0-9_-]/g, '_')
