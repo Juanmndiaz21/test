@@ -23,28 +23,104 @@ export default async function GameServicesPage({ params }) {
         `,
     ]);
 
-    if (!game) notFound();
+    if (!game || !gameRows[0]) notFound();
+
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
+    const localizedGameUrl = `${baseUrl}${locale === 'es' ? '/es' : ''}/store/game/${encodeURIComponent(game)}`;
+
+    // Schema.org structured data for game services category & offers
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        '@id': `${localizedGameUrl}#service`,
+        name: `${game} Boosting Services`,
+        serviceType: 'Video Game Boosting & Rank Up',
+        description: `Professional game boosting, leveling and progression services for ${game}. Safe, fast delivery with 24/7 support.`,
+        provider: {
+            '@type': 'Organization',
+            name: 'OGmodz',
+            url: baseUrl,
+        },
+        areaServed: 'Worldwide',
+        hasOfferCatalog: {
+            '@type': 'OfferCatalog',
+            name: `${game} Boosting Packages`,
+            itemListElement: products.map((product) => ({
+                '@type': 'Offer',
+                name: product.name,
+                description: product.description || `${product.name} boost for ${game}`,
+                price: Number(product.price || 0).toFixed(2),
+                priceCurrency: 'USD',
+                availability: 'https://schema.org/InStock',
+                url: `${baseUrl}${locale === 'es' ? '/es' : ''}/store/${product.id}`,
+            })),
+        },
+    };
 
     return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-            <GameCategoryBanner
-                game={game}
-                count={products.length}
-                imageUrl={gameRows[0]?.image_url || null}
-                gameMode={gameRows[0]?.mode || 'both'}
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+                <GameCategoryBanner
+                    game={game}
+                    count={products.length}
+                    imageUrl={gameRows[0]?.image_url || null}
+                    gameMode={gameRows[0]?.mode || 'both'}
+                />
 
-            <GameServicesCatalog products={products} />
-        </div>
+                <GameServicesCatalog products={products} />
+            </div>
+        </>
     );
 }
 
 export async function generateMetadata({ params }) {
-    const { locale, game } = await params;
+    const { locale, game: encodedGame } = await params;
     const t = await getTranslations({ locale, namespace: 'gamePage' });
-    const name = decodeURIComponent(game);
+    const name = decodeURIComponent(encodedGame);
+    const isEs = locale === 'es';
+
+    let hasProducts = true;
+    try {
+        if (process.env.DATABASE_URL) {
+            const sql = neon(process.env.DATABASE_URL);
+            const countRows = await sql`
+                SELECT COUNT(id) as count
+                FROM products
+                WHERE LOWER(game) = LOWER(${name})
+            `;
+            hasProducts = Number(countRows[0]?.count || 0) > 0;
+        }
+    } catch {
+        hasProducts = true;
+    }
+
+    const enPath = `/store/game/${encodeURIComponent(name)}`;
+    const esPath = `/es/store/game/${encodeURIComponent(name)}`;
+    const title = `${t('titleMeta', { game: name })} | OGmodz`;
+    const description = t('metadataDescription', { game: name });
+
     return {
-        title: t('titleMeta', { game: name }),
-        description: t('metadataDescription', { game: name }),
+        title,
+        description,
+        robots: hasProducts
+            ? { index: true, follow: true }
+            : { index: false, follow: true }, // Noindex thin empty categories (e.g. 0 products)
+        alternates: {
+            canonical: isEs ? esPath : enPath,
+            languages: {
+                en: enPath,
+                es: esPath,
+                'x-default': enPath,
+            },
+        },
+        openGraph: {
+            title,
+            description,
+            url: isEs ? esPath : enPath,
+        },
     };
 }

@@ -6,16 +6,23 @@ export async function generateMetadata({ params }) {
     const { locale } = await params;
     const t = await getTranslations({ locale, namespace: 'terms' });
     const isEs = locale === 'es';
+    const enPath = '/terms';
+    const esPath = '/es/terms';
     return {
         title: t('titleMeta'),
         description: t('sec1Text'),
         alternates: {
-            canonical: isEs ? '/terms' : '/en/terms',
+            canonical: isEs ? esPath : enPath,
             languages: {
-                es: '/terms',
-                en: '/en/terms',
-                'x-default': '/terms',
+                en: enPath,
+                es: esPath,
+                'x-default': enPath,
             },
+        },
+        openGraph: {
+            title: t('titleMeta'),
+            description: t('sec1Text'),
+            url: isEs ? esPath : enPath,
         },
     };
 }

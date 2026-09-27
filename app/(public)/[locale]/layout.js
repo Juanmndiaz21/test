@@ -16,16 +16,17 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
     const { locale } = await params;
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://ogmodz.com');
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
 
     const isEs = locale === 'es';
     const title = isEs
         ? 'OGmodz — Servicios Premium de Game Boosting | Sube de Rango y Nivel'
         : 'OGmodz — Premium Game Boosting Services | Rank & Level Up';
     const description = isEs
-        ? 'Servicios profesionales de boosting para GTA V, CS2 y más. Elige tu plataforma, configura tu boost y recibe entrega inmediata y segura.'
-        : 'Competitive boosting services for GTA V, CS2, and more. Pick your platform, set your boost amount, and get back to the match.';
+        ? 'Servicios profesionales de boosting para GTA V, CS2 y más. Elige tu plataforma, configura tu boost y recibe entrega inmediata y segura con soporte 24/7.'
+        : 'Professional game boosting services for GTA V, CS2, and top titles. Select your platform, configure your boost, and get fast, secure delivery with 24/7 support.';
 
+    const canonicalPath = isEs ? '/es' : '/';
     return {
         metadataBase: new URL(baseUrl),
         title: {
@@ -34,17 +35,17 @@ export async function generateMetadata({ params }) {
         },
         description,
         alternates: {
-            canonical: `/${locale}`,
+            canonical: canonicalPath,
             languages: {
+                en: '/',
                 es: '/es',
-                en: '/en',
-                'x-default': '/en',
+                'x-default': '/',
             },
         },
         openGraph: {
             title,
             description,
-            url: `/${locale}`,
+            url: canonicalPath,
             siteName: 'OGmodz',
             images: [
                 {
@@ -82,7 +83,9 @@ export default async function LocaleLayout({ children, params }) {
     setRequestLocale(locale);
 
     const messages = await getMessages();
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://ogmodz.com');
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
+    const localizedSiteUrl = locale === 'es' ? `${baseUrl}/es` : baseUrl;
+    const storeSearchUrl = locale === 'es' ? `${baseUrl}/es/store` : `${baseUrl}/store`;
 
     const schemaData = {
         '@context': 'https://schema.org',
@@ -91,9 +94,9 @@ export default async function LocaleLayout({ children, params }) {
                 '@type': 'Organization',
                 '@id': `${baseUrl}/#organization`,
                 name: 'OGmodz',
-                url: `${baseUrl}/${locale}`,
+                url: baseUrl,
                 logo: `${baseUrl}/logo.png`,
-                description: 'Competitive game boosting services for popular competitive titles.',
+                description: 'Professional video game boosting and progression services for competitive titles.',
                 sameAs: [],
                 aggregateRating: {
                     '@type': 'AggregateRating',
@@ -106,14 +109,14 @@ export default async function LocaleLayout({ children, params }) {
             {
                 '@type': 'WebSite',
                 '@id': `${baseUrl}/#website`,
-                url: `${baseUrl}/${locale}`,
+                url: localizedSiteUrl,
                 name: 'OGmodz',
                 publisher: {
                     '@id': `${baseUrl}/#organization`,
                 },
                 potentialAction: {
                     '@type': 'SearchAction',
-                    target: `${baseUrl}/${locale}/store?search={search_term_string}`,
+                    target: `${storeSearchUrl}?search={search_term_string}`,
                     'query-input': 'required name=search_term_string',
                 },
             },

@@ -35,9 +35,9 @@ export default async function Footer() {
 
                     {/* Col 1: Platform / Explore */}
                     <div>
-                        <h3 className="font-['Trebuchet_MS',sans-serif] text-xs font-bold uppercase tracking-wider text-white mb-4">
+                        <p className="font-['Trebuchet_MS',sans-serif] text-xs font-bold uppercase tracking-wider text-white mb-4">
                             {t('navPlatform')}
-                        </h3>
+                        </p>
                         <ul className="space-y-3 text-sm">
                             <li>
                                 <Link href="/" className="text-slate-300 hover:text-[#9d7cff] transition-colors">{common('home')}</Link>
@@ -53,9 +53,9 @@ export default async function Footer() {
 
                     {/* Col 2: Support & Careers */}
                     <div>
-                        <h3 className="font-['Trebuchet_MS',sans-serif] text-xs font-bold uppercase tracking-wider text-white mb-4">
+                        <p className="font-['Trebuchet_MS',sans-serif] text-xs font-bold uppercase tracking-wider text-white mb-4">
                             {t('navSupport')}
-                        </h3>
+                        </p>
                         <ul className="space-y-3 text-sm">
                             <li>
                                 <Link href="/contact" className="text-slate-300 hover:text-[#9d7cff] transition-colors">
@@ -80,9 +80,9 @@ export default async function Footer() {
 
                     {/* Col 3: Legal & Policies */}
                     <div>
-                        <h3 className="font-['Trebuchet_MS',sans-serif] text-xs font-bold uppercase tracking-wider text-white mb-4">
+                        <p className="font-['Trebuchet_MS',sans-serif] text-xs font-bold uppercase tracking-wider text-white mb-4">
                             {t('navLegal')}
-                        </h3>
+                        </p>
                         <ul className="space-y-3 text-sm">
                             <li>
                                 <Link href="/terms" className="text-slate-300 hover:text-[#9d7cff] transition-colors">

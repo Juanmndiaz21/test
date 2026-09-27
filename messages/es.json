@@ -150,10 +150,10 @@
     "clearSearch": "Limpiar búsqueda"
   },
   "store": {
-    "titleMeta": "Explorar juegos",
+    "titleMeta": "Servicios de Game Boosting | OGmodz",
     "eyebrow": "Explorar por título",
     "title": "Explorar juegos",
-    "subtitle": "Encuentra un juego, revisa sus servicios y prepara tu próxima misión.",
+    "subtitle": "Explora servicios de boosting verificados para GTA V, CS2 y más. Personaliza tu plataforma y opciones con entrega rápida y soporte profesional 24/7.",
     "liveCatalog": "Catálogo en vivo",
     "jumpTo": "Salta a",
     "all": "Todo",
@@ -171,7 +171,7 @@
     "backToBrowse": "← Volver a explorar juegos"
   },
   "gamePage": {
-    "titleMeta": "{game} · servicios",
+    "titleMeta": "Servicios de Boosting para {game}",
     "home": "Inicio",
     "backToBrowse": "Volver a explorar juegos",
     "gameServices": "Servicios del juego",
@@ -196,7 +196,7 @@
     "clearAllFilters": "Limpiar todos los filtros",
     "noServicesMatchQuery": "Ningún servicio coincide con “{query}”",
     "noServicesMatchQueryDesc": "Intenta ajustar los términos de búsqueda o cambiar el filtro de plataforma.",
-    "metadataDescription": "Servicios de boosting disponibles para {game}."
+    "metadataDescription": "Sube de rango en {game} con servicios de boosting seguros y rápidos en OGmodz. Jugadores profesionales verificados, protección VPN y garantía total de reembolso."
   },
   "product": {
     "backTo": "← Volver a {game}",

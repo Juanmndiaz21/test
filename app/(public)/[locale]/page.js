@@ -14,13 +14,14 @@ export const revalidate = 3600;
 
 export async function generateMetadata({ params }) {
     const { locale } = await params;
+    const isEs = locale === 'es';
     return {
         alternates: {
-            canonical: `/${locale}`,
+            canonical: isEs ? '/es' : '/',
             languages: {
+                en: '/',
                 es: '/es',
-                en: '/en',
-                'x-default': '/en',
+                'x-default': '/',
             },
         },
     };

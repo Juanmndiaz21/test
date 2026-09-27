@@ -56,11 +56,11 @@
     "workWithUs": "Work With Us"
   },
   "home": {
-    "titleMeta": "Premium Game Boosting Services",
+    "titleMeta": "OGmodz — Premium Game Boosting Services | Rank & Level Up",
     "heroBrand": "OGmodz:",
-    "heroH1": "Game Boosting Services",
-    "heroTitle": "Trusted & Legit Game Boosting Services",
-    "heroSub": "OGmodz offers trusted game boosting and services to help gamers succeed.",
+    "heroH1": "Trusted & Legit",
+    "heroTitle": "Game Boosting Services",
+    "heroSub": "OGmodz connects you with vetted, high-ranking boosters for GTA V, CS2, and top titles. 100% hand-played with VPN protection, instant start, and 24/7 support.",
     "featuresTitle": "Everything you need to level up",
     "features": [
       {
@@ -150,10 +150,10 @@
     "clearSearch": "Clear search"
   },
   "store": {
-    "titleMeta": "Browse games",
+    "titleMeta": "Browse Game Boosting Services | OGmodz",
     "eyebrow": "Browse by title",
     "title": "Browse games",
-    "subtitle": "Find a game, check its services and line up your next mission.",
+    "subtitle": "Explore verified game boosting services for GTA V, CS2, and more. Customize platform and packages with fast delivery and 24/7 pro support.",
     "liveCatalog": "Live catalog",
     "jumpTo": "Jump to",
     "all": "All",
@@ -171,7 +171,7 @@
     "backToBrowse": "← Back to browse games"
   },
   "gamePage": {
-    "titleMeta": "{game} services",
+    "titleMeta": "{game} Boosting & Services",
     "home": "Home",
     "backToBrowse": "Back to browse games",
     "gameServices": "Game services",
@@ -196,7 +196,7 @@
     "clearAllFilters": "Clear all filters",
     "noServicesMatchQuery": "No services match “{query}”",
     "noServicesMatchQueryDesc": "Try adjusting your search terms or clearing your platform filter.",
-    "metadataDescription": "Boosting services available for {game}."
+    "metadataDescription": "Elevate your rank in {game} with trusted, fast delivery services from OGmodz. Verified pro players, secure VPN protection, and 100% money-back guarantee."
   },
   "product": {
     "backTo": "← Back to {game}",

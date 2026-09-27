@@ -11,17 +11,24 @@ export async function generateMetadata({ params }) {
     const { locale } = await params;
     const t = await getTranslations({ locale, namespace: 'help' });
     const isEs = locale === 'es';
+    const enPath = '/help';
+    const esPath = '/es/help';
 
     return {
         title: `${t('title')} | OGmodz`,
         description: t('subtitle'),
         alternates: {
-            canonical: isEs ? '/help' : '/en/help',
+            canonical: isEs ? esPath : enPath,
             languages: {
-                es: '/help',
-                en: '/en/help',
-                'x-default': '/help',
+                en: enPath,
+                es: esPath,
+                'x-default': enPath,
             },
+        },
+        openGraph: {
+            title: `${t('title')} | OGmodz`,
+            description: t('subtitle'),
+            url: isEs ? esPath : enPath,
         },
     };
 }
