@@ -205,7 +205,7 @@ export default function Checkout() {
                                         </span>
                                     </div>
                                     <p className="text-xs text-[#c8b4ff]/80">
-                                        Ahorras: <span className="font-bold font-mono">-${appliedCoupon.discountAmount.toFixed(2)} USD</span>
+                                        You save: <span className="font-bold font-mono">-${appliedCoupon.discountAmount.toFixed(2)} USD</span>
                                     </p>
                                 </div>
                             </div>
@@ -242,7 +242,7 @@ export default function Checkout() {
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-sm font-bold flex items-center gap-1.5">
                                     <Icon name="shield" className="w-4 h-4 text-[#9d7cff]" />
-                                    Tarjeta
+                                    Card
                                 </span>
                                 {paymentMethod === 'stripe' && (
                                     <span className="h-2 w-2 rounded-full bg-[#9d7cff]" />
@@ -273,7 +273,7 @@ export default function Checkout() {
                                 )}
                             </div>
                             <span className="text-[11px] text-slate-400">
-                                Saldo & Tarjetas
+                                Balance & Cards
                             </span>
                         </button>
 
@@ -290,7 +290,7 @@ export default function Checkout() {
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-sm font-bold flex items-center gap-1.5">
                                     <Icon name="wallet" className="w-4 h-4 text-emerald-400" />
-                                    Web3 / Cripto
+                                    Web3 / Crypto
                                 </span>
                                 {paymentMethod === 'crypto' && (
                                     <span className="h-2 w-2 rounded-full bg-[#9d7cff]" />
