@@ -340,7 +340,7 @@ export default function ProfilePage() {
                                 onClick={() => setSearchQuery('')}
                                 className="text-xs text-[#9d7cff] hover:underline font-semibold"
                             >
-                                Limpiar búsqueda
+                                Clear search
                             </button>
                         </div>
                     ) : (

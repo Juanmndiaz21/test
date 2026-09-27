@@ -160,7 +160,7 @@ export default function TrackOrderPage({ searchParams }) {
                                     onClick={() => setCode('')}
                                     className="px-5 py-2.5 rounded-xl text-slate-400 hover:text-white text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer"
                                 >
-                                    Limpiar búsqueda
+                                    Clear search
                                 </button>
                             </div>
                         </motion.div>
@@ -412,7 +412,7 @@ export default function TrackOrderPage({ searchParams }) {
                                     <span>{t('helpNote')}</span>
                                 </div>
                                 <Link
-                                    href={`/contact?subject=Orden%20${result.orderCode}`}
+                                    href={`/contact?subject=Order%20${result.orderCode}`}
                                     className="px-4 py-2 rounded-lg bg-white/5 hover:bg-[#9d7cff] text-slate-200 hover:text-[#0d0914] border border-white/10 hover:border-[#9d7cff] font-bold uppercase tracking-wider text-xs transition-[background-color,color,border-color] inline-flex items-center gap-2"
                                 >
                                     <span>{t('contactSupport')}</span>
@@ -479,10 +479,10 @@ export default function TrackOrderPage({ searchParams }) {
                         <div className="panel-surface p-6 rounded-2xl border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
                             <div>
                                 <h4 className="font-bold text-white text-sm">
-                                    ¿Compraste como invitado o no encuentras tu código?
+                                    Purchased as a guest or can&apos;t find your code?
                                 </h4>
                                 <p className="text-slate-400 text-xs mt-1">
-                                    Indícanos tu email de compra y nuestro equipo te proveerá el acceso inmediato.
+                                    Send us your purchase email address and our team will grant you instant access.
                                 </p>
                             </div>
                             <Link

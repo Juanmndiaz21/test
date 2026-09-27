@@ -113,11 +113,11 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
 
     return (
         <div className="space-y-6">
-            {/* 1. STATS RESUMEN */}
+            {/* 1. STATS SUMMARY */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
                 <div className="panel-surface rounded-xl p-4 border border-white/10">
                     <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
-                        Total Órdenes
+                        Total Orders
                     </span>
                     <strong className="text-2xl font-black text-white font-mono">
                         {stats.totalOrders}
@@ -126,7 +126,7 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
 
                 <div className="panel-surface rounded-xl p-4 border border-white/10">
                     <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
-                        En Proceso / Cola
+                        In Progress / Queued
                     </span>
                     <strong className="text-2xl font-black text-amber-300 font-mono">
                         {stats.activeCount}
@@ -135,7 +135,7 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
 
                 <div className="panel-surface rounded-xl p-4 border border-white/10">
                     <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
-                        Con Addons (+10% Off)
+                        With Addons (+10% Off)
                     </span>
                     <strong className="text-2xl font-black text-[#9d7cff] font-mono">
                         {stats.ordersWithAddonsCount}
@@ -144,7 +144,7 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
 
                 <div className="panel-surface rounded-xl p-4 border border-white/10">
                     <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
-                        Total Facturado
+                        Total Revenue
                     </span>
                     <strong className="text-2xl font-black text-white font-mono">
                         ${stats.totalRevenue} <small className="text-xs text-slate-400">USD</small>
@@ -152,7 +152,7 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
                 </div>
             </div>
 
-            {/* 2. BARRA DE BÚSQUEDA Y FILTROS */}
+            {/* 2. SEARCH BAR & FILTERS */}
             <div className="panel-surface rounded-xl p-3 sm:p-4 border border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
                 <div className="relative flex-1 max-w-sm">
                     <Icon
@@ -163,18 +163,18 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
                         type="text"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="Buscar por #orden, cliente, juego o addon..."
+                        placeholder="Search by #order, customer, game, or addon..."
                         className="w-full bg-black/30 border border-white/10 rounded-lg pl-9 pr-3 py-1.5 text-xs sm:text-sm text-white placeholder:text-slate-500 focus:border-[#9d7cff] outline-none transition-colors"
                     />
                 </div>
 
                 <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
                     {[
-                        { id: 'all', label: 'Todas' },
-                        { id: 'queued', label: 'En Cola' },
-                        { id: 'in_progress', label: 'En Proceso' },
-                        { id: 'completed', label: 'Completadas' },
-                        { id: 'with_addons', label: 'Con Addons' },
+                        { id: 'all', label: 'All' },
+                        { id: 'queued', label: 'Queued' },
+                        { id: 'in_progress', label: 'In Progress' },
+                        { id: 'completed', label: 'Completed' },
+                        { id: 'with_addons', label: 'With Addons' },
                     ].map((tab) => {
                         const active = statusFilter === tab.id;
                         return (
@@ -195,26 +195,26 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
                 </div>
             </div>
 
-            {/* 3. TABLA DE ÓRDENES */}
+            {/* 3. ORDERS TABLE */}
             <div className="panel-surface rounded-xl border border-white/10 overflow-hidden shadow-lg">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-black/40 border-b border-white/10 text-slate-400 font-mono text-xs uppercase tracking-wider">
-                                <th className="p-3.5 pl-4"># Orden</th>
-                                <th className="p-3.5">Cliente</th>
-                                <th className="p-3.5">Servicio</th>
+                                <th className="p-3.5 pl-4"># Order</th>
+                                <th className="p-3.5">Customer</th>
+                                <th className="p-3.5">Service</th>
                                 <th className="p-3.5">Total</th>
-                                <th className="p-3.5">Estado</th>
+                                <th className="p-3.5">Status</th>
                                 <th className="p-3.5">Booster</th>
-                                <th className="p-3.5 text-right pr-4">Acción</th>
+                                <th className="p-3.5 text-right pr-4">Action</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5 text-sm">
                             {filteredOrders.length === 0 ? (
                                 <tr>
                                     <td colSpan="7" className="p-8 text-center text-slate-400">
-                                        No se encontraron órdenes con esos criterios.
+                                        No orders found matching your criteria.
                                     </td>
                                 </tr>
                             ) : (
@@ -349,7 +349,7 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
                                                 </div>
                                             </td>
 
-                                            {/* 7. Acciones: Ver detalle & Eliminar */}
+                                            {/* 7. Actions: View details & Delete */}
                                             <td className="p-3.5 pr-4 text-right whitespace-nowrap">
                                                 <div className="inline-flex items-center gap-1.5 justify-end">
                                                     <OrderDetailsModal order={order} items={items} />
@@ -369,11 +369,11 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
                     <div className="flex items-center gap-3 text-xs font-mono text-slate-400">
                         <span>
                             {filteredOrders.length === 0
-                                ? '0 órdenes'
-                                : `Mostrando ${startIndex + 1}-${endIndex} de ${filteredOrders.length} órdenes`}
+                                ? '0 orders'
+                                : `Showing ${startIndex + 1}-${endIndex} of ${filteredOrders.length} orders`}
                         </span>
                         <div className="flex items-center gap-1.5 ml-2 border-l border-white/10 pl-3">
-                            <span className="text-[11px] text-slate-500">Por pág:</span>
+                            <span className="text-[11px] text-slate-500">Per page:</span>
                             <select
                                 value={pageSize}
                                 onChange={(e) => setPageSize(Number(e.target.value))}
@@ -395,7 +395,7 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
                                 className="px-2.5 py-1 rounded border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-mono font-bold text-slate-300 disabled:opacity-30 disabled:pointer-events-none transition-colors inline-flex items-center gap-1 cursor-pointer"
                             >
                                 <Icon name="chevron-left" className="w-3.5 h-3.5" />
-                                <span>Ant</span>
+                                <span>Prev</span>
                             </button>
 
                             <div className="flex items-center gap-1">
@@ -434,7 +434,7 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
                                 disabled={safeCurrentPage === totalPages}
                                 className="px-2.5 py-1 rounded border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-mono font-bold text-slate-300 disabled:opacity-30 disabled:pointer-events-none transition-colors inline-flex items-center gap-1 cursor-pointer"
                             >
-                                <span>Sig</span>
+                                <span>Next</span>
                                 <Icon name="chevron-right" className="w-3.5 h-3.5" />
                             </button>
                         </div>

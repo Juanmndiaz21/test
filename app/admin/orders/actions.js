@@ -59,17 +59,17 @@ export async function deleteOrder(orderId) {
     try {
         const sql = await adminSql();
         const id = Number(orderId);
-        if (!Number.isInteger(id)) throw new Error('ID de orden inválido.');
+        if (!Number.isInteger(id)) throw new Error('Invalid order ID.');
 
         await sql`DELETE FROM order_items WHERE order_id = ${id}`;
         const deleted = await sql`DELETE FROM orders WHERE id = ${id} RETURNING id`;
-        if (deleted.length === 0) throw new Error(`La orden #${id} no fue encontrada.`);
+        if (deleted.length === 0) throw new Error(`Order #${id} was not found.`);
 
         revalidatePath('/admin');
         revalidatePath('/admin/orders');
 
-        return { success: true, message: `Orden #${id} eliminada correctamente.` };
+        return { success: true, message: `Order #${id} deleted successfully.` };
     } catch (error) {
-        return { success: false, error: error.message || 'Error al eliminar la orden.' };
+        return { success: false, error: error.message || 'Error deleting order.' };
     }
 }

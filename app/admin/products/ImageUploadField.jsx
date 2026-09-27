@@ -35,7 +35,7 @@ export default function ImageUploadField({
         if (!file) return;
 
         if (file.size > 5 * 1024 * 1024) {
-            toast.error('La imagen supera el límite de 5 MB.');
+            toast.error('Image exceeds 5 MB limit.');
             return;
         }
 
@@ -51,13 +51,13 @@ export default function ImageUploadField({
 
             const data = await res.json();
             if (!res.ok) {
-                throw new Error(data.error || 'Error al subir la imagen');
+                throw new Error(data.error || 'Failed to upload image');
             }
 
             updateValue(data.url);
-            toast.success('¡Imagen subida correctamente!', { title: 'Subida exitosa' });
+            toast.success('Image uploaded successfully!', { title: 'Upload successful' });
         } catch (err) {
-            toast.error(err.message || 'Error al subir imagen');
+            toast.error(err.message || 'Error uploading image');
         } finally {
             setIsUploading(false);
             if (fileInputRef.current) {
@@ -101,7 +101,7 @@ export default function ImageUploadField({
                         className="text-[11px] text-[#9d7cff] hover:underline flex items-center gap-1 cursor-pointer font-bold"
                     >
                         <LuFolderOpen className="w-3 h-3" />
-                        <span>{showGallery ? 'Ocultar galería' : 'Elegir ya subida'}</span>
+                        <span>{showGallery ? 'Hide gallery' : 'Choose uploaded'}</span>
                     </button>
                     {currentValue && (
                         <button
@@ -110,7 +110,7 @@ export default function ImageUploadField({
                             className="text-[11px] text-red-400 hover:text-red-300 flex items-center gap-1 cursor-pointer font-medium"
                         >
                             <LuX className="w-3 h-3" />
-                            <span>Quitar imagen</span>
+                            <span>Remove image</span>
                         </button>
                     )}
                 </div>
@@ -133,7 +133,7 @@ export default function ImageUploadField({
                         type="text"
                         value={currentValue}
                         onChange={(e) => updateValue(e.target.value)}
-                        placeholder="e.g. /uploads/logo.png o https://..."
+                        placeholder="e.g. /uploads/logo.png or https://..."
                         className={`w-full bg-black/30 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:border-[#9d7cff] focus:ring-1 focus:ring-[#9d7cff]/40 outline-none transition-all ${
                             compact ? 'p-2 text-xs' : 'p-3 text-sm'
                         }`}
@@ -149,17 +149,17 @@ export default function ImageUploadField({
                             ? 'bg-[#9d7cff]/30 text-white cursor-wait'
                             : 'bg-[#9d7cff]/15 hover:bg-[#9d7cff] text-[#9d7cff] hover:text-[#0d0914] border border-[#9d7cff]/40'
                     } ${compact ? 'px-3 py-2 text-xs' : 'px-4 py-3 text-sm'}`}
-                    title="Seleccionar imagen desde tu computadora"
+                    title="Select image from your computer"
                 >
                     {isUploading ? (
                         <>
                             <LuLoader className="w-4 h-4 animate-spin" />
-                            <span>Subiendo...</span>
+                            <span>Uploading...</span>
                         </>
                     ) : (
                         <>
                             <LuUpload className="w-4 h-4" />
-                            <span>Subir imagen desde mi PC</span>
+                            <span>Upload image from PC</span>
                         </>
                     )}
                 </button>
@@ -171,19 +171,19 @@ export default function ImageUploadField({
                     <div className="flex items-center justify-between text-xs text-slate-300">
                         <span className="font-bold flex items-center gap-1.5 text-[#9d7cff]">
                             <LuFolderOpen className="w-3.5 h-3.5" />
-                            Imágenes subidas ({galleryImages.length})
+                            Uploaded images ({galleryImages.length})
                         </span>
-                        <span className="text-[11px] text-slate-400">Haz clic en cualquier imagen para seleccionarla</span>
+                        <span className="text-[11px] text-slate-400">Click any image to select it</span>
                     </div>
 
                     {isLoadingGallery ? (
                         <div className="py-4 text-center text-xs text-slate-400 flex items-center justify-center gap-2">
                             <LuLoader className="w-4 h-4 animate-spin text-[#9d7cff]" />
-                            <span>Cargando imágenes...</span>
+                            <span>Loading images...</span>
                         </div>
                     ) : galleryImages.length === 0 ? (
                         <p className="text-xs text-slate-400 py-3 text-center italic">
-                            Aún no hay imágenes subidas. Sube tu primera imagen usando el botón de arriba.
+                            No images uploaded yet. Upload your first image using the button above.
                         </p>
                     ) : (
                         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 max-h-48 overflow-y-auto pr-1">
@@ -230,7 +230,7 @@ export default function ImageUploadField({
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src={currentValue}
-                            alt="Vista previa del logo"
+                            alt="Logo preview"
                             className="w-full h-full object-contain p-1"
                             onError={(e) => {
                                 e.currentTarget.style.display = 'none';
@@ -243,7 +243,7 @@ export default function ImageUploadField({
                         </p>
                         <p className="text-[10px] text-slate-400 flex items-center gap-1 mt-0.5">
                             <LuImage className="w-3 h-3 text-emerald-400" />
-                            <span>Imagen asignada</span>
+                            <span>Assigned image</span>
                         </p>
                     </div>
                 </div>

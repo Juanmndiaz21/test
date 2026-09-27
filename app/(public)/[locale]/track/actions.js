@@ -31,7 +31,7 @@ export async function trackOrderAction(code) {
         }
 
         if (order.status === 'pending_payment') {
-            return { success: false, error: 'Este pedido aún tiene el pago pendiente de confirmación.' };
+            return { success: false, error: 'This order is currently pending payment confirmation.' };
         }
 
         // Mask customer email for privacy: jo***@example.com

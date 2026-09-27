@@ -53,15 +53,15 @@ export default function OrderDetailsModal({ order, items = [] }) {
         try {
             const lines = [
                 `=======================================`,
-                `OGMODZ // DETALLES DE LA ORDEN #${order.id}`,
+                `OGMODZ // ORDER DETAILS #${order.id}`,
                 `=======================================`,
-                `Fecha: ${new Date(order.created_at).toLocaleString()}`,
-                `Cliente: ${order.customer_name} (${order.customer_email})`,
-                `Estado: ${ORDER_STATUS_LABELS[order.status] || order.status}`,
-                `Booster: ${order.booster || 'No asignado'}`,
+                `Date: ${new Date(order.created_at).toLocaleString()}`,
+                `Customer: ${order.customer_name} (${order.customer_email})`,
+                `Status: ${ORDER_STATUS_LABELS[order.status] || order.status}`,
+                `Booster: ${order.booster || 'Unassigned'}`,
                 `Total: $${Number(order.total).toFixed(2)} USD`,
                 `---------------------------------------`,
-                `SERVICIOS CONTRATADOS:`,
+                `ORDERED SERVICES:`,
             ];
 
             items.forEach((item, idx) => {
@@ -69,14 +69,14 @@ export default function OrderDetailsModal({ order, items = [] }) {
                 const addons = Array.isArray(details.addons) ? details.addons : [];
                 lines.push(
                     `\n[${idx + 1}] ${item.name}`,
-                    `  Cantidad: ${item.quantity} × $${Number(item.unit_price).toFixed(2)}`,
-                    `  Plataforma: ${item.platform || 'N/A'}`,
-                    `  Versión/Edición: ${details.edition || 'N/A'}`,
-                    `  Paquete: ${details.package || (item.boost_amount ? `${item.boost_amount}M` : 'Seleccionado')}`
+                    `  Quantity: ${item.quantity} × $${Number(item.unit_price).toFixed(2)}`,
+                    `  Platform: ${item.platform || 'N/A'}`,
+                    `  Version/Edition: ${details.edition || 'N/A'}`,
+                    `  Package: ${details.package || (item.boost_amount ? `${item.boost_amount}M` : 'Selected')}`
                 );
 
                 if (addons.length > 0) {
-                    lines.push(`  SAVE 10% WITH ADDONS (${addons.length} agregados):`);
+                    lines.push(`  SAVE 10% WITH ADDONS (${addons.length} added):`);
                     addons.forEach((addon) => {
                         lines.push(`    - ✓ ${addon}`);
                     });
@@ -87,23 +87,23 @@ export default function OrderDetailsModal({ order, items = [] }) {
 
             await navigator.clipboard.writeText(lines.join('\n'));
             setCopied(true);
-            toast.success('Resumen copiado al portapapeles');
+            toast.success('Summary copied to clipboard');
             setTimeout(() => setCopied(false), 2500);
         } catch {
-            toast.error('No se pudo copiar al portapapeles');
+            toast.error('Could not copy to clipboard');
         }
     };
 
     return (
         <>
-            {/* Botón Ver detalles */}
+            {/* View details button */}
             <button
                 type="button"
                 onClick={() => setIsOpen(true)}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#9d7cff]/15 hover:bg-[#9d7cff] text-[#f1ecfb] hover:text-[#0d0914] border border-[#9d7cff]/40 text-xs font-mono font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(157,124,255,0.35)] active:scale-[0.98]"
             >
                 <Icon name="search" className="w-3.5 h-3.5 text-[#9d7cff] group-hover:text-[#0d0914]" />
-                <span>Ver detalle</span>
+                <span>View details</span>
                 {totalAddonsCount > 0 && (
                     <span className="px-1.5 py-0.5 rounded bg-[#9d7cff] text-[#0d0914] text-[10px] font-black">
                         +{totalAddonsCount}
@@ -123,21 +123,21 @@ export default function OrderDetailsModal({ order, items = [] }) {
                         aria-modal="true"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* Botón Cerrar */}
+                        {/* Close button */}
                         <button
                             type="button"
                             onClick={() => setIsOpen(false)}
-                            aria-label="Cerrar modal"
+                            aria-label="Close modal"
                             className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 flex items-center justify-center transition-colors cursor-pointer"
                         >
                             <Icon name="x" className="w-4 h-4" />
                         </button>
 
-                        {/* Cabecera del Modal */}
+                        {/* Modal Header */}
                         <div className="border-b border-white/10 pb-4">
                             <div className="flex items-center gap-2 mb-1">
                                 <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#9d7cff]">
-                                    Detalles de la Orden
+                                    Order Details
                                 </span>
                                 <span className="text-slate-600">•</span>
                                 <span className="text-xs font-mono text-slate-400">
@@ -147,7 +147,7 @@ export default function OrderDetailsModal({ order, items = [] }) {
 
                             <div className="flex flex-wrap items-center justify-between gap-3 mt-1">
                                 <h2 className="display-font text-3xl uppercase text-white tracking-wide">
-                                    Orden #{order.id}
+                                    Order #{order.id}
                                 </h2>
 
                                 <span
@@ -161,14 +161,14 @@ export default function OrderDetailsModal({ order, items = [] }) {
                             </div>
                         </div>
 
-                        {/* Ficha Cliente & Booster */}
+                        {/* Customer & Booster Card */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-xl bg-black/40 border border-white/10 text-xs">
                             <div className="space-y-1">
                                 <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold block">
-                                    Cliente
+                                    Customer
                                 </span>
                                 <strong className="text-white text-sm font-bold block">
-                                    {order.customer_name || 'Sin nombre'}
+                                    {order.customer_name || 'No name'}
                                 </strong>
                                 <span className="text-slate-400 font-mono block">
                                     {order.customer_email}
@@ -177,21 +177,21 @@ export default function OrderDetailsModal({ order, items = [] }) {
 
                             <div className="space-y-1">
                                 <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold block">
-                                    Booster & Pago
+                                    Booster & Payment
                                 </span>
                                 <strong className="text-slate-200 text-sm font-medium block">
-                                    {order.booster ? `Asignado a: ${order.booster}` : 'Sin booster asignado'}
+                                    {order.booster ? `Assigned to: ${order.booster}` : 'No booster assigned'}
                                 </strong>
                                 <span className="text-slate-400 font-mono uppercase block">
-                                    Método: {order.payment_method || 'demo'}
+                                    Method: {order.payment_method || 'demo'}
                                 </span>
                             </div>
                         </div>
 
-                        {/* Lista de Servicios */}
+                        {/* Services List */}
                         <div className="space-y-4">
                             <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
-                                Servicios Incluidos ({items.length})
+                                Included Services ({items.length})
                             </h3>
 
                             {items.map((item, index) => {
@@ -205,14 +205,14 @@ export default function OrderDetailsModal({ order, items = [] }) {
                                         key={item.id || index}
                                         className="p-4 rounded-xl bg-black/30 border border-white/10 space-y-3"
                                     >
-                                        {/* Nombre y Precio */}
+                                        {/* Name and Price */}
                                         <div className="flex items-start justify-between gap-3">
                                             <div>
                                                 <strong className="text-white text-sm font-bold block leading-snug">
                                                     {item.name}
                                                 </strong>
                                                 <span className="text-xs text-slate-400 font-mono">
-                                                    Cantidad: {item.quantity} × ${Number(item.unit_price).toFixed(2)} USD
+                                                    Quantity: {item.quantity} × ${Number(item.unit_price).toFixed(2)} USD
                                                 </span>
                                             </div>
 
@@ -221,7 +221,7 @@ export default function OrderDetailsModal({ order, items = [] }) {
                                             </strong>
                                         </div>
 
-                                        {/* Badges de configuración */}
+                                        {/* Configuration Badges */}
                                         <div className="flex flex-wrap items-center gap-1.5 text-xs font-mono">
                                             {item.game && (
                                                 <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-slate-300">
@@ -250,16 +250,16 @@ export default function OrderDetailsModal({ order, items = [] }) {
                                             )}
                                         </div>
 
-                                        {/* SECCIÓN DE ADDONS (SAVE 10% WITH ADDONS) */}
+                                        {/* ADDONS SECTION (SAVE 10% WITH ADDONS) */}
                                         {addons.length > 0 ? (
                                             <div className="mt-3 p-3.5 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/25 space-y-2">
                                                 <div className="flex items-center justify-between">
                                                     <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#9d7cff] flex items-center gap-1.5">
                                                         <Icon name="check" className="w-4 h-4 text-[#9d7cff]" />
-                                                        SAVE 10% WITH ADDONS ({addons.length} agregados)
+                                                        SAVE 10% WITH ADDONS ({addons.length} added)
                                                     </span>
                                                     <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#9d7cff]/20 text-[#c8b4ff] font-bold">
-                                                        10% OFF APLICADO
+                                                        10% OFF APPLIED
                                                     </span>
                                                 </div>
 
@@ -279,7 +279,7 @@ export default function OrderDetailsModal({ order, items = [] }) {
                                             </div>
                                         ) : (
                                             <p className="text-xs text-slate-500 font-mono italic pt-1">
-                                                Sin addons agregados a este pedido.
+                                                No addons added to this order.
                                             </p>
                                         )}
                                     </div>
@@ -287,11 +287,11 @@ export default function OrderDetailsModal({ order, items = [] }) {
                             })}
                         </div>
 
-                        {/* Total y Botones de acción */}
+                        {/* Total and Action buttons */}
                         <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-3">
                             <div>
                                 <span className="block text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">
-                                    Total del pedido
+                                    Order total
                                 </span>
                                 <strong className="text-2xl font-black text-white font-mono">
                                     ${Number(order.total).toFixed(2)}{' '}
@@ -306,7 +306,7 @@ export default function OrderDetailsModal({ order, items = [] }) {
                                     className="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 text-xs font-mono font-bold uppercase tracking-wider transition-colors cursor-pointer flex items-center gap-1.5"
                                 >
                                     <Icon name={copied ? 'check' : 'clipboard'} className="w-3.5 h-3.5 text-[#9d7cff]" />
-                                    <span>{copied ? 'Copiado' : 'Copiar'}</span>
+                                    <span>{copied ? 'Copied' : 'Copy'}</span>
                                 </button>
 
                                 <button
@@ -314,7 +314,7 @@ export default function OrderDetailsModal({ order, items = [] }) {
                                     onClick={() => setIsOpen(false)}
                                     className="px-5 py-2 rounded-xl bg-[#9d7cff] hover:bg-[#b69eff] text-[#0d0914] font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer"
                                 >
-                                    Cerrar
+                                    Close
                                 </button>
                             </div>
                         </div>

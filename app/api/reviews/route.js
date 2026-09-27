@@ -34,7 +34,7 @@ export async function POST(request) {
   if (!(await rateLimit(`review:${ip}`, { limit: 3, windowMs: 15 * 60 * 1000 }))) {
     return applyCorsHeaders(
       NextResponse.json(
-        { error: 'Demasiadas solicitudes. Por favor, intenta de nuevo más tarde.' },
+        { error: 'Too many requests. Please try again later.' },
         { status: 429 },
       ),
       request,
@@ -46,7 +46,7 @@ export async function POST(request) {
   if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
     return applyCorsHeaders(
       NextResponse.json(
-        { error: 'La valoración debe ser un número entre 1 y 5' },
+        { error: 'Rating must be a number between 1 and 5' },
         { status: 400 },
       ),
       request,
@@ -57,7 +57,7 @@ export async function POST(request) {
   if (content.length < 5) {
     return applyCorsHeaders(
       NextResponse.json(
-        { error: 'El contenido de la reseña debe tener al menos 5 caracteres (máximo 1500).' },
+        { error: 'Review content must be at least 5 characters (maximum 1500).' },
         { status: 400 },
       ),
       request,
@@ -68,7 +68,7 @@ export async function POST(request) {
   if (!productId) {
     return applyCorsHeaders(
       NextResponse.json(
-        { error: 'El ID del producto es obligatorio' },
+        { error: 'Product ID is required' },
         { status: 400 },
       ),
       request,
@@ -76,7 +76,7 @@ export async function POST(request) {
   }
 
   const title = String(body.title || '').trim().slice(0, 100);
-  const author = String(body.author || '').trim().slice(0, 60) || 'Cliente';
+  const author = String(body.author || '').trim().slice(0, 60) || 'Customer';
 
   const review = await createReview({
     product_id: productId,
@@ -89,7 +89,7 @@ export async function POST(request) {
 
   return applyCorsHeaders(
     NextResponse.json(
-      { ...review, message: 'Reseña enviada correctamente y pendiente de moderación.' },
+      { ...review, message: 'Review submitted successfully and pending moderation.' },
       { status: 201 },
     ),
     request,

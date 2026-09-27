@@ -10,7 +10,7 @@ import { rateLimit } from '@/lib/rateLimit';
 
 async function computeVerifiedItemsAndTotal(sql, items) {
     if (!Array.isArray(items) || items.length === 0) {
-        throw new Error('El carrito está vacío.');
+        throw new Error('Your cart is empty.');
     }
 
     const productRows = await sql`SELECT * FROM products`;
@@ -40,19 +40,19 @@ async function computeVerifiedItemsAndTotal(sql, items) {
     let subtotal = 0;
 
     for (const item of items) {
-        if (item === null || typeof item !== 'object') throw new Error('Artículo del carrito inválido.');
+        if (item === null || typeof item !== 'object') throw new Error('Invalid cart item.');
 
         const quantity = Number(item.quantity);
-        if (!Number.isInteger(quantity) || quantity <= 0) throw new Error('Cantidad inválida.');
+        if (!Number.isInteger(quantity) || quantity <= 0) throw new Error('Invalid quantity.');
 
         const rawId = Number(item.id);
         let product = Number.isInteger(rawId) && rawId > 0 ? productsById.get(rawId) : null;
         if (!product) product = productsBySignature.get(signatureFor(item));
-        if (!product) throw new Error(`Servicio desconocido: ${String(item.name || 'item')}`);
+        if (!product) throw new Error(`Unknown service: ${String(item.name || 'item')}`);
 
         const itemPrice = Number(item.price);
         const unitPrice = (Number.isFinite(itemPrice) && itemPrice > 0) ? itemPrice : Number(product.price);
-        if (!Number.isFinite(unitPrice) || unitPrice <= 0) throw new Error(`Precio inválido para ${product.name}.`);
+        if (!Number.isFinite(unitPrice) || unitPrice <= 0) throw new Error(`Invalid price for ${product.name}.`);
 
         subtotal += unitPrice * quantity;
         orderItems.push({
@@ -72,7 +72,7 @@ async function computeVerifiedItemsAndTotal(sql, items) {
     }
 
     if (!Number.isFinite(subtotal) || subtotal <= 0) {
-        throw new Error('Total del carrito inválido.');
+        throw new Error('Invalid cart total.');
     }
 
     return { orderItems, subtotal: Number(subtotal.toFixed(2)) };
@@ -84,7 +84,7 @@ async function computeVerifiedItemsAndTotal(sql, items) {
 export async function validateCouponAction(rawCode, itemsJson) {
     try {
         if (!rawCode || typeof rawCode !== 'string' || !rawCode.trim()) {
-            return { success: false, error: 'Ingresa un código de cupón.' };
+            return { success: false, error: 'Please enter a coupon code.' };
         }
 
         const cleanCode = rawCode.trim().toUpperCase();
@@ -94,14 +94,14 @@ export async function validateCouponAction(rawCode, itemsJson) {
         const ip = headerList.get('x-forwarded-for') || 'anon';
         const allowed = await rateLimit(`coupon:${ip}`, { limit: 15, windowMs: 60 * 1000 });
         if (!allowed) {
-            return { success: false, error: 'Demasiados intentos. Espera un minuto.' };
+            return { success: false, error: 'Too many attempts. Please wait a minute.' };
         }
 
         let items = [];
         try {
             items = typeof itemsJson === 'string' ? JSON.parse(itemsJson) : itemsJson;
         } catch {
-            return { success: false, error: 'Lista de productos inválida.' };
+            return { success: false, error: 'Invalid product list.' };
         }
 
         const sql = neon(process.env.DATABASE_URL);
@@ -127,7 +127,7 @@ export async function validateCouponAction(rawCode, itemsJson) {
             },
         };
     } catch (err) {
-        return { success: false, error: err.message || 'Error al validar el cupón.' };
+        return { success: false, error: err.message || 'Error validating coupon.' };
     }
 }
 
@@ -138,7 +138,7 @@ export async function recordDemoOrder(prevState, formData) {
     try {
         const name = String(formData.get('name') || '').trim() || 'Demo customer';
         const email = String(formData.get('email') || '').trim();
-        if (!email || !email.includes('@')) throw new Error('Se requiere un correo electrónico válido.');
+        if (!email || !email.includes('@')) throw new Error('A valid email address is required.');
 
         const paymentMethod = String(formData.get('payment_method') || 'stripe').toLowerCase();
         const rawCoupon = String(formData.get('coupon_code') || '').trim();
@@ -150,12 +150,12 @@ export async function recordDemoOrder(prevState, formData) {
             items = [];
         }
         if (!Array.isArray(items) || items.length === 0) {
-            throw new Error('Tu carrito está vacío.');
+            throw new Error('Your cart is empty.');
         }
 
         const emailKey = email.toLowerCase();
         if (!(await rateLimit(`checkout:${emailKey}`, { limit: 10, windowMs: 60 * 1000 }))) {
-            throw new Error('Demasiados pedidos en poco tiempo. Intenta más tarde.');
+            throw new Error('Too many orders in a short time. Please try again later.');
         }
 
         const sql = neon(process.env.DATABASE_URL);
@@ -207,10 +207,7 @@ export async function recordDemoOrder(prevState, formData) {
 
         const headerList = await headers();
         const origin = headerList.get('origin') || process.env.NEXTAUTH_URL || 'http://localhost:3000';
-        const referer = headerList.get('referer') || '';
-        const localeMatch = referer.match(/\/(es|en)(\/|$)/);
-        const locale = localeMatch ? localeMatch[1] : 'es';
-        const trackingUrl = `${origin}/${locale}/track?code=${orderCode}`;
+        const trackingUrl = `${origin}/track?code=${orderCode}`;
 
         // Send order confirmation email with tracking order code via Resend/SMTP
         try {
@@ -237,7 +234,7 @@ export async function recordDemoOrder(prevState, formData) {
                 couponCode: appliedCouponCode,
                 customerEmail: emailKey,
                 paymentMethod,
-                locale,
+                locale: 'en',
                 origin,
             });
 
@@ -268,7 +265,7 @@ export async function recordDemoOrder(prevState, formData) {
             success: false,
             orderId: null,
             orderCode: null,
-            error: error.message || 'No se pudo procesar el pedido.',
+            error: error.message || 'Unable to process order.',
         };
     }
 }

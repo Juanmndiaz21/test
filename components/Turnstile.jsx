@@ -116,20 +116,20 @@ export default function Turnstile({ siteKey, onToken, onExpire, action }) {
             {isDev && devError && !bypassed && (
                 <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <span>
-                        Turnstile código: <strong>{devError}</strong> (si estás en localhost, añade <code>localhost</code> a los dominios de tu widget en Cloudflare).
+                        Turnstile code: <strong>{devError}</strong> (if on localhost, add <code>localhost</code> to your Cloudflare widget allowed domains).
                     </span>
                     <button
                         type="button"
                         onClick={handleDevBypass}
                         className="px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-100 font-semibold cursor-pointer whitespace-nowrap"
                     >
-                        Omitir en Localhost
+                        Bypass on Localhost
                     </button>
                 </div>
             )}
             {isDev && bypassed && (
                 <div className="text-xs text-emerald-400 flex items-center gap-1.5 font-mono">
-                    <span>✓</span> Verificación de seguridad simulada en desarrollo
+                    <span>✓</span> Security check bypassed in development mode
                 </div>
             )}
         </div>

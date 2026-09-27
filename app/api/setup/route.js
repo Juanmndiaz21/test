@@ -12,7 +12,7 @@ export async function GET() {
         if (table[0]?.t) {
             const users = await sql`SELECT 1 FROM users LIMIT 1`;
             if (users.length > 0 && !(await getAdminSession())) {
-                return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
+                return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
             }
         }
 
@@ -22,6 +22,6 @@ export async function GET() {
         return NextResponse.json({ message: "Tables created successfully" }, { status: 200 });
     } catch (error) {
         console.error('Setup endpoint error:', error);
-        return NextResponse.json({ error: 'No se pudo completar la configuración inicial.' }, { status: 500 });
+        return NextResponse.json({ error: 'Could not complete initial setup.' }, { status: 500 });
     }
 }
