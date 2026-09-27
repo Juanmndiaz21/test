@@ -28,7 +28,7 @@ export default function PlatformFilterBar({ activePlatform = 'all', onSelectPlat
                         title={platform.label}
                         aria-label={platform.label}
                         aria-pressed={isActive}
-                        className={`relative px-3.5 py-2.5 sm:px-4 sm:py-2.5 rounded-xl transition-all duration-150 cursor-pointer flex items-center justify-center ${
+                        className={`relative px-3.5 py-2.5 sm:px-4 sm:py-2.5 rounded-xl transition-[color,background-color,border-color,transform] duration-140 ease-[var(--ease-out)] active:scale-[0.94] cursor-pointer flex items-center justify-center ${
                             isActive
                                 ? 'text-white bg-[#9d7cff]/20 border border-[#9d7cff]/40 shadow-[0_4px_12px_rgba(0,0,0,0.3)]'
                                 : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'

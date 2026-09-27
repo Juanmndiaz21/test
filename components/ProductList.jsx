@@ -10,18 +10,21 @@ import Icon from './Icon';
 const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '#'];
 
 const GameCardItem = memo(function GameCardItem({ game, gameProducts, image, t, index }) {
+    // Stagger capped at 10 items (300ms max) to ensure snappiness
+    const staggerDelay = Math.min(index, 10) * 30;
+
     return (
         <Link
             href={`/store/game/${encodeURIComponent(game)}`}
-            className="animate-ladder-row text-left group relative overflow-hidden panel-surface rounded-2xl p-4.5 border border-white/10 bg-[#171229] transition-all duration-200 hover:border-[#9d7cff]/60 hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(0,0,0,0.4)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-[-2px]"
-            style={{ animationDelay: `${index * 25}ms` }}
+            className="animate-ladder-row text-left group relative overflow-hidden panel-surface rounded-2xl p-4.5 border border-white/10 bg-[#171229] transition-[transform,border-color,box-shadow,background-color] duration-180 ease-[var(--ease-out)] hover:border-[#9d7cff]/60 hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(0,0,0,0.4)] active:scale-[0.985] active:duration-100 focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-[-2px]"
+            style={{ animationDelay: `${staggerDelay}ms` }}
         >
             <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#14101e] border border-white/10 p-1 flex items-center justify-center shrink-0 group-hover:border-[#9d7cff]/50 transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-[#14101e] border border-white/10 p-1 flex items-center justify-center shrink-0 group-hover:border-[#9d7cff]/50 group-hover:scale-105 transition-[transform,border-color] duration-180 ease-[var(--ease-out)]">
                     <GameLogo name={game} imageUrl={image} />
                 </div>
                 <div className="min-w-0 flex-1">
-                    <strong className="block text-white text-base font-bold leading-tight truncate group-hover:text-[#9d7cff] transition-colors">
+                    <strong className="block text-white text-base font-bold leading-tight truncate group-hover:text-[#9d7cff] transition-colors duration-140">
                         {game}
                     </strong>
                     <span className="block text-slate-400 uppercase tracking-wider mt-1.5 inline-flex items-center gap-1.5 text-xs font-mono">
@@ -29,7 +32,7 @@ const GameCardItem = memo(function GameCardItem({ game, gameProducts, image, t, 
                         <span className="data-readout">{t('serviceCount', { count: gameProducts.length })}</span>
                     </span>
                 </div>
-                <span className="w-8 h-8 rounded-full border border-white/15 bg-white/5 text-slate-300 flex items-center justify-center group-hover:bg-[#9d7cff] group-hover:text-[#0d0914] group-hover:border-[#9d7cff] group-hover:scale-105 transition-all duration-150 shrink-0">
+                <span className="w-8 h-8 rounded-full border border-white/15 bg-white/5 text-slate-300 flex items-center justify-center group-hover:bg-[#9d7cff] group-hover:text-[#0d0914] group-hover:border-[#9d7cff] group-hover:translate-x-0.5 group-hover:scale-105 group-active:scale-95 transition-[transform,background-color,border-color,color] duration-160 ease-[var(--ease-out)] shrink-0">
                     <Icon name="arrow-right" className="w-3.5 h-3.5" />
                 </span>
             </div>
@@ -106,7 +109,7 @@ export default function ProductList({ products, games: catalogGames = [] }) {
                         }}
                         placeholder={t('searchPlaceholder')}
                         aria-label={t('searchLabel')}
-                        className="w-full bg-[#171229] border border-white/10 rounded-2xl pl-12 pr-12 py-3.5 text-sm font-['Trebuchet_MS',sans-serif] text-white placeholder:text-slate-400 focus:border-[#9d7cff] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 transition-colors shadow-inner"
+                        className="w-full bg-[#171229] border border-white/10 rounded-2xl pl-12 pr-12 py-3.5 text-sm font-['Trebuchet_MS',sans-serif] text-white placeholder:text-slate-400 focus:border-[#9d7cff] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 transition-[border-color,box-shadow] duration-160 ease-[var(--ease-out)] shadow-inner"
                     />
                     <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
                         <Icon name="search" className="w-4 h-4" />
@@ -116,7 +119,7 @@ export default function ProductList({ products, games: catalogGames = [] }) {
                             type="button"
                             onClick={() => setSearchQuery('')}
                             aria-label={t('clearSearch')}
-                            className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors focus-visible:outline-2 focus-visible:outline-[#9d7cff] cursor-pointer"
+                            className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 active:scale-90 transition-[color,background-color,transform] duration-140 ease-[var(--ease-out)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] cursor-pointer"
                         >
                             <Icon name="x" className="w-4 h-4" />
                         </button>
@@ -131,7 +134,7 @@ export default function ProductList({ products, games: catalogGames = [] }) {
                     <button
                         type="button"
                         onClick={() => setActiveLetter('ALL')}
-                        className={`min-h-[36px] min-w-[36px] px-3.5 rounded-lg border text-xs font-bold transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-[#9d7cff] ${
+                        className={`min-h-[36px] min-w-[36px] px-3.5 rounded-lg border text-xs font-bold transition-[color,background-color,border-color,transform] duration-140 ease-[var(--ease-out)] cursor-pointer active:scale-[0.93] focus-visible:outline-2 focus-visible:outline-[#9d7cff] ${
                             activeLetter === 'ALL'
                                 ? 'bg-[#9d7cff] text-[#0d0914] border-[#9d7cff] font-black'
                                 : 'border-white/10 text-slate-300 hover:border-[#9d7cff]/50 hover:text-white bg-white/5'
@@ -149,11 +152,11 @@ export default function ProductList({ products, games: catalogGames = [] }) {
                                 type="button"
                                 disabled={!enabled}
                                 onClick={() => setActiveLetter(letter)}
-                                className={`min-h-[36px] min-w-[36px] px-2.5 rounded-lg border text-xs font-bold transition-all focus-visible:outline-2 focus-visible:outline-[#9d7cff] ${
+                                className={`min-h-[36px] min-w-[36px] px-2.5 rounded-lg border text-xs font-bold transition-[color,background-color,border-color,transform] duration-140 ease-[var(--ease-out)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] ${
                                     activeLetter === letter
-                                        ? 'bg-[#9d7cff] text-[#0d0914] border-[#9d7cff] font-black cursor-pointer'
+                                        ? 'bg-[#9d7cff] text-[#0d0914] border-[#9d7cff] font-black cursor-pointer active:scale-[0.93]'
                                         : enabled
-                                        ? 'border-white/10 text-slate-300 hover:border-[#9d7cff]/50 hover:text-white bg-white/5 cursor-pointer'
+                                        ? 'border-white/10 text-slate-300 hover:border-[#9d7cff]/50 hover:text-white bg-white/5 cursor-pointer active:scale-[0.93]'
                                         : 'border-white/5 text-slate-600 bg-white/[0.02] cursor-not-allowed opacity-40'
                                 }`}
                             >
