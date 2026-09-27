@@ -28,7 +28,7 @@ export default async function RefundsPage({ params }) {
     const t = await getTranslations('refunds');
 
     return (
-        <div className="min-h-screen bg-[#1A1A24] text-slate-100 pb-20">
+        <div className="min-h-screen bg-[#120e1c] text-slate-100 pb-20">
             <PageHeaderBanner
                 title={t('title')}
                 subtitle={t('lastUpdated')}

@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '../i18n/navigation';
 import { useSession, signOut } from 'next-auth/react';
@@ -53,7 +53,16 @@ export default function SiteHeader() {
                 </nav>
 
                 <div className="flex items-center gap-3">
-                    <CartLink className="min-h-[40px] min-w-[40px] h-10 w-10 rounded-full border border-white/15 bg-white/5 text-slate-300 hover:text-[#9d7cff] hover:border-[#9d7cff]/60 transition-all duration-200 inline-flex items-center justify-center focus-visible:outline-2 focus-visible:outline-[#9d7cff]" />
+                    <Link
+                        href="/track"
+                        title={t('trackOrder')}
+                        aria-label={t('trackOrder')}
+                        className="min-h-[40px] px-3.5 h-10 rounded-full border border-white/15 bg-white/5 text-slate-300 hover:text-[#9d7cff] hover:border-[#9d7cff]/60 transition-[color,border-color,background-color,transform] duration-150 ease-out active:scale-[0.95] inline-flex items-center gap-2 text-xs font-semibold focus-visible:outline-2 focus-visible:outline-[#9d7cff]"
+                    >
+                        <Icon name="radar" className="w-4 h-4 text-[#9d7cff]" />
+                        <span className="hidden sm:inline">{t('trackOrder')}</span>
+                    </Link>
+                    <CartLink className="min-h-[40px] min-w-[40px] h-10 w-10 rounded-full border border-white/15 bg-white/5 text-slate-300 hover:text-[#9d7cff] hover:border-[#9d7cff]/60 transition-[color,border-color,background-color,transform] duration-150 ease-out active:scale-[0.95] inline-flex items-center justify-center focus-visible:outline-2 focus-visible:outline-[#9d7cff]" />
                     <div className="hidden md:block">
                         <UserNav />
                     </div>
@@ -68,12 +77,14 @@ export default function SiteHeader() {
 function MobileMenu({ pathname, session }) {
     const t = useTranslations('common');
     const [open, setOpen] = useState(false);
+    const shouldReduceMotion = useReducedMotion();
     const user = session?.user;
     const isAdmin = user?.role === 'ADMIN';
 
     const links = [
         { href: '/', label: t('home') },
         { href: '/store', label: t('store') },
+        { href: '/track', label: t('trackOrder') },
         { href: '/help', label: t('support') },
         { href: '/contact', label: t('contact') },
         { href: '/checkout', label: t('myCart') },
@@ -86,6 +97,7 @@ function MobileMenu({ pathname, session }) {
         };
         document.addEventListener('keydown', onKey);
         document.body.style.overflow = 'hidden';
+
         return () => {
             document.removeEventListener('keydown', onKey);
             document.body.style.overflow = '';
@@ -101,7 +113,7 @@ function MobileMenu({ pathname, session }) {
                 aria-label={open ? 'Close menu' : 'Open menu'}
                 aria-expanded={open}
                 onClick={() => setOpen((value) => !value)}
-                className="inline-flex items-center justify-center min-h-[40px] min-w-[40px] h-10 w-10 rounded-lg border border-white/10 bg-white/5 text-slate-300 hover:border-[#9d7cff]/40 hover:text-[#9d7cff] transition-colors focus-visible:outline-2 focus-visible:outline-[#9d7cff]"
+                className="inline-flex items-center justify-center min-h-[40px] min-w-[40px] h-10 w-10 rounded-lg border border-white/10 bg-white/5 text-slate-300 hover:border-[#9d7cff]/40 hover:text-[#9d7cff] transition-[color,border-color,background-color] duration-150 active:scale-[0.95] focus-visible:outline-2 focus-visible:outline-[#9d7cff]"
             >
                 <Icon name={open ? 'x' : 'menu'} className="w-5 h-5" strokeWidth={2.2} />
             </button>
@@ -111,15 +123,19 @@ function MobileMenu({ pathname, session }) {
                     className="fixed inset-0 z-[80] bg-[#0d0914]/95 backdrop-blur-md pt-20 overflow-y-auto"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
                 >
                     <nav className="flex flex-col items-stretch gap-2 px-6 pb-12" aria-label="Main Navigation">
                         {links.map((item, index) => (
                             <motion.div
                                 key={item.href}
-                                initial={{ opacity: 0, x: -16 }}
+                                initial={{ opacity: 0, x: shouldReduceMotion ? 0 : -12 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.04 * index, duration: 0.25 }}
+                                transition={{
+                                    delay: shouldReduceMotion ? 0 : 0.03 * index,
+                                    duration: shouldReduceMotion ? 0.15 : 0.2,
+                                    ease: [0.23, 1, 0.32, 1],
+                                }}
                             >
                                 <Link
                                     href={item.href}
@@ -140,10 +156,20 @@ function MobileMenu({ pathname, session }) {
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.24 }}
                             >
-                                <div className="text-xs text-slate-400 bg-white/5 p-3 rounded-lg border border-white/10">
-                                    <p className="font-bold text-white truncate">{user.email}</p>
-                                    <p className="text-[#9d7cff] mt-0.5">{isAdmin ? t('administratorAccount') : t('customerAccount')}</p>
-                                </div>
+                                <Link
+                                    href="/profile"
+                                    onClick={close}
+                                    className="block text-xs text-slate-400 bg-white/5 hover:bg-white/10 p-3 rounded-lg border border-white/10 transition-colors group"
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <p className="font-bold text-white truncate group-hover:text-[#9d7cff] transition-colors">{user.email}</p>
+                                        <span className="text-[11px] font-semibold text-[#9d7cff] inline-flex items-center gap-1">
+                                            {t('myProfile')}
+                                            <Icon name="arrow-right" className="w-3 h-3" />
+                                        </span>
+                                    </div>
+                                    <p className="text-slate-400 mt-0.5">{isAdmin ? t('administratorAccount') : t('customerAccount')}</p>
+                                </Link>
 
                                 {isAdmin && (
                                     <Link
@@ -156,35 +182,55 @@ function MobileMenu({ pathname, session }) {
                                     </Link>
                                 )}
 
-                                <div className="flex items-center gap-3">
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            close();
-                                            signOut({ callbackUrl: '/' });
-                                        }}
-                                        className="flex-1 text-center bg-white/5 border border-white/10 text-slate-300 hover:text-white font-bold py-3 rounded-lg transition-colors cursor-pointer"
+                                <div className="space-y-2">
+                                    <Link
+                                        href="/track"
+                                        onClick={close}
+                                        className="flex items-center justify-center gap-2 w-full text-center bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 font-bold py-2.5 rounded-lg transition-colors text-xs"
                                     >
-                                        {t('signOut')}
-                                    </button>
-                                    <CartLink className="min-h-[44px] min-w-[44px] h-11 w-11 rounded-lg border border-white/10 bg-white/5 text-[#9d7cff] inline-flex items-center justify-center" />
+                                        <Icon name="radar" className="w-4 h-4 text-[#9d7cff]" />
+                                        {t('trackOrder')}
+                                    </Link>
+                                    <div className="flex items-center gap-3">
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                close();
+                                                signOut({ callbackUrl: '/' });
+                                            }}
+                                            className="flex-1 text-center bg-white/5 border border-white/10 text-slate-300 hover:text-white font-bold py-3 rounded-lg transition-colors cursor-pointer text-xs"
+                                        >
+                                            {t('signOut')}
+                                        </button>
+                                        <CartLink className="min-h-[44px] min-w-[44px] h-11 w-11 rounded-lg border border-white/10 bg-white/5 text-[#9d7cff] inline-flex items-center justify-center" />
+                                    </div>
                                 </div>
                             </motion.div>
                         ) : (
                             <motion.div
-                                className="mt-8 flex items-center justify-between gap-4"
+                                className="mt-8 space-y-2"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.24 }}
                             >
                                 <Link
-                                    href="/login"
+                                    href="/track"
                                     onClick={close}
-                                    className="flex-1 text-center bg-[#9d7cff] text-[#0d0914] font-black py-3.5 rounded-lg transition-colors hover:bg-[#b59dff]"
+                                    className="flex items-center justify-center gap-2 w-full text-center bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 font-bold py-2.5 rounded-lg transition-colors text-xs"
                                 >
-                                    {t('signIn')}
+                                    <Icon name="radar" className="w-4 h-4 text-[#9d7cff]" />
+                                    {t('trackOrder')}
                                 </Link>
-                                <CartLink className="min-h-[44px] min-w-[44px] h-11 w-11 rounded-lg border border-white/10 bg-white/5 text-[#9d7cff] inline-flex items-center justify-center" />
+                                <div className="flex items-center justify-between gap-3">
+                                    <Link
+                                        href="/login"
+                                        onClick={close}
+                                        className="flex-1 text-center bg-[#9d7cff] text-[#0d0914] font-black py-3 rounded-lg transition-colors hover:bg-[#b59dff] text-xs"
+                                    >
+                                        {t('signIn')}
+                                    </Link>
+                                    <CartLink className="min-h-[44px] min-w-[44px] h-11 w-11 rounded-lg border border-white/10 bg-white/5 text-[#9d7cff] inline-flex items-center justify-center" />
+                                </div>
                             </motion.div>
                         )}
                     </nav>

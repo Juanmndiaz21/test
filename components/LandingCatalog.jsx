@@ -1,5 +1,6 @@
 'use client';
 import { useState, useMemo, useDeferredValue, useCallback, memo } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { Link } from '../i18n/navigation';
 import GameArt from './GameArt';
@@ -7,62 +8,75 @@ import GameLogo from './GameLogo';
 import Icon from './Icon';
 
 const PopularGameCard = memo(function PopularGameCard({ game, index, t }) {
+    const shouldReduceMotion = useReducedMotion();
+
     return (
-        <Link
-            href={`/store/game/${encodeURIComponent(game.name)}`}
-            className="animate-ladder-row group relative aspect-square w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-[#171229] block transition-all duration-300 ease-out hover:-translate-y-2 hover:border-[#9d7cff]/70 hover:shadow-[0_24px_48px_rgba(0,0,0,0.7),0_0_35px_rgba(157,124,255,0.25)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 motion-reduce:transition-none select-none"
-            style={{ animationDelay: `${index * 60}ms` }}
+        <motion.div
+            initial={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateY(16px)' }}
+            whileInView={{ opacity: 1, transform: 'translateY(0)' }}
+            viewport={{ once: true, margin: '-20px' }}
+            transition={{
+                duration: shouldReduceMotion ? 0.15 : 0.35,
+                delay: shouldReduceMotion ? 0 : index * 0.06,
+                ease: [0.23, 1, 0.32, 1],
+            }}
+            className="w-full"
         >
-            {/* Top Rim Highlight */}
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent z-20" />
+            <Link
+                href={`/store/game/${encodeURIComponent(game.name)}`}
+                className="group relative aspect-square w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-[#171229] block transition-[transform,border-color,box-shadow] duration-200 ease-out hover:-translate-y-2 hover:border-[#9d7cff]/70 hover:shadow-[0_24px_48px_rgba(0,0,0,0.7),0_0_35px_rgba(157,124,255,0.25)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 motion-reduce:transition-none select-none"
+            >
+                {/* Top Rim Highlight */}
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent z-20" />
 
-            {/* Shimmer light reflection sweep */}
-            <div className="pointer-events-none absolute -inset-full bg-gradient-to-r from-transparent via-white/[0.08] to-transparent -rotate-45 translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out z-20" />
+                {/* Shimmer light reflection sweep */}
+                <div className="pointer-events-none absolute -inset-full bg-gradient-to-r from-transparent via-white/[0.08] to-transparent -rotate-45 translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out z-20" />
 
-            {/* Ambient Neon Violet Glow on hover */}
-            <div className="pointer-events-none absolute -bottom-6 inset-x-8 h-16 bg-[#9d7cff]/30 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                {/* Ambient Neon Violet Glow on hover */}
+                <div className="pointer-events-none absolute -bottom-6 inset-x-8 h-16 bg-[#9d7cff]/30 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
 
-            {/* Game Artwork */}
-            <div className="w-full h-full overflow-hidden bg-black/40">
-                <GameArt
-                    name={game.name}
-                    image_url={game.image_url}
-                    priority={index < 2}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 motion-reduce:transition-none"
-                />
-            </div>
+                {/* Game Artwork */}
+                <div className="w-full h-full overflow-hidden bg-black/40">
+                    <GameArt
+                        name={game.name}
+                        image_url={game.image_url}
+                        priority={index < 2}
+                        className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none"
+                    />
+                </div>
 
-            {/* Tonal Dark Gradient Scrim for Contrast Floor */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0d0914] via-[#0d0914]/40 to-transparent transition-opacity duration-300 ease-out group-hover:via-[#0d0914]/65 z-10" />
+                {/* Tonal Dark Gradient Scrim for Contrast Floor */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0d0914] via-[#0d0914]/40 to-transparent transition-opacity duration-200 ease-out group-hover:via-[#0d0914]/65 z-10" />
 
-            {/* Card Content & Action Target */}
-            <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 z-20 flex flex-col justify-end">
-                <h3 className="display-font text-2xl sm:text-3xl uppercase text-white leading-tight tracking-wide group-hover:text-[#9d7cff] group-hover:translate-x-1 transition-all duration-300 line-clamp-1 drop-shadow-md">
-                    {game.name}
-                </h3>
+                {/* Card Content & Action Target */}
+                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 z-20 flex flex-col justify-end">
+                    <h3 className="display-font text-2xl sm:text-3xl uppercase text-white leading-tight tracking-wide group-hover:text-[#9d7cff] group-hover:translate-x-1 transition-[transform,color] duration-200 ease-out line-clamp-1 drop-shadow-md">
+                        {game.name}
+                    </h3>
 
-                <div className="mt-2.5 pt-2.5 border-t border-white/10 flex items-center justify-between gap-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/50 backdrop-blur-md border border-white/10 group-hover:border-[#9d7cff]/40 group-hover:bg-black/70 group-hover:shadow-[0_0_12px_rgba(157,124,255,0.2)] transition-all duration-300">
-                        <span className="relative flex h-2 w-2" aria-hidden="true">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9d7cff]/80 motion-reduce:hidden" />
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#9d7cff]" />
-                        </span>
-                        <span className="text-xs font-mono font-bold text-slate-200 group-hover:text-white transition-colors duration-200 data-readout">
-                            {t('serviceCount', { count: game.services })}
+                    <div className="mt-2.5 pt-2.5 border-t border-white/10 flex items-center justify-between gap-2">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/50 backdrop-blur-md border border-white/10 group-hover:border-[#9d7cff]/40 group-hover:bg-black/70 group-hover:shadow-[0_0_12px_rgba(157,124,255,0.2)] transition-[background-color,border-color,box-shadow] duration-200 ease-out">
+                            <span className="relative flex h-2 w-2" aria-hidden="true">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9d7cff]/80 motion-reduce:hidden" />
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#9d7cff]" />
+                            </span>
+                            <span className="text-xs font-mono font-bold text-slate-200 group-hover:text-white transition-colors duration-200 data-readout">
+                                {t('serviceCount', { count: game.services })}
+                            </span>
+                        </div>
+
+                        {/* Action Target: Elevated arrow button */}
+                        <span className="w-10 h-10 rounded-full border border-white/20 bg-black/60 backdrop-blur-md text-white flex items-center justify-center font-bold transition-[transform,background-color,border-color,box-shadow,color] duration-200 ease-out group-hover:bg-[#9d7cff] group-hover:text-[#0d0914] group-hover:border-[#9d7cff] group-hover:shadow-[0_0_24px_rgba(157,124,255,0.7)] group-hover:scale-105 shrink-0 shadow-lg">
+                            <Icon
+                                name="arrow-up-right"
+                                className="w-5 h-5 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
+                                strokeWidth={2.4}
+                            />
                         </span>
                     </div>
-
-                    {/* Action Target: Elevated arrow button */}
-                    <span className="w-10 h-10 rounded-full border border-white/20 bg-black/60 backdrop-blur-md text-white flex items-center justify-center font-bold transition-all duration-300 ease-out group-hover:bg-[#9d7cff] group-hover:text-[#0d0914] group-hover:border-[#9d7cff] group-hover:shadow-[0_0_24px_rgba(157,124,255,0.7)] group-hover:scale-110 shrink-0 shadow-lg">
-                        <Icon
-                            name="arrow-up-right"
-                            className="w-5 h-5 transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-110 motion-reduce:transition-none"
-                            strokeWidth={2.4}
-                        />
-                    </span>
                 </div>
-            </div>
-        </Link>
+            </Link>
+        </motion.div>
     );
 });
 
@@ -72,15 +86,15 @@ const BrowseGameCard = memo(function BrowseGameCard({ game, t }) {
             href={`/store/game/${encodeURIComponent(game.name)}`}
             title={game.name}
             aria-label={game.name}
-            className="group relative aspect-[1.12/1] sm:aspect-square rounded-xl sm:rounded-2xl border border-white/10 bg-[#161224] hover:bg-[#1f1833] hover:border-[#9d7cff]/80 flex items-center justify-center p-2.5 sm:p-3 md:p-3.5 transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(0,0,0,0.7),0_0_20px_rgba(157,124,255,0.25)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 select-none overflow-hidden"
+            className="group relative aspect-[1.12/1] sm:aspect-square rounded-xl sm:rounded-2xl border border-white/10 bg-[#161224] hover:bg-[#1f1833] hover:border-[#9d7cff]/80 flex items-center justify-center p-2.5 sm:p-3 md:p-3.5 transition-[transform,border-color,background-color,box-shadow] duration-200 ease-out hover:-translate-y-1 active:scale-[0.97] hover:shadow-[0_12px_28px_rgba(0,0,0,0.7),0_0_20px_rgba(157,124,255,0.25)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 select-none overflow-hidden"
         >
             {/* Background Game Logo (dims and scales smoothly on hover) */}
-            <div className="w-full h-full flex items-center justify-center transition-all duration-200 group-hover:scale-105 group-hover:opacity-20">
+            <div className="w-full h-full flex items-center justify-center transition-[transform,opacity] duration-200 ease-out group-hover:scale-105 group-hover:opacity-20">
                 <GameLogo name={game.name} imageUrl={game.image_url} />
             </div>
 
             {/* Inside-Card Hover Overlay matching reference design with brand colors */}
-            <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-[#0d0914]/85 backdrop-blur-[2px] p-2 flex flex-col items-center justify-center text-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-all duration-200 ease-out z-10 pointer-events-none select-none">
+            <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-[#0d0914]/85 backdrop-blur-[2px] p-2 flex flex-col items-center justify-center text-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-200 ease-out z-10 pointer-events-none select-none">
                 <span className="font-['Trebuchet_MS',sans-serif] font-black text-xs text-white uppercase tracking-wider leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] line-clamp-2 px-1">
                     {game.name}
                 </span>
@@ -207,15 +221,21 @@ export default function LandingCatalog({ games }) {
                     {/* Featured Leaderboard: Shown when not in an active search query */}
                     {!isSearching && popularGames.length > 0 && (
                         <>
-                            <div className="flex items-center gap-4 mb-8 mt-14">
+                            <motion.div
+                                initial={{ opacity: 0, transform: 'translateY(10px)' }}
+                                whileInView={{ opacity: 1, transform: 'translateY(0)' }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+                                className="flex items-center gap-4 mb-8 mt-14"
+                            >
                                 <div className="flex items-center gap-3">
                                     <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/20 text-[#9d7cff]">
-                                        <Icon name="sparkles" className="w-5 h-5" />
+                                        <Icon name="sparkles" className="w-5 h-5 animate-logo-pulse" />
                                     </span>
                                     <h2 className="display-font text-3xl md:text-4xl uppercase text-white">{t('popularTitle')}</h2>
                                 </div>
                                 <div className="h-px bg-white/10 flex-1" />
-                            </div>
+                            </motion.div>
                             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
                                 {popularGames.map((game, index) => (
                                     <PopularGameCard
@@ -260,7 +280,7 @@ export default function LandingCatalog({ games }) {
                                             aria-selected={active}
                                             aria-pressed={active}
                                             onClick={() => setSelectedMode(opt.key)}
-                                            className={`min-h-[40px] px-4 py-2 rounded-lg text-xs font-bold transition-all duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-1 ${
+                                            className={`min-h-[40px] px-4 py-2 rounded-lg text-xs font-bold transition-[background-color,color,box-shadow] duration-150 ease-out active:scale-[0.97] cursor-pointer focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-1 ${
                                                 active
                                                     ? 'bg-[#9d7cff] text-[#0d0914] shadow-sm font-black'
                                                     : 'text-slate-300 hover:text-white hover:bg-white/5'
@@ -296,7 +316,7 @@ export default function LandingCatalog({ games }) {
                         <div className="mt-10 flex justify-center">
                             <Link
                                 href="/store"
-                                className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl border border-white/15 bg-white/5 hover:bg-[#9d7cff] hover:border-[#9d7cff] hover:text-[#0d0914] font-['Trebuchet_MS',sans-serif] text-xs font-black uppercase tracking-wider text-white transition-all duration-200 group focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2"
+                                className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl border border-white/15 bg-white/5 hover:bg-[#9d7cff] hover:border-[#9d7cff] hover:text-[#0d0914] font-['Trebuchet_MS',sans-serif] text-xs font-black uppercase tracking-wider text-white transition-[background-color,border-color,color,transform] duration-200 ease-out active:scale-[0.98] group focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2"
                             >
                                 <span>{t('viewAllCatalog')}</span>
                                 <Icon name="arrow-right" className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />

@@ -1,10 +1,18 @@
-'use server'
+'use server';
+
 import { neon } from '@neondatabase/serverless';
 import bcrypt from 'bcryptjs';
+import { headers } from 'next/headers';
 import { ensureUsersTable } from '../../lib/auth';
 import { requireAdmin } from '../../lib/guard';
 import { verifyTurnstile } from '../../lib/turnstile';
 import { rateLimit } from '../../lib/rateLimit';
+import {
+    createPasswordResetToken,
+    verifyPasswordResetToken,
+    markTokenUsed,
+} from '../../lib/passwordReset';
+import { sendPasswordResetEmail } from '../../lib/email';
 
 export async function registerUser(email, password, turnstile, setupToken) {
     try {
@@ -29,7 +37,7 @@ export async function registerUser(email, password, turnstile, setupToken) {
         }
 
         if (!process.env.DATABASE_URL) {
-            return { success: false, error: 'DATABASE_URL is not configured in Vercel environment variables.' };
+            return { success: false, error: 'DATABASE_URL is not configured.' };
         }
 
         const sql = neon(process.env.DATABASE_URL);
@@ -77,5 +85,96 @@ export async function createAdmin(prevState, formData) {
         return { success: `Admin created: ${email}`, error: null };
     } catch (error) {
         return { success: null, error: error.message || 'Could not create the administrator.' };
+    }
+}
+
+/**
+ * Request a password reset link.
+ */
+export async function requestPasswordReset(email, turnstile) {
+    try {
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email))) {
+            return { success: false, error: 'A valid email is required.' };
+        }
+
+        const passedChallenge = await verifyTurnstile(turnstile);
+        if (!passedChallenge) {
+            return { success: false, error: 'Security check failed. Try again.' };
+        }
+
+        const emailKey = String(email).trim().toLowerCase();
+        if (!(await rateLimit(`reset:${emailKey}`, { limit: 5, windowMs: 15 * 60 * 1000 }))) {
+            return { success: false, error: 'Too many reset requests. Please wait a few minutes.' };
+        }
+
+        if (!process.env.DATABASE_URL) {
+            return { success: false, error: 'DATABASE_URL is not configured.' };
+        }
+
+        const sql = neon(process.env.DATABASE_URL);
+        await ensureUsersTable(sql);
+
+        const userRows = await sql`SELECT id FROM users WHERE LOWER(email) = ${emailKey} LIMIT 1`;
+        if (userRows.length === 0) {
+            // For security, don't reveal whether user exists; return success
+            return { success: true };
+        }
+
+        const token = await createPasswordResetToken(sql, emailKey);
+
+        const headerList = await headers();
+        const origin = headerList.get('origin') || process.env.NEXTAUTH_URL || 'http://localhost:3000';
+        const resetUrl = `${origin}/reset-password?token=${token}&email=${encodeURIComponent(emailKey)}`;
+
+        await sendPasswordResetEmail({
+            to: emailKey,
+            resetUrl,
+        });
+
+        return { success: true };
+    } catch (err) {
+        console.error('Error in requestPasswordReset:', err);
+        return { success: false, error: err.message || 'Error processing reset request.' };
+    }
+}
+
+/**
+ * Set a new password using a valid reset token.
+ */
+export async function resetPassword(token, email, newPassword) {
+    try {
+        if (!token || !email || !newPassword) {
+            return { success: false, error: 'Missing required parameters.' };
+        }
+
+        if (String(newPassword).length < 8) {
+            return { success: false, error: 'Password must be at least 8 characters.' };
+        }
+
+        if (!process.env.DATABASE_URL) {
+            return { success: false, error: 'DATABASE_URL is not configured.' };
+        }
+
+        const sql = neon(process.env.DATABASE_URL);
+        const emailKey = String(email).trim().toLowerCase();
+
+        const isValid = await verifyPasswordResetToken(sql, token, emailKey);
+        if (!isValid) {
+            return { success: false, error: 'This reset link is invalid or has expired.' };
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        await sql`
+            UPDATE users 
+            SET password = ${hashedPassword} 
+            WHERE LOWER(email) = ${emailKey}
+        `;
+
+        await markTokenUsed(sql, token);
+
+        return { success: true };
+    } catch (err) {
+        console.error('Error in resetPassword:', err);
+        return { success: false, error: err.message || 'Could not reset password.' };
     }
 }

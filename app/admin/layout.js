@@ -5,6 +5,7 @@ import AdminNav from './AdminNav';
 import SiteHeader from '../../components/SiteHeader';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getLocale } from 'next-intl/server';
+import BisSkinCleaner from '../../components/BisSkinCleaner';
 import '../globals.css';
 
 export const metadata = {
@@ -20,16 +21,19 @@ export default async function AdminLayout({ children }) {
     }
 
     let messages;
-    let locale = 'es';
+    let locale = 'en';
     try {
         messages = await getMessages();
         locale = await getLocale();
     } catch {
-        messages = (await import('../../messages/es.json')).default;
+        messages = (await import('../../messages/en.json')).default;
     }
 
     return (
         <html lang={locale} suppressHydrationWarning>
+            <head>
+                <BisSkinCleaner />
+            </head>
             <body suppressHydrationWarning className="text-slate-200 min-h-screen selection:bg-[#9d7cff] selection:text-[#0d0914] flex flex-col">
                 <AuthSession>
                     <NextIntlClientProvider messages={messages} locale={locale}>

@@ -1,4 +1,5 @@
 'use client';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { useCartStore } from '../store/useCartStore';
 import { toast } from '../utils/toast';
@@ -7,6 +8,7 @@ export default function Cart() {
     const { cart, getTotal, getItemCount, updateQuantity, removeFromCart, clearCart } = useCartStore();
     const t = useTranslations('cart');
     const common = useTranslations('common');
+    const shouldReduceMotion = useReducedMotion();
 
     if (cart.length === 0) return null;
 
@@ -33,8 +35,20 @@ export default function Cart() {
             </div>
 
             <ul className="space-y-4 mb-6">
-                {cart.map((item) => (
-                    <li key={item.key} className="bg-black/20 p-4 rounded-lg border border-white/10">
+                <AnimatePresence initial={false}>
+                    {cart.map((item) => (
+                        <motion.li
+                            key={item.key}
+                            layout={!shouldReduceMotion}
+                            initial={{ opacity: 0, scale: 0.98 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{
+                                opacity: 0,
+                                scale: shouldReduceMotion ? 1 : 0.96,
+                                transition: { duration: 0.18, ease: [0.23, 1, 0.32, 1] },
+                            }}
+                            className="bg-black/20 p-4 rounded-lg border border-white/10"
+                        >
                         <div className="flex justify-between items-start gap-3">
                             <div className="min-w-0">
                                 <p className="font-medium text-slate-200 break-words">{item.name}</p>
@@ -50,7 +64,7 @@ export default function Cart() {
                                         ))}
                                     </div>
                                 )}
-                                <p className="text-xs text-lime-300 mt-2">
+                                <p className="text-xs text-[#9d7cff] mt-2 font-mono">
                                     ${item.price} × {item.quantity} = <span className="font-bold">${(item.price * item.quantity).toFixed(2)}</span>
                                 </p>
                             </div>
@@ -64,7 +78,7 @@ export default function Cart() {
                                 <button
                                     onClick={() => updateQuantity(item.key, item.quantity - 1)}
                                     aria-label={t('decreaseQuantity')}
-                                    className="h-8 w-8 rounded-lg border border-white/10 text-white text-lg font-black hover:border-lime-300 hover:text-lime-300 transition-colors"
+                                    className="h-8 w-8 rounded-lg border border-white/10 text-white text-lg font-black hover:border-[#9d7cff] hover:text-[#9d7cff] transition-colors"
                                 >
                                     −
                                 </button>
@@ -72,15 +86,16 @@ export default function Cart() {
                                 <button
                                     onClick={() => updateQuantity(item.key, item.quantity + 1)}
                                     aria-label={t('increaseQuantity')}
-                                    className="h-8 w-8 rounded-lg border border-white/10 text-white text-lg font-black hover:border-lime-300 hover:text-lime-300 transition-colors"
+                                    className="h-8 w-8 rounded-lg border border-white/10 text-white text-lg font-black hover:border-[#9d7cff] hover:text-[#9d7cff] transition-colors"
                                 >
                                     +
                                 </button>
                             </div>
-                            <strong className="font-bold text-lime-300">${(item.price * item.quantity).toFixed(2)}</strong>
+                            <strong className="font-bold text-[#9d7cff] font-mono">${(item.price * item.quantity).toFixed(2)}</strong>
                         </div>
-                    </li>
+                    </motion.li>
                 ))}
+                </AnimatePresence>
             </ul>
 
             <div className="pt-4 border-t border-white/10 flex justify-between items-end">

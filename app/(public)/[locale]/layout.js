@@ -8,6 +8,7 @@ import SiteHeader from '../../../components/SiteHeader';
 import Footer from '../../../components/Footer';
 import PageTransition from '../../../components/PageTransition';
 import BackToTop from '../../../components/BackToTop';
+import BisSkinCleaner from '../../../components/BisSkinCleaner';
 
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }) {
             languages: {
                 es: '/es',
                 en: '/en',
-                'x-default': '/es',
+                'x-default': '/en',
             },
         },
         openGraph: {
@@ -122,6 +123,7 @@ export default async function LocaleLayout({ children, params }) {
     return (
         <html lang={locale} suppressHydrationWarning>
             <head>
+                <BisSkinCleaner />
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}

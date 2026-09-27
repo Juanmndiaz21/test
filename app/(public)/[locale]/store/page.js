@@ -14,11 +14,11 @@ export async function generateMetadata({ params }) {
         title: t('titleMeta'),
         description: t('subtitle'),
         alternates: {
-            canonical: isEs ? '/store' : '/en/store',
+            canonical: `/${locale}/store`,
             languages: {
-                es: '/store',
+                es: '/es/store',
                 en: '/en/store',
-                'x-default': '/store',
+                'x-default': '/en/store',
             },
         },
     };
@@ -38,11 +38,10 @@ export default async function Store({ params }) {
     ]);
 
     return (
-        <div className="min-h-screen bg-[#1A1A24] text-slate-100 pb-20">
+        <div className="min-h-screen bg-[#120e1c] text-slate-100 pb-20">
             <PageHeaderBanner
                 title={t('title')}
                 subtitle={t('subtitle')}
-                badge={t('liveCatalog')}
                 maxWidth="max-w-7xl"
             />
 

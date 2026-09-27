@@ -86,7 +86,7 @@ export default async function HelpPage({ params }) {
     };
 
     return (
-        <div className="min-h-screen bg-[#1A1A24] text-slate-100 pb-20">
+        <div className="min-h-screen bg-[#120e1c] text-slate-100 pb-20">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

@@ -1,14 +1,11 @@
+import LoadingWheel from '@/components/LoadingWheel';
+
 export default function StoreLoading() {
     return (
         <div className="max-w-7xl mx-auto px-5 py-12 md:py-16 space-y-10" role="status" aria-label="Loading catalog">
-            {/* Header section matching store/page.js */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-                <div className="space-y-3">
-                    <div className="h-4 w-28 rounded skeleton-shimmer" />
-                    <div className="h-12 md:h-14 w-64 md:w-80 rounded-xl skeleton-shimmer" />
-                    <div className="h-4 w-72 md:w-96 rounded skeleton-shimmer" />
-                </div>
-                <div className="h-8 w-32 rounded-full skeleton-shimmer" />
+            {/* Header with animated loading wheel */}
+            <div className="flex flex-col items-center justify-center py-6">
+                <LoadingWheel size="lg" showLogo={true} label="OGmodz Standings · Store" />
             </div>
 
             {/* Products grid skeleton */}

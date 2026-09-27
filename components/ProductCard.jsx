@@ -43,7 +43,7 @@ export default function ProductCard({ product, index = 0 }) {
     return (
         <Link
             href={`/store/${product.id}`}
-            className="animate-ladder-row group relative overflow-hidden rounded-2xl border border-white/10 bg-[#171229] p-5 flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:border-[#9d7cff]/60 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.5)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] select-none"
+            className="animate-ladder-row group relative overflow-hidden rounded-2xl border border-white/10 bg-[#171229] p-5 flex flex-col justify-between transition-[transform,border-color,box-shadow] duration-200 ease-out hover:-translate-y-1 hover:border-[#9d7cff]/60 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.5)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-[#9d7cff] select-none"
             style={{ animationDelay: `${index * 50}ms` }}
         >
             <div>

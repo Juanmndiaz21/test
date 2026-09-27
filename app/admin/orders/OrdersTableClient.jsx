@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Icon from '../../../components/Icon';
 import { ORDER_STATUS_LABELS } from '../../../lib/orders';
 import OrderStatusForm from './OrderStatusForm';
 import AssignBoosterForm from './AssignBoosterForm';
 import OrderDetailsModal from './OrderDetailsModal';
+import DeleteOrderButton from './DeleteOrderButton';
 
 const STATUS_BADGE = {
     queued: 'border-amber-500/40 text-amber-300 bg-amber-500/10',
@@ -24,6 +25,8 @@ const PLATFORM_COLORS = {
 export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState('all');
+    const [pageSize, setPageSize] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
 
     // Aggregate statistics
     const stats = useMemo(() => {
@@ -89,6 +92,24 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
             return idMatch || nameMatch || emailMatch || boosterMatch || itemsMatch;
         });
     }, [orders, itemsByOrder, searchTerm, statusFilter]);
+
+    // Reset to page 1 on search, filter, or page size change
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchTerm, statusFilter, pageSize]);
+
+    const totalPages = Math.ceil(filteredOrders.length / pageSize) || 1;
+    const safeCurrentPage = Math.min(Math.max(1, currentPage), totalPages);
+    const startIndex = (safeCurrentPage - 1) * pageSize;
+    const endIndex = Math.min(startIndex + pageSize, filteredOrders.length);
+    const paginatedOrders = filteredOrders.slice(startIndex, endIndex);
+
+    const getVisiblePages = (current, total) => {
+        if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+        if (current <= 4) return [1, 2, 3, 4, 5, '...', total];
+        if (current >= total - 3) return [1, '...', total - 4, total - 3, total - 2, total - 1, total];
+        return [1, '...', current - 1, current, current + 1, '...', total];
+    };
 
     return (
         <div className="space-y-6">
@@ -197,7 +218,7 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
                                     </td>
                                 </tr>
                             ) : (
-                                filteredOrders.map((order) => {
+                                paginatedOrders.map((order) => {
                                     const items = itemsByOrder[order.id] ?? [];
                                     const totalAddons = items.reduce((sum, item) => {
                                         const addons = item.details?.addons;
@@ -328,9 +349,12 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
                                                 </div>
                                             </td>
 
-                                            {/* 7. Acción: Ver detalle */}
+                                            {/* 7. Acciones: Ver detalle & Eliminar */}
                                             <td className="p-3.5 pr-4 text-right whitespace-nowrap">
-                                                <OrderDetailsModal order={order} items={items} />
+                                                <div className="inline-flex items-center gap-1.5 justify-end">
+                                                    <OrderDetailsModal order={order} items={items} />
+                                                    <DeleteOrderButton orderId={order.id} />
+                                                </div>
                                             </td>
                                         </tr>
                                     );
@@ -338,6 +362,83 @@ export default function OrdersTableClient({ orders = [], itemsByOrder = {} }) {
                             )}
                         </tbody>
                     </table>
+                </div>
+
+                {/* Pagination Bar */}
+                <div className="p-4 border-t border-white/10 bg-white/[0.01] flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div className="flex items-center gap-3 text-xs font-mono text-slate-400">
+                        <span>
+                            {filteredOrders.length === 0
+                                ? '0 órdenes'
+                                : `Mostrando ${startIndex + 1}-${endIndex} de ${filteredOrders.length} órdenes`}
+                        </span>
+                        <div className="flex items-center gap-1.5 ml-2 border-l border-white/10 pl-3">
+                            <span className="text-[11px] text-slate-500">Por pág:</span>
+                            <select
+                                value={pageSize}
+                                onChange={(e) => setPageSize(Number(e.target.value))}
+                                className="bg-[#171229] border border-white/10 rounded px-1.5 py-0.5 text-xs text-slate-300 focus:border-[#9d7cff] outline-none cursor-pointer"
+                            >
+                                <option value={10}>10</option>
+                                <option value={25}>25</option>
+                                <option value={50}>50</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    {totalPages > 1 && (
+                        <div className="flex items-center gap-1.5">
+                            <button
+                                type="button"
+                                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                                disabled={safeCurrentPage === 1}
+                                className="px-2.5 py-1 rounded border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-mono font-bold text-slate-300 disabled:opacity-30 disabled:pointer-events-none transition-colors inline-flex items-center gap-1 cursor-pointer"
+                            >
+                                <Icon name="chevron-left" className="w-3.5 h-3.5" />
+                                <span>Ant</span>
+                            </button>
+
+                            <div className="flex items-center gap-1">
+                                {getVisiblePages(safeCurrentPage, totalPages).map((p, idx) => {
+                                    if (p === '...') {
+                                        return (
+                                            <span
+                                                key={`dots-${idx}`}
+                                                className="px-1 text-center text-xs font-mono text-slate-500"
+                                            >
+                                                ...
+                                            </span>
+                                        );
+                                    }
+                                    const isActive = p === safeCurrentPage;
+                                    return (
+                                        <button
+                                            key={p}
+                                            type="button"
+                                            onClick={() => setCurrentPage(p)}
+                                            className={`min-w-[28px] h-7 px-1 rounded text-xs font-mono font-bold transition-all cursor-pointer ${
+                                                isActive
+                                                    ? 'bg-[#9d7cff] text-[#0d0914]'
+                                                    : 'bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10'
+                                            }`}
+                                        >
+                                            {p}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+
+                            <button
+                                type="button"
+                                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                                disabled={safeCurrentPage === totalPages}
+                                className="px-2.5 py-1 rounded border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-mono font-bold text-slate-300 disabled:opacity-30 disabled:pointer-events-none transition-colors inline-flex items-center gap-1 cursor-pointer"
+                            >
+                                <span>Sig</span>
+                                <Icon name="chevron-right" className="w-3.5 h-3.5" />
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

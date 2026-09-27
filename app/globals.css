@@ -6,6 +6,11 @@
   --foreground: #f1ecfb;
   --line: rgba(157, 124, 255, 0.16);
   --acid: #9d7cff;
+
+  /* Emil Kowalski Motion Tokens */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 @theme inline {
@@ -32,6 +37,19 @@ body {
   background-image: radial-gradient(circle at 50% -12%, rgba(157, 124, 255, 0.18), transparent 46rem), radial-gradient(circle at 85% 110%, rgba(102, 64, 214, 0.12), transparent 36rem), radial-gradient(circle at 6% 100%, rgba(157, 124, 255, 0.05), transparent 28rem);
   background-size: auto, auto, auto;
   caret-color: var(--acid);
+}
+
+/* Tactile Press Feedback — Emil Kowalski Recipe */
+button:not(:disabled),
+.btn:not(:disabled),
+a[role="button"] {
+  transition: transform 140ms var(--ease-out), background-color 150ms ease, border-color 150ms ease, color 150ms ease, box-shadow 150ms ease, opacity 150ms ease;
+}
+
+button:active:not(:disabled),
+.btn:active:not(:disabled),
+a[role="button"]:active {
+  transform: scale(0.97);
 }
 
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
@@ -72,7 +90,7 @@ textarea {
 @keyframes hero-rise {
   from {
     opacity: 0;
-    transform: translateY(1.25rem);
+    transform: translateY(1rem);
   }
   to {
     opacity: 1;
@@ -81,13 +99,13 @@ textarea {
 }
 
 .animate-hero-rise {
-  animation: hero-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: hero-rise 0.45s var(--ease-out) both;
 }
 
 @keyframes ladder-row {
   from {
     opacity: 0;
-    transform: translateY(0.75rem);
+    transform: translateY(0.5rem);
   }
   to {
     opacity: 1;
@@ -96,7 +114,7 @@ textarea {
 }
 
 .animate-ladder-row {
-  animation: ladder-row 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: ladder-row 0.35s var(--ease-out) both;
 }
 
 @keyframes rank-rule {
@@ -109,7 +127,7 @@ textarea {
 }
 
 .animate-rank-rule {
-  animation: rank-rule 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+  animation: rank-rule 0.4s var(--ease-out) 0.2s both;
   transform-origin: left center;
 }
 
@@ -177,7 +195,7 @@ textarea {
 @keyframes toast-in {
   from {
     opacity: 0;
-    transform: translate3d(2rem, 0, 0) scale(0.95);
+    transform: translate3d(1.25rem, 0, 0) scale(0.96);
   }
   to {
     opacity: 1;
@@ -192,16 +210,16 @@ textarea {
   }
   to {
     opacity: 0;
-    transform: translate3d(2.5rem, 0, 0) scale(0.95);
+    transform: translate3d(1.5rem, 0, 0) scale(0.96);
   }
 }
 
 .animate-toast-in {
-  animation: toast-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: toast-in 0.24s var(--ease-out) both;
 }
 
 .animate-toast-out {
-  animation: toast-out 0.28s cubic-bezier(0.4, 0, 1, 1) both;
+  animation: toast-out 0.2s cubic-bezier(0.4, 0, 1, 1) both;
 }
 
 @keyframes toast-life {
@@ -218,7 +236,7 @@ details.faq-row summary::-webkit-details-marker {
 }
 
 details.faq-row .faq-toggle {
-  transition: transform 0.2s ease;
+  transition: transform 0.2s var(--ease-out);
 }
 
 details.faq-row[open] .faq-toggle {
@@ -242,24 +260,36 @@ details.faq-row[open] .faq-toggle {
   animation: shimmer 2.8s ease-in-out infinite;
 }
 
-/* ── Loading spinner ring ── */
+/* ── Loading spinner ring (Hardware-accelerated, linear constant motion per animate skill) ── */
 @keyframes loading-spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
+@keyframes loading-spin-reverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
 .animate-loading-spin {
-  animation: loading-spin 3s linear infinite;
+  animation: loading-spin 0.85s linear infinite !important;
+  will-change: transform;
+}
+
+.animate-loading-spin-reverse {
+  animation: loading-spin-reverse 1.35s linear infinite !important;
+  will-change: transform;
 }
 
 /* ── Loading logo pulse ── */
 @keyframes logo-pulse {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
+  0%, 100% { opacity: 0.6; transform: scale(0.96); }
   50% { opacity: 1; transform: scale(1.04); }
 }
 
 .animate-logo-pulse {
-  animation: logo-pulse 3.5s ease-in-out infinite;
+  animation: logo-pulse 2s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 /* ── UI Performance Optimization: Skip offscreen layout/paint ── */
@@ -268,10 +298,29 @@ details.faq-row[open] .faq-toggle {
   contain-intrinsic-size: 1px 500px;
 }
 
+/* Hover gating for touch devices: prevent sticky hover transforms on mobile */
+@media (hover: none) or (pointer: coarse) {
+  .hover\:-translate-y-1:hover,
+  .hover\:-translate-y-2:hover,
+  .group:hover .group-hover\:-translate-y-1,
+  .group:hover .group-hover\:-translate-y-2 {
+    transform: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  /* Functional loading spinners must remain active and visible so users know the app hasn't hung */
+  .animate-loading-spin,
+  .animate-spin,
+  .animate-loading-spin-reverse {
+    animation-duration: 1.8s !important;
+    animation-iteration-count: infinite !important;
   }
 }

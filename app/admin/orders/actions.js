@@ -54,3 +54,22 @@ export async function assignBooster(prevState, formData) {
         return { success: null, error: error.message || 'Could not assign the booster.' };
     }
 }
+
+export async function deleteOrder(orderId) {
+    try {
+        const sql = await adminSql();
+        const id = Number(orderId);
+        if (!Number.isInteger(id)) throw new Error('ID de orden inválido.');
+
+        await sql`DELETE FROM order_items WHERE order_id = ${id}`;
+        const deleted = await sql`DELETE FROM orders WHERE id = ${id} RETURNING id`;
+        if (deleted.length === 0) throw new Error(`La orden #${id} no fue encontrada.`);
+
+        revalidatePath('/admin');
+        revalidatePath('/admin/orders');
+
+        return { success: true, message: `Orden #${id} eliminada correctamente.` };
+    } catch (error) {
+        return { success: false, error: error.message || 'Error al eliminar la orden.' };
+    }
+}

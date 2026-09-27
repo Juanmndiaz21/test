@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import RawLink from 'next/link';
@@ -42,10 +43,16 @@ export default function UserNav() {
     if (!session?.user) {
         return (
             <div className="flex items-center gap-3 text-sm font-semibold">
-                <Link href="/login" className="text-slate-300 hover:text-[#9d7cff] transition-colors">
+                <Link
+                    href="/login"
+                    className="text-slate-300 hover:text-[#9d7cff] transition-[color,transform] duration-150 active:scale-[0.97] inline-flex items-center"
+                >
                     {t('signIn')}
                 </Link>
-                <Link href="/login" className="bg-[#9d7cff] hover:bg-[#b59dff] text-[#0d0914] font-bold px-4 py-2 rounded-lg transition-colors">
+                <Link
+                    href="/login"
+                    className="bg-[#9d7cff] hover:bg-white text-[#0d0914] font-bold px-4 py-2 rounded-lg transition-[background-color,color,transform,box-shadow] duration-150 ease-out active:scale-[0.97] shadow-[0_2px_10px_rgba(157,124,255,0.25)] hover:shadow-[0_0_18px_rgba(157,124,255,0.45)] inline-flex items-center"
+                >
                     {t('signUp')}
                 </Link>
             </div>
@@ -67,7 +74,7 @@ export default function UserNav() {
                 aria-haspopup="menu"
                 aria-label={t('myProfile')}
                 title={`${email}${isAdmin ? ' (Admin)' : ''}`}
-                className={`relative flex items-center justify-center h-8.5 w-8.5 rounded-full border transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-[#9d7cff] focus-visible:outline-none ${
+                className={`relative flex items-center justify-center h-8.5 w-8.5 rounded-full border transition-[border-color,box-shadow,transform] duration-150 cursor-pointer active:scale-[0.95] focus-visible:ring-2 focus-visible:ring-[#9d7cff] focus-visible:outline-none ${
                     open
                         ? 'border-[#9d7cff] ring-2 ring-[#9d7cff]/40 shadow-[0_0_16px_rgba(157,124,255,0.4)]'
                         : 'border-white/20 bg-white/5 hover:border-[#9d7cff] hover:shadow-[0_0_12px_rgba(157,124,255,0.3)]'
@@ -95,125 +102,157 @@ export default function UserNav() {
             </button>
 
             {/* Dropdown Menu */}
-            {open && (
-                <div
-                    role="menu"
-                    className="absolute right-0 top-full mt-2.5 w-72 panel-surface rounded-2xl overflow-hidden z-50 border border-[#9d7cff]/25 shadow-[0_24px_50px_rgba(0,0,0,0.85)]"
-                >
-                    {/* Header: User identity & role badge */}
-                    <div className="p-3.5 border-b border-white/10 flex items-center gap-3 bg-white/[0.02]">
-                        <div className="relative shrink-0">
-                            {avatarFailed ? (
-                                <span className="h-10 w-10 rounded-full bg-gradient-to-br from-[#9d7cff] to-[#6640d6] text-[#0d0914] flex items-center justify-center font-black text-sm">
-                                    {initial}
-                                </span>
-                            ) : (
-                                <img
-                                    src={avatarUrl}
-                                    alt=""
-                                    onError={() => setAvatarFailed(true)}
-                                    className="h-10 w-10 rounded-full object-cover border border-[#9d7cff]/40"
-                                />
-                            )}
-                            <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-[#9d7cff] border-2 border-[#171229]" />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                            <p className="text-sm font-bold text-white truncate" title={email}>{email}</p>
-                            {isAdmin ? (
-                                <span className="inline-flex items-center gap-1 mt-0.5 px-2 py-0.5 rounded-md bg-[#9d7cff]/15 border border-[#9d7cff]/30 text-[#9d7cff] text-[10px] font-mono font-bold uppercase tracking-wider">
-                                    <Icon name="crown" className="w-3 h-3" />
-                                    Admin
-                                </span>
-                            ) : (
-                                <span className="inline-flex items-center gap-1 mt-0.5 text-xs text-slate-400">
-                                    {t('customerAccount')}
-                                </span>
-                            )}
-                        </div>
-                    </div>
-
-                    {/* Admin Panel Section - housed cleanly inside dropdown */}
-                    {isAdmin && (
-                        <div className="p-2 border-b border-white/10 bg-[#9d7cff]/[0.03]">
-                            <div className="px-2.5 pt-1 pb-1.5 flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-widest text-[#9d7cff]">
-                                <span className="flex items-center gap-1.5">
-                                    <Icon name="crown" className="w-3.5 h-3.5 text-[#9d7cff]" />
-                                    {t('adminPanel')}
-                                </span>
-                                <span className="text-[9px] bg-[#9d7cff]/20 text-[#9d7cff] px-1.5 py-0.5 rounded font-mono">STAFF</span>
-                            </div>
-                            <div className="space-y-0.5">
-                                <RawLink
-                                    href="/admin"
-                                    role="menuitem"
-                                    onClick={() => setOpen(false)}
-                                    className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-slate-200 hover:bg-[#9d7cff] hover:text-[#0d0914] transition-colors group"
-                                >
-                                    <Icon name="dashboard" className="w-4 h-4 text-[#9d7cff] group-hover:text-[#0d0914] transition-colors shrink-0" />
-                                    <span>{t('dashboard')}</span>
-                                </RawLink>
-                                <RawLink
-                                    href="/admin/products"
-                                    role="menuitem"
-                                    onClick={() => setOpen(false)}
-                                    className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-slate-200 hover:bg-[#9d7cff] hover:text-[#0d0914] transition-colors group"
-                                >
-                                    <Icon name="box" className="w-4 h-4 text-[#9d7cff] group-hover:text-[#0d0914] transition-colors shrink-0" />
-                                    <span>{t('services')}</span>
-                                </RawLink>
-                                <RawLink
-                                    href="/admin/orders"
-                                    role="menuitem"
-                                    onClick={() => setOpen(false)}
-                                    className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-slate-200 hover:bg-[#9d7cff] hover:text-[#0d0914] transition-colors group"
-                                >
-                                    <Icon name="clipboard" className="w-4 h-4 text-[#9d7cff] group-hover:text-[#0d0914] transition-colors shrink-0" />
-                                    <span>{t('orders')}</span>
-                                </RawLink>
-                                <RawLink
-                                    href="/admin/reviews"
-                                    role="menuitem"
-                                    onClick={() => setOpen(false)}
-                                    className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-slate-200 hover:bg-[#9d7cff] hover:text-[#0d0914] transition-colors group"
-                                >
-                                    <Icon name="star" className="w-4 h-4 text-[#9d7cff] group-hover:text-[#0d0914] transition-colors shrink-0" />
-                                    <span>{t('reviews')}</span>
-                                </RawLink>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Customer note if not admin */}
-                    {!isAdmin && (
-                        <div className="px-3.5 py-2.5 text-xs text-slate-400 flex items-center gap-2 border-b border-white/10 bg-white/[0.01]">
-                            <Icon name="shield" className="w-4 h-4 shrink-0 text-[#9d7cff]" />
-                            <span>{t('customerNote')}</span>
-                        </div>
-                    )}
-
-                    {/* User and Store Actions */}
-                    <div className="p-2 space-y-0.5">
+            <AnimatePresence>
+                {open && (
+                    <motion.div
+                        role="menu"
+                        initial={{ opacity: 0, transform: 'scale(0.95)' }}
+                        animate={{ opacity: 1, transform: 'scale(1)' }}
+                        exit={{ opacity: 0, transform: 'scale(0.95)' }}
+                        transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
+                        style={{ transformOrigin: 'top right' }}
+                        className="absolute right-0 top-full mt-2.5 w-72 panel-surface rounded-2xl overflow-hidden z-50 border border-[#9d7cff]/25 shadow-[0_24px_50px_rgba(0,0,0,0.85)] divide-y divide-white/10"
+                    >
+                        {/* Header: User identity & role badge linking to full profile */}
                         <Link
-                            href="/checkout"
-                            role="menuitem"
+                            href="/profile"
                             onClick={() => setOpen(false)}
-                            className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-slate-200 hover:bg-[#9d7cff] hover:text-[#0d0914] transition-colors group"
+                            className="p-3.5 flex items-center gap-3 bg-white/[0.02] hover:bg-white/[0.05] transition-colors group"
                         >
-                            <Icon name="cart" className="w-4 h-4 text-slate-400 group-hover:text-[#0d0914] transition-colors shrink-0" />
-                            <span>{t('myCart')}</span>
+                            <div className="relative shrink-0">
+                                {avatarFailed ? (
+                                    <span className="h-10 w-10 rounded-full bg-gradient-to-br from-[#9d7cff] to-[#6640d6] text-[#0d0914] flex items-center justify-center font-black text-sm">
+                                        {initial}
+                                    </span>
+                                ) : (
+                                    <img
+                                        src={avatarUrl}
+                                        alt=""
+                                        onError={() => setAvatarFailed(true)}
+                                        className="h-10 w-10 rounded-full object-cover border border-[#9d7cff]/40 group-hover:border-[#9d7cff] transition-colors"
+                                    />
+                                )}
+                                <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-[#9d7cff] border-2 border-[#171229]" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                                <div className="flex items-center justify-between">
+                                    <p className="text-sm font-bold text-white truncate group-hover:text-[#9d7cff] transition-colors" title={email}>{email}</p>
+                                    <Icon name="arrow-right" className="w-3.5 h-3.5 text-slate-500 group-hover:text-[#9d7cff] transition-colors shrink-0" />
+                                </div>
+                                {isAdmin ? (
+                                    <span className="inline-flex items-center gap-1 mt-0.5 px-2 py-0.5 rounded-md bg-[#9d7cff]/15 border border-[#9d7cff]/30 text-[#9d7cff] text-[10px] font-mono font-bold uppercase tracking-wider">
+                                        <Icon name="crown" className="w-3 h-3" />
+                                        Admin
+                                    </span>
+                                ) : (
+                                    <span className="inline-flex items-center gap-1 mt-0.5 text-xs text-slate-400 group-hover:text-slate-300">
+                                        {t('customerAccount')}
+                                    </span>
+                                )}
+                            </div>
                         </Link>
-                        <button
-                            type="button"
-                            role="menuitem"
-                            onClick={() => signOut({ callbackUrl: '/' })}
-                            className="w-full flex items-center gap-2.5 text-left px-2.5 py-2 rounded-lg text-xs font-semibold text-red-400 hover:bg-red-500 hover:text-white transition-colors cursor-pointer group"
-                        >
-                            <Icon name="logout" className="w-4 h-4 text-red-400 group-hover:text-white transition-colors shrink-0" />
-                            <span>{t('signOut')}</span>
-                        </button>
-                    </div>
-                </div>
-            )}
+
+                        {/* Admin Panel Section - housed cleanly inside dropdown */}
+                        {isAdmin && (
+                            <div className="p-2 bg-[#9d7cff]/[0.03]">
+                                <div className="px-2.5 pt-1 pb-1.5 flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-widest text-[#9d7cff]">
+                                    <span className="flex items-center gap-1.5">
+                                        <Icon name="crown" className="w-3.5 h-3.5 text-[#9d7cff]" />
+                                        {t('adminPanel')}
+                                    </span>
+                                    <span className="text-[9px] bg-[#9d7cff]/20 text-[#9d7cff] px-1.5 py-0.5 rounded font-mono">STAFF</span>
+                                </div>
+                                <div className="space-y-0.5">
+                                    <RawLink
+                                        href="/admin"
+                                        role="menuitem"
+                                        onClick={() => setOpen(false)}
+                                        className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-slate-200 hover:bg-[#9d7cff] hover:text-[#0d0914] transition-colors group"
+                                    >
+                                        <Icon name="dashboard" className="w-4 h-4 text-[#9d7cff] group-hover:text-[#0d0914] transition-colors shrink-0" />
+                                        <span>{t('dashboard')}</span>
+                                    </RawLink>
+                                    <RawLink
+                                        href="/admin/products"
+                                        role="menuitem"
+                                        onClick={() => setOpen(false)}
+                                        className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-slate-200 hover:bg-[#9d7cff] hover:text-[#0d0914] transition-colors group"
+                                    >
+                                        <Icon name="box" className="w-4 h-4 text-[#9d7cff] group-hover:text-[#0d0914] transition-colors shrink-0" />
+                                        <span>{t('services')}</span>
+                                    </RawLink>
+                                    <RawLink
+                                        href="/admin/orders"
+                                        role="menuitem"
+                                        onClick={() => setOpen(false)}
+                                        className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-slate-200 hover:bg-[#9d7cff] hover:text-[#0d0914] transition-colors group"
+                                    >
+                                        <Icon name="clipboard" className="w-4 h-4 text-[#9d7cff] group-hover:text-[#0d0914] transition-colors shrink-0" />
+                                        <span>{t('orders')}</span>
+                                    </RawLink>
+                                    <RawLink
+                                        href="/admin/reviews"
+                                        role="menuitem"
+                                        onClick={() => setOpen(false)}
+                                        className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-slate-200 hover:bg-[#9d7cff] hover:text-[#0d0914] transition-colors group"
+                                    >
+                                        <Icon name="star" className="w-4 h-4 text-[#9d7cff] group-hover:text-[#0d0914] transition-colors shrink-0" />
+                                        <span>{t('reviews')}</span>
+                                    </RawLink>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Customer note if not admin */}
+                        {!isAdmin && (
+                            <div className="px-3.5 py-2.5 text-xs text-slate-400 flex items-center gap-2 bg-white/[0.01]">
+                                <Icon name="shield" className="w-4 h-4 shrink-0 text-[#9d7cff]" />
+                                <span>{t('customerNote')}</span>
+                            </div>
+                        )}
+
+                        {/* User and Store Actions */}
+                        <div className="p-2 space-y-0.5">
+                            <Link
+                                href="/profile"
+                                role="menuitem"
+                                onClick={() => setOpen(false)}
+                                className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-slate-200 hover:bg-[#9d7cff] hover:text-[#0d0914] transition-colors group"
+                            >
+                                <Icon name="users" className="w-4 h-4 text-[#9d7cff] group-hover:text-[#0d0914] transition-colors shrink-0" />
+                                <span>{t('myProfile')}</span>
+                            </Link>
+                            <Link
+                                href="/checkout"
+                                role="menuitem"
+                                onClick={() => setOpen(false)}
+                                className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-slate-200 hover:bg-[#9d7cff] hover:text-[#0d0914] transition-colors group"
+                            >
+                                <Icon name="cart" className="w-4 h-4 text-slate-400 group-hover:text-[#0d0914] transition-colors shrink-0" />
+                                <span>{t('myCart')}</span>
+                            </Link>
+                            <Link
+                                href="/track"
+                                role="menuitem"
+                                onClick={() => setOpen(false)}
+                                className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-slate-200 hover:bg-[#9d7cff] hover:text-[#0d0914] transition-colors group"
+                            >
+                                <Icon name="radar" className="w-4 h-4 text-[#9d7cff] group-hover:text-[#0d0914] transition-colors shrink-0" />
+                                <span>{t('trackOrder')}</span>
+                            </Link>
+                            <button
+                                type="button"
+                                role="menuitem"
+                                onClick={() => signOut({ callbackUrl: '/' })}
+                                className="w-full flex items-center gap-2.5 text-left px-2.5 py-2 rounded-lg text-xs font-semibold text-red-400 hover:bg-red-500 hover:text-white transition-colors cursor-pointer group"
+                            >
+                                <Icon name="logout" className="w-4 h-4 text-red-400 group-hover:text-white transition-colors shrink-0" />
+                                <span>{t('signOut')}</span>
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

@@ -1,10 +1,11 @@
 import { neon } from '@neondatabase/serverless';
+import { routing } from '../i18n/routing';
 
 export default async function sitemap() {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://ogmodz.com');
     const now = new Date();
 
-    const locales = ['es', 'en'];
+    const locales = routing.locales;
 
     const staticRoutes = [
         { path: '', priority: 1.0, changeFrequency: 'daily' },

@@ -47,10 +47,14 @@ import {
     LuSlidersHorizontal,
     LuSparkles,
     LuLayers,
+    LuRadar,
+    LuPackage,
+    LuCopy,
 } from 'react-icons/lu';
 import { SiDiscord } from 'react-icons/si';
 
 const ICONS = {
+    copy: LuCopy,
     search: LuSearch,
     'arrow-up-right': LuArrowUpRight,
     'arrow-left': LuArrowLeft,
@@ -100,6 +104,8 @@ const ICONS = {
     sliders: LuSlidersHorizontal,
     sparkles: LuSparkles,
     layers: LuLayers,
+    radar: LuRadar,
+    package: LuPackage,
 };
 
 export default function Icon({ name, className = 'w-5 h-5', strokeWidth = 2, ...props }) {

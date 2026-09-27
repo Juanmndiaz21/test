@@ -14,14 +14,13 @@ export const revalidate = 3600;
 
 export async function generateMetadata({ params }) {
     const { locale } = await params;
-    const isEs = locale === 'es';
     return {
         alternates: {
-            canonical: isEs ? '/' : '/en',
+            canonical: `/${locale}`,
             languages: {
-                es: '/',
+                es: '/es',
                 en: '/en',
-                'x-default': '/',
+                'x-default': '/en',
             },
         },
     };
@@ -231,7 +230,7 @@ export default async function Home({ params }) {
                 />
                 <div className="flex items-center gap-4 mb-4">
                     <div className="flex items-center gap-3">
-                        <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[#9225CF]/10 border border-[#9225CF]/20 text-[#9225CF]">
+                        <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/20 text-[#9d7cff]">
                             <Icon name="circle-help" className="w-5 h-5" />
                         </span>
                         <h2 className="display-font text-4xl md:text-5xl uppercase text-white">{faqTitle}</h2>
@@ -249,7 +248,6 @@ export default async function Home({ params }) {
             <section aria-label="Ready to climb" className="max-w-7xl mx-auto px-5 pb-20 md:pb-28 content-auto">
                 <div className="panel-surface rounded-3xl border border-white/10 bg-[#171229] p-8 sm:p-12 md:p-16 text-center relative overflow-hidden shadow-[0_24px_70px_rgba(0,0,0,0.35)]">
                     <div className="max-w-2xl mx-auto relative z-10">
-                        <span className="eyebrow inline-block mb-3 text-[#9d7cff]">SEASON STANDINGS ACTIVE</span>
                         <h2 className="display-font text-4xl sm:text-5xl md:text-6xl uppercase text-white leading-tight">
                             {t('ctaTitle')}
                         </h2>

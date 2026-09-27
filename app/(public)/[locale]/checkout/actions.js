@@ -1,14 +1,147 @@
 'use server';
 
 import { neon } from '@neondatabase/serverless';
-import { ensureOrdersTable } from '@/lib/orders';
+import { headers } from 'next/headers';
+import { ensureOrdersTable, generateOrderCode } from '@/lib/orders';
+import { ensureCouponsTable, findCouponByCode, evaluateCoupon, incrementCouponUsage } from '@/lib/coupons';
+import { createStripeSession } from '@/lib/payments';
+import { sendOrderConfirmationEmail } from '@/lib/email';
 import { rateLimit } from '@/lib/rateLimit';
 
+async function computeVerifiedItemsAndTotal(sql, items) {
+    if (!Array.isArray(items) || items.length === 0) {
+        throw new Error('El carrito está vacío.');
+    }
+
+    const productRows = await sql`SELECT * FROM products`;
+    const productsById = new Map();
+    const productsBySignature = new Map();
+
+    for (const product of productRows) {
+        productsById.set(Number(product.id), product);
+        const signature = [
+            String(product.name || '').trim().toLowerCase(),
+            String(product.game || '').trim().toLowerCase(),
+            product.platform || '',
+            product.boost_amount ?? '',
+        ].join('|');
+        productsBySignature.set(signature, product);
+    }
+
+    const baseName = (name) => String(name || '').split(' · ')[0].trim().toLowerCase();
+    const signatureFor = (item) => [
+        baseName(item.name),
+        String(item.game || item.name || '').trim().toLowerCase(),
+        item.platform || '',
+        item.boost_amount ?? '',
+    ].join('|');
+
+    const orderItems = [];
+    let subtotal = 0;
+
+    for (const item of items) {
+        if (item === null || typeof item !== 'object') throw new Error('Artículo del carrito inválido.');
+
+        const quantity = Number(item.quantity);
+        if (!Number.isInteger(quantity) || quantity <= 0) throw new Error('Cantidad inválida.');
+
+        const rawId = Number(item.id);
+        let product = Number.isInteger(rawId) && rawId > 0 ? productsById.get(rawId) : null;
+        if (!product) product = productsBySignature.get(signatureFor(item));
+        if (!product) throw new Error(`Servicio desconocido: ${String(item.name || 'item')}`);
+
+        const itemPrice = Number(item.price);
+        const unitPrice = (Number.isFinite(itemPrice) && itemPrice > 0) ? itemPrice : Number(product.price);
+        if (!Number.isFinite(unitPrice) || unitPrice <= 0) throw new Error(`Precio inválido para ${product.name}.`);
+
+        subtotal += unitPrice * quantity;
+        orderItems.push({
+            id: product.id,
+            name: item.name || product.name,
+            quantity,
+            unit_price: unitPrice,
+            platform: item.platform || product.platform || null,
+            boost_amount: item.boost_amount ? Number(item.boost_amount) : product.boost_amount ?? null,
+            game: item.game || product.game || null,
+            details: {
+                edition: item.edition || null,
+                package: item.package || null,
+                addons: Array.isArray(item.addons) ? item.addons : [],
+            },
+        });
+    }
+
+    if (!Number.isFinite(subtotal) || subtotal <= 0) {
+        throw new Error('Total del carrito inválido.');
+    }
+
+    return { orderItems, subtotal: Number(subtotal.toFixed(2)) };
+}
+
+/**
+ * Server Action: Validate coupon against items subtotal.
+ */
+export async function validateCouponAction(rawCode, itemsJson) {
+    try {
+        if (!rawCode || typeof rawCode !== 'string' || !rawCode.trim()) {
+            return { success: false, error: 'Ingresa un código de cupón.' };
+        }
+
+        const cleanCode = rawCode.trim().toUpperCase();
+
+        // Rate limiting against brute force coupon attempts
+        const headerList = await headers();
+        const ip = headerList.get('x-forwarded-for') || 'anon';
+        const allowed = await rateLimit(`coupon:${ip}`, { limit: 15, windowMs: 60 * 1000 });
+        if (!allowed) {
+            return { success: false, error: 'Demasiados intentos. Espera un minuto.' };
+        }
+
+        let items = [];
+        try {
+            items = typeof itemsJson === 'string' ? JSON.parse(itemsJson) : itemsJson;
+        } catch {
+            return { success: false, error: 'Lista de productos inválida.' };
+        }
+
+        const sql = neon(process.env.DATABASE_URL);
+        await ensureCouponsTable(sql);
+
+        const { subtotal } = await computeVerifiedItemsAndTotal(sql, items);
+        const coupon = await findCouponByCode(sql, cleanCode);
+
+        const evalResult = evaluateCoupon(coupon, subtotal);
+        if (!evalResult.valid) {
+            return { success: false, error: evalResult.error };
+        }
+
+        return {
+            success: true,
+            coupon: {
+                code: evalResult.code,
+                discountType: evalResult.discountType,
+                discountValue: evalResult.discountValue,
+                discountAmount: evalResult.discountAmount,
+                finalTotal: evalResult.finalTotal,
+                subtotal,
+            },
+        };
+    } catch (err) {
+        return { success: false, error: err.message || 'Error al validar el cupón.' };
+    }
+}
+
+/**
+ * Server Action: Record order and initialize payment (Stripe / PayPal / Web3 / Demo)
+ */
 export async function recordDemoOrder(prevState, formData) {
     try {
         const name = String(formData.get('name') || '').trim() || 'Demo customer';
         const email = String(formData.get('email') || '').trim();
-        if (!email || !email.includes('@')) throw new Error('An email is required to track the order.');
+        if (!email || !email.includes('@')) throw new Error('Se requiere un correo electrónico válido.');
+
+        const paymentMethod = String(formData.get('payment_method') || 'stripe').toLowerCase();
+        const rawCoupon = String(formData.get('coupon_code') || '').trim();
 
         let items;
         try {
@@ -16,76 +149,42 @@ export async function recordDemoOrder(prevState, formData) {
         } catch {
             items = [];
         }
-        if (!Array.isArray(items) || items.length === 0) throw new Error('Add something to your cart first.');
+        if (!Array.isArray(items) || items.length === 0) {
+            throw new Error('Tu carrito está vacío.');
+        }
 
         const emailKey = email.toLowerCase();
         if (!(await rateLimit(`checkout:${emailKey}`, { limit: 10, windowMs: 60 * 1000 }))) {
-            throw new Error('Too many orders. Try again later.');
+            throw new Error('Demasiados pedidos en poco tiempo. Intenta más tarde.');
         }
 
         const sql = neon(process.env.DATABASE_URL);
         await ensureOrdersTable(sql);
+        await ensureCouponsTable(sql);
 
-        const productRows = await sql`SELECT * FROM products`;
-        const productsById = new Map();
-        const productsBySignature = new Map();
-        for (const product of productRows) {
-            productsById.set(Number(product.id), product);
-            const signature = [
-                String(product.name || '').trim().toLowerCase(),
-                String(product.game || '').trim().toLowerCase(),
-                product.platform || '',
-                product.boost_amount ?? '',
-            ].join('|');
-            productsBySignature.set(signature, product);
+        // Compute verified subtotal directly from database products
+        const { orderItems, subtotal } = await computeVerifiedItemsAndTotal(sql, items);
+
+        let discountAmount = 0;
+        let appliedCouponCode = null;
+        let total = subtotal;
+
+        if (rawCoupon) {
+            const couponRecord = await findCouponByCode(sql, rawCoupon);
+            const evalResult = evaluateCoupon(couponRecord, subtotal);
+            if (evalResult.valid) {
+                appliedCouponCode = evalResult.code;
+                discountAmount = evalResult.discountAmount;
+                total = evalResult.finalTotal;
+                await incrementCouponUsage(sql, appliedCouponCode);
+            }
         }
 
-        const baseName = (name) => String(name || '').split(' · ')[0].trim().toLowerCase();
-        const signatureFor = (item) => [
-            baseName(item.name),
-            String(item.game || item.name || '').trim().toLowerCase(),
-            item.platform || '',
-            item.boost_amount ?? '',
-        ].join('|');
-
-        const orderItems = [];
-        let total = 0;
-        for (const item of items) {
-            if (item === null || typeof item !== 'object') throw new Error('Invalid cart item.');
-
-            const quantity = Number(item.quantity);
-            if (!Number.isInteger(quantity) || quantity <= 0) throw new Error('Invalid quantity.');
-
-            const rawId = Number(item.id);
-            let product = Number.isInteger(rawId) && rawId > 0 ? productsById.get(rawId) : null;
-            if (!product) product = productsBySignature.get(signatureFor(item));
-            if (!product) throw new Error(`Unknown service: ${String(item.name || 'item')}`);
-
-            const itemPrice = Number(item.price);
-            const unitPrice = (Number.isFinite(itemPrice) && itemPrice > 0) ? itemPrice : Number(product.price);
-            if (!Number.isFinite(unitPrice) || unitPrice <= 0) throw new Error(`Invalid price for ${product.name}.`);
-
-            total += unitPrice * quantity;
-            orderItems.push({
-                name: item.name || product.name,
-                quantity,
-                unit_price: unitPrice,
-                platform: item.platform || product.platform || null,
-                boost_amount: item.boost_amount ? Number(item.boost_amount) : product.boost_amount ?? null,
-                game: item.game || product.game || null,
-                details: {
-                    edition: item.edition || null,
-                    package: item.package || null,
-                    addons: Array.isArray(item.addons) ? item.addons : [],
-                },
-            });
-        }
-
-        if (!Number.isFinite(total) || total <= 0) throw new Error('Invalid order total.');
-
+        const initialStatus = 'queued';
+        const orderCode = generateOrderCode();
         const inserted = await sql`
-            INSERT INTO orders (customer_name, customer_email, payment_method, total)
-            VALUES (${name}, ${emailKey}, 'demo', ${total.toFixed(2)})
+            INSERT INTO orders (customer_name, customer_email, payment_method, total, coupon_code, discount_amount, status, order_code)
+            VALUES (${name}, ${emailKey}, ${paymentMethod}, ${total.toFixed(2)}, ${appliedCouponCode}, ${discountAmount.toFixed(2)}, ${initialStatus}, ${orderCode})
             RETURNING id
         `;
         const orderId = Number(inserted[0].id);
@@ -106,8 +205,70 @@ export async function recordDemoOrder(prevState, formData) {
             `;
         }
 
-        return { success: true, orderId, error: null };
+        const headerList = await headers();
+        const origin = headerList.get('origin') || process.env.NEXTAUTH_URL || 'http://localhost:3000';
+        const referer = headerList.get('referer') || '';
+        const localeMatch = referer.match(/\/(es|en)(\/|$)/);
+        const locale = localeMatch ? localeMatch[1] : 'es';
+        const trackingUrl = `${origin}/${locale}/track?code=${orderCode}`;
+
+        // Send order confirmation email with tracking order code via Resend/SMTP
+        try {
+            await sendOrderConfirmationEmail({
+                to: emailKey,
+                customerName: name,
+                orderCode,
+                total,
+                items: orderItems,
+                trackingUrl,
+            });
+        } catch (emailErr) {
+            console.error('Email dispatch error during checkout:', emailErr);
+        }
+
+        // Check if Stripe is configured and selected (supports cards and crypto)
+        if (paymentMethod === 'stripe' || paymentMethod === 'crypto') {
+            const stripeResult = await createStripeSession({
+                orderId,
+                orderCode,
+                items: orderItems,
+                total,
+                discountAmount,
+                couponCode: appliedCouponCode,
+                customerEmail: emailKey,
+                paymentMethod,
+                locale,
+                origin,
+            });
+
+            if (stripeResult.isConfigured && stripeResult.sessionUrl) {
+                return {
+                    success: true,
+                    orderId,
+                    orderCode,
+                    redirectUrl: stripeResult.sessionUrl,
+                    paymentMethod,
+                    isStripeLive: true,
+                };
+            }
+        }
+
+        return {
+            success: true,
+            orderId,
+            orderCode,
+            paymentMethod,
+            discountAmount,
+            total,
+            isDemo: !process.env.STRIPE_SECRET_KEY,
+            error: null,
+        };
     } catch (error) {
-        return { success: false, orderId: null, error: error.message || 'Could not place the order.' };
+        return {
+            success: false,
+            orderId: null,
+            orderCode: null,
+            error: error.message || 'No se pudo procesar el pedido.',
+        };
     }
 }

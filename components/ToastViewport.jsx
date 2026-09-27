@@ -8,11 +8,11 @@ const CONFIG = {
     success: {
         icon: 'check-circle',
         title: 'Success',
-        accentText: 'text-lime-300',
-        badgeBg: 'bg-lime-300/15 border-lime-300/30 text-lime-300',
-        cardBorder: 'border-lime-300/30 hover:border-lime-300/60',
-        sideBar: 'bg-lime-300',
-        progress: 'bg-gradient-to-r from-lime-300 to-purple-400',
+        accentText: 'text-[#9d7cff]',
+        badgeBg: 'bg-[#9d7cff]/15 border-[#9d7cff]/30 text-[#9d7cff]',
+        cardBorder: 'border-[#9d7cff]/30 hover:border-[#9d7cff]/60',
+        sideBar: 'bg-[#9d7cff]',
+        progress: 'bg-gradient-to-r from-[#9d7cff] to-purple-400',
         glow: 'shadow-[0_16px_40px_rgba(0,0,0,0.6),0_0_24px_rgba(157,124,255,0.25)]',
     },
     error: {
@@ -98,7 +98,7 @@ function ToastItem({ toast, onDismiss }) {
             aria-live="polite"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className={`pointer-events-auto relative w-full overflow-hidden rounded-xl border bg-[#171229]/95 backdrop-blur-xl transition-all duration-300 ${typeConfig.cardBorder} ${typeConfig.glow} ${
+            className={`pointer-events-auto relative w-full overflow-hidden rounded-xl border bg-[#171229]/95 backdrop-blur-xl transition-[border-color,box-shadow] duration-200 ease-out ${typeConfig.cardBorder} ${typeConfig.glow} ${
                 toast.leaving ? 'animate-toast-out' : 'animate-toast-in'
             }`}
         >
@@ -114,7 +114,7 @@ function ToastItem({ toast, onDismiss }) {
                 {/* Content */}
                 <div className="flex-1 min-w-0 pr-1">
                     <div className="flex items-center gap-2">
-                        <span className={`text-[10px] font-mono font-black uppercase tracking-widest ${typeConfig.accentText}`}>
+                        <span className={`text-[11px] font-mono font-black uppercase tracking-widest ${typeConfig.accentText}`}>
                             {toast.title || typeConfig.title}
                         </span>
                     </div>
