@@ -111,7 +111,6 @@ export async function generateMetadata({ params }) {
     const t = await getTranslations({ locale, namespace: 'gamePage' });
     const name = slugToGameName(encodedGame);
     const cleanSlug = gameToSlug(name);
-    const isEs = locale === 'es';
 
     let hasProducts = true;
     try {

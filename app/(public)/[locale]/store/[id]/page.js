@@ -82,7 +82,6 @@ export default async function ProductPage({ params }) {
 export async function generateMetadata({ params }) {
     try {
         const { locale, id } = await params;
-        const isEs = locale === 'es';
         const sql = neon(process.env.DATABASE_URL);
         const rows = await sql`SELECT name, description, game, image_url FROM products WHERE id = ${id}`;
         const product = rows[0];
