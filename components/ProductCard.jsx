@@ -103,7 +103,7 @@ export default function ProductCard({ product, index = 0 }) {
                         className="w-10 h-10 rounded-full bg-white/5 border border-white/15 text-white flex items-center justify-center group-hover:bg-[#9d7cff] group-hover:text-[#0d0914] group-hover:border-[#9d7cff] group-hover:shadow-[0_4px_14px_rgba(0,0,0,0.3)] group-active:scale-95 transition-[background-color,border-color,color,box-shadow,transform] duration-140 ease-[var(--ease-out)] shrink-0 cursor-pointer"
                         aria-label="View product"
                     >
-                        <Icon name="arrow-right" className="w-4 h-4" strokeWidth={2.4} />
+                        <Icon name="arrow-right" className="w-4 h-4 transition-transform duration-140 ease-[var(--ease-out)] group-hover:translate-x-0.5" strokeWidth={2.4} />
                     </span>
                 </div>
             </Link>

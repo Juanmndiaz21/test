@@ -30,14 +30,17 @@ const GameCardItem = memo(function GameCardItem({ game, gameProducts, image, t, 
                         <strong className="block text-white text-base font-bold leading-tight truncate group-hover:text-[#9d7cff] transition-colors duration-140">
                             {game}
                         </strong>
-                        <span className="block text-slate-400 uppercase tracking-wider mt-1.5 inline-flex items-center gap-1.5 text-xs font-mono">
-                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#9d7cff]" aria-hidden="true" />
+                        <span className="block text-slate-400 uppercase tracking-wider mt-1.5 inline-flex items-center gap-2 text-xs font-mono">
+                            <span className="relative flex h-1.5 w-1.5 shrink-0" aria-hidden="true">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9d7cff] opacity-40 duration-1000" />
+                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#9d7cff]" />
+                            </span>
                             <span className="data-readout">{t('serviceCount', { count: gameProducts.length })}</span>
                         </span>
                     </div>
                 </div>
                 <span className="w-8 h-8 rounded-full border border-white/15 bg-white/5 text-slate-300 flex items-center justify-center group-hover:bg-[#9d7cff] group-hover:text-[#0d0914] group-hover:border-[#9d7cff] group-active:scale-95 transition-[background-color,border-color,color,transform] duration-140 ease-[var(--ease-out)] shrink-0">
-                    <Icon name="arrow-right" className="w-3.5 h-3.5" />
+                    <Icon name="arrow-right" className="w-3.5 h-3.5 transition-transform duration-140 ease-[var(--ease-out)] group-hover:translate-x-0.5" />
                 </span>
             </Link>
         </div>
@@ -123,7 +126,7 @@ export default function ProductList({ products, games: catalogGames = [] }) {
                             type="button"
                             onClick={() => setSearchQuery('')}
                             aria-label={t('clearSearch')}
-                            className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 active:scale-90 transition-[color,background-color,transform] duration-140 ease-[var(--ease-out)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] cursor-pointer"
+                            className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 active:scale-90 transition-[color,background-color,transform] duration-140 ease-[var(--ease-out)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] cursor-pointer animate-in fade-in zoom-in-90"
                         >
                             <Icon name="x" className="w-4 h-4" />
                         </button>
@@ -175,7 +178,10 @@ export default function ProductList({ products, games: catalogGames = [] }) {
             <div className="flex items-center justify-between gap-4 mb-6">
                 <div className="flex items-center gap-3">
                     <h2 className="display-font text-3xl uppercase text-white">{t('featured')}</h2>
-                    <span className="data-readout text-xs font-mono px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300">
+                    <span
+                        key={visibleGames.length}
+                        className="data-readout text-xs font-mono px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300 transition-all duration-140 animate-in fade-in zoom-in-95"
+                    >
                         {visibleGames.length}
                     </span>
                 </div>
