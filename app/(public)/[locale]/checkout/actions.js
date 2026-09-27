@@ -7,6 +7,74 @@ import { ensureCouponsTable, findCouponByCode, evaluateCoupon, incrementCouponUs
 import { createStripeSession } from '@/lib/payments';
 import { sendOrderConfirmationEmail } from '@/lib/email';
 import { rateLimit } from '@/lib/rateLimit';
+import { getTrustedOrigin } from '@/lib/guard';
+import { DEFAULT_OPTIONS, DEFAULT_PACKAGES, DEFAULT_ADDONS } from '@/lib/serviceDefaults';
+
+function resolveAuthoritativeItemPrice(product, item) {
+    const configData = product.configurator_data || {};
+    const hasConfigData = (Array.isArray(configData.packages) && configData.packages.length > 0) ||
+        (Array.isArray(configData.addons) && configData.addons.length > 0);
+    const isGTA = String(product.game || '').toUpperCase().includes('GTA') || String(product.name || '').toUpperCase().includes('GTA');
+
+    if (hasConfigData || isGTA || item.package || (Array.isArray(item.addons) && item.addons.length > 0)) {
+        const availablePackages = (Array.isArray(configData.packages) && configData.packages.length > 0)
+            ? configData.packages
+            : DEFAULT_PACKAGES;
+        const availableAddons = (Array.isArray(configData.addons) && configData.addons.length > 0)
+            ? configData.addons
+            : DEFAULT_ADDONS;
+
+        let totalConfigured = 0;
+        let foundAny = false;
+
+        if (item.package) {
+            const pkgId = item.package.id;
+            const pkgAmount = Number(item.package.amount);
+            const matchedPkg = availablePackages.find((p) => p.id === pkgId || (pkgAmount && Number(p.amount) === pkgAmount));
+            if (matchedPkg) {
+                totalConfigured += Number(matchedPkg.price);
+                foundAny = true;
+            }
+        }
+
+        if (Array.isArray(item.addons) && item.addons.length > 0) {
+            for (const itemAddon of item.addons) {
+                const matchedAddon = availableAddons.find((a) => a.id === itemAddon.id);
+                if (matchedAddon) {
+                    const addonPrice = Number(matchedAddon.discountedPrice ?? matchedAddon.price ?? matchedAddon.originalPrice ?? 0);
+                    totalConfigured += addonPrice;
+                    foundAny = true;
+                }
+            }
+        }
+
+        if (foundAny && totalConfigured > 0) {
+            return Number(totalConfigured.toFixed(2));
+        }
+    }
+
+    const productOptions = (Array.isArray(product.options) && product.options.length > 0)
+        ? product.options
+        : ((Array.isArray(product.boost_options) && product.boost_options.length > 0)
+            ? product.boost_options
+            : ((Array.isArray(product.commends_options) && product.commends_options.length > 0)
+                ? product.commends_options
+                : DEFAULT_OPTIONS));
+
+    if (item.boost_amount) {
+        const matchedOption = productOptions.find((opt) => String(opt.amount) === String(item.boost_amount));
+        if (matchedOption && matchedOption.price !== undefined && matchedOption.price !== null && !isNaN(Number(matchedOption.price)) && Number(matchedOption.price) > 0) {
+            return Number(Number(matchedOption.price).toFixed(2));
+        }
+    }
+
+    const basePrice = Number(product.price);
+    if (Number.isFinite(basePrice) && basePrice > 0) {
+        return Number(basePrice.toFixed(2));
+    }
+
+    return null;
+}
 
 async function computeVerifiedItemsAndTotal(sql, items) {
     if (!Array.isArray(items) || items.length === 0) {
@@ -50,8 +118,12 @@ async function computeVerifiedItemsAndTotal(sql, items) {
         if (!product) product = productsBySignature.get(signatureFor(item));
         if (!product) throw new Error(`Unknown service: ${String(item.name || 'item')}`);
 
-        const itemPrice = Number(item.price);
-        const unitPrice = (Number.isFinite(itemPrice) && itemPrice > 0) ? itemPrice : Number(product.price);
+        // Server-enforced authoritative pricing: ignores client-side tampering
+        const authoritativePrice = resolveAuthoritativeItemPrice(product, item);
+        const unitPrice = (Number.isFinite(authoritativePrice) && authoritativePrice > 0)
+            ? authoritativePrice
+            : Number(product.price);
+
         if (!Number.isFinite(unitPrice) || unitPrice <= 0) throw new Error(`Invalid price for ${product.name}.`);
 
         subtotal += unitPrice * quantity;
@@ -206,7 +278,7 @@ export async function recordDemoOrder(prevState, formData) {
         }
 
         const headerList = await headers();
-        const origin = headerList.get('origin') || process.env.NEXTAUTH_URL || 'http://localhost:3000';
+        const origin = getTrustedOrigin(headerList);
         const trackingUrl = `${origin}/track?code=${orderCode}`;
 
         // Send order confirmation email with tracking order code via Resend/SMTP

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { neon } from '@neondatabase/serverless';
 import { ensureContactTable } from '../../../lib/contact';
 import { rateLimit } from '../../../lib/rateLimit';
+import { verifyTurnstile } from '../../../lib/turnstile';
 
 export async function POST(request) {
     try {
@@ -20,6 +21,11 @@ export async function POST(request) {
         }
         if (message.length < 10) {
             return NextResponse.json({ error: 'The message must be at least 10 characters.' }, { status: 400 });
+        }
+
+        const passedChallenge = await verifyTurnstile(body.turnstile);
+        if (!passedChallenge) {
+            return NextResponse.json({ error: 'Security verification failed. Please try again.' }, { status: 400 });
         }
 
         const forwarded = request.headers.get('x-forwarded-for');

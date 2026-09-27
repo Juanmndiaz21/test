@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { createReview, getReviews } from '../../../lib/reviews';
 import { applyCorsHeaders, handleOptions } from '../../../lib/cors';
 import { rateLimit } from '../../../lib/rateLimit';
+import { getAdminSession } from '../../../lib/guard';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,8 +14,14 @@ export async function GET(request) {
   const product_id = searchParams.get('product_id');
   const limit = Number(searchParams.get('limit')) || 50;
 
+  const session = await getAdminSession();
+  const isAdmin = Boolean(session);
+
   let reviews = await getReviews();
-  if (status) {
+  if (!isAdmin) {
+    // Public visitors can only view approved reviews
+    reviews = reviews.filter((r) => r.status === 'approved');
+  } else if (status) {
     reviews = reviews.filter((r) => r.status === status);
   }
   if (product_id) {

@@ -4,7 +4,7 @@ import { neon } from '@neondatabase/serverless';
 import bcrypt from 'bcryptjs';
 import { headers } from 'next/headers';
 import { ensureUsersTable } from '../../lib/auth';
-import { requireAdmin } from '../../lib/guard';
+import { requireAdmin, getTrustedOrigin } from '../../lib/guard';
 import { verifyTurnstile } from '../../lib/turnstile';
 import { rateLimit } from '../../lib/rateLimit';
 import {
@@ -123,7 +123,7 @@ export async function requestPasswordReset(email, turnstile) {
         const token = await createPasswordResetToken(sql, emailKey);
 
         const headerList = await headers();
-        const origin = headerList.get('origin') || process.env.NEXTAUTH_URL || 'http://localhost:3000';
+        const origin = getTrustedOrigin(headerList);
         const resetUrl = `${origin}/reset-password?token=${token}&email=${encodeURIComponent(emailKey)}`;
 
         await sendPasswordResetEmail({

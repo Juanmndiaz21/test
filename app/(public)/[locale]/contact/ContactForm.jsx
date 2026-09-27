@@ -4,11 +4,13 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { toast } from '@/utils/toast';
 import Icon from '@/components/Icon';
+import Turnstile from '@/components/Turnstile';
 
 export default function ContactForm() {
     const t = useTranslations('contact');
     const [status, setStatus] = useState('idle');
     const [formError, setFormError] = useState('');
+    const [turnstileToken, setTurnstileToken] = useState('');
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -40,7 +42,7 @@ export default function ContactForm() {
             const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, subject, message }),
+                body: JSON.stringify({ name, email, subject, message, turnstile: turnstileToken }),
             });
             const json = await response.json();
 
@@ -50,6 +52,7 @@ export default function ContactForm() {
 
             toast.success(t('toastSuccess'));
             setStatus('sent');
+            setTurnstileToken('');
             form.reset();
         } catch (error) {
             setStatus('idle');
@@ -90,11 +93,19 @@ export default function ContactForm() {
                 <textarea id="contact-message" name="message" required rows={6} className={`${inputClass} resize-y`} />
             </div>
 
+            <div className="pt-1">
+                <Turnstile
+                    action="contact"
+                    onToken={setTurnstileToken}
+                    onExpire={() => setTurnstileToken('')}
+                />
+            </div>
+
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 pt-1">
                 <button
                     type="submit"
                     disabled={status === 'submitting'}
-                    className="inline-flex items-center justify-center gap-2 bg-lime-300 hover:bg-white disabled:bg-slate-700 text-black font-black uppercase tracking-wide py-3.5 px-8 rounded-lg transition-colors"
+                    className="inline-flex items-center justify-center gap-2 bg-lime-300 hover:bg-white disabled:bg-slate-700 text-black font-black uppercase tracking-wide py-3.5 px-8 rounded-lg transition-colors cursor-pointer"
                 >
                     {status === 'submitting' ? (
                         <>
