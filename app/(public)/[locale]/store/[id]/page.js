@@ -97,9 +97,39 @@ export async function generateMetadata({ params }) {
                 ? `Compra ${product.name} para ${product.game} con entrega rápida y segura en OGmodz.`
                 : `Buy ${product.name} for ${product.game} with fast and secure delivery on OGmodz.`);
 
+        const isCashBoost = product.name?.toLowerCase().includes('cash boost');
+        const isGta = product.game?.toLowerCase().includes('gta');
+
+        const productKeywords = [
+            product.name,
+            `${product.name} boost`,
+            `${product.game} ${product.name}`,
+            `${product.game} boosting`,
+            isCashBoost ? 'GTA V cash boost' : '',
+            isCashBoost ? 'GTA 5 money boost' : '',
+            isCashBoost ? 'GTA Online cash boost' : '',
+            isCashBoost ? 'GTA Online money service' : '',
+            isGta ? 'GTA V recovery service' : '',
+            'buy game boost',
+            'instant delivery boost',
+            'OGmodz',
+        ].filter(Boolean);
+
         return {
             title,
             description,
+            keywords: productKeywords,
+            category: `${product.game || 'Gaming'} Boosting`,
+            robots: {
+                index: true,
+                follow: true,
+                googleBot: {
+                    index: true,
+                    follow: true,
+                    'max-image-preview': 'large',
+                    'max-snippet': -1,
+                },
+            },
             alternates: {
                 canonical: isEs ? esPath : enPath,
                 languages: {

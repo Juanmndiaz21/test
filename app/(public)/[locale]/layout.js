@@ -27,13 +27,48 @@ export async function generateMetadata({ params }) {
         : 'Professional game boosting services for GTA V, CS2, and top titles. Select your platform, configure your boost, and get fast, secure delivery with 24/7 support.';
 
     const canonicalPath = isEs ? '/es' : '/';
+    const englishKeywords = [
+        'game boosting',
+        'game boosting services',
+        'GTA V cash boost',
+        'GTA 5 money boost',
+        'GTA Online cash boost',
+        'GTA V recovery service',
+        'CS2 boosting',
+        'CS2 commendations boost',
+        'Counter-Strike 2 rank boost',
+        'rank boosting',
+        'level up boost',
+        'safe game boosting',
+        'OGmodz',
+        'OGmodz boosting',
+        'buy game boost',
+    ];
+
     return {
         metadataBase: new URL(baseUrl),
+        applicationName: 'OGmodz',
+        category: 'Gaming',
+        classification: 'Video Game Boosting Services',
+        creator: 'OGmodz',
+        publisher: 'OGmodz',
         title: {
             default: title,
             template: '%s · OGmodz',
         },
         description,
+        keywords: englishKeywords,
+        robots: {
+            index: true,
+            follow: true,
+            googleBot: {
+                index: true,
+                follow: true,
+                'max-video-preview': -1,
+                'max-image-preview': 'large',
+                'max-snippet': -1,
+            },
+        },
         alternates: {
             canonical: canonicalPath,
             languages: {

@@ -103,11 +103,44 @@ export async function generateMetadata({ params }) {
     const title = `${t('titleMeta', { game: name })} | OGmodz`;
     const description = t('metadataDescription', { game: name });
 
+    const isGta = name.toLowerCase().includes('gta');
+    const isCs = name.toLowerCase().includes('cs');
+
+    const gameKeywords = [
+        `${name} boosting`,
+        `${name} boosting services`,
+        `${name} boost`,
+        `${name} rank up`,
+        `${name} account boost`,
+        isGta ? 'GTA V cash boost' : '',
+        isGta ? 'GTA 5 money boost' : '',
+        isGta ? 'GTA Online money service' : '',
+        isGta ? 'GTA V recovery service' : '',
+        isGta ? 'GTA 5 modded account' : '',
+        isCs ? 'CS2 boosting' : '',
+        isCs ? 'CS2 commendations' : '',
+        isCs ? 'Counter-Strike 2 premier boost' : '',
+        'OGmodz',
+        'safe boosting',
+        'instant delivery',
+    ].filter(Boolean);
+
     return {
         title,
         description,
+        keywords: gameKeywords,
+        category: `${name} Boosting`,
         robots: hasProducts
-            ? { index: true, follow: true }
+            ? {
+                index: true,
+                follow: true,
+                googleBot: {
+                    index: true,
+                    follow: true,
+                    'max-image-preview': 'large',
+                    'max-snippet': -1,
+                },
+            }
             : { index: false, follow: true }, // Noindex thin empty categories (e.g. 0 products)
         alternates: {
             canonical: isEs ? esPath : enPath,

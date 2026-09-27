@@ -15,6 +15,17 @@ export async function generateMetadata({ params }) {
     return {
         title: t('titleMeta'),
         description: t('subtitle'),
+        keywords: [
+            'game boosting store',
+            'buy game boost',
+            'GTA V cash boost',
+            'GTA 5 money boost',
+            'CS2 boosting service',
+            'safe boosting services',
+            'OGmodz store',
+            'instant delivery boost',
+        ],
+        category: 'Gaming',
         alternates: {
             canonical: isEs ? esPath : enPath,
             languages: {
