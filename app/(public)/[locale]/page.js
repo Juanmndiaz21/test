@@ -12,17 +12,10 @@ import { ensureAppSchema } from '@/lib/schema';
 
 export const revalidate = 3600;
 
-export async function generateMetadata({ params }) {
-    const { locale } = await params;
-    const isEs = locale === 'es';
+export async function generateMetadata() {
     return {
         alternates: {
-            canonical: isEs ? '/es' : '/',
-            languages: {
-                en: '/',
-                es: '/es',
-                'x-default': '/',
-            },
+            canonical: '/',
         },
     };
 }

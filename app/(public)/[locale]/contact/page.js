@@ -6,24 +6,16 @@ import PageHeaderBanner from '@/components/PageHeaderBanner';
 export async function generateMetadata({ params }) {
     const { locale } = await params;
     const t = await getTranslations({ locale, namespace: 'contact' });
-    const isEs = locale === 'es';
-    const enPath = '/contact';
-    const esPath = '/es/contact';
     return {
         title: t('titleMeta'),
         description: t('subtitle'),
         alternates: {
-            canonical: isEs ? esPath : enPath,
-            languages: {
-                en: enPath,
-                es: esPath,
-                'x-default': enPath,
-            },
+            canonical: '/contact',
         },
         openGraph: {
             title: t('titleMeta'),
             description: t('subtitle'),
-            url: isEs ? esPath : enPath,
+            url: '/contact',
         },
     };
 }

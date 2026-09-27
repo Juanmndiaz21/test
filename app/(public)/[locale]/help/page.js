@@ -10,25 +10,17 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({ params }) {
     const { locale } = await params;
     const t = await getTranslations({ locale, namespace: 'help' });
-    const isEs = locale === 'es';
-    const enPath = '/help';
-    const esPath = '/es/help';
 
     return {
         title: `${t('title')} | OGmodz`,
         description: t('subtitle'),
         alternates: {
-            canonical: isEs ? esPath : enPath,
-            languages: {
-                en: enPath,
-                es: esPath,
-                'x-default': enPath,
-            },
+            canonical: '/help',
         },
         openGraph: {
             title: `${t('title')} | OGmodz`,
             description: t('subtitle'),
-            url: isEs ? esPath : enPath,
+            url: '/help',
         },
     };
 }

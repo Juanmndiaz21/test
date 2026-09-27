@@ -9,7 +9,6 @@ import { useSession, signOut } from 'next-auth/react';
 import CartLink from './CartLink';
 import UserNav from './UserNav';
 import Icon from './Icon';
-import LanguageSwitcher from './LanguageSwitcher';
 
 export default function SiteHeader() {
     const t = useTranslations('common');
@@ -66,7 +65,6 @@ export default function SiteHeader() {
                     <div className="hidden md:block">
                         <UserNav />
                     </div>
-                    <LanguageSwitcher />
                     <MobileMenu pathname={pathname} session={session} />
                 </div>
             </div>

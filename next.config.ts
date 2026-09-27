@@ -36,6 +36,35 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['motion', 'animejs', 'next-intl'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/es',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/es/:path*',
+        destination: '/:path*',
+        permanent: true,
+      },
+      {
+        source: '/store/game/GTA%20V',
+        destination: '/store/game/gta-5',
+        permanent: true,
+      },
+      {
+        source: '/store/game/CS2',
+        destination: '/store/game/cs2',
+        permanent: true,
+      },
+      {
+        source: '/store/game/RDR2',
+        destination: '/store/game/rdr2',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

@@ -30,7 +30,7 @@ export default async function ProductPage({ params }) {
     const { options } = await getServiceOptions(sql);
 
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
-    const localizedProductUrl = `${baseUrl}${locale === 'es' ? '/es' : ''}/store/${product.id}`;
+    const localizedProductUrl = `${baseUrl}/store/${product.id}`;
 
     // Schema.org structured data for product page
     const productSchema = {
@@ -88,14 +88,11 @@ export async function generateMetadata({ params }) {
         const product = rows[0];
         if (!product) return {};
 
-        const enPath = `/store/${id}`;
-        const esPath = `/es/store/${id}`;
+        const productPath = `/store/${id}`;
         const title = `${product.name} — ${product.game || 'Boost'} | OGmodz`;
         const description = product.description
             ? product.description.slice(0, 160)
-            : (isEs
-                ? `Compra ${product.name} para ${product.game} con entrega rápida y segura en OGmodz.`
-                : `Buy ${product.name} for ${product.game} with fast and secure delivery on OGmodz.`);
+            : `Buy ${product.name} for ${product.game} with fast and secure delivery on OGmodz.`;
 
         const isCashBoost = product.name?.toLowerCase().includes('cash boost');
         const isGta = product.game?.toLowerCase().includes('gta');
@@ -131,17 +128,12 @@ export async function generateMetadata({ params }) {
                 },
             },
             alternates: {
-                canonical: isEs ? esPath : enPath,
-                languages: {
-                    en: enPath,
-                    es: esPath,
-                    'x-default': enPath,
-                },
+                canonical: productPath,
             },
             openGraph: {
                 title,
                 description,
-                url: isEs ? esPath : enPath,
+                url: productPath,
                 images: product.image_url ? [{ url: product.image_url }] : [{ url: '/og-image.png' }],
             },
         };

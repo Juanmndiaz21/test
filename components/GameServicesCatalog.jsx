@@ -6,7 +6,7 @@ import ProductCard from './ProductCard';
 import PlatformFilterBar from './PlatformFilterBar';
 import Icon from './Icon';
 
-export default function GameServicesCatalog({ products = [] }) {
+export default function GameServicesCatalog({ products = [], game = '' }) {
     const t = useTranslations('gamePage');
     const [activePlatform, setActivePlatform] = useState('all');
     const [searchQuery, setSearchQuery] = useState('');
@@ -116,6 +116,14 @@ export default function GameServicesCatalog({ products = [] }) {
                         onSelectPlatform={setActivePlatform}
                     />
                 </div>
+            </div>
+
+            {/* Section Heading: H2 to ensure semantic H1 -> H2 -> H3 hierarchy */}
+            <div className="flex items-center justify-between pt-2">
+                <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white flex items-center gap-2.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#9d7cff]" aria-hidden="true" />
+                    <span>{game ? `${game} Boosting Packages` : 'Available Packages'}</span>
+                </h2>
             </div>
 
             {/* Filtered Products Grid */}

@@ -15,18 +15,11 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-    const { locale } = await params;
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
 
-    const isEs = locale === 'es';
-    const title = isEs
-        ? 'OGmodz — Servicios Premium de Game Boosting | Sube de Rango y Nivel'
-        : 'OGmodz — Premium Game Boosting Services | Rank & Level Up';
-    const description = isEs
-        ? 'Servicios profesionales de boosting para GTA V, CS2 y más. Elige tu plataforma, configura tu boost y recibe entrega inmediata y segura con soporte 24/7.'
-        : 'Professional game boosting services for GTA V, CS2, and top titles. Select your platform, configure your boost, and get fast, secure delivery with 24/7 support.';
+    const title = 'OGmodz — Premium Game Boosting Services | Rank & Level Up';
+    const description = 'Professional game boosting services for GTA V, CS2, and top titles. Select your platform, configure your boost, and get fast, secure delivery with 24/7 support.';
 
-    const canonicalPath = isEs ? '/es' : '/';
     const englishKeywords = [
         'game boosting',
         'game boosting services',
@@ -70,17 +63,12 @@ export async function generateMetadata({ params }) {
             },
         },
         alternates: {
-            canonical: canonicalPath,
-            languages: {
-                en: '/',
-                es: '/es',
-                'x-default': '/',
-            },
+            canonical: '/',
         },
         openGraph: {
             title,
             description,
-            url: canonicalPath,
+            url: '/',
             siteName: 'OGmodz',
             images: [
                 {
@@ -90,7 +78,7 @@ export async function generateMetadata({ params }) {
                     alt: 'OGmodz Game Boosting Services',
                 },
             ],
-            locale: isEs ? 'es_ES' : 'en_US',
+            locale: 'en_US',
             type: 'website',
         },
         twitter: {
@@ -119,8 +107,7 @@ export default async function LocaleLayout({ children, params }) {
 
     const messages = await getMessages();
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
-    const localizedSiteUrl = locale === 'es' ? `${baseUrl}/es` : baseUrl;
-    const storeSearchUrl = locale === 'es' ? `${baseUrl}/es/store` : `${baseUrl}/store`;
+    const storeSearchUrl = `${baseUrl}/store`;
 
     const schemaData = {
         '@context': 'https://schema.org',
@@ -144,7 +131,7 @@ export default async function LocaleLayout({ children, params }) {
             {
                 '@type': 'WebSite',
                 '@id': `${baseUrl}/#website`,
-                url: localizedSiteUrl,
+                url: baseUrl,
                 name: 'OGmodz',
                 publisher: {
                     '@id': `${baseUrl}/#organization`,

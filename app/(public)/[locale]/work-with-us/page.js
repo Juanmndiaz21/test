@@ -7,24 +7,16 @@ import PageHeaderBanner from '@/components/PageHeaderBanner';
 export async function generateMetadata({ params }) {
     const { locale } = await params;
     const t = await getTranslations({ locale, namespace: 'workWithUs' });
-    const isEs = locale === 'es';
-    const enPath = '/work-with-us';
-    const esPath = '/es/work-with-us';
     return {
         title: t('titleMeta'),
         description: t('subtitle'),
         alternates: {
-            canonical: isEs ? esPath : enPath,
-            languages: {
-                en: enPath,
-                es: esPath,
-                'x-default': enPath,
-            },
+            canonical: '/work-with-us',
         },
         openGraph: {
             title: t('titleMeta'),
             description: t('subtitle'),
-            url: isEs ? esPath : enPath,
+            url: '/work-with-us',
         },
     };
 }

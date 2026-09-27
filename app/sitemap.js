@@ -1,11 +1,9 @@
 import { neon } from '@neondatabase/serverless';
-import { routing } from '../i18n/routing.js';
+import { gameToSlug } from '../lib/gameSlugs.js';
 
 export default async function sitemap() {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
     const now = new Date();
-
-    const locales = routing.locales;
 
     const staticRoutes = [
         { path: '', priority: 1.0, changeFrequency: 'daily' },
@@ -20,31 +18,17 @@ export default async function sitemap() {
 
     const entries = [];
 
-    // Helper to generate clean, non-redirecting canonical URLs
-    // English is served at root (/), Spanish at /es. Never output /en which 307-redirects.
-    const getLocalizedUrl = (locale, path = '') => {
-        if (locale === 'es') {
-            return `${baseUrl}/es${path}`;
-        }
-        return `${baseUrl}${path || '/'}`;
-    };
+    // Helper to generate clean canonical URLs
+    const getUrl = (path = '') => `${baseUrl}${path || '/'}`;
 
-    // 1. Static routes with bidirectional hreflang alternates
+    // 1. Static routes
     for (const route of staticRoutes) {
-        for (const locale of locales) {
-            entries.push({
-                url: getLocalizedUrl(locale, route.path),
-                lastModified: now,
-                changeFrequency: route.changeFrequency,
-                priority: route.priority,
-                alternates: {
-                    languages: {
-                        en: getLocalizedUrl('en', route.path),
-                        es: getLocalizedUrl('es', route.path),
-                    },
-                },
-            });
-        }
+        entries.push({
+            url: getUrl(route.path),
+            lastModified: now,
+            changeFrequency: route.changeFrequency,
+            priority: route.priority,
+        });
     }
 
     // 2. Dynamic game category and product routes from DB
@@ -64,22 +48,15 @@ export default async function sitemap() {
             `;
 
             for (const game of games) {
-                const encodedGame = encodeURIComponent(game.name);
-                const gamePath = `/store/game/${encodedGame}`;
-                for (const locale of locales) {
-                    entries.push({
-                        url: getLocalizedUrl(locale, gamePath),
-                        lastModified: now,
-                        changeFrequency: 'weekly',
-                        priority: 0.8,
-                        alternates: {
-                            languages: {
-                                en: getLocalizedUrl('en', gamePath),
-                                es: getLocalizedUrl('es', gamePath),
-                            },
-                        },
-                    });
-                }
+                const slug = gameToSlug(game.name);
+                const gamePath = `/store/game/${slug}`;
+
+                entries.push({
+                    url: getUrl(gamePath),
+                    lastModified: now,
+                    changeFrequency: 'weekly',
+                    priority: 0.8,
+                });
             }
             gamesAdded = games.length > 0;
 
@@ -92,46 +69,31 @@ export default async function sitemap() {
             `;
 
             for (const product of products) {
-                const productPath = `/store/${product.id}`;
                 const lastModifiedDate = product.created_at || now;
-                for (const locale of locales) {
-                    entries.push({
-                        url: getLocalizedUrl(locale, productPath),
-                        lastModified: new Date(lastModifiedDate),
-                        changeFrequency: 'weekly',
-                        priority: 0.7,
-                        alternates: {
-                            languages: {
-                                en: getLocalizedUrl('en', productPath),
-                                es: getLocalizedUrl('es', productPath),
-                            },
-                        },
-                    });
-                }
+                const productPath = `/store/${product.id}`;
+
+                entries.push({
+                    url: getUrl(productPath),
+                    lastModified: new Date(lastModifiedDate),
+                    changeFrequency: 'weekly',
+                    priority: 0.7,
+                });
             }
         }
     } catch (err) {
         console.error('Error generating dynamic sitemap entries:', err);
-        // Fallback popular games with verified services if DB unavailable
         if (!gamesAdded) {
             const fallbackGames = ['GTA V', 'CS2'];
             for (const game of fallbackGames) {
-                const encodedGame = encodeURIComponent(game);
-                const gamePath = `/store/game/${encodedGame}`;
-                for (const locale of locales) {
-                    entries.push({
-                        url: getLocalizedUrl(locale, gamePath),
-                        lastModified: now,
-                        changeFrequency: 'weekly',
-                        priority: 0.8,
-                        alternates: {
-                            languages: {
-                                en: getLocalizedUrl('en', gamePath),
-                                es: getLocalizedUrl('es', gamePath),
-                            },
-                        },
-                    });
-                }
+                const slug = gameToSlug(game);
+                const gamePath = `/store/game/${slug}`;
+
+                entries.push({
+                    url: getUrl(gamePath),
+                    lastModified: now,
+                    changeFrequency: 'weekly',
+                    priority: 0.8,
+                });
             }
         }
     }
