@@ -14,29 +14,33 @@ const GameCardItem = memo(function GameCardItem({ game, gameProducts, image, t, 
     const staggerDelay = Math.min(index, 10) * 30;
 
     return (
-        <Link
-            href={`/store/game/${encodeURIComponent(game)}`}
-            className="animate-ladder-row text-left group relative overflow-hidden panel-surface rounded-2xl p-4.5 border border-white/10 bg-[#171229] transition-[transform,border-color,box-shadow,background-color] duration-180 ease-[var(--ease-out)] hover:border-[#9d7cff]/60 hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(0,0,0,0.4)] active:scale-[0.985] active:duration-100 focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-[-2px]"
+        <div
+            className="animate-ladder-row"
             style={{ animationDelay: `${staggerDelay}ms` }}
         >
-            <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#14101e] border border-white/10 p-1 flex items-center justify-center shrink-0 group-hover:border-[#9d7cff]/50 group-hover:scale-105 transition-[transform,border-color] duration-180 ease-[var(--ease-out)]">
-                    <GameLogo name={game} imageUrl={image} />
-                </div>
-                <div className="min-w-0 flex-1">
-                    <strong className="block text-white text-base font-bold leading-tight truncate group-hover:text-[#9d7cff] transition-colors duration-140">
-                        {game}
-                    </strong>
-                    <span className="block text-slate-400 uppercase tracking-wider mt-1.5 inline-flex items-center gap-1.5 text-xs font-mono">
-                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#9d7cff]" aria-hidden="true" />
-                        <span className="data-readout">{t('serviceCount', { count: gameProducts.length })}</span>
+            <Link
+                href={`/store/game/${encodeURIComponent(game)}`}
+                className="block text-left group relative overflow-hidden panel-surface rounded-2xl p-4.5 border border-white/10 bg-[#171229] transition-[border-color,box-shadow,background-color,transform] duration-160 ease-[var(--ease-out)] hover:border-[#9d7cff]/60 hover:bg-[#1a142c] hover:shadow-[0_12px_28px_rgba(0,0,0,0.4),0_0_0_1px_rgba(157,124,255,0.15)] active:scale-[0.985] active:duration-100 focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-[-2px] select-none cursor-pointer"
+            >
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-[#14101e] border border-white/10 p-1 flex items-center justify-center shrink-0 group-hover:border-[#9d7cff]/50 group-hover:scale-105 group-hover:bg-[#1a1428] transition-[transform,border-color,background-color] duration-160 ease-[var(--ease-out)]">
+                        <GameLogo name={game} imageUrl={image} />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                        <strong className="block text-white text-base font-bold leading-tight truncate group-hover:text-[#9d7cff] transition-colors duration-140">
+                            {game}
+                        </strong>
+                        <span className="block text-slate-400 uppercase tracking-wider mt-1.5 inline-flex items-center gap-1.5 text-xs font-mono">
+                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#9d7cff]" aria-hidden="true" />
+                            <span className="data-readout">{t('serviceCount', { count: gameProducts.length })}</span>
+                        </span>
+                    </div>
+                    <span className="w-8 h-8 rounded-full border border-white/15 bg-white/5 text-slate-300 flex items-center justify-center group-hover:bg-[#9d7cff] group-hover:text-[#0d0914] group-hover:border-[#9d7cff] group-hover:translate-x-1 group-hover:scale-105 group-active:scale-95 transition-[transform,background-color,border-color,color] duration-160 ease-[var(--ease-out)] shrink-0">
+                        <Icon name="arrow-right" className="w-3.5 h-3.5" />
                     </span>
                 </div>
-                <span className="w-8 h-8 rounded-full border border-white/15 bg-white/5 text-slate-300 flex items-center justify-center group-hover:bg-[#9d7cff] group-hover:text-[#0d0914] group-hover:border-[#9d7cff] group-hover:translate-x-0.5 group-hover:scale-105 group-active:scale-95 transition-[transform,background-color,border-color,color] duration-160 ease-[var(--ease-out)] shrink-0">
-                    <Icon name="arrow-right" className="w-3.5 h-3.5" />
-                </span>
-            </div>
-        </Link>
+            </Link>
+        </div>
     );
 });
 

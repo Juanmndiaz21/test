@@ -15,7 +15,7 @@ function GameLogo({ name = '', imageUrl = null, className = '' }) {
                 alt={name || ''}
                 loading="lazy"
                 decoding="async"
-                className={`max-h-full max-w-full object-contain filter drop-shadow transition-transform duration-150 group-hover:scale-105 ${className}`}
+                className={`max-h-full max-w-full object-contain filter drop-shadow ${className}`}
             />
         );
     }
