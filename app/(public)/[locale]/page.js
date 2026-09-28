@@ -146,49 +146,45 @@ export default async function Home({ params }) {
                     {(features || []).map((feature, index) => {
                         const meta = FEATURE_META[index % FEATURE_META.length];
                         return (
-                            <Reveal key={feature.title} delay={index * 0.08}>
-                                <div className="group relative rounded-2xl border border-white/10 bg-[#171229] p-7 md:p-8 h-full flex flex-col justify-between overflow-hidden transition-colors duration-150 hover:border-[#9d7cff]/60 shadow-[0_16px_36px_rgba(0,0,0,0.35)]">
+                            <Reveal key={feature.title} delay={index * 0.05}>
+                                <div className="group relative rounded-2xl border border-white/10 bg-[#141022] p-6 sm:p-7 h-full flex flex-col justify-between overflow-hidden transition-[transform,border-color,box-shadow] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_16px_36px_rgba(0,0,0,0.5),0_0_24px_rgba(157,124,255,0.12)] motion-reduce:transition-none">
+                                    {/* Subtle Top Rim Highlight */}
+                                    <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+
                                     {/* Content Container */}
                                     <div>
                                         {/* Header: Icon badge & Protocol Tag */}
                                         <div className="flex items-center justify-between">
-                                            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#9d7cff]/20 bg-[#9d7cff]/10 text-[#9d7cff] shadow-sm">
+                                            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-[#9d7cff] group-hover:border-[#9d7cff]/30 group-hover:bg-[#9d7cff]/10 group-hover:scale-105 transition-[transform,background-color,border-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]">
                                                 <Icon
                                                     name={meta.icon}
                                                     className="w-5 h-5"
                                                     strokeWidth={2.2}
                                                 />
                                             </div>
-                                            <div className="flex items-center gap-1.5 text-xs font-mono font-bold tracking-wider text-slate-400 group-hover:text-[#9d7cff] transition-colors">
-                                                <span className="data-readout">{meta.tag}</span>
-                                                <Icon
-                                                    name="arrow-up-right"
-                                                    className="w-3.5 h-3.5 opacity-60 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                                                    strokeWidth={2.4}
-                                                />
-                                            </div>
+                                            <span className="font-mono text-[11px] font-semibold tracking-wider text-slate-500 group-hover:text-slate-300 transition-colors duration-200 data-readout">
+                                                {meta.tag}
+                                            </span>
                                         </div>
 
-                                        {/* Title and Description with WCAG AA Contrast */}
-                                        <div className="mt-6">
-                                            <h3 className="font-['Trebuchet_MS',sans-serif] text-xl font-bold text-white tracking-tight transition-colors duration-150 group-hover:text-[#9d7cff]">
+                                        {/* Title and Description */}
+                                        <div className="mt-5">
+                                            <h3 className="font-['Trebuchet_MS',sans-serif] text-lg sm:text-xl font-bold text-white tracking-tight leading-snug group-hover:text-[#9d7cff] transition-colors duration-200">
                                                 {feature.title}
                                             </h3>
-                                            <p className="mt-3 text-sm leading-relaxed text-slate-300">
+                                            <p className="mt-2.5 text-sm leading-relaxed text-slate-300 font-normal">
                                                 {feature.text}
                                             </p>
                                         </div>
                                     </div>
 
                                     {/* Footer Status Readout */}
-                                    <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono tracking-wider uppercase">
+                                    <div className="mt-6 pt-4 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono tracking-wider uppercase">
                                         <span className="inline-flex items-center gap-2">
-                                            <span className="relative flex h-2 w-2" aria-hidden="true">
-                                                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#9d7cff]" />
-                                            </span>
+                                            <span className="h-1.5 w-1.5 rounded-full bg-[#9d7cff]" />
                                             <span className="text-slate-300 font-semibold">{meta.status}</span>
                                         </span>
-                                        <span className="data-readout text-slate-400 group-hover:text-slate-200 transition-colors font-bold">
+                                        <span className="data-readout text-[11px] font-bold text-slate-400 group-hover:text-slate-200 transition-colors">
                                             VERIFIED
                                         </span>
                                     </div>
