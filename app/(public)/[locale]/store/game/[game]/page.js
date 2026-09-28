@@ -4,7 +4,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import GameCategoryBanner from '@/components/GameCategoryBanner';
 import GameServicesCatalog from '@/components/GameServicesCatalog';
 import { ensureAppSchema } from '@/lib/schema';
-import { slugToGameName, gameToSlug } from '@/lib/gameSlugs';
+import { slugToGameName, gameToSlug, productToSlug } from '@/lib/gameSlugs';
 
 export const dynamic = 'force-dynamic';
 
@@ -30,7 +30,68 @@ export default async function GameServicesPage({ params }) {
     const cleanSlug = gameToSlug(game);
     const localizedGameUrl = `${baseUrl}/store/game/${cleanSlug}`;
 
-    // Schema.org structured data for game services category, breadcrumbs & offers
+    const isGta = game.toLowerCase().includes('gta');
+    const isCs = game.toLowerCase().includes('cs');
+    const isRdr = game.toLowerCase().includes('rdr') || game.toLowerCase().includes('red dead');
+
+    const faqs = isGta
+        ? [
+            {
+                q: 'How does GTA 5 Cash Boost work on OGmodz?',
+                a: 'Our verified boosters access your GTA Online account using secure encrypted VPN connections matching your region to safely deliver GTA$ directly without triggering security flags.',
+            },
+            {
+                q: 'Is GTA 5 money boosting safe from bans?',
+                a: 'Yes. OGmodz employs private, tested stealth transfer methods with an unblemished 0% ban rate record. Every order is backed by full customer warranty and 24/7 support.',
+            },
+            {
+                q: 'How long does delivery take for GTA 5 boost services?',
+                a: 'Most GTA 5 boost orders start within 15 minutes of checkout and are completely fulfilled within 1 to 2 hours.',
+            },
+        ]
+        : isCs
+        ? [
+            {
+                q: 'How does CS2 rank boosting work?',
+                a: 'Professional, top-tier Counter-Strike 2 players team up with you (Duo) or play directly on your account using private VPN routing to boost your Premier rating or Competitive skill group.',
+            },
+            {
+                q: 'Do boosters use cheats or third-party software?',
+                a: 'Never. All boosting at OGmodz is performed 100% legitimately by vetted high-rank players with thousands of verified hours.',
+            },
+            {
+                q: 'How fast will my CS2 boost start?',
+                a: 'Boosters are assigned and begin playing within 15 to 30 minutes of order placement.',
+            },
+        ]
+        : isRdr
+        ? [
+            {
+                q: 'How does Red Dead Online gold & cash boosting work?',
+                a: 'Our boosters use private session methods and secure VPN encryption to deliver gold bars, cash, and role leveling safely to your Red Dead Online character.',
+            },
+            {
+                q: 'Is RDR2 boosting safe for my account?',
+                a: 'Yes, we only utilize non-invasive, safe recovery techniques that keep your Rockstar account completely safe.',
+            },
+        ]
+        : [
+            {
+                q: `How does ${game} boosting work?`,
+                a: `Experienced professional players handle your order quickly and safely using encrypted VPN connections to deliver ${game} progression, levels, or in-game currency.`,
+            },
+            {
+                q: `Is ${game} boosting safe?`,
+                a: `Yes, we prioritize customer account security above all else. Every order is protected by regional VPN routing and private booster protocols.`,
+            },
+        ];
+
+    const validPrices = products.map((p) => Number(p.price || 0)).filter((p) => p > 0);
+    const lowPrice = validPrices.length ? Math.min(...validPrices).toFixed(2) : '9.99';
+    const highPrice = validPrices.length ? Math.max(...validPrices).toFixed(2) : '199.99';
+    const offerCount = products.length || 1;
+
+    // Schema.org structured data for game services category, breadcrumbs, AggregateOffer & FAQPage
     const jsonLd = {
         '@context': 'https://schema.org',
         '@graph': [
@@ -69,19 +130,34 @@ export default async function GameServicesPage({ params }) {
                     url: baseUrl,
                 },
                 areaServed: 'Worldwide',
-                hasOfferCatalog: {
-                    '@type': 'OfferCatalog',
-                    name: `${game} Boosting Packages`,
-                    itemListElement: products.map((product) => ({
+                offers: {
+                    '@type': 'AggregateOffer',
+                    lowPrice,
+                    highPrice,
+                    priceCurrency: 'USD',
+                    offerCount,
+                    offers: products.map((product) => ({
                         '@type': 'Offer',
                         name: product.name,
                         description: product.description || `${product.name} boost for ${game}`,
                         price: Number(product.price || 0).toFixed(2),
                         priceCurrency: 'USD',
                         availability: 'https://schema.org/InStock',
-                        url: `${baseUrl}/store/${product.id}`,
+                        url: `${baseUrl}/store/${product.slug || productToSlug(product.name)}`,
                     })),
                 },
+            },
+            {
+                '@type': 'FAQPage',
+                '@id': `${localizedGameUrl}#faq`,
+                mainEntity: faqs.map((faq) => ({
+                    '@type': 'Question',
+                    name: faq.q,
+                    acceptedAnswer: {
+                        '@type': 'Answer',
+                        text: faq.a,
+                    },
+                })),
             },
         ],
     };
@@ -127,7 +203,9 @@ export async function generateMetadata({ params }) {
         hasProducts = true;
     }
 
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
     const gamePath = `/store/game/${cleanSlug}`;
+    const canonicalUrl = `${baseUrl}${gamePath}`;
 
     const isGta = name.toLowerCase().includes('gta');
     const isCs = name.toLowerCase().includes('cs');
@@ -138,7 +216,7 @@ export async function generateMetadata({ params }) {
 
     if (isGta) {
         title = 'Buy GTA 5 Cash Boost, Money & Modded Accounts | Fast Delivery at OGmodz';
-        description = 'Buy GTA 5 cash boost and money services at OGmodz. Instant delivery, 100% safe recovery methods, and 24/7 priority support for PC, PS5, PS4, and Xbox.';
+        description = 'Buy GTA 5 cash boost & money services at OGmodz. Instant delivery, 100% safe recovery methods, and 24/7 priority support for PC, PS5, PS4 & Xbox.';
     } else if (isCs) {
         title = 'Buy CS2 Boosting & Rank Boost | Premier & Commends at OGmodz';
         description = 'Buy Counter-Strike 2 rank boost and commendations at OGmodz. Verified faceit & premier boosters, safe VPN protection, and instant delivery.';
@@ -192,12 +270,17 @@ export async function generateMetadata({ params }) {
             }
             : { index: false, follow: true }, // Noindex thin empty categories (e.g. 0 products)
         alternates: {
-            canonical: gamePath,
+            canonical: canonicalUrl,
         },
         openGraph: {
             title,
             description,
-            url: gamePath,
+            url: canonicalUrl,
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title,
+            description,
         },
     };
 }

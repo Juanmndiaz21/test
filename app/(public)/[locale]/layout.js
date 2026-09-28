@@ -18,7 +18,7 @@ export async function generateMetadata({ params }) {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
 
     const title = 'OGmodz — Buy Game Boosting, GTA 5 Cash Boost & CS2 Rank Services';
-    const description = 'Buy premium game boosting services at OGmodz. Fast delivery for GTA 5 cash boost, modded accounts, CS2 rank boosting, and top titles. 100% account safety guaranteed with 24/7 live support.';
+    const description = 'Buy premium game boosting at OGmodz. Fast delivery for GTA 5 cash boost, modded accounts & CS2 rank boost. 100% account safety with 24/7 support.';
 
     const englishKeywords = [
         'game boosting',
@@ -60,6 +60,13 @@ export async function generateMetadata({ params }) {
                 'max-video-preview': -1,
                 'max-image-preview': 'large',
                 'max-snippet': -1,
+            },
+        },
+        alternates: {
+            canonical: baseUrl,
+            languages: {
+                en: baseUrl,
+                'x-default': baseUrl,
             },
         },
         openGraph: {

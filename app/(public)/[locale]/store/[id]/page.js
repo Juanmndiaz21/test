@@ -1,5 +1,5 @@
 import { neon } from '@neondatabase/serverless';
-import { notFound, redirect } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import ProductDetail from '@/components/ProductDetail';
 import { getServiceOptions } from '@/lib/settings';
@@ -37,7 +37,7 @@ export default async function ProductPage({ params }) {
 
     const canonicalSlug = product.slug || productToSlug(product.name);
     if (decodeURIComponent(String(id)) !== canonicalSlug) {
-        redirect(`/store/${canonicalSlug}`);
+        permanentRedirect(`/store/${canonicalSlug}`);
     }
 
     const relatedProducts = await sql`
@@ -193,9 +193,12 @@ export async function generateMetadata({ params }) {
             title = `Buy ${product.name} — Safe Counter-Strike 2 Boost | OGmodz`;
         }
 
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
+        const canonicalUrl = `${baseUrl}${productPath}`;
+
         const description = product.description
-            ? `${product.description.slice(0, 140).trim()}. Instant delivery, 100% account safety guaranteed with VPN protection, and 24/7 support at OGmodz.`
-            : `Buy ${product.name} for ${product.game} at OGmodz. Instant delivery, 100% account safety guaranteed with VPN protection, and 24/7 live support. Choose your platform and order now.`;
+            ? `${product.description.slice(0, 105).trim()}... Fast delivery, 100% account safety with VPN & 24/7 support at OGmodz.`
+            : `Buy ${product.name} for ${product.game} at OGmodz. Instant delivery, 100% account safety with VPN, and 24/7 live support. Order online now.`;
 
         const productKeywords = [
             product.name,
@@ -237,12 +240,12 @@ export async function generateMetadata({ params }) {
                 },
             },
             alternates: {
-                canonical: productPath,
+                canonical: canonicalUrl,
             },
             openGraph: {
                 title,
                 description,
-                url: productPath,
+                url: canonicalUrl,
                 images: product.image_url ? [{ url: product.image_url }] : [{ url: '/og-image.png' }],
             },
             twitter: {
