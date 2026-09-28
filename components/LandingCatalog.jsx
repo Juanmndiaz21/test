@@ -26,7 +26,7 @@ const PopularGameCard = memo(function PopularGameCard({ game, index, t }) {
         >
             <Link
                 href={`/store/game/${gameSlug}`}
-                className="group relative aspect-[4/5] sm:aspect-[3/4] w-full rounded-2xl overflow-hidden border border-white/10 bg-[#141022] block transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-1 hover:border-white/25 hover:shadow-lg hover:shadow-black/50 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 motion-reduce:transition-none select-none"
+                className="group relative aspect-square w-full rounded-2xl overflow-hidden border border-white/10 bg-[#141022] block transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-1 hover:border-white/25 hover:shadow-lg hover:shadow-black/50 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 motion-reduce:transition-none select-none"
             >
                 {/* Game Artwork */}
                 <div className="w-full h-full overflow-hidden bg-black/40">
