@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/navigation';
 import { useCartStore } from '../store/useCartStore';
 import { toast } from '../utils/toast';
-import { recordDemoOrder, validateCouponAction } from '@/app/(public)/[locale]/checkout/actions';
+import { recordDemoOrder, validateCouponAction, getActivePaymentMethodsAction } from '@/app/(public)/[locale]/checkout/actions';
 import Icon from './Icon';
 
 const initialState = { success: false, orderId: null, redirectUrl: null, error: null };
@@ -34,13 +34,34 @@ export default function Checkout() {
     const router = useRouter();
     const { cart, getTotal, clearCart } = useCartStore();
 
-    const [paymentMethod, setPaymentMethod] = useState('stripe');
+    const [activeMethods, setActiveMethods] = useState({ stripe: true, paypal: true, crypto: false });
+    const [paymentMethod, setPaymentMethod] = useState('paypal');
     const [couponInput, setCouponInput] = useState('');
     const [appliedCoupon, setAppliedCoupon] = useState(null);
     const [couponError, setCouponError] = useState(null);
     const [isCheckingCoupon, startCheckingCoupon] = useTransition();
 
     const [state, formAction, isPending] = useActionState(recordDemoOrder, initialState);
+
+    useEffect(() => {
+        let isSubscribed = true;
+        getActivePaymentMethodsAction()
+            .then((methods) => {
+                if (!isSubscribed || !methods) return;
+                setActiveMethods(methods);
+                setPaymentMethod((prev) => {
+                    if (methods[prev]) return prev;
+                    if (methods.paypal) return 'paypal';
+                    if (methods.stripe) return 'stripe';
+                    if (methods.crypto) return 'crypto';
+                    return prev;
+                });
+            })
+            .catch(() => {});
+        return () => {
+            isSubscribed = false;
+        };
+    }, []);
 
     const subtotal = getTotal();
     const discountAmount = appliedCoupon ? appliedCoupon.discountAmount : 0;
@@ -228,79 +249,97 @@ export default function Checkout() {
                         {t('paymentMethod')}
                     </label>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                        {/* Stripe Card */}
-                        <button
-                            type="button"
-                            onClick={() => setPaymentMethod('stripe')}
-                            className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between ${
-                                paymentMethod === 'stripe'
-                                    ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_15px_rgba(157,124,255,0.15)] text-white'
-                                    : 'bg-[#120e1c]/50 border-white/10 hover:border-white/20 text-slate-300'
-                            }`}
-                        >
-                            <div className="flex items-center justify-between mb-2">
-                                <span className="text-sm font-bold flex items-center gap-1.5">
-                                    <Icon name="shield" className="w-4 h-4 text-[#9d7cff]" />
-                                    Card
-                                </span>
-                                {paymentMethod === 'stripe' && (
-                                    <span className="h-2 w-2 rounded-full bg-[#9d7cff]" />
-                                )}
-                            </div>
-                            <span className="text-[11px] text-slate-400">
-                                Stripe · Apple Pay · Cards
-                            </span>
-                        </button>
+                    {([activeMethods.stripe, activeMethods.paypal, activeMethods.crypto].filter(Boolean).length === 0) ? (
+                        <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs">
+                            Payment processing is temporarily offline. Please contact support.
+                        </div>
+                    ) : (
+                        <div className={`grid gap-2.5 ${
+                            [activeMethods.stripe, activeMethods.paypal, activeMethods.crypto].filter(Boolean).length === 1
+                                ? 'grid-cols-1'
+                                : [activeMethods.stripe, activeMethods.paypal, activeMethods.crypto].filter(Boolean).length === 2
+                                ? 'grid-cols-1 sm:grid-cols-2'
+                                : 'grid-cols-1 sm:grid-cols-3'
+                        }`}>
+                            {/* Stripe Card */}
+                            {activeMethods.stripe && (
+                                <button
+                                    type="button"
+                                    onClick={() => setPaymentMethod('stripe')}
+                                    className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between ${
+                                        paymentMethod === 'stripe'
+                                            ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_15px_rgba(157,124,255,0.15)] text-white'
+                                            : 'bg-[#120e1c]/50 border-white/10 hover:border-white/20 text-slate-300'
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between mb-2">
+                                        <span className="text-sm font-bold flex items-center gap-1.5">
+                                            <Icon name="shield" className="w-4 h-4 text-[#9d7cff]" />
+                                            Card
+                                        </span>
+                                        {paymentMethod === 'stripe' && (
+                                            <span className="h-2 w-2 rounded-full bg-[#9d7cff]" />
+                                        )}
+                                    </div>
+                                    <span className="text-[11px] text-slate-400">
+                                        Stripe · Apple Pay · Cards
+                                    </span>
+                                </button>
+                            )}
 
-                        {/* PayPal */}
-                        <button
-                            type="button"
-                            onClick={() => setPaymentMethod('paypal')}
-                            className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between ${
-                                paymentMethod === 'paypal'
-                                    ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_15px_rgba(157,124,255,0.15)] text-white'
-                                    : 'bg-[#120e1c]/50 border-white/10 hover:border-white/20 text-slate-300'
-                            }`}
-                        >
-                            <div className="flex items-center justify-between mb-2">
-                                <span className="text-sm font-bold flex items-center gap-1.5">
-                                    <span className="font-serif italic font-black text-sky-400">P</span>
-                                    PayPal
-                                </span>
-                                {paymentMethod === 'paypal' && (
-                                    <span className="h-2 w-2 rounded-full bg-[#9d7cff]" />
-                                )}
-                            </div>
-                            <span className="text-[11px] text-slate-400">
-                                Balance & Cards
-                            </span>
-                        </button>
+                            {/* PayPal */}
+                            {activeMethods.paypal && (
+                                <button
+                                    type="button"
+                                    onClick={() => setPaymentMethod('paypal')}
+                                    className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between ${
+                                        paymentMethod === 'paypal'
+                                            ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_15px_rgba(157,124,255,0.15)] text-white'
+                                            : 'bg-[#120e1c]/50 border-white/10 hover:border-white/20 text-slate-300'
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between mb-2">
+                                        <span className="text-sm font-bold flex items-center gap-1.5">
+                                            <span className="font-serif italic font-black text-sky-400">P</span>
+                                            PayPal
+                                        </span>
+                                        {paymentMethod === 'paypal' && (
+                                            <span className="h-2 w-2 rounded-full bg-[#9d7cff]" />
+                                        )}
+                                    </div>
+                                    <span className="text-[11px] text-slate-400">
+                                        Balance & Cards
+                                    </span>
+                                </button>
+                            )}
 
-                        {/* Crypto */}
-                        <button
-                            type="button"
-                            onClick={() => setPaymentMethod('crypto')}
-                            className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between ${
-                                paymentMethod === 'crypto'
-                                    ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_15px_rgba(157,124,255,0.15)] text-white'
-                                    : 'bg-[#120e1c]/50 border-white/10 hover:border-white/20 text-slate-300'
-                            }`}
-                        >
-                            <div className="flex items-center justify-between mb-2">
-                                <span className="text-sm font-bold flex items-center gap-1.5">
-                                    <Icon name="wallet" className="w-4 h-4 text-emerald-400" />
-                                    Web3 / Crypto
-                                </span>
-                                {paymentMethod === 'crypto' && (
-                                    <span className="h-2 w-2 rounded-full bg-[#9d7cff]" />
-                                )}
-                            </div>
-                            <span className="text-[11px] text-slate-400">
-                                USDT · BTC · ETH
-                            </span>
-                        </button>
-                    </div>
+                            {/* Crypto */}
+                            {activeMethods.crypto && (
+                                <button
+                                    type="button"
+                                    onClick={() => setPaymentMethod('crypto')}
+                                    className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between ${
+                                        paymentMethod === 'crypto'
+                                            ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_15px_rgba(157,124,255,0.15)] text-white'
+                                            : 'bg-[#120e1c]/50 border-white/10 hover:border-white/20 text-slate-300'
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between mb-2">
+                                        <span className="text-sm font-bold flex items-center gap-1.5">
+                                            <Icon name="wallet" className="w-4 h-4 text-emerald-400" />
+                                            Web3 / Crypto
+                                        </span>
+                                        {paymentMethod === 'crypto' && (
+                                            <span className="h-2 w-2 rounded-full bg-[#9d7cff]" />
+                                        )}
+                                    </div>
+                                    <span className="text-[11px] text-slate-400">
+                                        USDT · BTC · ETH
+                                    </span>
+                                </button>
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 {/* Pricing Breakdown Summary */}

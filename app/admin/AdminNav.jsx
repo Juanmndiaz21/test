@@ -13,6 +13,7 @@ const NAV_ITEMS = [
     { href: '/admin/users', label: 'Users', icon: 'users' },
     { href: '/admin/help', label: 'Help / FAQs', icon: 'circle-help' },
     { href: '/admin/contact', label: 'Contact Messages', icon: 'mail' },
+    { href: '/admin/settings', label: 'Payment Methods', icon: 'sliders' },
 ];
 
 export default function AdminNav({ session }) {

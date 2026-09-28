@@ -11,6 +11,7 @@ import { sendOrderConfirmationEmail } from '@/lib/email';
 import { rateLimit } from '@/lib/rateLimit';
 import { getTrustedOrigin } from '@/lib/guard';
 import { DEFAULT_OPTIONS, DEFAULT_PACKAGES, DEFAULT_ADDONS } from '@/lib/serviceDefaults';
+import { getPaymentSettings } from '@/lib/settings';
 
 function resolveAuthoritativeItemPrice(product, item) {
     const configData = product.configurator_data || {};
@@ -236,6 +237,11 @@ export async function recordDemoOrder(prevState, formData) {
         await ensureOrdersTable(sql);
         await ensureCouponsTable(sql);
 
+        const paymentSettings = await getPaymentSettings(sql);
+        if (paymentSettings && paymentSettings[paymentMethod] === false) {
+            throw new Error('This payment method is currently disabled.');
+        }
+
         // Compute verified subtotal directly from database products
         const { orderItems, subtotal } = await computeVerifiedItemsAndTotal(sql, items);
 
@@ -417,4 +423,18 @@ export async function capturePayPalPaymentAction({ orderId, paypalOrderId }) {
         console.error('PayPal capture error:', err);
         return { success: false, error: err.message };
     }
-}
+}
+
+/**
+ * Server action to get active payment methods for the public checkout.
+ */
+export async function getActivePaymentMethodsAction() {
+    try {
+        const sql = neon(process.env.DATABASE_URL);
+        return await getPaymentSettings(sql);
+    } catch (err) {
+        console.error('Failed to get payment settings:', err);
+        return { stripe: true, paypal: true, crypto: false };
+    }
+}
+
