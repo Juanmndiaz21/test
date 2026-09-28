@@ -128,11 +128,27 @@ export async function generateMetadata({ params }) {
     }
 
     const gamePath = `/store/game/${cleanSlug}`;
-    const title = `${t('titleMeta', { game: name })} | OGmodz`;
-    const description = t('metadataDescription', { game: name });
 
     const isGta = name.toLowerCase().includes('gta');
     const isCs = name.toLowerCase().includes('cs');
+    const isRdr = name.toLowerCase().includes('rdr') || name.toLowerCase().includes('red dead');
+
+    let title = `${t('titleMeta', { game: name })} | OGmodz`;
+    let description = t('metadataDescription', { game: name });
+
+    if (isGta) {
+        title = 'Buy GTA 5 Cash Boost, Money & Modded Accounts | Fast Delivery at OGmodz';
+        description = 'Buy GTA 5 cash boost and money services at OGmodz. Instant delivery, 100% safe recovery methods, and 24/7 priority support for PC, PS5, PS4, and Xbox.';
+    } else if (isCs) {
+        title = 'Buy CS2 Boosting & Rank Boost | Premier & Commends at OGmodz';
+        description = 'Buy Counter-Strike 2 rank boost and commendations at OGmodz. Verified faceit & premier boosters, safe VPN protection, and instant delivery.';
+    } else if (isRdr) {
+        title = 'Buy RDR2 Gold Bars & Cash Boost | Red Dead Online at OGmodz';
+        description = 'Buy Red Dead Online gold bars and cash boost services at OGmodz. Instant delivery, 100% safe methods, and 24/7 priority support.';
+    } else {
+        title = `Buy ${name} Boosting & Level Up Services | Fast Delivery at OGmodz`;
+        description = `Buy verified ${name} boosting and progression services at OGmodz. 100% account safe, fast delivery, and 24/7 live support.`;
+    }
 
     const gameKeywords = [
         `${name} boosting`,
@@ -145,9 +161,14 @@ export async function generateMetadata({ params }) {
         isGta ? 'GTA Online money service' : '',
         isGta ? 'GTA V recovery service' : '',
         isGta ? 'GTA 5 modded account' : '',
+        isGta ? 'buy GTA 5 money' : '',
+        isGta ? 'cheap GTA cash boost' : '',
         isCs ? 'CS2 boosting' : '',
         isCs ? 'CS2 commendations' : '',
         isCs ? 'Counter-Strike 2 premier boost' : '',
+        isRdr ? 'RDR2 gold bars boost' : '',
+        isRdr ? 'Red Dead Online boost' : '',
+        'buy game boost',
         'OGmodz',
         'safe boosting',
         'instant delivery',
