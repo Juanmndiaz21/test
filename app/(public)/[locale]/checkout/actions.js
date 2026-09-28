@@ -5,6 +5,8 @@ import { headers } from 'next/headers';
 import { ensureOrdersTable, generateOrderCode } from '@/lib/orders';
 import { ensureCouponsTable, findCouponByCode, evaluateCoupon, incrementCouponUsage } from '@/lib/coupons';
 import { createStripeSession } from '@/lib/payments';
+import { createPayPalOrder, capturePayPalOrder } from '@/lib/paypal';
+import { ensureAppSchema } from '@/lib/schema';
 import { sendOrderConfirmationEmail } from '@/lib/email';
 import { rateLimit } from '@/lib/rateLimit';
 import { getTrustedOrigin } from '@/lib/guard';
@@ -296,30 +298,56 @@ export async function recordDemoOrder(prevState, formData) {
                 origin,
             });
 
-            if (stripeResult.isConfigured && stripeResult.sessionUrl) {
-                return {
-                    success: true,
-                    orderId,
-                    orderCode,
-                    redirectUrl: stripeResult.sessionUrl,
-                    paymentMethod,
-                    isStripeLive: true,
-                };
+            if (stripeResult.isConfigured) {
+                if (stripeResult.sessionUrl) {
+                    return {
+                        success: true,
+                        orderId,
+                        orderCode,
+                        redirectUrl: stripeResult.sessionUrl,
+                        paymentMethod,
+                        isStripeLive: true,
+                    };
+                }
+                throw new Error('Failed to create Stripe checkout session.');
+            }
+        } else if (paymentMethod === 'paypal') {
+            const paypalResult = await createPayPalOrder({
+                orderId,
+                orderCode,
+                total,
+                origin,
+            });
+
+            if (paypalResult.isConfigured) {
+                if (paypalResult.approvalUrl) {
+                    return {
+                        success: true,
+                        orderId,
+                        orderCode,
+                        redirectUrl: paypalResult.approvalUrl,
+                        paymentMethod: 'paypal',
+                        isPayPal: true,
+                    };
+                }
+                throw new Error('Failed to create PayPal payment order.');
             }
         }
 
-        // Send order confirmation email for demo/sandbox order
-        try {
-            await sendOrderConfirmationEmail({
-                to: emailKey,
-                customerName: name,
-                orderCode,
-                total,
-                items: orderItems,
-                trackingUrl,
-            });
-        } catch (emailErr) {
-            console.error('Email dispatch error during checkout:', emailErr);
+        // Only send immediate confirmation email in offline/demo mode when no gateways are configured
+        if (!process.env.STRIPE_SECRET_KEY && !process.env.PAYPAL_CLIENT_ID) {
+            try {
+                await sendOrderConfirmationEmail({
+                    to: emailKey,
+                    customerName: name,
+                    orderCode,
+                    total,
+                    items: orderItems,
+                    trackingUrl,
+                });
+            } catch (emailErr) {
+                console.error('Email dispatch error during checkout:', emailErr);
+            }
         }
 
         return {
@@ -329,7 +357,7 @@ export async function recordDemoOrder(prevState, formData) {
             paymentMethod,
             discountAmount,
             total,
-            isDemo: !process.env.STRIPE_SECRET_KEY,
+            isDemo: !process.env.STRIPE_SECRET_KEY && !process.env.PAYPAL_CLIENT_ID,
             error: null,
         };
     } catch (error) {
@@ -341,3 +369,52 @@ export async function recordDemoOrder(prevState, formData) {
         };
     }
 }
+
+/**
+ * Server action to capture an approved PayPal payment and finalize the order.
+ */
+export async function capturePayPalPaymentAction({ orderId, paypalOrderId }) {
+    try {
+        const captureResult = await capturePayPalOrder(paypalOrderId);
+        if (captureResult.status === 'COMPLETED') {
+            const sql = neon(process.env.DATABASE_URL);
+            await ensureAppSchema(sql);
+
+            const updatedOrders = await sql`
+                UPDATE orders 
+                SET status = 'in_progress', 
+                    payment_id = ${captureResult.captureId},
+                    payment_method = 'paypal'
+                WHERE id = ${orderId} AND (status <> 'in_progress' OR status IS NULL)
+                RETURNING *
+            `;
+
+            const order = updatedOrders[0];
+            if (order && order.customer_email) {
+                try {
+                    const items = await sql`SELECT * FROM order_items WHERE order_id = ${orderId}`;
+                    const baseUrl = process.env.NEXTAUTH_URL || 'https://www.ogmodz.com';
+                    const trackingUrl = `${baseUrl}/track?code=${order.order_code}`;
+
+                    await sendOrderConfirmationEmail({
+                        to: order.customer_email,
+                        customerName: order.customer_name,
+                        orderCode: order.order_code,
+                        total: order.total,
+                        items,
+                        trackingUrl,
+                    });
+                } catch (emailErr) {
+                    console.error('Failed to send confirmation email on PayPal capture:', emailErr);
+                }
+            }
+
+            return { success: true };
+        }
+
+        return { success: false, error: 'Payment not completed.' };
+    } catch (err) {
+        console.error('PayPal capture error:', err);
+        return { success: false, error: err.message };
+    }
+}

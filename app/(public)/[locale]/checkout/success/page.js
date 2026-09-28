@@ -7,6 +7,7 @@ import { useCartStore } from '@/store/useCartStore';
 import PageHeaderBanner from '@/components/PageHeaderBanner';
 import Icon from '@/components/Icon';
 import { toast } from '@/utils/toast';
+import { capturePayPalPaymentAction } from '../actions';
 
 export default function CheckoutSuccessPage({ searchParams }) {
     const t = useTranslations('checkout');
@@ -16,10 +17,21 @@ export default function CheckoutSuccessPage({ searchParams }) {
     const resolvedParams = use(searchParams);
     const orderId = resolvedParams?.order_id || null;
     const orderCode = resolvedParams?.order_code || null;
+    const provider = resolvedParams?.provider || null;
+    const token = resolvedParams?.token || null;
 
     useEffect(() => {
         clearCart();
-    }, [clearCart]);
+
+        if (provider === 'paypal' && token && orderId) {
+            capturePayPalPaymentAction({
+                orderId: Number(orderId),
+                paypalOrderId: token,
+            }).catch((err) => {
+                console.error('PayPal capture on success page error:', err);
+            });
+        }
+    }, [clearCart, provider, token, orderId]);
 
     const handleCopy = () => {
         if (!orderCode) return;
