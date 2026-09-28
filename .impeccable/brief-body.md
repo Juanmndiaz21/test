@@ -8,7 +8,7 @@ Job: prove the catalog is real and run the funnel (browse store → configure �
 
 Proof/content: live catalog from the database (games + per-game service counts), honest how-it-works, transparency section, no invented claims.
 
-Constraints: code-led build (no image generation), English copy, Rowmodz brand confirmed, dark violet palette, one orchestrated motion moment, contrast >= 4.5:1, the old lime/BOOST-PRO world is replaced, not polished.
+Constraints: code-led build (no image generation), English copy, OGmodz brand confirmed, dark violet palette, one orchestrated motion moment, contrast >= 4.5:1, the old lime/BOOST-PRO world is replaced, not polished.
 
 Chosen direction: **Ranked Ladder** — the product IS the standings sheet; the catalog renders as a season leaderboard. Memorable moment: the standings rows rising on load, the top row drawn with the violet rank rule.
 

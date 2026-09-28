@@ -34,7 +34,15 @@ export default function Checkout() {
     const router = useRouter();
     const { cart, getTotal, clearCart } = useCartStore();
 
-    const [activeMethods, setActiveMethods] = useState({ stripe: true, paypal: true, crypto: false });
+    const [activeMethods, setActiveMethods] = useState({
+        stripe: true,
+        paypal: true,
+        crypto: true,
+        crypto_discord: true,
+        crypto_discord_title: 'Binance Pay / Crypto (Ticket Discord)',
+        crypto_discord_instructions: 'Al confirmar tu orden, se generará tu código de compra. Deberás abrir un ticket en nuestro servidor de Discord indicando tu código para recibir los datos de pago (Binance Pay / USDT) y activar tu servicio de inmediato.',
+        crypto_discord_url: 'https://discord.gg/qwyQjn4Aqx',
+    });
     const [paymentMethod, setPaymentMethod] = useState('paypal');
     const [couponInput, setCouponInput] = useState('');
     const [appliedCoupon, setAppliedCoupon] = useState(null);
@@ -52,6 +60,7 @@ export default function Checkout() {
                 setPaymentMethod((prev) => {
                     if (methods[prev]) return prev;
                     if (methods.paypal) return 'paypal';
+                    if (methods.crypto_discord) return 'crypto_discord';
                     if (methods.stripe) return 'stripe';
                     if (methods.crypto) return 'crypto';
                     return prev;
@@ -249,19 +258,21 @@ export default function Checkout() {
                         {t('paymentMethod')}
                     </label>
 
-                    {([activeMethods.stripe, activeMethods.paypal, activeMethods.crypto].filter(Boolean).length === 0) ? (
+                    {([activeMethods.stripe, activeMethods.paypal, activeMethods.crypto, activeMethods.crypto_discord].filter(Boolean).length === 0) ? (
                         <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs">
                             Payment processing is temporarily offline. Please contact support.
                         </div>
                     ) : (
                         <div className={`grid gap-2.5 ${
-                            [activeMethods.stripe, activeMethods.paypal, activeMethods.crypto].filter(Boolean).length === 1
+                            [activeMethods.stripe, activeMethods.paypal, activeMethods.crypto, activeMethods.crypto_discord].filter(Boolean).length === 1
                                 ? 'grid-cols-1'
-                                : [activeMethods.stripe, activeMethods.paypal, activeMethods.crypto].filter(Boolean).length === 2
+                                : [activeMethods.stripe, activeMethods.paypal, activeMethods.crypto, activeMethods.crypto_discord].filter(Boolean).length === 2
                                 ? 'grid-cols-1 sm:grid-cols-2'
-                                : 'grid-cols-1 sm:grid-cols-3'
+                                : [activeMethods.stripe, activeMethods.paypal, activeMethods.crypto, activeMethods.crypto_discord].filter(Boolean).length === 3
+                                ? 'grid-cols-1 sm:grid-cols-3'
+                                : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
                         }`}>
-                            {/* Stripe Card */}
+                            {/* 1. Stripe Card */}
                             {activeMethods.stripe && (
                                 <button
                                     type="button"
@@ -287,7 +298,7 @@ export default function Checkout() {
                                 </button>
                             )}
 
-                            {/* PayPal */}
+                            {/* 2. PayPal */}
                             {activeMethods.paypal && (
                                 <button
                                     type="button"
@@ -313,7 +324,7 @@ export default function Checkout() {
                                 </button>
                             )}
 
-                            {/* Crypto */}
+                            {/* 3. Original Web3 / Crypto */}
                             {activeMethods.crypto && (
                                 <button
                                     type="button"
@@ -326,40 +337,66 @@ export default function Checkout() {
                                 >
                                     <div className="flex items-center justify-between mb-2">
                                         <span className="text-sm font-bold flex items-center gap-1.5">
-                                            <Icon name="wallet" className="w-4 h-4 text-amber-400" />
-                                            Binance Pay
+                                            <Icon name="wallet" className="w-4 h-4 text-emerald-400" />
+                                            Web3 / Crypto
                                         </span>
                                         {paymentMethod === 'crypto' && (
                                             <span className="h-2 w-2 rounded-full bg-[#9d7cff]" />
                                         )}
                                     </div>
                                     <span className="text-[11px] text-slate-400">
-                                        Crypto · Discord Ticket
+                                        USDT · BTC · ETH
+                                    </span>
+                                </button>
+                            )}
+
+                            {/* 4. NEW: Crypto (Ticket Discord / Binance Pay) */}
+                            {activeMethods.crypto_discord && (
+                                <button
+                                    type="button"
+                                    onClick={() => setPaymentMethod('crypto_discord')}
+                                    className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between ${
+                                        paymentMethod === 'crypto_discord'
+                                            ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_15px_rgba(157,124,255,0.15)] text-white'
+                                            : 'bg-[#120e1c]/50 border-white/10 hover:border-white/20 text-slate-300'
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between mb-2">
+                                        <span className="text-sm font-bold flex items-center gap-1.5">
+                                            <Icon name="discord" className="w-4 h-4 text-[#5865F2]" />
+                                            <span className="truncate">{activeMethods.crypto_discord_title || 'Binance Pay'}</span>
+                                        </span>
+                                        {paymentMethod === 'crypto_discord' && (
+                                            <span className="h-2 w-2 rounded-full bg-[#9d7cff]" />
+                                        )}
+                                    </div>
+                                    <span className="text-[11px] text-slate-400">
+                                        Ticket Discord
                                     </span>
                                 </button>
                             )}
                         </div>
                     )}
 
-                    {/* Discord Ticket Notice for Crypto / Binance Pay */}
-                    {paymentMethod === 'crypto' && activeMethods.crypto && (
-                        <div className="mt-3 p-3.5 rounded-xl bg-[#5865F2]/10 border border-[#5865F2]/30 text-xs text-slate-200">
-                            <div className="flex items-center gap-2 text-white font-bold mb-1">
+                    {/* Discord Ticket Notice for Crypto Discord */}
+                    {paymentMethod === 'crypto_discord' && activeMethods.crypto_discord && (
+                        <div className="mt-3 p-4 rounded-xl bg-[#5865F2]/10 border border-[#5865F2]/30 text-xs text-slate-200">
+                            <div className="flex items-center gap-2 text-white font-bold mb-1.5">
                                 <Icon name="discord" className="w-4 h-4 text-[#5865F2]" />
-                                <span>Pago con Binance Pay / Crypto vía Discord</span>
+                                <span>{activeMethods.crypto_discord_title || 'Binance Pay / Crypto'}</span>
                             </div>
-                            <p className="text-slate-300 leading-relaxed text-[11px]">
-                                Al confirmar tu orden, se generará tu código de compra. Deberás abrir un ticket en nuestro{' '}
-                                <a
-                                    href="https://discord.gg/qwyQjn4Aqx"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-[#9d7cff] font-semibold underline hover:text-white"
-                                >
-                                    Discord oficial
-                                </a>{' '}
-                                con tu código para recibir el ID/QR de Binance Pay y activar tu servicio de inmediato.
+                            <p className="text-slate-300 leading-relaxed text-[11px] mb-2.5">
+                                {activeMethods.crypto_discord_instructions || 'Al confirmar tu orden, se generará tu código de compra. Deberás abrir un ticket en nuestro servidor de Discord indicando tu código para recibir los datos de pago y activar tu servicio de inmediato.'}
                             </p>
+                            <a
+                                href={activeMethods.crypto_discord_url || 'https://discord.gg/qwyQjn4Aqx'}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 text-xs text-[#9d7cff] font-bold hover:underline"
+                            >
+                                <Icon name="discord" className="w-3.5 h-3.5 text-[#5865F2]" />
+                                Abrir Servidor de Discord →
+                            </a>
                         </div>
                     )}
                 </div>
@@ -421,10 +458,15 @@ export default function Checkout() {
                                 <span className="font-serif italic font-black text-lg">P</span>
                                 {t('payWithPayPal')} · ${finalTotal.toFixed(2)}
                             </>
+                        ) : paymentMethod === 'crypto' ? (
+                            <>
+                                <Icon name="wallet" className="w-5 h-5 text-[#120e1c]" />
+                                {t('payWithCrypto')} · ${finalTotal.toFixed(2)}
+                            </>
                         ) : (
                             <>
                                 <Icon name="discord" className="w-5 h-5 text-[#120e1c]" />
-                                Binance Pay (Ticket Discord) · ${finalTotal.toFixed(2)}
+                                Continuar con Ticket Discord · ${finalTotal.toFixed(2)}
                             </>
                         )}
                     </button>

@@ -290,7 +290,7 @@ export async function recordDemoOrder(prevState, formData) {
         const trackingUrl = `${origin}/track?code=${orderCode}`;
 
         // Check payment gateway routing
-        if (paymentMethod === 'stripe') {
+        if (paymentMethod === 'stripe' || paymentMethod === 'crypto') {
             const stripeResult = await createStripeSession({
                 orderId,
                 orderCode,
@@ -338,20 +338,20 @@ export async function recordDemoOrder(prevState, formData) {
                 }
                 throw new Error('Failed to create PayPal payment order.');
             }
-        } else if (paymentMethod === 'crypto') {
+        } else if (paymentMethod === 'crypto_discord') {
             // Manual Crypto / Binance Pay order -> route directly to success page with Discord ticket instructions
             return {
                 success: true,
                 orderId,
                 orderCode,
-                paymentMethod: 'crypto',
-                isCrypto: true,
-                redirectUrl: `${origin}/checkout/success?order_id=${orderId}&order_code=${orderCode}&provider=crypto`,
+                paymentMethod: 'crypto_discord',
+                isCryptoDiscord: true,
+                redirectUrl: `${origin}/checkout/success?order_id=${orderId}&order_code=${orderCode}&provider=crypto_discord`,
             };
         }
 
         // Only send immediate confirmation email in offline/demo mode when no gateways are configured
-        if (!process.env.STRIPE_SECRET_KEY && !process.env.PAYPAL_CLIENT_ID && paymentMethod !== 'crypto') {
+        if (!process.env.STRIPE_SECRET_KEY && !process.env.PAYPAL_CLIENT_ID && paymentMethod !== 'crypto_discord') {
             try {
                 await sendOrderConfirmationEmail({
                     to: emailKey,

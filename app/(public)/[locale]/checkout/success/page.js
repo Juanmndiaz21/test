@@ -7,18 +7,35 @@ import { useCartStore } from '@/store/useCartStore';
 import PageHeaderBanner from '@/components/PageHeaderBanner';
 import Icon from '@/components/Icon';
 import { toast } from '@/utils/toast';
-import { capturePayPalPaymentAction } from '../actions';
+import { capturePayPalPaymentAction, getActivePaymentMethodsAction } from '../actions';
 
 export default function CheckoutSuccessPage({ searchParams }) {
     const t = useTranslations('checkout');
     const clearCart = useCartStore((state) => state.clearCart);
     const [copied, setCopied] = useState(false);
+    const [discordInfo, setDiscordInfo] = useState({
+        title: 'Pago pendiente vía Binance Pay / Crypto',
+        url: 'https://discord.gg/qwyQjn4Aqx',
+        instructions: 'Para pagar mediante Binance Pay o transferencia crypto, abre un ticket en nuestro servidor de Discord y compártenos tu código de compra. Un miembro de nuestro equipo te enviará el QR / ID de Binance Pay al instante.',
+    });
 
     const resolvedParams = use(searchParams);
     const orderId = resolvedParams?.order_id || null;
     const orderCode = resolvedParams?.order_code || null;
     const provider = resolvedParams?.provider || null;
     const token = resolvedParams?.token || null;
+
+    useEffect(() => {
+        getActivePaymentMethodsAction().then((settings) => {
+            if (settings) {
+                setDiscordInfo({
+                    title: settings.crypto_discord_title || 'Pago pendiente vía Binance Pay / Crypto',
+                    url: settings.crypto_discord_url || 'https://discord.gg/qwyQjn4Aqx',
+                    instructions: settings.crypto_discord_instructions || 'Para pagar mediante Binance Pay o transferencia crypto, abre un ticket en nuestro servidor de Discord y compártenos tu código de compra. Un miembro de nuestro equipo te enviará el QR / ID de Binance Pay al instante.',
+                });
+            }
+        }).catch(() => {});
+    }, []);
 
     useEffect(() => {
         clearCart();
@@ -94,22 +111,22 @@ export default function CheckoutSuccessPage({ searchParams }) {
                         </div>
                     )}
 
-                    {provider === 'crypto' && (
+                    {(provider === 'crypto_discord' || provider === 'crypto') && (
                         <div className="my-6 max-w-md mx-auto p-5 rounded-2xl bg-[#5865F2]/15 border border-[#5865F2]/40 text-left">
                             <div className="flex items-center gap-3 mb-2.5">
                                 <div className="w-10 h-10 rounded-xl bg-[#5865F2] flex items-center justify-center text-white shrink-0">
                                     <Icon name="discord" className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <h3 className="text-white font-bold text-sm">Pago pendiente vía Binance Pay / Crypto</h3>
+                                    <h3 className="text-white font-bold text-sm">{discordInfo.title}</h3>
                                     <p className="text-[11px] text-slate-300">Abre un ticket en Discord para abonar</p>
                                 </div>
                             </div>
                             <p className="text-xs text-slate-300 leading-relaxed mb-4">
-                                Para pagar mediante <strong>Binance Pay</strong> o transferencia crypto, abre un ticket en nuestro servidor de Discord y compártenos tu código de compra ({orderCode ? <strong className="text-white">{orderCode}</strong> : 'arriba'}). Un miembro de nuestro equipo te enviará el QR / ID de Binance Pay al instante.
+                                {discordInfo.instructions}
                             </p>
                             <a
-                                href="https://discord.gg/qwyQjn4Aqx"
+                                href={discordInfo.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#5865F2] hover:bg-[#4752c4] text-white font-black text-xs uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(88,101,242,0.3)]"

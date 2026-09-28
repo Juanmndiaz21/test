@@ -12,8 +12,12 @@ export async function updatePaymentSettingsAction(prevState, formData) {
         const stripe = formData.get('stripe') === 'on';
         const paypal = formData.get('paypal') === 'on';
         const crypto = formData.get('crypto') === 'on';
+        const crypto_discord = formData.get('crypto_discord') === 'on';
+        const crypto_discord_title = formData.get('crypto_discord_title');
+        const crypto_discord_instructions = formData.get('crypto_discord_instructions');
+        const crypto_discord_url = formData.get('crypto_discord_url');
 
-        if (!stripe && !paypal && !crypto) {
+        if (!stripe && !paypal && !crypto && !crypto_discord) {
             return {
                 success: false,
                 error: 'At least one payment method must remain active so customers can purchase.',
@@ -21,7 +25,15 @@ export async function updatePaymentSettingsAction(prevState, formData) {
         }
 
         const sql = neon(process.env.DATABASE_URL);
-        const updated = await savePaymentSettings(sql, { stripe, paypal, crypto });
+        const updated = await savePaymentSettings(sql, {
+            stripe,
+            paypal,
+            crypto,
+            crypto_discord,
+            crypto_discord_title,
+            crypto_discord_instructions,
+            crypto_discord_url,
+        });
 
         revalidatePath('/admin/settings');
         revalidatePath('/checkout');

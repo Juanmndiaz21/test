@@ -93,7 +93,7 @@ The homepage has a world-class, disciplined tournament core in the catalog, but 
 - **Sam (Low-Vision & Keyboard Accessibility)**: Infinite review marquee cannot be paused via keyboard; tabbing into moving cards is visually disorienting; `page.js` feature footer labels drop to 2.40:1 contrast; mobile navigation drawer is misannounced by screen readers as "Language".
 
 ### Minor Observations
-1. **Logo Sharpness**: `SiteHeader.jsx` uses a raster `/logo.png` image instead of an authoritative SVG Impact wordmark (`ROWMODZ`).
+1. **Logo Sharpness**: `SiteHeader.jsx` uses a raster `/logo.png` image instead of an authoritative SVG Impact wordmark (`OGmodz`).
 2. **Missing Section Landmarks**: Hero, Features, and Reviews `<section>` tags lack accessible `aria-label` attributes.
 3. **Dropped Stars Accessibility**: `page.js` passes `starsAria` to `<ReviewGrid />`, but the component drops the prop and falls back to a hardcoded English string.
 
