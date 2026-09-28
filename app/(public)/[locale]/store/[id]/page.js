@@ -12,19 +12,32 @@ export default async function ProductPage({ params }) {
     setRequestLocale(locale);
     const cleanId = parseProductId(id);
     const sql = neon(process.env.DATABASE_URL);
+    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS slug VARCHAR(255)`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS game VARCHAR(120)`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS image_url TEXT`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS how_it_works TEXT`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS requirements TEXT`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS faqs TEXT`;
-    const products = await sql`SELECT * FROM products WHERE id = ${cleanId}`;
-    const product = products[0];
+
+    let products;
+    if (cleanId) {
+        products = await sql`SELECT * FROM products WHERE id = ${cleanId} LIMIT 1`;
+    } else {
+        const rawSlug = decodeURIComponent(String(id)).trim().toLowerCase();
+        products = await sql`SELECT * FROM products WHERE slug = ${rawSlug} OR id::text = ${rawSlug} LIMIT 1`;
+        if (!products || products.length === 0) {
+            const allProducts = await sql`SELECT * FROM products`;
+            const matched = allProducts.find(p => (p.slug || productToSlug(p.name)) === rawSlug);
+            if (matched) products = [matched];
+        }
+    }
+    const product = products?.[0];
 
     if (!product) notFound();
 
-    const slug = productToSlug(product.id, product.name);
-    if (decodeURIComponent(String(id)) !== slug) {
-        redirect(`/store/${slug}`);
+    const canonicalSlug = product.slug || productToSlug(product.name);
+    if (decodeURIComponent(String(id)) !== canonicalSlug) {
+        redirect(`/store/${canonicalSlug}`);
     }
 
     const relatedProducts = await sql`
@@ -37,7 +50,7 @@ export default async function ProductPage({ params }) {
     const { options } = await getServiceOptions(sql);
 
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
-    const localizedProductUrl = `${baseUrl}/store/${slug}`;
+    const localizedProductUrl = `${baseUrl}/store/${canonicalSlug}`;
     const cleanGameSlug = gameToSlug(product.game || 'store');
 
     // Schema.org structured data for product page with Breadcrumbs and AggregateRating
@@ -125,24 +138,64 @@ export async function generateMetadata({ params }) {
         const { locale, id } = await params;
         const cleanId = parseProductId(id);
         const sql = neon(process.env.DATABASE_URL);
-        const rows = await sql`SELECT id, name, description, game, image_url FROM products WHERE id = ${cleanId}`;
-        const product = rows[0];
+        let rows;
+        if (cleanId) {
+            rows = await sql`SELECT id, name, description, game, image_url, slug FROM products WHERE id = ${cleanId} LIMIT 1`;
+        } else {
+            const rawSlug = decodeURIComponent(String(id)).trim().toLowerCase();
+            rows = await sql`SELECT id, name, description, game, image_url, slug FROM products WHERE slug = ${rawSlug} OR id::text = ${rawSlug} LIMIT 1`;
+            if (!rows || rows.length === 0) {
+                const all = await sql`SELECT id, name, description, game, image_url, slug FROM products`;
+                const matched = all.find(p => (p.slug || productToSlug(p.name)) === rawSlug);
+                if (matched) rows = [matched];
+            }
+        }
+        const product = rows?.[0];
         if (!product) return {};
 
-        const slug = productToSlug(product.id, product.name);
+        const slug = product.slug || productToSlug(product.name);
         const productPath = `/store/${slug}`;
 
-        const isCashBoost = product.name?.toLowerCase().includes('cash boost');
-        const isGta = product.game?.toLowerCase().includes('gta');
+        const nameLower = (product.name || '').toLowerCase();
+        const gameLower = (product.game || '').toLowerCase();
+        const isGta = gameLower.includes('gta');
+        const isRdr2 = gameLower.includes('rdr') || gameLower.includes('red dead');
+        const isCs2 = gameLower.includes('cs') || gameLower.includes('counter');
 
         let title = `Buy ${product.name} | Fast Delivery at OGmodz`;
-        if (isGta && isCashBoost) {
-            title = `Buy ${product.name} — GTA 5 Cash Boost | Fast Delivery at OGmodz`;
+        if (isGta) {
+            if (nameLower.includes('cash boost')) {
+                title = `Buy ${product.name} — GTA 5 Cash Boost | Fast Delivery at OGmodz`;
+            } else if (nameLower.includes('car')) {
+                title = `Buy ${product.name} — Safe Modded Cars for GTA Online | OGmodz`;
+            } else if (nameLower.includes('outfit')) {
+                title = `Buy ${product.name} — Exclusive Modded Outfits GTA V | OGmodz`;
+            } else if (nameLower.includes('account')) {
+                title = `Buy ${product.name} — Safe GTA 5 Modded Accounts | OGmodz`;
+            } else if (nameLower.includes('unlock all')) {
+                title = `Buy ${product.name} — GTA Online Full Unlock All Service | OGmodz`;
+            } else if (nameLower.includes('plane')) {
+                title = `Buy ${product.name} — Modded Aircraft & Jets GTA V | OGmodz`;
+            } else if (nameLower.includes('rank')) {
+                title = `Buy ${product.name} — Fast GTA 5 Level Up Service | OGmodz`;
+            }
+        } else if (isRdr2) {
+            if (nameLower.includes('gold bar')) {
+                title = `Buy ${product.name} — Safe RDR2 Gold Bars Service | OGmodz`;
+            } else if (nameLower.includes('cash')) {
+                title = `Buy ${product.name} — Red Dead Online Money Boost | OGmodz`;
+            } else if (nameLower.includes('roles')) {
+                title = `Buy ${product.name} — Bounty Hunter, Trader & Collector Max Level | OGmodz`;
+            } else if (nameLower.includes('rank')) {
+                title = `Buy ${product.name} — Fast RDR2 Online Character Leveling | OGmodz`;
+            }
+        } else if (isCs2) {
+            title = `Buy ${product.name} — Safe Counter-Strike 2 Boost | OGmodz`;
         }
 
         const description = product.description
-            ? `${product.description.slice(0, 115).trim()}. Instant delivery, 100% safe methods, and 24/7 support at OGmodz.`
-            : `Buy ${product.name} for ${product.game} at OGmodz. Instant delivery, 100% account safety guaranteed, and 24/7 live support. Choose your platform and amount now.`;
+            ? `${product.description.slice(0, 140).trim()}. Instant delivery, 100% account safety guaranteed with VPN protection, and 24/7 support at OGmodz.`
+            : `Buy ${product.name} for ${product.game} at OGmodz. Instant delivery, 100% account safety guaranteed with VPN protection, and 24/7 live support. Choose your platform and order now.`;
 
         const productKeywords = [
             product.name,
@@ -150,12 +203,19 @@ export async function generateMetadata({ params }) {
             `${product.name} boost`,
             `${product.game} ${product.name}`,
             `${product.game} boosting`,
-            isCashBoost ? 'GTA V cash boost' : '',
-            isCashBoost ? 'GTA 5 money boost' : '',
-            isCashBoost ? 'GTA Online cash boost' : '',
-            isCashBoost ? 'GTA Online money service' : '',
+            isGta ? 'GTA V cash boost' : '',
+            isGta ? 'GTA 5 money boost' : '',
+            isGta ? 'GTA Online modded cars' : '',
+            isGta ? 'GTA Online modded accounts' : '',
             isGta ? 'GTA V recovery service' : '',
             isGta ? 'buy GTA 5 money' : '',
+            isRdr2 ? 'buy RDR2 gold bars' : '',
+            isRdr2 ? 'RDR2 online money boost' : '',
+            isRdr2 ? 'RDR2 roles max level' : '',
+            isRdr2 ? 'RDR2 bounty hunter boost' : '',
+            isRdr2 ? 'Red Dead Online boosting' : '',
+            isCs2 ? 'CS2 commends boost' : '',
+            isCs2 ? 'CS2 rank boost' : '',
             'buy game boost',
             'instant delivery boost',
             'OGmodz',

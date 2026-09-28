@@ -62,7 +62,7 @@ export default async function sitemap() {
 
             // 3. Dynamic product routes
             const products = await sql`
-                SELECT id, name, created_at
+                SELECT id, name, slug, created_at
                 FROM products
                 ORDER BY id DESC
                 LIMIT 200
@@ -70,7 +70,7 @@ export default async function sitemap() {
 
             for (const product of products) {
                 const lastModifiedDate = product.created_at || now;
-                const slug = productToSlug(product.id, product.name);
+                const slug = product.slug || productToSlug(product.id, product.name);
                 const productPath = `/store/${slug}`;
 
                 entries.push({

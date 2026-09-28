@@ -3,6 +3,7 @@ import { neon } from '@neondatabase/serverless';
 import { revalidatePath } from 'next/cache';
 import { requireAdmin } from '../../../lib/guard';
 import { normalizeOptions } from '../../../lib/serviceDefaults';
+import { productToSlug } from '../../../lib/gameSlugs';
 
 function parseProductOptions(formData, prefix = 'options') {
     const options = [];
@@ -75,11 +76,12 @@ export async function addProduct(formData) {
         try { configuratorData = JSON.parse(rawConfiguratorData); } catch {}
     }
     const options = parseProductOptions(formData, 'options');
-    const finalOptions = options.length > 0 ? options : parseProductOptions(formData, 'boost');
+    const slug = productToSlug(name);
+    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS slug VARCHAR(255)`;
 
     await sql`
-        INSERT INTO products (name, description, price, original_price, features, configurator_data, platform, boost_amount, game, image_url, how_it_works, requirements, faqs, boost_options, commends_options, options)
-        VALUES (${name}, ${description || null}, ${price}, ${originalPrice}, ${features || null}, ${configuratorData ? JSON.stringify(configuratorData) : null}::jsonb, ${platform || null}, ${boostAmount}, ${game}, ${imageUrl || null}, ${howItWorks || null}, ${requirements || null}, ${faqs || null}, ${JSON.stringify(finalOptions)}::jsonb, NULL, ${JSON.stringify(finalOptions)}::jsonb)
+        INSERT INTO products (name, slug, description, price, original_price, features, configurator_data, platform, boost_amount, game, image_url, how_it_works, requirements, faqs, boost_options, commends_options, options)
+        VALUES (${name}, ${slug}, ${description || null}, ${price}, ${originalPrice}, ${features || null}, ${configuratorData ? JSON.stringify(configuratorData) : null}::jsonb, ${platform || null}, ${boostAmount}, ${game}, ${imageUrl || null}, ${howItWorks || null}, ${requirements || null}, ${faqs || null}, ${JSON.stringify(finalOptions)}::jsonb, NULL, ${JSON.stringify(finalOptions)}::jsonb)
     `;
 
     revalidatePath('/store');
@@ -146,10 +148,14 @@ export async function updateProduct(formData) {
     const options = parseProductOptions(formData, 'options');
     const finalOptions = options.length > 0 ? options : parseProductOptions(formData, 'boost');
 
+    const slug = productToSlug(name);
+    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS slug VARCHAR(255)`;
+
     if (configuratorData !== undefined) {
         await sql`
             UPDATE products SET
                 name = ${name},
+                slug = ${slug},
                 description = ${formData.get('description') || null},
                 price = ${price},
                 original_price = ${originalPrice},
@@ -171,6 +177,7 @@ export async function updateProduct(formData) {
         await sql`
             UPDATE products SET
                 name = ${name},
+                slug = ${slug},
                 description = ${formData.get('description') || null},
                 price = ${price},
                 original_price = ${originalPrice},
