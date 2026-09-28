@@ -99,18 +99,18 @@ export default function PaymentSettingsForm({ initialSettings = {} }) {
                     </div>
                 </div>
 
-                {/* Crypto Toggle */}
+                {/* Crypto (Binance Pay / Discord Ticket) Toggle */}
                 <div className={`p-5 rounded-2xl border transition-all ${
                     crypto ? 'bg-[#9d7cff]/10 border-[#9d7cff]/50' : 'bg-[#171229] border-white/10 opacity-70'
                 }`}>
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3.5">
-                            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-400/30 flex items-center justify-center text-emerald-400">
+                            <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-center text-amber-400">
                                 <Icon name="wallet" className="w-5 h-5" />
                             </div>
                             <div>
                                 <div className="flex items-center gap-2">
-                                    <h3 className="font-bold text-white text-base">Crypto / Web3</h3>
+                                    <h3 className="font-bold text-white text-base">Crypto (Binance Pay / Ticket Discord)</h3>
                                     <span className={`text-[10px] uppercase font-mono px-2 py-0.5 rounded font-bold ${
                                         crypto ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-700 text-slate-300'
                                     }`}>
@@ -118,7 +118,7 @@ export default function PaymentSettingsForm({ initialSettings = {} }) {
                                     </span>
                                 </div>
                                 <p className="text-xs text-slate-400 mt-1 max-w-xl leading-relaxed">
-                                    Enables cryptocurrency options (USDT, BTC, ETH) on the checkout page.
+                                    Permite a los clientes pagar con Binance Pay o criptomonedas (USDT/BTC). El sistema les indica claramente que deben abrir un ticket en Discord (<code className="text-[#9d7cff]">discord.gg/qwyQjn4Aqx</code>) con su código de orden para recibir tu Binance Pay ID y confirmar el pago.
                                 </p>
                             </div>
                         </div>
@@ -140,8 +140,8 @@ export default function PaymentSettingsForm({ initialSettings = {} }) {
             {/* Tip box */}
             <div className="p-4 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-200 text-xs flex items-start gap-2.5">
                 <Icon name="info" className="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5" />
-                <p leading-relaxed>
-                    <strong>Tip:</strong> If you only want the PayPal button on your website, leave <strong>PayPal</strong> turned ON and turn OFF <strong>Stripe</strong> and <strong>Crypto</strong>. Only PayPal will be displayed to your customers.
+                <p className="leading-relaxed">
+                    <strong>Consejo:</strong> Puedes activar <strong>PayPal</strong> y <strong>Crypto (Binance Pay)</strong> simultáneamente o dejar activo solo uno de ellos. Al desactivar <strong>Stripe</strong>, las tarjetas desaparecerán de la tienda.
                 </p>
             </div>
 

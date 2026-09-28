@@ -289,8 +289,8 @@ export async function recordDemoOrder(prevState, formData) {
         const origin = getTrustedOrigin(headerList);
         const trackingUrl = `${origin}/track?code=${orderCode}`;
 
-        // Check if Stripe is configured and selected (supports cards and crypto)
-        if (paymentMethod === 'stripe' || paymentMethod === 'crypto') {
+        // Check payment gateway routing
+        if (paymentMethod === 'stripe') {
             const stripeResult = await createStripeSession({
                 orderId,
                 orderCode,
@@ -338,10 +338,20 @@ export async function recordDemoOrder(prevState, formData) {
                 }
                 throw new Error('Failed to create PayPal payment order.');
             }
+        } else if (paymentMethod === 'crypto') {
+            // Manual Crypto / Binance Pay order -> route directly to success page with Discord ticket instructions
+            return {
+                success: true,
+                orderId,
+                orderCode,
+                paymentMethod: 'crypto',
+                isCrypto: true,
+                redirectUrl: `${origin}/checkout/success?order_id=${orderId}&order_code=${orderCode}&provider=crypto`,
+            };
         }
 
         // Only send immediate confirmation email in offline/demo mode when no gateways are configured
-        if (!process.env.STRIPE_SECRET_KEY && !process.env.PAYPAL_CLIENT_ID) {
+        if (!process.env.STRIPE_SECRET_KEY && !process.env.PAYPAL_CLIENT_ID && paymentMethod !== 'crypto') {
             try {
                 await sendOrderConfirmationEmail({
                     to: emailKey,

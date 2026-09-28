@@ -326,18 +326,40 @@ export default function Checkout() {
                                 >
                                     <div className="flex items-center justify-between mb-2">
                                         <span className="text-sm font-bold flex items-center gap-1.5">
-                                            <Icon name="wallet" className="w-4 h-4 text-emerald-400" />
-                                            Web3 / Crypto
+                                            <Icon name="wallet" className="w-4 h-4 text-amber-400" />
+                                            Binance Pay
                                         </span>
                                         {paymentMethod === 'crypto' && (
                                             <span className="h-2 w-2 rounded-full bg-[#9d7cff]" />
                                         )}
                                     </div>
                                     <span className="text-[11px] text-slate-400">
-                                        USDT · BTC · ETH
+                                        Crypto · Discord Ticket
                                     </span>
                                 </button>
                             )}
+                        </div>
+                    )}
+
+                    {/* Discord Ticket Notice for Crypto / Binance Pay */}
+                    {paymentMethod === 'crypto' && activeMethods.crypto && (
+                        <div className="mt-3 p-3.5 rounded-xl bg-[#5865F2]/10 border border-[#5865F2]/30 text-xs text-slate-200">
+                            <div className="flex items-center gap-2 text-white font-bold mb-1">
+                                <Icon name="discord" className="w-4 h-4 text-[#5865F2]" />
+                                <span>Pago con Binance Pay / Crypto vía Discord</span>
+                            </div>
+                            <p className="text-slate-300 leading-relaxed text-[11px]">
+                                Al confirmar tu orden, se generará tu código de compra. Deberás abrir un ticket en nuestro{' '}
+                                <a
+                                    href="https://discord.gg/qwyQjn4Aqx"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[#9d7cff] font-semibold underline hover:text-white"
+                                >
+                                    Discord oficial
+                                </a>{' '}
+                                con tu código para recibir el ID/QR de Binance Pay y activar tu servicio de inmediato.
+                            </p>
                         </div>
                     )}
                 </div>
@@ -401,8 +423,8 @@ export default function Checkout() {
                             </>
                         ) : (
                             <>
-                                <Icon name="wallet" className="w-5 h-5 text-[#120e1c]" />
-                                {t('payWithCrypto')} · ${finalTotal.toFixed(2)}
+                                <Icon name="discord" className="w-5 h-5 text-[#120e1c]" />
+                                Binance Pay (Ticket Discord) · ${finalTotal.toFixed(2)}
                             </>
                         )}
                     </button>

@@ -94,6 +94,32 @@ export default function CheckoutSuccessPage({ searchParams }) {
                         </div>
                     )}
 
+                    {provider === 'crypto' && (
+                        <div className="my-6 max-w-md mx-auto p-5 rounded-2xl bg-[#5865F2]/15 border border-[#5865F2]/40 text-left">
+                            <div className="flex items-center gap-3 mb-2.5">
+                                <div className="w-10 h-10 rounded-xl bg-[#5865F2] flex items-center justify-center text-white shrink-0">
+                                    <Icon name="discord" className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <h3 className="text-white font-bold text-sm">Pago pendiente vía Binance Pay / Crypto</h3>
+                                    <p className="text-[11px] text-slate-300">Abre un ticket en Discord para abonar</p>
+                                </div>
+                            </div>
+                            <p className="text-xs text-slate-300 leading-relaxed mb-4">
+                                Para pagar mediante <strong>Binance Pay</strong> o transferencia crypto, abre un ticket en nuestro servidor de Discord y compártenos tu código de compra ({orderCode ? <strong className="text-white">{orderCode}</strong> : 'arriba'}). Un miembro de nuestro equipo te enviará el QR / ID de Binance Pay al instante.
+                            </p>
+                            <a
+                                href="https://discord.gg/qwyQjn4Aqx"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#5865F2] hover:bg-[#4752c4] text-white font-black text-xs uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(88,101,242,0.3)]"
+                            >
+                                <Icon name="discord" className="w-4 h-4" />
+                                Abrir Ticket en Discord
+                            </a>
+                        </div>
+                    )}
+
                     <p className="text-slate-300 max-w-md mx-auto mb-8 text-sm leading-relaxed">
                         {t('successNote')}
                     </p>
