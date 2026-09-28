@@ -14,76 +14,47 @@ const PopularGameCard = memo(function PopularGameCard({ game, index, t }) {
 
     return (
         <motion.div
-            initial={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateY(16px)' }}
+            initial={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateY(12px)' }}
             whileInView={{ opacity: 1, transform: 'translateY(0)' }}
             viewport={{ once: true, margin: '-20px' }}
             transition={{
-                duration: shouldReduceMotion ? 0.15 : 0.28,
-                delay: shouldReduceMotion ? 0 : index * 0.05,
+                duration: shouldReduceMotion ? 0.15 : 0.25,
+                delay: shouldReduceMotion ? 0 : index * 0.04,
                 ease: [0.23, 1, 0.32, 1],
             }}
             className="w-full"
         >
             <Link
                 href={`/store/game/${gameSlug}`}
-                className="group relative aspect-[3/4] sm:aspect-[4/5] w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-[#161226] block transition-[transform,border-color,box-shadow] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-1.5 hover:border-[#9d7cff]/60 hover:shadow-[0_20px_45px_-12px_rgba(0,0,0,0.8),0_0_28px_rgba(157,124,255,0.2)] active:scale-[0.98] active:duration-100 focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 motion-reduce:transition-none select-none ring-1 ring-inset ring-white/5 group-hover:ring-[#9d7cff]/20"
+                className="group relative aspect-[4/5] sm:aspect-[3/4] w-full rounded-2xl overflow-hidden border border-white/10 bg-[#141022] block transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-1 hover:border-white/25 hover:shadow-lg hover:shadow-black/50 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 motion-reduce:transition-none select-none"
             >
-                {/* Specular Top Rim Highlight */}
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent z-20" />
-
-                {/* Subtle Ambient Violet Floor Glow */}
-                <div className="pointer-events-none absolute -bottom-8 inset-x-6 h-20 bg-[#9d7cff]/25 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out z-10" />
-
-                {/* Top Badge: Category / Protocol Pill */}
-                <div className="absolute top-3.5 left-3.5 right-3.5 z-20 flex items-center justify-between pointer-events-none">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-300 shadow-md">
-                        <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9d7cff]/80 motion-reduce:hidden" />
-                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#9d7cff]" />
-                        </span>
-                        <span>{game.mode === 'both' ? 'MP + SP' : (game.mode ? game.mode.toUpperCase() : 'POPULAR')}</span>
-                    </span>
-
-                    <span className="h-7 w-7 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center text-slate-400 group-hover:text-[#9d7cff] group-hover:border-[#9d7cff]/40 transition-[color,border-color] duration-200">
-                        <Icon name="sparkles" className="w-3.5 h-3.5" />
-                    </span>
-                </div>
-
-                {/* Game Artwork with Controlled Zoom */}
-                <div className="w-full h-full overflow-hidden bg-black/50">
+                {/* Game Artwork */}
+                <div className="w-full h-full overflow-hidden bg-black/40">
                     <GameArt
                         name={game.name}
                         image_url={game.image_url}
                         priority={index < 2}
-                        className="w-full h-full object-cover transition-transform duration-400 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.04] motion-reduce:transition-none"
+                        className="w-full h-full object-cover"
                     />
                 </div>
 
-                {/* Cinematic Vignette & Gradient Scrim */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0b0814] via-[#0b0814]/45 to-black/10 transition-opacity duration-200 ease-out group-hover:via-[#0b0814]/65 z-10" />
+                {/* Gradient Scrim for Readability */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0d0914]/90 via-[#0d0914]/30 to-transparent" />
 
-                {/* Bottom Content: Title & Interactive Action Row */}
-                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 z-20 flex flex-col justify-end">
-                    <h3 className="display-font text-2xl sm:text-3xl uppercase text-white leading-tight tracking-wide group-hover:text-[#9d7cff] group-hover:translate-x-0.5 transition-[transform,color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] line-clamp-1 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-                        {game.name}
-                    </h3>
-
-                    <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between gap-2">
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 group-hover:border-[#9d7cff]/40 group-hover:bg-black/80 group-hover:shadow-[0_0_14px_rgba(157,124,255,0.25)] transition-[background-color,border-color,box-shadow] duration-200 ease-out">
-                            <span className="text-xs font-mono font-bold text-slate-200 group-hover:text-white transition-colors duration-200 data-readout">
-                                {t('serviceCount', { count: game.services })}
-                            </span>
-                        </div>
-
-                        {/* Interactive Pill Button with Elevated State */}
-                        <span className="h-9 w-9 sm:h-10 sm:w-10 rounded-full border border-white/20 bg-black/70 backdrop-blur-md text-white flex items-center justify-center font-bold transition-[transform,background-color,border-color,box-shadow,color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:bg-[#9d7cff] group-hover:text-[#0d0914] group-hover:border-[#9d7cff] group-hover:shadow-[0_0_20px_rgba(157,124,255,0.7)] group-hover:scale-105 active:scale-95 shrink-0 shadow-lg">
-                            <Icon
-                                name="arrow-up-right"
-                                className="w-4 h-4 sm:w-4.5 sm:h-4.5 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
-                                strokeWidth={2.4}
-                            />
-                        </span>
+                {/* Content: Title, Services Count & Action Indicator */}
+                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 z-10 flex items-end justify-between gap-3">
+                    <div className="min-w-0">
+                        <h3 className="display-font text-xl sm:text-2xl uppercase text-white leading-tight tracking-wide line-clamp-1 group-hover:text-[#9d7cff] transition-colors duration-200">
+                            {game.name}
+                        </h3>
+                        <p className="mt-1 text-xs font-mono text-slate-300">
+                            {t('serviceCount', { count: game.services })}
+                        </p>
                     </div>
+
+                    <span className="h-8 w-8 sm:h-9 sm:w-9 rounded-full border border-white/15 bg-black/40 backdrop-blur-sm text-slate-300 flex items-center justify-center group-hover:bg-[#9d7cff] group-hover:text-black group-hover:border-[#9d7cff] transition-colors duration-200 shrink-0">
+                        <Icon name="arrow-up-right" className="w-4 h-4" strokeWidth={2.2} />
+                    </span>
                 </div>
             </Link>
         </motion.div>
