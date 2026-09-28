@@ -1,25 +1,31 @@
 import { neon } from '@neondatabase/serverless';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import ProductDetail from '@/components/ProductDetail';
 import { getServiceOptions } from '@/lib/settings';
-import { gameToSlug } from '@/lib/gameSlugs';
+import { gameToSlug, parseProductId, productToSlug } from '@/lib/gameSlugs';
 
 export const dynamic = 'force-dynamic';
 
 export default async function ProductPage({ params }) {
     const { locale, id } = await params;
     setRequestLocale(locale);
+    const cleanId = parseProductId(id);
     const sql = neon(process.env.DATABASE_URL);
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS game VARCHAR(120)`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS image_url TEXT`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS how_it_works TEXT`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS requirements TEXT`;
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS faqs TEXT`;
-    const products = await sql`SELECT * FROM products WHERE id = ${id}`;
+    const products = await sql`SELECT * FROM products WHERE id = ${cleanId}`;
     const product = products[0];
 
     if (!product) notFound();
+
+    const slug = productToSlug(product.id, product.name);
+    if (decodeURIComponent(String(id)) !== slug) {
+        redirect(`/store/${slug}`);
+    }
 
     const relatedProducts = await sql`
         SELECT * FROM products
@@ -31,7 +37,7 @@ export default async function ProductPage({ params }) {
     const { options } = await getServiceOptions(sql);
 
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
-    const localizedProductUrl = `${baseUrl}/store/${product.id}`;
+    const localizedProductUrl = `${baseUrl}/store/${slug}`;
     const cleanGameSlug = gameToSlug(product.game || 'store');
 
     // Schema.org structured data for product page with Breadcrumbs and AggregateRating
@@ -117,10 +123,14 @@ export default async function ProductPage({ params }) {
 export async function generateMetadata({ params }) {
     try {
         const { locale, id } = await params;
+        const cleanId = parseProductId(id);
         const sql = neon(process.env.DATABASE_URL);
-        const rows = await sql`SELECT name, description, game, image_url FROM products WHERE id = ${id}`;
+        const rows = await sql`SELECT id, name, description, game, image_url FROM products WHERE id = ${cleanId}`;
         const product = rows[0];
         if (!product) return {};
+
+        const slug = productToSlug(product.id, product.name);
+        const productPath = `/store/${slug}`;
 
         const isCashBoost = product.name?.toLowerCase().includes('cash boost');
         const isGta = product.game?.toLowerCase().includes('gta');
@@ -174,6 +184,12 @@ export async function generateMetadata({ params }) {
                 description,
                 url: productPath,
                 images: product.image_url ? [{ url: product.image_url }] : [{ url: '/og-image.png' }],
+            },
+            twitter: {
+                card: 'summary_large_image',
+                title,
+                description,
+                images: product.image_url ? [product.image_url] : ['/og-image.png'],
             },
         };
     } catch {

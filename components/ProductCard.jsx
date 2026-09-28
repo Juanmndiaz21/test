@@ -4,6 +4,7 @@ import { Link } from '../i18n/navigation';
 import GameArt from './GameArt';
 import PlatformBadges from './PlatformBadges';
 import Icon from './Icon';
+import { productToSlug } from '@/lib/gameSlugs';
 
 function getDefaultFeatures(product) {
     const name = String(product?.name || '').toLowerCase();
@@ -46,7 +47,7 @@ export default function ProductCard({ product, index = 0 }) {
             style={{ animationDelay: `${Math.min(index, 10) * 30}ms` }}
         >
             <Link
-                href={`/store/${product.id}`}
+                href={`/store/${productToSlug(product.id, product.name)}`}
                 className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#171229] p-5 flex flex-col justify-between flex-1 transition-[border-color,box-shadow,background-color,transform] duration-180 ease-[var(--ease-out)] hover:border-[#9d7cff]/60 hover:bg-[#1a142c] hover:shadow-[0_16px_36px_-8px_rgba(0,0,0,0.5),0_0_0_1px_rgba(157,124,255,0.15)] active:scale-[0.985] active:duration-100 focus-visible:outline-2 focus-visible:outline-[#9d7cff] select-none cursor-pointer"
             >
                 <div>

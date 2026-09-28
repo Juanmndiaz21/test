@@ -62,9 +62,6 @@ export async function generateMetadata({ params }) {
                 'max-snippet': -1,
             },
         },
-        alternates: {
-            canonical: '/',
-        },
         openGraph: {
             title,
             description,

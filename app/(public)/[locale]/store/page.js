@@ -10,27 +10,15 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({ params }) {
     const { locale } = await params;
     const t = await getTranslations({ locale, namespace: 'store' });
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
-
-    const title = t('titleMeta');
-    const description = t('subtitle');
-
     return {
-        title,
-        description,
+        title: t('titleMeta'),
+        description: t('subtitle'),
         keywords: [
-            'buy game boost',
             'game boosting store',
-            'game boosting services',
+            'buy game boost',
             'GTA V cash boost',
             'GTA 5 money boost',
-            'GTA Online money boost',
-            'buy GTA 5 modded account',
             'CS2 boosting service',
-            'CS2 rank boost',
-            'Counter-Strike 2 boosting',
-            'RDR2 gold bars boost',
-            'Red Dead Online boost',
             'safe boosting services',
             'OGmodz store',
             'instant delivery boost',
@@ -40,35 +28,9 @@ export async function generateMetadata({ params }) {
             canonical: '/store',
         },
         openGraph: {
-            title,
-            description,
+            title: t('titleMeta'),
+            description: t('subtitle'),
             url: '/store',
-            siteName: 'OGmodz',
-            images: [
-                {
-                    url: '/og-image.png',
-                    width: 1200,
-                    height: 630,
-                    alt: 'OGmodz Game Boosting Store',
-                },
-            ],
-            type: 'website',
-        },
-        twitter: {
-            card: 'summary_large_image',
-            title,
-            description,
-            images: ['/og-image.png'],
-        },
-        robots: {
-            index: true,
-            follow: true,
-            googleBot: {
-                index: true,
-                follow: true,
-                'max-image-preview': 'large',
-                'max-snippet': -1,
-            },
         },
     };
 }

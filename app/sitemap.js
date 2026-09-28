@@ -1,5 +1,5 @@
 import { neon } from '@neondatabase/serverless';
-import { gameToSlug } from '../lib/gameSlugs.js';
+import { gameToSlug, productToSlug } from '../lib/gameSlugs.js';
 
 export default async function sitemap() {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
@@ -62,7 +62,7 @@ export default async function sitemap() {
 
             // 3. Dynamic product routes
             const products = await sql`
-                SELECT id, created_at
+                SELECT id, name, created_at
                 FROM products
                 ORDER BY id DESC
                 LIMIT 200
@@ -70,7 +70,8 @@ export default async function sitemap() {
 
             for (const product of products) {
                 const lastModifiedDate = product.created_at || now;
-                const productPath = `/store/${product.id}`;
+                const slug = productToSlug(product.id, product.name);
+                const productPath = `/store/${slug}`;
 
                 entries.push({
                     url: getUrl(productPath),
