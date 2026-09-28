@@ -39,8 +39,8 @@ export default function Checkout() {
         paypal: true,
         crypto: true,
         crypto_discord: true,
-        crypto_discord_title: 'Binance Pay / Crypto (Ticket Discord)',
-        crypto_discord_instructions: 'Al confirmar tu orden, se generará tu código de compra. Deberás abrir un ticket en nuestro servidor de Discord indicando tu código para recibir los datos de pago (Binance Pay / USDT) y activar tu servicio de inmediato.',
+        crypto_discord_title: 'Crypto / Binance Pay (Discord Ticket)',
+        crypto_discord_instructions: 'Upon placing your order, your purchase code will be generated. Please open a ticket on our Discord server and share your code to receive payment details (Binance Pay / USDT) and activate your service instantly.',
         crypto_discord_url: 'https://discord.gg/qwyQjn4Aqx',
     });
     const [paymentMethod, setPaymentMethod] = useState('paypal');
@@ -350,7 +350,7 @@ export default function Checkout() {
                                 </button>
                             )}
 
-                            {/* 4. NEW: Crypto (Ticket Discord / Binance Pay) */}
+                            {/* 4. NEW: Crypto (Discord Ticket / Binance Pay) - Wallet Icon */}
                             {activeMethods.crypto_discord && (
                                 <button
                                     type="button"
@@ -363,7 +363,7 @@ export default function Checkout() {
                                 >
                                     <div className="flex items-center justify-between mb-2">
                                         <span className="text-sm font-bold flex items-center gap-1.5">
-                                            <Icon name="discord" className="w-4 h-4 text-[#5865F2]" />
+                                            <Icon name="wallet" className="w-4 h-4 text-amber-400" />
                                             <span className="truncate">{activeMethods.crypto_discord_title || 'Binance Pay'}</span>
                                         </span>
                                         {paymentMethod === 'crypto_discord' && (
@@ -371,7 +371,7 @@ export default function Checkout() {
                                         )}
                                     </div>
                                     <span className="text-[11px] text-slate-400">
-                                        Ticket Discord
+                                        Discord Ticket
                                     </span>
                                 </button>
                             )}
@@ -380,13 +380,13 @@ export default function Checkout() {
 
                     {/* Discord Ticket Notice for Crypto Discord */}
                     {paymentMethod === 'crypto_discord' && activeMethods.crypto_discord && (
-                        <div className="mt-3 p-4 rounded-xl bg-[#5865F2]/10 border border-[#5865F2]/30 text-xs text-slate-200">
+                        <div className="mt-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-slate-200">
                             <div className="flex items-center gap-2 text-white font-bold mb-1.5">
-                                <Icon name="discord" className="w-4 h-4 text-[#5865F2]" />
-                                <span>{activeMethods.crypto_discord_title || 'Binance Pay / Crypto'}</span>
+                                <Icon name="wallet" className="w-4 h-4 text-amber-400" />
+                                <span>{activeMethods.crypto_discord_title || 'Crypto / Binance Pay (Discord Ticket)'}</span>
                             </div>
                             <p className="text-slate-300 leading-relaxed text-[11px] mb-2.5">
-                                {activeMethods.crypto_discord_instructions || 'Al confirmar tu orden, se generará tu código de compra. Deberás abrir un ticket en nuestro servidor de Discord indicando tu código para recibir los datos de pago y activar tu servicio de inmediato.'}
+                                {activeMethods.crypto_discord_instructions || 'Upon placing your order, your purchase code will be generated. Please open a ticket on our Discord server and share your code to receive payment details (Binance Pay / USDT) and activate your service instantly.'}
                             </p>
                             <a
                                 href={activeMethods.crypto_discord_url || 'https://discord.gg/qwyQjn4Aqx'}
@@ -395,7 +395,7 @@ export default function Checkout() {
                                 className="inline-flex items-center gap-1.5 text-xs text-[#9d7cff] font-bold hover:underline"
                             >
                                 <Icon name="discord" className="w-3.5 h-3.5 text-[#5865F2]" />
-                                Abrir Servidor de Discord →
+                                Open Discord Server →
                             </a>
                         </div>
                     )}
@@ -465,8 +465,8 @@ export default function Checkout() {
                             </>
                         ) : (
                             <>
-                                <Icon name="discord" className="w-5 h-5 text-[#120e1c]" />
-                                Continuar con Ticket Discord · ${finalTotal.toFixed(2)}
+                                <Icon name="wallet" className="w-5 h-5 text-[#120e1c]" />
+                                Pay with Crypto (Discord Ticket) · ${finalTotal.toFixed(2)}
                             </>
                         )}
                     </button>

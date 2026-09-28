@@ -14,9 +14,9 @@ export default function CheckoutSuccessPage({ searchParams }) {
     const clearCart = useCartStore((state) => state.clearCart);
     const [copied, setCopied] = useState(false);
     const [discordInfo, setDiscordInfo] = useState({
-        title: 'Pago pendiente vía Binance Pay / Crypto',
+        title: 'Crypto / Binance Pay (Discord Ticket)',
         url: 'https://discord.gg/qwyQjn4Aqx',
-        instructions: 'Para pagar mediante Binance Pay o transferencia crypto, abre un ticket en nuestro servidor de Discord y compártenos tu código de compra. Un miembro de nuestro equipo te enviará el QR / ID de Binance Pay al instante.',
+        instructions: 'To pay with Binance Pay or cryptocurrency, please open a ticket on our Discord server and share your Order Code. A member of our team will immediately provide the Binance Pay QR / ID or wallet address to activate your service instantly.',
     });
 
     const resolvedParams = use(searchParams);
@@ -29,9 +29,9 @@ export default function CheckoutSuccessPage({ searchParams }) {
         getActivePaymentMethodsAction().then((settings) => {
             if (settings) {
                 setDiscordInfo({
-                    title: settings.crypto_discord_title || 'Pago pendiente vía Binance Pay / Crypto',
+                    title: settings.crypto_discord_title || 'Crypto / Binance Pay (Discord Ticket)',
                     url: settings.crypto_discord_url || 'https://discord.gg/qwyQjn4Aqx',
-                    instructions: settings.crypto_discord_instructions || 'Para pagar mediante Binance Pay o transferencia crypto, abre un ticket en nuestro servidor de Discord y compártenos tu código de compra. Un miembro de nuestro equipo te enviará el QR / ID de Binance Pay al instante.',
+                    instructions: settings.crypto_discord_instructions || 'To pay with Binance Pay or cryptocurrency, please open a ticket on our Discord server and share your Order Code. A member of our team will immediately provide the Binance Pay QR / ID or wallet address to activate your service instantly.',
                 });
             }
         }).catch(() => {});
@@ -111,15 +111,15 @@ export default function CheckoutSuccessPage({ searchParams }) {
                         </div>
                     )}
 
-                    {(provider === 'crypto_discord' || provider === 'crypto') && (
-                        <div className="my-6 max-w-md mx-auto p-5 rounded-2xl bg-[#5865F2]/15 border border-[#5865F2]/40 text-left">
+                    {(provider === 'crypto' || provider === 'crypto_discord') && (
+                        <div className="my-6 max-w-md mx-auto p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-left">
                             <div className="flex items-center gap-3 mb-2.5">
-                                <div className="w-10 h-10 rounded-xl bg-[#5865F2] flex items-center justify-center text-white shrink-0">
-                                    <Icon name="discord" className="w-5 h-5" />
+                                <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+                                    <Icon name="wallet" className="w-5 h-5" />
                                 </div>
                                 <div>
                                     <h3 className="text-white font-bold text-sm">{discordInfo.title}</h3>
-                                    <p className="text-[11px] text-slate-300">Abre un ticket en Discord para abonar</p>
+                                    <p className="text-[11px] text-slate-300">Open a ticket on Discord to complete your payment</p>
                                 </div>
                             </div>
                             <p className="text-xs text-slate-300 leading-relaxed mb-4">
@@ -129,10 +129,10 @@ export default function CheckoutSuccessPage({ searchParams }) {
                                 href={discordInfo.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#5865F2] hover:bg-[#4752c4] text-white font-black text-xs uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(88,101,242,0.3)]"
+                                className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#120e1c] font-black text-xs uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(245,158,11,0.25)]"
                             >
-                                <Icon name="discord" className="w-4 h-4" />
-                                Abrir Ticket en Discord
+                                <Icon name="wallet" className="w-4 h-4" />
+                                Open Ticket on Discord
                             </a>
                         </div>
                     )}
