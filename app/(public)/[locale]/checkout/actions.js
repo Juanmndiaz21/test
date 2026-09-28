@@ -297,20 +297,6 @@ export async function recordDemoOrder(prevState, formData) {
             });
 
             if (stripeResult.isConfigured && stripeResult.sessionUrl) {
-                // Send order confirmation email with tracking order code via Resend/SMTP
-                try {
-                    await sendOrderConfirmationEmail({
-                        to: emailKey,
-                        customerName: name,
-                        orderCode,
-                        total,
-                        items: orderItems,
-                        trackingUrl,
-                    });
-                } catch (emailErr) {
-                    console.error('Email dispatch error during checkout:', emailErr);
-                }
-
                 return {
                     success: true,
                     orderId,
