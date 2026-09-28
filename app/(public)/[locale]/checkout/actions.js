@@ -281,20 +281,6 @@ export async function recordDemoOrder(prevState, formData) {
         const origin = getTrustedOrigin(headerList);
         const trackingUrl = `${origin}/track?code=${orderCode}`;
 
-        // Send order confirmation email with tracking order code via Resend/SMTP
-        try {
-            await sendOrderConfirmationEmail({
-                to: emailKey,
-                customerName: name,
-                orderCode,
-                total,
-                items: orderItems,
-                trackingUrl,
-            });
-        } catch (emailErr) {
-            console.error('Email dispatch error during checkout:', emailErr);
-        }
-
         // Check if Stripe is configured and selected (supports cards and crypto)
         if (paymentMethod === 'stripe' || paymentMethod === 'crypto') {
             const stripeResult = await createStripeSession({
@@ -311,6 +297,20 @@ export async function recordDemoOrder(prevState, formData) {
             });
 
             if (stripeResult.isConfigured && stripeResult.sessionUrl) {
+                // Send order confirmation email with tracking order code via Resend/SMTP
+                try {
+                    await sendOrderConfirmationEmail({
+                        to: emailKey,
+                        customerName: name,
+                        orderCode,
+                        total,
+                        items: orderItems,
+                        trackingUrl,
+                    });
+                } catch (emailErr) {
+                    console.error('Email dispatch error during checkout:', emailErr);
+                }
+
                 return {
                     success: true,
                     orderId,
@@ -320,6 +320,20 @@ export async function recordDemoOrder(prevState, formData) {
                     isStripeLive: true,
                 };
             }
+        }
+
+        // Send order confirmation email for demo/sandbox order
+        try {
+            await sendOrderConfirmationEmail({
+                to: emailKey,
+                customerName: name,
+                orderCode,
+                total,
+                items: orderItems,
+                trackingUrl,
+            });
+        } catch (emailErr) {
+            console.error('Email dispatch error during checkout:', emailErr);
         }
 
         return {
