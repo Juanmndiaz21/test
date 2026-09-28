@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useTransition, useId, useMemo, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import Link from 'next/link';
 import { toast } from '../../../utils/toast';
 import { addGame, updateGameCategory, deleteGame } from '../../store/actions';
@@ -515,100 +516,110 @@ export default function CategoryManager({ initialCategories = [] }) {
             </div>
 
             {/* Edit Category Modal */}
-            {editingGame && (
-                <div
-                    className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
-                    onClick={(e) => {
-                        if (e.target === e.currentTarget) setEditingGame(null);
-                    }}
-                >
-                    <div
-                        className="panel-surface rounded-2xl p-6 sm:p-7 w-full max-w-lg max-h-[90vh] overflow-y-auto bg-[#171229] border border-white/10 shadow-2xl"
-                        role="dialog"
-                        aria-modal="true"
+            <AnimatePresence>
+                {editingGame && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.18 }}
+                        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
+                        onClick={(e) => {
+                            if (e.target === e.currentTarget) setEditingGame(null);
+                        }}
                     >
-                        <div className="flex items-center justify-between mb-5">
-                            <div>
-                                <p className="eyebrow text-[#9d7cff]">Admin · Category Editor</p>
-                                <h3 className="display-font text-2xl uppercase text-white">
-                                    Edit {editingGame.name}
-                                </h3>
-                            </div>
-                            <button
-                                type="button"
-                                onClick={() => setEditingGame(null)}
-                                className="text-slate-400 hover:text-white p-1 cursor-pointer"
-                            >
-                                ✕
-                            </button>
-                        </div>
-
-                        <form onSubmit={handleSaveEdit} className="space-y-4">
-                            <div>
-                                <label
-                                    htmlFor={editNameInputId}
-                                    className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2"
-                                >
-                                    Game / Category Name
-                                </label>
-                                <input
-                                    id={editNameInputId}
-                                    type="text"
-                                    required
-                                    value={editName}
-                                    onChange={(e) => setEditName(e.target.value)}
-                                    className="w-full bg-black/30 border border-white/10 rounded-lg p-3 text-white focus:border-[#9d7cff] outline-none"
-                                />
-                            </div>
-
-                            <div>
-                                <label
-                                    htmlFor={editModeSelectId}
-                                    className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2"
-                                >
-                                    Mode
-                                </label>
-                                <select
-                                    id={editModeSelectId}
-                                    value={editMode}
-                                    onChange={(e) => setEditMode(e.target.value)}
-                                    className="w-full bg-[#120e1c] border border-white/10 rounded-lg p-3 text-white focus:border-[#9d7cff] outline-none"
-                                >
-                                    <option value="both">Multiplayer + Singleplayer</option>
-                                    <option value="multiplayer">Multiplayer</option>
-                                    <option value="singleplayer">Singleplayer</option>
-                                </select>
-                            </div>
-
-                            <div className="bg-black/20 p-4 rounded-xl border border-white/5">
-                                <ImageUploadField
-                                    label="Category Logo (Upload from PC or pick already uploaded)"
-                                    value={editImageUrl}
-                                    onChange={setEditImageUrl}
-                                />
-                            </div>
-
-                            <div className="flex gap-3 pt-3">
+                        <motion.div
+                            initial={{ opacity: 0, transform: 'scale(0.96)' }}
+                            animate={{ opacity: 1, transform: 'scale(1)' }}
+                            exit={{ opacity: 0, transform: 'scale(0.96)' }}
+                            transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+                            className="panel-surface rounded-2xl p-6 sm:p-7 w-full max-w-lg max-h-[90vh] overflow-y-auto bg-[#171229] border border-white/10 shadow-2xl"
+                            role="dialog"
+                            aria-modal="true"
+                        >
+                            <div className="flex items-center justify-between mb-5">
+                                <div>
+                                    <p className="eyebrow text-[#9d7cff]">Admin · Category Editor</p>
+                                    <h3 className="display-font text-2xl uppercase text-white">
+                                        Edit {editingGame.name}
+                                    </h3>
+                                </div>
                                 <button
                                     type="button"
                                     onClick={() => setEditingGame(null)}
-                                    disabled={isEditing}
-                                    className="flex-1 border border-white/10 text-slate-300 hover:border-white/30 hover:text-white font-bold py-2.5 px-4 rounded-lg transition-colors cursor-pointer text-sm"
+                                    className="text-slate-400 hover:text-white p-1 cursor-pointer"
                                 >
-                                    Cancel
-                                </button>
-                                <button
-                                    type="submit"
-                                    disabled={isEditing}
-                                    className="flex-1 bg-[#9d7cff] hover:bg-white disabled:opacity-40 text-[#0d0914] font-black py-2.5 px-4 rounded-lg transition-colors cursor-pointer text-sm uppercase tracking-wider"
-                                >
-                                    {isEditing ? 'SAVING...' : 'SAVE CHANGES'}
+                                    ✕
                                 </button>
                             </div>
-                        </form>
-                    </div>
-                </div>
-            )}
+
+                            <form onSubmit={handleSaveEdit} className="space-y-4">
+                                <div>
+                                    <label
+                                        htmlFor={editNameInputId}
+                                        className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2"
+                                    >
+                                        Game / Category Name
+                                    </label>
+                                    <input
+                                        id={editNameInputId}
+                                        type="text"
+                                        required
+                                        value={editName}
+                                        onChange={(e) => setEditName(e.target.value)}
+                                        className="w-full bg-black/30 border border-white/10 rounded-lg p-3 text-white focus:border-[#9d7cff] outline-none"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label
+                                        htmlFor={editModeSelectId}
+                                        className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2"
+                                    >
+                                        Mode
+                                    </label>
+                                    <select
+                                        id={editModeSelectId}
+                                        value={editMode}
+                                        onChange={(e) => setEditMode(e.target.value)}
+                                        className="w-full bg-[#120e1c] border border-white/10 rounded-lg p-3 text-white focus:border-[#9d7cff] outline-none"
+                                    >
+                                        <option value="both">Multiplayer + Singleplayer</option>
+                                        <option value="multiplayer">Multiplayer</option>
+                                        <option value="singleplayer">Singleplayer</option>
+                                    </select>
+                                </div>
+
+                                <div className="bg-black/20 p-4 rounded-xl border border-white/5">
+                                    <ImageUploadField
+                                        label="Category Logo (Upload from PC or pick already uploaded)"
+                                        value={editImageUrl}
+                                        onChange={setEditImageUrl}
+                                    />
+                                </div>
+
+                                <div className="flex gap-3 pt-3">
+                                    <button
+                                        type="button"
+                                        onClick={() => setEditingGame(null)}
+                                        disabled={isEditing}
+                                        className="flex-1 border border-white/10 text-slate-300 hover:border-white/30 hover:text-white font-bold py-2.5 px-4 rounded-lg transition-colors cursor-pointer text-sm"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        disabled={isEditing}
+                                        className="flex-1 bg-[#9d7cff] hover:bg-white disabled:opacity-40 text-[#0d0914] font-black py-2.5 px-4 rounded-lg transition-colors cursor-pointer text-sm uppercase tracking-wider"
+                                    >
+                                        {isEditing ? 'SAVING...' : 'SAVE CHANGES'}
+                                    </button>
+                                </div>
+                            </form>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

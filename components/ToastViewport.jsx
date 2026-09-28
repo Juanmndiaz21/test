@@ -138,7 +138,7 @@ function ToastItem({ toast, onDismiss }) {
             {!toast.leaving && (
                 <div className="absolute bottom-0 inset-x-0 h-1 bg-white/5 overflow-hidden">
                     <span
-                        className={`block h-full w-full ${typeConfig.progress}`}
+                        className={`block h-full w-full origin-left ${typeConfig.progress}`}
                         style={{
                             animation: `toast-life ${duration}ms linear forwards`,
                             animationPlayState: isHovered ? 'paused' : 'running',

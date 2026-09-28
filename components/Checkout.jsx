@@ -233,7 +233,7 @@ export default function Checkout() {
                         <button
                             type="button"
                             onClick={() => setPaymentMethod('stripe')}
-                            className={`p-3.5 rounded-xl border text-left transition-all relative flex flex-col justify-between ${
+                            className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between ${
                                 paymentMethod === 'stripe'
                                     ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_15px_rgba(157,124,255,0.15)] text-white'
                                     : 'bg-[#120e1c]/50 border-white/10 hover:border-white/20 text-slate-300'
@@ -257,7 +257,7 @@ export default function Checkout() {
                         <button
                             type="button"
                             onClick={() => setPaymentMethod('paypal')}
-                            className={`p-3.5 rounded-xl border text-left transition-all relative flex flex-col justify-between ${
+                            className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between ${
                                 paymentMethod === 'paypal'
                                     ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_15px_rgba(157,124,255,0.15)] text-white'
                                     : 'bg-[#120e1c]/50 border-white/10 hover:border-white/20 text-slate-300'
@@ -281,7 +281,7 @@ export default function Checkout() {
                         <button
                             type="button"
                             onClick={() => setPaymentMethod('crypto')}
-                            className={`p-3.5 rounded-xl border text-left transition-all relative flex flex-col justify-between ${
+                            className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between ${
                                 paymentMethod === 'crypto'
                                     ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_15px_rgba(157,124,255,0.15)] text-white'
                                     : 'bg-[#120e1c]/50 border-white/10 hover:border-white/20 text-slate-300'
@@ -343,7 +343,7 @@ export default function Checkout() {
                     <button
                         type="submit"
                         disabled={isPending}
-                        className="w-full flex justify-center items-center gap-2.5 bg-[#9d7cff] text-[#120e1c] font-black text-base uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-[#8b63fc] hover:shadow-[0_0_25px_rgba(157,124,255,0.4)] disabled:opacity-60 disabled:cursor-not-allowed transition-all transform active:scale-[0.98]"
+                        className="w-full flex justify-center items-center gap-2.5 bg-[#9d7cff] text-[#120e1c] font-black text-base uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-[#8b63fc] hover:shadow-[0_0_25px_rgba(157,124,255,0.4)] disabled:opacity-60 disabled:cursor-not-allowed transition-[background-color,box-shadow,transform] duration-150 ease-out active:scale-[0.98]"
                     >
                         {isPending ? (
                             <>

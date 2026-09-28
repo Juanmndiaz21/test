@@ -4,7 +4,7 @@ import { useState, use } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { Link } from '@/i18n/navigation';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import PageHeaderBanner from '@/components/PageHeaderBanner';
 import Icon from '@/components/Icon';
 import { resetPassword } from '@/app/login/actions';
@@ -13,6 +13,7 @@ import { toast } from '@/utils/toast';
 export default function ResetPasswordPage({ searchParams }) {
     const t = useTranslations('resetPassword');
     const router = useRouter();
+    const shouldReduceMotion = useReducedMotion();
     const resolvedParams = use(searchParams);
     const token = resolvedParams?.token || '';
     const email = resolvedParams?.email || '';
@@ -78,8 +79,8 @@ export default function ResetPasswordPage({ searchParams }) {
     return (
         <div suppressHydrationWarning className="min-h-[calc(100vh-80px)] flex items-center justify-center p-5 bg-[#0d0914] text-slate-100">
             <motion.div
-                initial={{ opacity: 0, scale: 0.98, y: 8 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
+                initial={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateY(8px) scale(0.98)' }}
+                animate={{ opacity: 1, transform: 'translateY(0) scale(1)' }}
                 transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
                 className="w-full max-w-md panel-surface p-8 rounded-2xl relative overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.65)]"
                 suppressHydrationWarning

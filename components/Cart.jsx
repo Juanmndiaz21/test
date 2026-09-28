@@ -40,11 +40,11 @@ export default function Cart() {
                         <motion.li
                             key={item.key}
                             layout={!shouldReduceMotion}
-                            initial={{ opacity: 0, scale: 0.98 }}
-                            animate={{ opacity: 1, scale: 1 }}
+                            initial={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'scale(0.98)' }}
+                            animate={{ opacity: 1, transform: 'scale(1)' }}
                             exit={{
                                 opacity: 0,
-                                scale: shouldReduceMotion ? 1 : 0.96,
+                                transform: shouldReduceMotion ? 'none' : 'scale(0.96)',
                                 transition: { duration: 0.18, ease: [0.23, 1, 0.32, 1] },
                             }}
                             className="bg-black/20 p-4 rounded-lg border border-white/10"

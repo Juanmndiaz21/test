@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '../i18n/navigation';
 import { useSession, signOut } from 'next-auth/react';
@@ -107,36 +107,39 @@ function MobileMenu({ pathname, session }) {
                 <Icon name={open ? 'x' : 'menu'} className="w-5 h-5" strokeWidth={2.2} />
             </button>
 
-            {open && (
-                <motion.div
-                    className="fixed inset-0 z-[80] bg-[#0d0914]/95 backdrop-blur-md pt-20 overflow-y-auto"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-                >
-                    <nav className="flex flex-col items-stretch gap-2 px-6 pb-12" aria-label="Main Navigation">
-                        {links.map((item, index) => (
-                            <motion.div
-                                key={item.href}
-                                initial={{ opacity: 0, x: shouldReduceMotion ? 0 : -12 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{
-                                    delay: shouldReduceMotion ? 0 : 0.03 * index,
-                                    duration: shouldReduceMotion ? 0.15 : 0.2,
-                                    ease: [0.23, 1, 0.32, 1],
-                                }}
-                            >
-                                <Link
-                                    href={item.href}
-                                    onClick={close}
-                                    className={`block py-4 border-b border-white/5 display-font text-3xl uppercase leading-none transition-colors ${
-                                        pathname === item.href ? 'text-[#9d7cff]' : 'text-white hover:text-[#9d7cff]'
-                                    }`}
+            <AnimatePresence>
+                {open && (
+                    <motion.div
+                        key="mobile-nav"
+                        className="fixed inset-0 z-[80] bg-[#0d0914]/95 backdrop-blur-md pt-20 overflow-y-auto"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.16, ease: [0.23, 1, 0.32, 1] }}
+                    >
+                        <nav className="flex flex-col items-stretch gap-2 px-6 pb-12" aria-label="Main Navigation">
+                            {links.map((item, index) => (
+                                <motion.div
+                                    key={item.href}
+                                    initial={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateX(-12px)' }}
+                                    animate={{ opacity: 1, transform: 'translateX(0)' }}
+                                    transition={{
+                                        delay: shouldReduceMotion ? 0 : 0.03 * index,
+                                        duration: shouldReduceMotion ? 0.15 : 0.2,
+                                        ease: [0.23, 1, 0.32, 1],
+                                    }}
                                 >
-                                    {item.label}
-                                </Link>
-                            </motion.div>
-                        ))}
+                                    <Link
+                                        href={item.href}
+                                        onClick={close}
+                                        className={`block py-4 border-b border-white/5 display-font text-3xl uppercase leading-none transition-colors ${
+                                            pathname === item.href ? 'text-[#9d7cff]' : 'text-white hover:text-[#9d7cff]'
+                                        }`}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                </motion.div>
+                            ))}
 
                         {user ? (
                             <motion.div
@@ -225,6 +228,7 @@ function MobileMenu({ pathname, session }) {
                     </nav>
                 </motion.div>
             )}
+            </AnimatePresence>
         </div>
     );
 }

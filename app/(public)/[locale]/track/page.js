@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useTransition, use } from 'react';
 import { useTranslations } from 'next-intl';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import PageHeaderBanner from '@/components/PageHeaderBanner';
 import Icon from '@/components/Icon';
 import { trackOrderAction } from './actions';
@@ -11,6 +11,7 @@ import { toast } from '@/utils/toast';
 
 export default function TrackOrderPage({ searchParams }) {
     const t = useTranslations('track');
+    const shouldReduceMotion = useReducedMotion();
     const resolvedParams = use(searchParams);
     const initialCode = resolvedParams?.code || '';
 
@@ -132,9 +133,9 @@ export default function TrackOrderPage({ searchParams }) {
                 <AnimatePresence>
                     {notFound && (
                         <motion.div
-                            initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: -10 }}
+                            initial={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateY(10px) scale(0.98)' }}
+                            animate={{ opacity: 1, transform: 'translateY(0) scale(1)' }}
+                            exit={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateY(-10px)' }}
                             transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
                             className="mt-8 panel-surface p-8 sm:p-10 rounded-2xl border border-rose-500/30 text-center shadow-[0_20px_50px_rgba(0,0,0,0.6)] relative overflow-hidden"
                         >
@@ -179,9 +180,9 @@ export default function TrackOrderPage({ searchParams }) {
                 <AnimatePresence>
                     {result && (
                         <motion.div
-                            initial={{ opacity: 0, y: 16 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -16 }}
+                            initial={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateY(16px)' }}
+                            animate={{ opacity: 1, transform: 'translateY(0)' }}
+                            exit={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateY(-16px)' }}
                             transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
                             className="mt-8 panel-surface rounded-2xl border border-[#9d7cff]/30 p-6 sm:p-10 space-y-8 shadow-[0_24px_70px_rgba(0,0,0,0.7)]"
                         >
@@ -426,8 +427,8 @@ export default function TrackOrderPage({ searchParams }) {
                 {/* Idle Guide State: Shown when no search was performed or result cleared */}
                 {!result && !notFound && (
                     <motion.div
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateY(12px)' }}
+                        animate={{ opacity: 1, transform: 'translateY(0)' }}
                         transition={{ delay: 0.1, duration: 0.2 }}
                         className="mt-10 space-y-6"
                     >

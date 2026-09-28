@@ -126,7 +126,7 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
                                             key={p}
                                             type="button"
                                             onClick={() => setPlatform(p)}
-                                            className={`py-3 px-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border flex items-center justify-center gap-2 ${
+                                            className={`py-3 px-2.5 rounded-xl text-xs sm:text-sm font-bold transition-[border-color,background-color,color,box-shadow,transform] duration-150 ease-out cursor-pointer border flex items-center justify-center gap-2 ${
                                                 active
                                                     ? 'bg-[#9d7cff]/15 border-[#9d7cff] text-white shadow-[0_4px_16px_rgba(0,0,0,0.3)] font-black ring-1 ring-[#9d7cff]/50'
                                                     : 'bg-black/30 border-white/10 text-slate-300 hover:border-[#9d7cff]/50 hover:text-white'
@@ -154,7 +154,7 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
                                 <span className="text-slate-400 text-sm">{t('servicePrice')}</span>
                                 <strong key={activePrice} className="animate-ladder-row text-4xl text-white data-readout font-bold">${activePrice.toFixed(2)}<small className="text-base text-slate-400 ml-1.5 uppercase font-mono">{common('usd')}</small></strong>
                             </div>
-                            <button type="button" onClick={handleAddToCart} className="w-full mt-7 bg-[#9d7cff] hover:bg-white text-[#0d0914] font-black uppercase tracking-wide py-4 rounded-lg transition-all duration-200 active:scale-[0.98] hover:shadow-[0_0_20px_rgba(157,124,255,0.4)] focus-visible:ring-2 focus-visible:ring-[#9d7cff] focus-visible:outline-none cursor-pointer">
+                            <button type="button" onClick={handleAddToCart} className="w-full mt-7 bg-[#9d7cff] hover:bg-white text-[#0d0914] font-black uppercase tracking-wide py-4 rounded-lg transition-[background-color,color,box-shadow,transform] duration-150 ease-out active:scale-[0.98] hover:shadow-[0_0_20px_rgba(157,124,255,0.4)] focus-visible:ring-2 focus-visible:ring-[#9d7cff] focus-visible:outline-none cursor-pointer">
                                 {added ? t('addedToCart') : t('addConfiguration')}
                             </button>
                             {added && <Link href="/checkout" className="block text-center text-sm text-[#9d7cff] hover:text-white mt-4">{t('proceedToCheckout')}</Link>}

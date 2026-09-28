@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'motion/react';
 import Icon from '../../../components/Icon';
 import { ORDER_STATUS_LABELS } from '../../../lib/orders';
 import { toast } from '../../../utils/toast';
@@ -112,17 +113,27 @@ export default function OrderDetailsModal({ order, items = [] }) {
             </button>
 
             {/* Modal montado en el root (document.body) mediante createPortal */}
-            {isOpen && mounted && createPortal(
-                <div
-                    className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
-                    onClick={() => setIsOpen(false)}
-                >
-                    <div
-                        className="relative w-full max-w-2xl bg-[#171229] border border-[#9d7cff]/40 rounded-2xl p-6 sm:p-7 shadow-[0_25px_70px_rgba(0,0,0,0.9)] space-y-6 my-auto max-h-[90vh] overflow-y-auto scrollbar-thin scrollbar-thumb-white/10"
-                        role="dialog"
-                        aria-modal="true"
-                        onClick={(e) => e.stopPropagation()}
-                    >
+            {mounted && createPortal(
+                <AnimatePresence>
+                    {isOpen && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.18 }}
+                            className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            <motion.div
+                                initial={{ opacity: 0, transform: 'scale(0.96)' }}
+                                animate={{ opacity: 1, transform: 'scale(1)' }}
+                                exit={{ opacity: 0, transform: 'scale(0.96)' }}
+                                transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+                                className="relative w-full max-w-2xl bg-[#171229] border border-[#9d7cff]/40 rounded-2xl p-6 sm:p-7 shadow-[0_25px_70px_rgba(0,0,0,0.9)] space-y-6 my-auto max-h-[90vh] overflow-y-auto scrollbar-thin scrollbar-thumb-white/10"
+                                role="dialog"
+                                aria-modal="true"
+                                onClick={(e) => e.stopPropagation()}
+                            >
                         {/* Close button */}
                         <button
                             type="button"
@@ -318,8 +329,10 @@ export default function OrderDetailsModal({ order, items = [] }) {
                                 </button>
                             </div>
                         </div>
-                    </div>
-                </div>,
+                    </motion.div>
+                </motion.div>
+                    )}
+                </AnimatePresence>,
                 document.body
             )}
         </>

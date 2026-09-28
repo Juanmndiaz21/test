@@ -220,15 +220,15 @@ textarea {
 }
 
 .animate-toast-out {
-  animation: toast-out 0.2s cubic-bezier(0.4, 0, 1, 1) both;
+  animation: toast-out 0.18s var(--ease-out) both;
 }
 
 @keyframes toast-life {
   from {
-    width: 100%;
+    transform: scaleX(1);
   }
   to {
-    width: 0%;
+    transform: scaleX(0);
   }
 }
 

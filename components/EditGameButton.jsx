@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useSession } from 'next-auth/react';
 import { toast } from '../utils/toast';
 import { updateGameCategory } from '../app/store/actions';
@@ -62,49 +63,64 @@ export default function EditGameButton({ game }) {
                 Edit category
             </button>
 
-            {open && (
-                <div
-                    className="fixed inset-0 z-[90] flex items-center justify-center bg-black/70 backdrop-blur-sm p-5"
-                    onClick={(event) => {
-                        if (event.target === event.currentTarget) close();
-                    }}
-                >
-                    <div className="panel-surface rounded-2xl p-6 sm:p-7 w-full max-w-lg max-h-[90vh] overflow-y-auto bg-[#171229] border border-white/10" role="dialog" aria-modal="true" aria-label={`Edit category ${game?.name}`}>
-                        <p className="eyebrow mb-2">Admin · Category editor</p>
-                        <h3 className="display-font text-3xl uppercase text-white mb-6">Edit category</h3>
+            <AnimatePresence>
+                {open && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.18 }}
+                        className="fixed inset-0 z-[90] flex items-center justify-center bg-black/70 backdrop-blur-sm p-5"
+                        onClick={(event) => {
+                            if (event.target === event.currentTarget) close();
+                        }}
+                    >
+                        <motion.div
+                            initial={{ opacity: 0, transform: 'scale(0.96)' }}
+                            animate={{ opacity: 1, transform: 'scale(1)' }}
+                            exit={{ opacity: 0, transform: 'scale(0.96)' }}
+                            transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+                            className="panel-surface rounded-2xl p-6 sm:p-7 w-full max-w-lg max-h-[90vh] overflow-y-auto bg-[#171229] border border-white/10"
+                            role="dialog"
+                            aria-modal="true"
+                            aria-label={`Edit category ${game?.name}`}
+                        >
+                            <p className="eyebrow mb-2">Admin · Category editor</p>
+                            <h3 className="display-font text-3xl uppercase text-white mb-6">Edit category</h3>
 
-                        <form onSubmit={save} className="space-y-5">
-                            <div>
-                                <label htmlFor="edit-game-name" className="block text-sm font-bold text-slate-300 mb-2">Game name</label>
-                                <input id="edit-game-name" value={name} onChange={(event) => setName(event.target.value)} required placeholder="e.g. GTA V" className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-[#9d7cff] outline-none" />
-                            </div>
-                            <div>
-                                <label htmlFor="edit-game-mode" className="block text-sm font-bold text-slate-300 mb-2">Game mode</label>
-                                <select id="edit-game-mode" value={mode} onChange={(event) => setMode(event.target.value)} className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-[#9d7cff] outline-none">
-                                    <option value="both">Multiplayer + Singleplayer</option>
-                                    <option value="multiplayer">Multiplayer</option>
-                                    <option value="singleplayer">Singleplayer</option>
-                                </select>
-                            </div>
+                            <form onSubmit={save} className="space-y-5">
+                                <div>
+                                    <label htmlFor="edit-game-name" className="block text-sm font-bold text-slate-300 mb-2">Game name</label>
+                                    <input id="edit-game-name" value={name} onChange={(event) => setName(event.target.value)} required placeholder="e.g. GTA V" className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-[#9d7cff] outline-none" />
+                                </div>
+                                <div>
+                                    <label htmlFor="edit-game-mode" className="block text-sm font-bold text-slate-300 mb-2">Game mode</label>
+                                    <select id="edit-game-mode" value={mode} onChange={(event) => setMode(event.target.value)} className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-[#9d7cff] outline-none">
+                                        <option value="both">Multiplayer + Singleplayer</option>
+                                        <option value="multiplayer">Multiplayer</option>
+                                        <option value="singleplayer">Singleplayer</option>
+                                    </select>
+                                </div>
 
-                            <ImageUploadField
-                                label="Category / Game Logo"
-                                value={imageUrl}
-                                onChange={setImageUrl}
-                            />
+                                <ImageUploadField
+                                    label="Category / Game Logo"
+                                    value={imageUrl}
+                                    onChange={setImageUrl}
+                                />
 
-                            <div className="flex gap-3 pt-2">
-                                <button type="button" onClick={close} disabled={isPending} className="flex-1 border border-white/10 text-slate-300 hover:border-white/40 hover:text-white font-bold py-3 px-4 rounded-lg transition-colors cursor-pointer">
-                                    Cancel
-                                </button>
-                                <button type="submit" disabled={isPending} className="flex-1 bg-[#9d7cff] hover:bg-white disabled:opacity-40 text-[#0d0914] font-black py-3 px-4 rounded-lg transition-colors cursor-pointer">
-                                    {isPending ? 'SAVING...' : 'SAVE'}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
+                                <div className="flex gap-3 pt-2">
+                                    <button type="button" onClick={close} disabled={isPending} className="flex-1 border border-white/10 text-slate-300 hover:border-white/40 hover:text-white font-bold py-3 px-4 rounded-lg transition-colors cursor-pointer">
+                                        Cancel
+                                    </button>
+                                    <button type="submit" disabled={isPending} className="flex-1 bg-[#9d7cff] hover:bg-white disabled:opacity-40 text-[#0d0914] font-black py-3 px-4 rounded-lg transition-colors cursor-pointer">
+                                        {isPending ? 'SAVING...' : 'SAVE'}
+                                    </button>
+                                </div>
+                            </form>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     );
 }

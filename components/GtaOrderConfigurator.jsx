@@ -264,7 +264,7 @@ export default function GtaOrderConfigurator({ product }) {
                                     setPlatform(p);
                                     setVersion(null); // Reset version so user chooses edition for this platform
                                 }}
-                                className={`py-3 px-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border flex items-center justify-center gap-2 ${
+                                className={`py-3 px-2.5 rounded-xl text-xs sm:text-sm font-bold transition-[border-color,background-color,color,box-shadow,transform] duration-150 ease-out cursor-pointer border flex items-center justify-center gap-2 ${
                                     active
                                         ? 'bg-[#9d7cff]/15 border-[#9d7cff] text-white shadow-[0_4px_16px_rgba(0,0,0,0.3)] font-black ring-1 ring-[#9d7cff]/50'
                                         : 'bg-black/30 border-white/10 text-slate-300 hover:border-[#9d7cff]/50 hover:text-white'
@@ -307,7 +307,7 @@ export default function GtaOrderConfigurator({ product }) {
                                     key={v.id}
                                     type="button"
                                     onClick={() => setVersion(v.id)}
-                                    className={`py-3 px-3.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer border text-center ${
+                                    className={`py-3 px-3.5 rounded-xl text-xs sm:text-sm font-bold transition-[border-color,background-color,color,box-shadow,transform] duration-150 ease-out cursor-pointer border text-center ${
                                         active
                                             ? 'bg-[#9d7cff]/15 border-[#9d7cff] text-white shadow-[0_0_20px_rgba(157,124,255,0.3)] font-black ring-1 ring-[#9d7cff]/50'
                                             : 'bg-black/30 border-white/10 text-slate-300 hover:border-[#9d7cff]/50 hover:text-white'
@@ -348,7 +348,7 @@ export default function GtaOrderConfigurator({ product }) {
                                         key={pkg.id}
                                         type="button"
                                         onClick={() => setSelectedPackageId(pkg.id)}
-                                        className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between gap-2 ${
+                                        className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,color,box-shadow,transform] duration-150 ease-out cursor-pointer flex items-center justify-between gap-2 ${
                                             active
                                                 ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_20px_rgba(157,124,255,0.25)] ring-1 ring-[#9d7cff]/50'
                                                 : 'bg-black/30 border-white/10 hover:border-[#9d7cff]/40 hover:bg-black/40'
@@ -379,7 +379,7 @@ export default function GtaOrderConfigurator({ product }) {
                             <button
                                 type="button"
                                 onClick={() => setShowAllPackages(!showAllPackages)}
-                                className="w-full py-2.5 px-4 rounded-xl border border-white/10 bg-white/5 hover:border-[#9d7cff]/50 hover:text-white text-xs font-mono font-bold uppercase tracking-wider text-[#9d7cff] transition-all cursor-pointer flex items-center justify-center gap-2"
+                                className="w-full py-2.5 px-4 rounded-xl border border-white/10 bg-white/5 hover:border-[#9d7cff]/50 hover:text-white text-xs font-mono font-bold uppercase tracking-wider text-[#9d7cff] transition-[border-color,color,background-color] duration-150 ease-out cursor-pointer flex items-center justify-center gap-2"
                             >
                                 <span>{showAllPackages ? 'Show fewer packages' : `Show all ${packages.length} packages`}</span>
                                 <Icon
@@ -415,7 +415,7 @@ export default function GtaOrderConfigurator({ product }) {
                                     return (
                                         <label
                                             key={addon.id}
-                                            className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
+                                            className={`p-3.5 rounded-xl border transition-[border-color,background-color,color,box-shadow] duration-150 ease-out cursor-pointer flex items-center justify-between gap-3 ${
                                                 checked
                                                     ? 'bg-[#9d7cff]/10 border-[#9d7cff]/50 shadow-[0_0_15px_rgba(157,124,255,0.15)]'
                                                     : 'bg-black/30 border-white/10 hover:border-white/20'
@@ -471,7 +471,7 @@ export default function GtaOrderConfigurator({ product }) {
                         <button
                             type="button"
                             onClick={handleAddToCart}
-                            className="w-full bg-[#9d7cff] hover:bg-white text-[#0d0914] font-black uppercase tracking-wider py-4 rounded-xl transition-all duration-200 active:scale-[0.98] shadow-[0_0_25px_rgba(157,124,255,0.35)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] cursor-pointer text-sm"
+                            className="w-full bg-[#9d7cff] hover:bg-white text-[#0d0914] font-black uppercase tracking-wider py-4 rounded-xl transition-[background-color,color,box-shadow,transform] duration-150 ease-out active:scale-[0.98] shadow-[0_0_25px_rgba(157,124,255,0.35)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] cursor-pointer text-sm"
                         >
                             {added ? 'Added to cart! (Add more)' : 'Add to cart'}
                         </button>

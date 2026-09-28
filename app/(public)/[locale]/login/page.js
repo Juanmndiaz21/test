@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { signIn, getSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
@@ -12,6 +12,7 @@ import Icon from '@/components/Icon';
 
 export default function Login() {
     const t = useTranslations('login');
+    const shouldReduceMotion = useReducedMotion();
     const [mode, setMode] = useState('login'); // 'login' | 'register' | 'forgot'
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -118,8 +119,8 @@ export default function Login() {
     return (
         <div suppressHydrationWarning className="min-h-[calc(100vh-80px)] flex items-center justify-center p-5">
             <motion.div
-                initial={{ opacity: 0, scale: 0.98, y: 8 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
+                initial={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateY(8px) scale(0.98)' }}
+                animate={{ opacity: 1, transform: 'translateY(0) scale(1)' }}
                 transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
                 className="w-full max-w-md panel-surface p-8 rounded-2xl relative overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.65)]"
                 suppressHydrationWarning
@@ -135,9 +136,9 @@ export default function Login() {
                 <AnimatePresence mode="wait">
                     <motion.p
                         key={mode}
-                        initial={{ opacity: 0, y: -4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 4 }}
+                        initial={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateY(-4px)' }}
+                        animate={{ opacity: 1, transform: 'translateY(0)' }}
+                        exit={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateY(4px)' }}
                         transition={{ duration: 0.16, ease: [0.23, 1, 0.32, 1] }}
                         className="text-sm text-slate-400 mb-7"
                     >
@@ -149,9 +150,9 @@ export default function Login() {
                     {error && (
                         <motion.div
                             role="alert"
-                            initial={{ opacity: 0, y: -6 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -6 }}
+                            initial={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateY(-6px)' }}
+                            animate={{ opacity: 1, transform: 'translateY(0)' }}
+                            exit={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateY(-6px)' }}
                             transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
                             className="bg-red-900/50 border border-red-500 text-red-200 p-3 rounded-lg mb-6 text-sm text-center"
                         >
@@ -162,8 +163,8 @@ export default function Login() {
 
                 {mode === 'forgot' && forgotSuccess ? (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.96 }}
-                        animate={{ opacity: 1, scale: 1 }}
+                        initial={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'scale(0.96)' }}
+                        animate={{ opacity: 1, transform: 'scale(1)' }}
                         className="p-5 rounded-xl bg-black/40 border border-[#9d7cff]/40 text-center space-y-4"
                     >
                         <div className="w-12 h-12 rounded-full bg-[#9d7cff]/20 text-[#9d7cff] flex items-center justify-center mx-auto">
