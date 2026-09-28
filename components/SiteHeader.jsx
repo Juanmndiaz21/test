@@ -52,15 +52,6 @@ export default function SiteHeader() {
                 </nav>
 
                 <div className="flex items-center gap-3">
-                    <Link
-                        href="/track"
-                        title={t('trackOrder')}
-                        aria-label={t('trackOrder')}
-                        className="min-h-[40px] px-3.5 h-10 rounded-full border border-white/15 bg-white/5 text-slate-300 hover:text-[#9d7cff] hover:border-[#9d7cff]/60 transition-[color,border-color,background-color,transform] duration-150 ease-out active:scale-[0.95] inline-flex items-center gap-2 text-xs font-semibold focus-visible:outline-2 focus-visible:outline-[#9d7cff]"
-                    >
-                        <Icon name="radar" className="w-4 h-4 text-[#9d7cff]" />
-                        <span className="hidden sm:inline">{t('trackOrder')}</span>
-                    </Link>
                     <CartLink className="min-h-[40px] min-w-[40px] h-10 w-10 rounded-full border border-white/15 bg-white/5 text-slate-300 hover:text-[#9d7cff] hover:border-[#9d7cff]/60 transition-[color,border-color,background-color,transform] duration-150 ease-out active:scale-[0.95] inline-flex items-center justify-center focus-visible:outline-2 focus-visible:outline-[#9d7cff]" />
                     <div className="hidden md:block">
                         <UserNav />
