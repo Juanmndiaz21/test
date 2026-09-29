@@ -49,7 +49,7 @@ export default async function AboutPage({ params }) {
             icon: 'shield-check',
             title: t('pillar1Title'),
             desc: t('pillar1Text'),
-            badge: '100% MANUAL',
+            badge: 'VERIFIED EXPERTS',
         },
         {
             icon: 'lock',

@@ -28,7 +28,6 @@ export default function FaqAccordion({ faqs = [] }) {
                     >
                         <button
                             type="button"
-                            id={`faq-question-${index}`}
                             onClick={() => toggle(index)}
                             aria-expanded={isOpen}
                             aria-controls={`faq-answer-${index}`}

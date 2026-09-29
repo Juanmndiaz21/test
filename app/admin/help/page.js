@@ -57,11 +57,8 @@ export default async function AdminHelp() {
                                     <span className="text-xs text-lime-300 border border-lime-300/20 rounded-full px-3 py-1 whitespace-nowrap">{typeLabel}</span>
                                 </div>
                                 <p className="text-slate-400 whitespace-pre-line mb-4">{entry.content}</p>
-                                <details className="text-left mb-3 group">
-                                    <summary className="text-lime-300 hover:text-white font-bold text-sm cursor-pointer list-none [&::-webkit-details-marker]:hidden flex items-center gap-1.5 select-none">
-                                        <span className="text-xs transition-transform duration-150 group-open:rotate-90">▶</span>
-                                        <span>Edit entry</span>
-                                    </summary>
+                                <details className="text-left mb-3">
+                                    <summary className="text-lime-300 hover:text-white font-bold text-sm cursor-pointer">Edit entry</summary>
                                     <form action={updateHelpEntry} className="panel-surface mt-3 p-4 rounded-xl space-y-3">
                                         <input type="hidden" name="id" value={entry.id} />
                                         <select name="type" defaultValue={entry.type} className="w-full bg-[#171229] border border-white/10 rounded-lg p-2 text-white">

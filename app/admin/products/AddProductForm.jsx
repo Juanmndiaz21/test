@@ -32,72 +32,43 @@ export default function AddProductForm({ selectedGame, initialOptions }) {
     };
 
     return (
-        <div className="panel-surface rounded-2xl border border-white/10 bg-[#171229] overflow-hidden mb-8 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.25)]">
-            {/* Header Accordion Bar - fully clickable */}
-            <button
-                type="button"
-                onClick={() => setIsOpen(!isOpen)}
-                aria-expanded={isOpen}
-                aria-controls="add-service-accordion-content"
-                className={`w-full p-4 sm:p-5 flex items-center justify-between gap-4 text-left cursor-pointer transition-colors select-none ${
-                    isOpen
-                        ? 'border-b border-white/10 bg-[#120e1c]/80'
-                        : 'hover:bg-white/[0.04] bg-[#120e1c]/40'
-                }`}
-            >
-                <div className="flex items-center gap-3.5 min-w-0">
-                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all shrink-0 ${
-                        isOpen
-                            ? 'bg-[#9d7cff] text-[#0d0914] shadow-[0_0_15px_rgba(157,124,255,0.4)]'
-                            : 'bg-[#9d7cff]/10 border border-[#9d7cff]/20 text-[#9d7cff]'
-                    }`}>
-                        <Icon name={isOpen ? 'minus' : 'plus'} className="w-4 h-4 transition-transform duration-200" />
+        <div className="panel-surface rounded-2xl border border-white/10 bg-[#171229] overflow-hidden mb-8 transition-all">
+            {/* Header Accordion Bar */}
+            <div className="p-4 sm:p-5 flex items-center justify-between gap-4 border-b border-white/5 bg-[#120e1c]/60">
+                <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/20 flex items-center justify-center text-[#9d7cff]">
+                        <Icon name="plus" className="w-4 h-4" />
                     </div>
-                    <div className="min-w-0">
-                        <div className="flex items-center gap-2">
-                            <h2 className="text-sm sm:text-base font-bold text-white uppercase tracking-wider font-mono truncate">
-                                {selectedGame ? `New Service for ${selectedGame}` : 'Create New Service'}
-                            </h2>
-                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/5 border border-white/10 text-[#9d7cff]">
-                                {isOpen ? 'Open' : 'Accordion'}
-                            </span>
-                        </div>
-                        <p className="text-xs text-slate-400 truncate">
+                    <div>
+                        <h2 className="text-sm sm:text-base font-bold text-white uppercase tracking-wider font-mono">
+                            {selectedGame ? `New Service for ${selectedGame}` : 'Create New Service'}
+                        </h2>
+                        <p className="text-xs text-slate-400">
                             Configure pricing, platform compatibility, and service details
                         </p>
                     </div>
                 </div>
 
-                <div className="flex items-center gap-2 shrink-0">
-                    <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono font-medium transition-colors ${
-                        isOpen
-                            ? 'border-[#9d7cff]/50 bg-[#9d7cff]/15 text-white'
-                            : 'border-white/10 bg-[#120e1c] text-slate-300 hover:text-white'
-                    }`}>
-                        <span>{isOpen ? 'Collapse Form' : '+ New Service'}</span>
-                        <Icon
-                            name="chevron-down"
-                            className={`w-3.5 h-3.5 text-[#9d7cff] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-                        />
-                    </span>
-                </div>
-            </button>
+                <button
+                    type="button"
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-white/10 hover:border-[#9d7cff]/40 bg-[#120e1c] text-xs font-mono font-medium text-slate-200 hover:text-white transition-colors cursor-pointer"
+                >
+                    <span>{isOpen ? 'Collapse Form' : '+ New Service'}</span>
+                    <Icon
+                        name="chevron-down"
+                        className={`w-3.5 h-3.5 text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                    />
+                </button>
+            </div>
 
-            {/* Collapsible Form Body with smooth CSS grid transition */}
-            <div
-                id="add-service-accordion-content"
-                role="region"
-                aria-label="Add service form"
-                className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
-                    isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0 pointer-events-none'
-                }`}
-            >
-                <div className="overflow-hidden">
-                    <form
-                        ref={formRef}
-                        onSubmit={handleSubmit}
-                        className="p-5 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-5"
-                    >
+            {/* Collapsible Form Body */}
+            {isOpen && (
+                <form
+                    ref={formRef}
+                    onSubmit={handleSubmit}
+                    className="p-5 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-5 animate-in fade-in duration-150"
+                >
                     {/* Service Name */}
                     <div className="w-full">
                         <label className="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-1.5">
@@ -259,8 +230,7 @@ export default function AddProductForm({ selectedGame, initialOptions }) {
                         </button>
                     </div>
                 </form>
-            </div>
+            )}
         </div>
-    </div>
-);
+    );
 }
