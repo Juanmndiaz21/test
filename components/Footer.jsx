@@ -143,8 +143,6 @@ export default async function Footer() {
                             <Icon name="discord" className="w-4 h-4 text-[#5865F2]" />
                             <span className="font-medium text-slate-300 hover:text-white">Discord</span>
                         </a>
-                        <span>·</span>
-                        <span>{t('demoDisclaimer')}</span>
                     </div>
                 </div>
             </div>

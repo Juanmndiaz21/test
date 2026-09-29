@@ -9,12 +9,14 @@ import Icon from './Icon';
 export default function GameServicesCatalog({ products = [], game = '' }) {
     const t = useTranslations('gamePage');
     const [activePlatform, setActivePlatform] = useState('all');
+    const [priceRange, setPriceRange] = useState('all');
+    const [sortBy, setSortBy] = useState('default');
     const [searchQuery, setSearchQuery] = useState('');
 
     const filteredProducts = useMemo(() => {
         const query = searchQuery.trim().toLowerCase();
 
-        return products.filter((product) => {
+        const filtered = products.filter((product) => {
             // Platform filter
             if (activePlatform !== 'all') {
                 const target = activePlatform.toLowerCase();
@@ -27,6 +29,15 @@ export default function GameServicesCatalog({ products = [], game = '' }) {
                         p.includes(target);
                     if (!match) return false;
                 }
+            }
+
+            // Price range filter
+            if (priceRange !== 'all') {
+                const price = Number(product.price);
+                if (priceRange === 'under-20' && price >= 20) return false;
+                if (priceRange === '20-50' && (price < 20 || price > 50)) return false;
+                if (priceRange === '50-100' && (price < 50 || price > 100)) return false;
+                if (priceRange === 'over-100' && price <= 100) return false;
             }
 
             // Search query filter
@@ -47,7 +58,16 @@ export default function GameServicesCatalog({ products = [], game = '' }) {
 
             return true;
         });
-    }, [products, activePlatform, searchQuery]);
+
+        // Sorting
+        if (sortBy === 'price-asc') {
+            return [...filtered].sort((a, b) => Number(a.price) - Number(b.price));
+        }
+        if (sortBy === 'price-desc') {
+            return [...filtered].sort((a, b) => Number(b.price) - Number(a.price));
+        }
+        return filtered;
+    }, [products, activePlatform, priceRange, sortBy, searchQuery]);
 
     if (products.length === 0) {
         return (
@@ -58,59 +78,109 @@ export default function GameServicesCatalog({ products = [], game = '' }) {
         );
     }
 
-    const hasActiveFilters = activePlatform !== 'all' || searchQuery.trim().length > 0;
+    const hasActiveFilters = activePlatform !== 'all' || priceRange !== 'all' || sortBy !== 'default' || searchQuery.trim().length > 0;
 
     const resetFilters = () => {
         setActivePlatform('all');
+        setPriceRange('all');
+        setSortBy('default');
         setSearchQuery('');
     };
 
     return (
         <div className="space-y-8">
-            {/* Filter toolbar with Search & Platforms */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-4 rounded-2xl bg-[#171229] border border-white/10 shadow-[0_12px_30px_rgba(0,0,0,0.35)] backdrop-blur-md">
-                {/* Search Bar */}
-                <div className="relative flex-1 max-w-md">
-                    <label htmlFor="services-search" className="sr-only">
-                        {t('searchLabel')}
-                    </label>
-                    <div className="relative flex items-center">
-                        <span className="absolute left-3.5 text-slate-400 pointer-events-none flex items-center">
-                            <Icon name="search" className="w-4 h-4" />
-                        </span>
-                        <input
-                            id="services-search"
-                            type="search"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            placeholder={t('searchServices')}
-                            className="w-full bg-[#120e1c] border border-white/10 focus:border-[#9d7cff]/60 focus:ring-1 focus:ring-[#9d7cff]/40 text-white placeholder-slate-400 text-xs sm:text-sm rounded-xl pl-10 pr-9 py-2.5 outline-none transition-all shadow-inner"
-                        />
-                        {searchQuery && (
+            {/* Filter toolbar with Search, Price, Platforms & Sorting */}
+            <div className="flex flex-col gap-4 p-4 rounded-2xl bg-[#171229] border border-white/10 shadow-[0_12px_30px_rgba(0,0,0,0.35)] backdrop-blur-md">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                    {/* Search Bar */}
+                    <div className="relative flex-1 max-w-md">
+                        <label htmlFor="services-search" className="sr-only">
+                            {t('searchLabel')}
+                        </label>
+                        <div className="relative flex items-center">
+                            <span className="absolute left-3.5 text-slate-400 pointer-events-none flex items-center">
+                                <Icon name="search" className="w-4 h-4" />
+                            </span>
+                            <input
+                                id="services-search"
+                                type="search"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                placeholder={t('searchServices')}
+                                className="w-full bg-[#120e1c] border border-white/10 focus:border-[#9d7cff]/60 focus:ring-1 focus:ring-[#9d7cff]/40 text-white placeholder-slate-400 text-xs sm:text-sm rounded-xl pl-10 pr-9 py-2.5 outline-none transition-all shadow-inner"
+                            />
+                            {searchQuery && (
+                                <button
+                                    type="button"
+                                    onClick={() => setSearchQuery('')}
+                                    aria-label={t('clearSearch')}
+                                    className="absolute right-2.5 p-1 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                                >
+                                    <Icon name="x" className="w-3.5 h-3.5" />
+                                </button>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Secondary Filters: Price Range & Sort */}
+                    <div className="flex flex-wrap items-center gap-2.5">
+                        {/* Price Range Filter */}
+                        <div className="flex items-center gap-1.5 bg-[#120e1c] border border-white/10 rounded-xl px-3 py-2 text-xs">
+                            <Icon name="tag" className="w-3.5 h-3.5 text-[#9d7cff] shrink-0" />
+                            <span className="text-slate-400 font-mono hidden sm:inline">{t('filterByPrice')}:</span>
+                            <select
+                                value={priceRange}
+                                onChange={(e) => setPriceRange(e.target.value)}
+                                aria-label={t('filterByPrice')}
+                                className="bg-transparent text-white font-medium focus:outline-none cursor-pointer text-xs"
+                            >
+                                <option value="all" className="bg-[#171229] text-white">{t('allPrices')}</option>
+                                <option value="under-20" className="bg-[#171229] text-white">{t('under20')}</option>
+                                <option value="20-50" className="bg-[#171229] text-white">{t('from20to50')}</option>
+                                <option value="50-100" className="bg-[#171229] text-white">{t('from50to100')}</option>
+                                <option value="over-100" className="bg-[#171229] text-white">{t('over100')}</option>
+                            </select>
+                        </div>
+
+                        {/* Sort Select */}
+                        <div className="flex items-center gap-1.5 bg-[#120e1c] border border-white/10 rounded-xl px-3 py-2 text-xs">
+                            <Icon name="sliders" className="w-3.5 h-3.5 text-[#9d7cff] shrink-0" />
+                            <span className="text-slate-400 font-mono hidden sm:inline">{t('sortBy')}:</span>
+                            <select
+                                value={sortBy}
+                                onChange={(e) => setSortBy(e.target.value)}
+                                aria-label={t('sortBy')}
+                                className="bg-transparent text-white font-medium focus:outline-none cursor-pointer text-xs"
+                            >
+                                <option value="default" className="bg-[#171229] text-white">{t('sortDefault')}</option>
+                                <option value="price-asc" className="bg-[#171229] text-white">{t('sortPriceAsc')}</option>
+                                <option value="price-desc" className="bg-[#171229] text-white">{t('sortPriceDesc')}</option>
+                            </select>
+                        </div>
+
+                        {hasActiveFilters && (
                             <button
                                 type="button"
-                                onClick={() => setSearchQuery('')}
-                                aria-label={t('clearSearch')}
-                                className="absolute right-2.5 p-1 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                                onClick={resetFilters}
+                                className="text-xs text-slate-400 hover:text-white px-2.5 py-1.5 rounded-lg hover:bg-white/5 font-mono cursor-pointer transition-colors"
                             >
-                                <Icon name="x" className="w-3.5 h-3.5" />
+                                {t('clearAllFilters')}
                             </button>
                         )}
                     </div>
                 </div>
 
-                {/* Platform Filter & Count */}
-                <div className="flex flex-wrap items-center justify-between lg:justify-end gap-3 sm:gap-4">
-                    <div className="flex items-center gap-2.5">
-                        <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 hidden sm:inline">
+                {/* Platforms & Result Count */}
+                <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/5">
+                    <div className="flex items-center gap-2">
+                        <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
                             {t('allPlatforms')}:
                         </span>
-                        <span className="text-xs font-mono text-[#9d7cff] font-bold px-2.5 py-1 rounded-full bg-[#9d7cff]/10 border border-[#9d7cff]/20">
+                        <span className="text-xs font-mono text-[#9d7cff] font-bold px-2.5 py-0.5 rounded-full bg-[#9d7cff]/10 border border-[#9d7cff]/20">
                             {t('servicesCountBadge', { count: filteredProducts.length })}
                         </span>
                     </div>
 
-                    {/* 4 Platform Icons: All, PlayStation, Xbox, PC */}
                     <PlatformFilterBar
                         activePlatform={activePlatform}
                         onSelectPlatform={setActivePlatform}
