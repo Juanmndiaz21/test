@@ -76,12 +76,18 @@ export async function addProduct(formData) {
         try { configuratorData = JSON.parse(rawConfiguratorData); } catch {}
     }
     const options = parseProductOptions(formData, 'options');
+    const finalOptions = options.length > 0 ? options : parseProductOptions(formData, 'boost');
     const slug = productToSlug(name);
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS slug VARCHAR(255)`;
 
+    const rawPlatforms = formData.getAll('platform').filter(Boolean);
+    const normalizedPlatform = rawPlatforms.length > 1
+        ? rawPlatforms.join('/')
+        : (formData.get('platform') || platform || null);
+
     await sql`
         INSERT INTO products (name, slug, description, price, original_price, features, configurator_data, platform, boost_amount, game, image_url, how_it_works, requirements, faqs, boost_options, commends_options, options)
-        VALUES (${name}, ${slug}, ${description || null}, ${price}, ${originalPrice}, ${features || null}, ${configuratorData ? JSON.stringify(configuratorData) : null}::jsonb, ${platform || null}, ${boostAmount}, ${game}, ${imageUrl || null}, ${howItWorks || null}, ${requirements || null}, ${faqs || null}, ${JSON.stringify(finalOptions)}::jsonb, NULL, ${JSON.stringify(finalOptions)}::jsonb)
+        VALUES (${name}, ${slug}, ${description || null}, ${price}, ${originalPrice}, ${features || null}, ${configuratorData ? JSON.stringify(configuratorData) : null}::jsonb, ${normalizedPlatform}, ${boostAmount}, ${game}, ${imageUrl || null}, ${howItWorks || null}, ${requirements || null}, ${faqs || null}, ${JSON.stringify(finalOptions)}::jsonb, NULL, ${JSON.stringify(finalOptions)}::jsonb)
     `;
 
     revalidatePath('/store');
@@ -148,6 +154,11 @@ export async function updateProduct(formData) {
     const options = parseProductOptions(formData, 'options');
     const finalOptions = options.length > 0 ? options : parseProductOptions(formData, 'boost');
 
+    const rawPlatforms = formData.getAll('platform').filter(Boolean);
+    const normalizedPlatform = rawPlatforms.length > 1
+        ? rawPlatforms.join('/')
+        : (formData.get('platform') || null);
+
     const slug = productToSlug(name);
     await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS slug VARCHAR(255)`;
 
@@ -161,7 +172,7 @@ export async function updateProduct(formData) {
                 original_price = ${originalPrice},
                 features = ${formData.get('features') || null},
                 configurator_data = ${configuratorData ? JSON.stringify(configuratorData) : null}::jsonb,
-                platform = ${formData.get('platform') || null},
+                platform = ${normalizedPlatform},
                 boost_amount = ${boostAmount},
                 game = ${game},
                 image_url = ${formData.get('image_url') || null},
@@ -182,7 +193,7 @@ export async function updateProduct(formData) {
                 price = ${price},
                 original_price = ${originalPrice},
                 features = ${formData.get('features') || null},
-                platform = ${formData.get('platform') || null},
+                platform = ${normalizedPlatform},
                 boost_amount = ${boostAmount},
                 game = ${game},
                 image_url = ${formData.get('image_url') || null},
@@ -198,6 +209,22 @@ export async function updateProduct(formData) {
 
     revalidatePath('/store');
     revalidatePath('/admin/products');
+}
+
+export async function updateProductPlatform(id, platform) {
+    await requireAdmin();
+    const productId = Number(id);
+    if (!Number.isInteger(productId) || productId <= 0) {
+        throw new Error('Invalid product id.');
+    }
+
+    const sql = neon(process.env.DATABASE_URL);
+    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS platform VARCHAR(80)`;
+    await sql`UPDATE products SET platform = ${platform || null} WHERE id = ${productId}`;
+
+    revalidatePath('/store');
+    revalidatePath('/admin/products');
+    return { success: true, platform };
 }
 
 export async function updateProductSection(productId, section, items) {

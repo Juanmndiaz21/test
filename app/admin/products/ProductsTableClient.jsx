@@ -1,16 +1,43 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import Icon from '../../../components/Icon';
 import { ProductDeleteButton, ProductEditDrawer } from './ProductRowActions';
+import { PlatformTableCell } from './PlatformSelector';
 
-export default function ProductsTableClient({ products = [], defaultOptions = {} }) {
+export default function ProductsTableClient({ products: initialProducts = [], defaultOptions = {} }) {
+    const [products, setProducts] = useState(initialProducts);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedGame, setSelectedGame] = useState('all');
     const [selectedPlatform, setSelectedPlatform] = useState('all');
     const [sortBy, setSortBy] = useState('id-desc');
     const [pageSize, setPageSize] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
+    const searchInputRef = useRef(null);
+
+    // Keep in sync with server revalidations
+    useEffect(() => {
+        setProducts(initialProducts);
+    }, [initialProducts]);
+
+    // Handle local platform update for instant UI responsiveness
+    const handlePlatformChange = (productId, newPlatform) => {
+        setProducts((prev) =>
+            prev.map((p) => (p.id === productId ? { ...p, platform: newPlatform } : p))
+        );
+    };
+
+    // Keyboard shortcut '/' to focus search input
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === '/' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+                searchInputRef.current?.focus();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
 
     // Extract unique games for quick filter pills
     const games = useMemo(() => {
@@ -81,7 +108,11 @@ export default function ProductsTableClient({ products = [], defaultOptions = {}
         return [1, '...', current - 1, current, current + 1, '...', total];
     };
 
-    const hasActiveFilters = searchTerm.trim().length > 0 || selectedGame !== 'all' || selectedPlatform !== 'all' || sortBy !== 'id-desc';
+    const hasActiveFilters =
+        searchTerm.trim().length > 0 ||
+        selectedGame !== 'all' ||
+        selectedPlatform !== 'all' ||
+        sortBy !== 'id-desc';
 
     const clearAllFilters = () => {
         setSearchTerm('');
@@ -93,22 +124,23 @@ export default function ProductsTableClient({ products = [], defaultOptions = {}
     return (
         <div className="space-y-4">
             {/* SEARCH AND FILTER TOOLBAR */}
-            <div className="panel-surface rounded-2xl p-4 border border-white/10 space-y-3.5 bg-[#171229]">
-                <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+            <div className="panel-surface rounded-2xl p-4 sm:p-5 border border-white/10 space-y-4 bg-[#171229] shadow-[0_10px_30px_rgba(0,0,0,0.35)]">
+                <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
                     {/* Search Bar */}
-                    <div className="relative flex-1 max-w-md">
+                    <div className="relative flex-1 max-w-lg">
                         <Icon
                             name="search"
-                            className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+                            className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
                         />
                         <input
+                            ref={searchInputRef}
                             type="text"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            placeholder="Search by product name, game, platform, ID, price..."
-                            className="w-full bg-[#120e1c] border border-white/10 rounded-xl pl-9 pr-8 py-2.5 text-xs sm:text-sm text-white placeholder:text-slate-500 focus:border-[#9d7cff] outline-none transition-colors"
+                            placeholder="Search by name, game, platform, ID, price... (press '/' to focus)"
+                            className="w-full bg-[#120e1c] border border-white/10 rounded-xl pl-10 pr-9 py-2.5 text-xs sm:text-sm text-white placeholder:text-slate-500 focus:border-[#9d7cff] focus:ring-1 focus:ring-[#9d7cff]/40 outline-none transition-all shadow-inner"
                         />
-                        {searchTerm && (
+                        {searchTerm ? (
                             <button
                                 type="button"
                                 onClick={() => setSearchTerm('')}
@@ -117,33 +149,37 @@ export default function ProductsTableClient({ products = [], defaultOptions = {}
                             >
                                 <Icon name="x" className="w-3.5 h-3.5" />
                             </button>
+                        ) : (
+                            <span className="hidden sm:inline absolute right-3 top-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-xs font-mono text-slate-400 pointer-events-none">
+                                /
+                            </span>
                         )}
                     </div>
 
                     {/* Secondary Filters: Platform & Sorting */}
                     <div className="flex flex-wrap items-center gap-2.5">
-                        {/* Platform Select */}
-                        <div className="flex items-center gap-1.5 bg-[#120e1c] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs">
-                            <span className="text-slate-400 font-mono">Platform:</span>
+                        {/* Platform Filter Dropdown */}
+                        <div className="flex items-center gap-1.5 bg-[#120e1c] border border-white/10 rounded-xl px-3 py-2 text-xs">
+                            <span className="text-slate-400 font-mono text-[11px]">Platform:</span>
                             <select
                                 value={selectedPlatform}
                                 onChange={(e) => setSelectedPlatform(e.target.value)}
-                                className="bg-transparent text-white font-medium focus:outline-none cursor-pointer"
+                                className="bg-transparent text-white font-medium focus:outline-none cursor-pointer text-xs"
                             >
-                                <option value="all" className="bg-[#171229] text-white">All</option>
+                                <option value="all" className="bg-[#171229] text-white">All Platforms</option>
                                 <option value="pc" className="bg-[#171229] text-white">PC</option>
                                 <option value="playstation" className="bg-[#171229] text-white">PlayStation</option>
                                 <option value="xbox" className="bg-[#171229] text-white">Xbox</option>
                             </select>
                         </div>
 
-                        {/* Sort Select */}
-                        <div className="flex items-center gap-1.5 bg-[#120e1c] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs">
-                            <span className="text-slate-400 font-mono">Sort:</span>
+                        {/* Sort Dropdown */}
+                        <div className="flex items-center gap-1.5 bg-[#120e1c] border border-white/10 rounded-xl px-3 py-2 text-xs">
+                            <span className="text-slate-400 font-mono text-[11px]">Sort:</span>
                             <select
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
-                                className="bg-transparent text-white font-medium focus:outline-none cursor-pointer"
+                                className="bg-transparent text-white font-medium focus:outline-none cursor-pointer text-xs"
                             >
                                 <option value="id-desc" className="bg-[#171229] text-white">Newest first</option>
                                 <option value="id-asc" className="bg-[#171229] text-white">Oldest first</option>
@@ -157,27 +193,27 @@ export default function ProductsTableClient({ products = [], defaultOptions = {}
                             <button
                                 type="button"
                                 onClick={clearAllFilters}
-                                className="text-xs text-slate-400 hover:text-white px-2 py-1.5 rounded-lg hover:bg-white/5 font-mono cursor-pointer transition-colors"
+                                className="text-xs text-[#9d7cff] hover:text-white px-3 py-2 rounded-xl bg-[#9d7cff]/10 hover:bg-[#9d7cff]/20 border border-[#9d7cff]/20 font-mono cursor-pointer transition-colors"
                             >
-                                Reset
+                                Reset Filters
                             </button>
                         )}
                     </div>
                 </div>
 
-                {/* Game filter pills */}
+                {/* Game Category Filter Pills */}
                 {games.length > 0 && (
-                    <div className="flex items-center gap-1.5 overflow-x-auto pb-1 pt-1 border-t border-white/5">
-                        <span className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mr-1 shrink-0">
+                    <div className="flex items-center gap-1.5 overflow-x-auto pb-1 pt-1.5 border-t border-white/5 custom-scrollbar">
+                        <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mr-1 shrink-0 font-bold">
                             Category:
                         </span>
                         <button
                             type="button"
                             onClick={() => setSelectedGame('all')}
-                            className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer border shrink-0 ${
+                            className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer border shrink-0 ${
                                 selectedGame === 'all'
                                     ? 'bg-[#9d7cff]/20 border-[#9d7cff] text-white shadow-sm'
-                                    : 'bg-[#120e1c] border-white/5 text-slate-400 hover:text-white hover:border-white/15'
+                                    : 'bg-[#120e1c] border-white/10 text-slate-400 hover:text-white hover:border-white/20'
                             }`}
                         >
                             All ({products.length})
@@ -190,10 +226,10 @@ export default function ProductsTableClient({ products = [], defaultOptions = {}
                                     key={gameName}
                                     type="button"
                                     onClick={() => setSelectedGame(gameName)}
-                                    className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer border shrink-0 ${
+                                    className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer border shrink-0 ${
                                         isSelected
                                             ? 'bg-[#9d7cff]/20 border-[#9d7cff] text-white shadow-sm'
-                                            : 'bg-[#120e1c] border-white/5 text-slate-400 hover:text-white hover:border-white/15'
+                                            : 'bg-[#120e1c] border-white/10 text-slate-400 hover:text-white hover:border-white/20'
                                     }`}
                                 >
                                     {gameName} ({count})
@@ -205,23 +241,25 @@ export default function ProductsTableClient({ products = [], defaultOptions = {}
             </div>
 
             {/* PRODUCTS TABLE */}
-            <div className="panel-surface rounded-2xl overflow-hidden border border-white/10 bg-[#171229]">
+            <div className="panel-surface rounded-2xl overflow-hidden border border-white/10 bg-[#171229] shadow-[0_10px_30px_rgba(0,0,0,0.35)]">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
-                        <thead className="bg-white/5 text-slate-300 text-xs font-mono uppercase tracking-wider">
+                        <thead className="bg-[#120e1c]/80 text-slate-300 text-xs font-mono uppercase tracking-wider border-b border-white/10">
                             <tr>
-                                <th className="p-4 w-16">ID</th>
-                                <th className="p-4">Product / Service</th>
-                                <th className="p-4">Configuration</th>
-                                <th className="p-4">Price</th>
-                                <th className="p-4 text-right">Actions</th>
+                                <th className="py-4 px-4 w-16">ID</th>
+                                <th className="py-4 px-4 min-w-[240px]">Product / Service</th>
+                                <th className="py-4 px-4 min-w-[140px]">Game</th>
+                                <th className="py-4 px-4 min-w-[180px]">Platform (Click to change)</th>
+                                <th className="py-4 px-4">Boost / Spec</th>
+                                <th className="py-4 px-4 text-right">Price</th>
+                                <th className="py-4 px-4 text-right min-w-[120px]">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
                             {paginatedProducts.length === 0 ? (
                                 <tr>
-                                    <td colSpan="5" className="p-12 text-center text-slate-400 space-y-3">
-                                        <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-slate-400">
+                                    <td colSpan="7" className="p-12 text-center text-slate-400 space-y-3">
+                                        <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-slate-400">
                                             <Icon name="search" className="w-5 h-5" />
                                         </div>
                                         <p className="text-white font-medium text-sm">
@@ -231,7 +269,7 @@ export default function ProductsTableClient({ products = [], defaultOptions = {}
                                             <button
                                                 type="button"
                                                 onClick={clearAllFilters}
-                                                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#9d7cff]/20 text-[#9d7cff] hover:bg-[#9d7cff] hover:text-[#0d0914] text-xs font-mono font-bold transition-colors cursor-pointer"
+                                                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#9d7cff]/20 text-[#9d7cff] hover:bg-[#9d7cff] hover:text-[#0d0914] text-xs font-mono font-bold transition-colors cursor-pointer"
                                             >
                                                 Clear filters & search
                                             </button>
@@ -242,58 +280,87 @@ export default function ProductsTableClient({ products = [], defaultOptions = {}
                                 paginatedProducts.map((product) => (
                                     <tr
                                         key={product.id}
-                                        className="hover:bg-white/[0.02] transition-colors"
+                                        className="hover:bg-white/[0.02] transition-colors group"
                                     >
-                                        <td className="p-4 text-slate-400 font-mono text-xs">
-                                            <span className="px-2 py-1 rounded bg-black/40 border border-white/5">
+                                        {/* ID */}
+                                        <td className="py-4 px-4 text-slate-400 font-mono text-xs">
+                                            <span className="px-2 py-1 rounded-lg bg-black/40 border border-white/5 text-slate-300 font-bold">
                                                 #{product.id}
                                             </span>
                                         </td>
-                                        <td className="p-4">
+
+                                        {/* Thumbnail & Title */}
+                                        <td className="py-4 px-4">
                                             <div className="flex items-center gap-3">
                                                 {product.image_url ? (
                                                     // eslint-disable-next-line @next/next/no-img-element
                                                     <img
                                                         src={product.image_url}
                                                         alt={product.name}
-                                                        className="w-10 h-10 rounded-xl object-cover bg-black/40 border border-white/10 shrink-0"
+                                                        className="w-11 h-11 rounded-xl object-cover bg-black/40 border border-white/10 shrink-0 shadow-sm"
                                                         onError={(e) => {
                                                             e.currentTarget.style.display = 'none';
                                                         }}
                                                     />
-                                                ) : null}
+                                                ) : (
+                                                    <div className="w-11 h-11 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center text-slate-500 shrink-0">
+                                                        <Icon name="package" className="w-5 h-5" />
+                                                    </div>
+                                                )}
                                                 <div className="min-w-0">
-                                                    <div className="font-bold text-white text-sm truncate max-w-xs sm:max-w-md">
+                                                    <div className="font-bold text-white text-sm truncate max-w-xs sm:max-w-md group-hover:text-[#9d7cff] transition-colors">
                                                         {product.name}
                                                     </div>
-                                                    {product.game && (
-                                                        <span className="text-[11px] text-[#9d7cff] font-mono">
-                                                            {product.game}
+                                                    {product.slug && (
+                                                        <span className="text-[11px] text-slate-500 font-mono truncate block">
+                                                            /store/{product.id}
                                                         </span>
                                                     )}
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="p-4 text-xs text-slate-400">
-                                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white/5 border border-white/10 font-mono text-slate-300">
-                                                {product.platform === 'All' ? 'All platforms' : (product.platform || 'All')}
-                                            </span>
-                                            <span className="ml-2 font-mono text-slate-400">
-                                                {product.boost_amount ? `${product.boost_amount}M` : 'Variable'}
+
+                                        {/* Game Category */}
+                                        <td className="py-4 px-4">
+                                            <span className="inline-flex items-center px-2.5 py-1 rounded-lg bg-[#9d7cff]/10 border border-[#9d7cff]/20 text-[#9d7cff] font-mono text-xs font-bold">
+                                                {product.game || 'General'}
                                             </span>
                                         </td>
-                                        <td className="p-4">
-                                            <div className="text-lime-300 font-bold font-mono text-sm">
+
+                                        {/* Platform (Interactive Platform Selector Cell) */}
+                                        <td className="py-4 px-4">
+                                            <PlatformTableCell
+                                                product={product}
+                                                onPlatformChange={handlePlatformChange}
+                                            />
+                                        </td>
+
+                                        {/* Boost / Spec */}
+                                        <td className="py-4 px-4 text-xs font-mono text-slate-300">
+                                            {product.boost_amount ? (
+                                                <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white font-bold">
+                                                    {product.boost_amount}M
+                                                </span>
+                                            ) : (
+                                                <span className="text-slate-500">Standard</span>
+                                            )}
+                                        </td>
+
+                                        {/* Price */}
+                                        <td className="py-4 px-4 text-right">
+                                            <div className="text-lime-300 font-bold font-mono text-sm sm:text-base tabular-nums">
                                                 ${product.price} USD
                                             </div>
                                             {product.original_price ? (
-                                                <div className="text-xs text-slate-500 line-through font-mono">
+                                                <div className="text-xs text-slate-500 line-through font-mono tabular-nums">
                                                     ${product.original_price} USD
                                                 </div>
                                             ) : null}
                                         </td>
-                                        <td className="p-4 text-right">
-                                            <div className="inline-flex items-center gap-2 justify-end">
+
+                                        {/* Actions */}
+                                        <td className="py-4 px-4 text-right">
+                                            <div className="inline-flex items-center gap-1.5 justify-end">
                                                 <ProductEditDrawer product={product} defaultOptions={defaultOptions} />
                                                 <ProductDeleteButton productId={product.id} productName={product.name} />
                                             </div>
@@ -306,7 +373,7 @@ export default function ProductsTableClient({ products = [], defaultOptions = {}
                 </div>
 
                 {/* PAGINATION FOOTER */}
-                <div className="p-4 border-t border-white/10 bg-white/[0.01] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="p-4 sm:p-5 border-t border-white/10 bg-[#120e1c]/60 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-3 text-xs font-mono text-slate-400">
                         <span>
                             {filteredProducts.length === 0
@@ -314,11 +381,11 @@ export default function ProductsTableClient({ products = [], defaultOptions = {}
                                 : `Showing ${startIndex + 1}–${endIndex} of ${filteredProducts.length} services`}
                         </span>
                         <div className="flex items-center gap-1.5 ml-2 border-l border-white/10 pl-3">
-                            <span className="text-[11px] text-slate-500">Per page:</span>
+                            <span className="text-[11px] text-slate-400">Per page:</span>
                             <select
                                 value={pageSize}
                                 onChange={(e) => setPageSize(Number(e.target.value))}
-                                className="bg-[#120e1c] border border-white/10 rounded-lg px-2 py-1 text-xs text-slate-300 focus:border-[#9d7cff] outline-none cursor-pointer"
+                                className="bg-[#120e1c] border border-white/10 rounded-lg px-2.5 py-1 text-xs text-slate-200 focus:border-[#9d7cff] outline-none cursor-pointer"
                             >
                                 <option value={10}>10</option>
                                 <option value={25}>25</option>
@@ -334,7 +401,7 @@ export default function ProductsTableClient({ products = [], defaultOptions = {}
                                 type="button"
                                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                                 disabled={safeCurrentPage === 1}
-                                className="px-3 py-1.5 rounded-lg border border-white/10 bg-[#120e1c] hover:bg-white/10 text-xs font-mono font-bold text-slate-300 disabled:opacity-30 disabled:pointer-events-none transition-colors inline-flex items-center gap-1 cursor-pointer"
+                                className="px-3 py-1.5 rounded-xl border border-white/10 bg-[#120e1c] hover:bg-white/10 text-xs font-mono font-bold text-slate-300 disabled:opacity-30 disabled:pointer-events-none transition-colors inline-flex items-center gap-1 cursor-pointer"
                             >
                                 <Icon name="chevron-left" className="w-3.5 h-3.5" />
                                 <span>Prev</span>
@@ -358,7 +425,7 @@ export default function ProductsTableClient({ products = [], defaultOptions = {}
                                             key={p}
                                             type="button"
                                             onClick={() => setCurrentPage(p)}
-                                            className={`min-w-[32px] h-8 px-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                                            className={`min-w-[34px] h-8 px-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
                                                 isActive
                                                     ? 'bg-[#9d7cff] text-[#0d0914] shadow-sm font-black'
                                                     : 'bg-[#120e1c] hover:bg-white/10 text-slate-300 hover:text-white border border-white/10'
@@ -374,7 +441,7 @@ export default function ProductsTableClient({ products = [], defaultOptions = {}
                                 type="button"
                                 onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                                 disabled={safeCurrentPage === totalPages}
-                                className="px-3 py-1.5 rounded-lg border border-white/10 bg-[#120e1c] hover:bg-white/10 text-xs font-mono font-bold text-slate-300 disabled:opacity-30 disabled:pointer-events-none transition-colors inline-flex items-center gap-1 cursor-pointer"
+                                className="px-3 py-1.5 rounded-xl border border-white/10 bg-[#120e1c] hover:bg-white/10 text-xs font-mono font-bold text-slate-300 disabled:opacity-30 disabled:pointer-events-none transition-colors inline-flex items-center gap-1 cursor-pointer"
                             >
                                 <span>Next</span>
                                 <Icon name="chevron-right" className="w-3.5 h-3.5" />
