@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect, useTransition } from 'react';
+import { useState, useTransition } from 'react';
 import { deleteProduct, updateProduct } from './actions';
 import { toast } from '../../../utils/toast';
 import ConfiguratorEditor from './ConfiguratorEditor';
 import ImageUploadField from './ImageUploadField';
 import { PlatformFormField } from './PlatformSelector';
+import ProductDescriptionEditor from './ProductDescriptionEditor';
 import Icon from '../../../components/Icon';
 
 export function ProductDeleteButton({ productId, productName }) {
@@ -66,18 +67,6 @@ export function ProductEditDrawer({ product, defaultOptions }) {
     const [open, setOpen] = useState(false);
     const [isPending, startTransition] = useTransition();
 
-    // Close modal on Escape key press
-    useEffect(() => {
-        if (!open) return;
-        const handleKeyDown = (e) => {
-            if (e.key === 'Escape' && !isPending) {
-                setOpen(false);
-            }
-        };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [open, isPending]);
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
@@ -105,15 +94,15 @@ export function ProductEditDrawer({ product, defaultOptions }) {
             </button>
 
             {open && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+                <div className="fixed inset-0 z-50 flex justify-end">
                     {/* Backdrop */}
                     <div
-                        className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity"
+                        className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
                         onClick={() => !isPending && setOpen(false)}
                     />
 
-                    {/* Centered Modal Dialog */}
-                    <div className="relative w-full max-w-2xl max-h-[90vh] bg-[#171229] border border-white/15 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.85)] z-10 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150 my-auto">
+                    {/* Drawer Panel */}
+                    <div className="relative w-full max-w-2xl bg-[#171229] border-l border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)] z-10 flex flex-col h-full animate-in slide-in-from-right duration-200">
                         {/* Drawer Header */}
                         <div className="p-5 border-b border-white/10 flex items-center justify-between shrink-0 bg-[#120e1c]/80 backdrop-blur-md">
                             <div className="space-y-0.5">
@@ -243,16 +232,10 @@ export function ProductEditDrawer({ product, defaultOptions }) {
 
                                 <ImageUploadField defaultValue={product.image_url} compact />
 
-                                <div>
-                                    <label className="block text-xs font-mono text-slate-300 mb-1.5">Product Description</label>
-                                    <textarea
-                                        name="description"
-                                        defaultValue={product.description || ''}
-                                        placeholder="Detailed description of what the buyer receives..."
-                                        rows="3"
-                                        className="w-full bg-[#120e1c] border border-white/10 rounded-xl p-3 text-white text-xs focus:border-[#9d7cff] outline-none"
-                                    />
-                                </div>
+                                <ProductDescriptionEditor
+                                    defaultValue={product.description || ''}
+                                    label="Product Description"
+                                />
                             </div>
 
                             {/* Section 6: Additional Information */}

@@ -13,6 +13,7 @@ import PlatformBadges, { PlayStationIcon, XboxIcon, PcIcon } from './PlatformBad
 import ProductTrustBadges from './ProductTrustBadges';
 import GtaOrderConfigurator from './GtaOrderConfigurator';
 import ProductCard from './ProductCard';
+import ProductDescriptionRenderer from './ProductDescriptionRenderer';
 import { gameToSlug } from '../lib/gameSlugs';
 
 const platforms = ['PC', 'PlayStation', 'Xbox', 'All'];
@@ -86,9 +87,9 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
                     </div>
 
                     <h1 className="display-font text-4xl sm:text-5xl md:text-6xl uppercase text-white leading-[0.95]">{product.name}</h1>
-                    <p className="text-slate-400 text-base sm:text-lg leading-relaxed mt-6">
-                        {product.description || t('defaultDescription')}
-                    </p>
+                    <div className="mt-6">
+                        <ProductDescriptionRenderer content={product.description || t('defaultDescription')} />
+                    </div>
 
                     <div className="grid sm:grid-cols-3 gap-3 mt-8 pt-7 border-t border-white/10 text-sm">
                         <div><span className="text-slate-400 block">{t('configLabel')}</span><strong className="text-white">{t('configValue')}</strong></div>
@@ -166,7 +167,7 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
 
             <section className="mt-16 max-w-4xl border-t border-white/10 pt-12">
                 <p className="eyebrow mb-3">{t('serviceGuide')}</p>
-                <EditableContentSection productId={product.id} section="description" title={t('sectionDescription')} initialItems={[product.description || t('fallbackDescription')]} />
+                <EditableContentSection productId={product.id} section="description" title={t('sectionDescription')} initialItems={[product.description || t('fallbackDescription')]} renderItem={(item) => <ProductDescriptionRenderer content={item} />} />
 
                 <EditableContentSection productId={product.id} section="how_it_works" title={t('sectionHowItWorks')} initialItems={splitContent(product.how_it_works, t.raw('fallbackHowItWorks'))} />
                 <EditableContentSection productId={product.id} section="requirements" title={t('sectionRequirements')} initialItems={splitContent(product.requirements, t.raw('fallbackRequirements'))} />

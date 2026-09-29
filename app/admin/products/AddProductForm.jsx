@@ -6,6 +6,7 @@ import { toast } from '../../../utils/toast';
 import ConfiguratorEditor from './ConfiguratorEditor';
 import ImageUploadField from './ImageUploadField';
 import { PlatformFormField } from './PlatformSelector';
+import ProductDescriptionEditor from './ProductDescriptionEditor';
 import Icon from '../../../components/Icon';
 
 export default function AddProductForm({ selectedGame, initialOptions }) {
@@ -152,14 +153,10 @@ export default function AddProductForm({ selectedGame, initialOptions }) {
 
                     {/* Description */}
                     <div className="w-full md:col-span-2">
-                        <label className="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-1.5">
-                            Full Service Description
-                        </label>
-                        <textarea
+                        <ProductDescriptionEditor
+                            defaultValue=""
                             name="description"
-                            rows="3"
-                            placeholder="Detailed explanation of what the customer receives, safety methods, and timeframe..."
-                            className="w-full bg-[#120e1c] border border-white/10 rounded-xl p-3 text-white text-xs placeholder-slate-500 focus:border-[#9d7cff] outline-none transition-colors"
+                            label="Full Service Description"
                         />
                     </div>
 
