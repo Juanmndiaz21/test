@@ -54,11 +54,12 @@ export default async function AdminReviews({ searchParams }) {
 
             {/* Add Review Section */}
             <details className="group panel-surface rounded-2xl border border-lime-300/20 overflow-hidden">
-                <summary className="p-5 font-bold text-white text-base cursor-pointer flex items-center justify-between hover:bg-white/5 transition-colors">
+                <summary className="p-5 font-bold text-white text-base cursor-pointer flex items-center justify-between hover:bg-white/5 transition-colors list-none [&::-webkit-details-marker]:hidden select-none">
                     <span className="flex items-center gap-2">
-                        <span className="text-lime-300 text-xl font-mono">+</span> Add New Review
+                        <span className="text-lime-300 text-xl font-mono group-open:rotate-45 inline-block transition-transform duration-200">+</span> Add New Review
                     </span>
-                    <span className="text-xs font-semibold text-lime-300 uppercase tracking-widest">Expand</span>
+                    <span className="text-xs font-semibold text-lime-300 uppercase tracking-widest group-open:hidden">Expand</span>
+                    <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest hidden group-open:inline">Collapse</span>
                 </summary>
                 <div className="p-6 pt-0 border-t border-white/10">
                     <ReviewForm products={products} />

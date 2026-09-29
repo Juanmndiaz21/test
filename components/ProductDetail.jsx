@@ -14,6 +14,7 @@ import ProductTrustBadges from './ProductTrustBadges';
 import GtaOrderConfigurator from './GtaOrderConfigurator';
 import ProductCard from './ProductCard';
 import ProductDescriptionRenderer from './ProductDescriptionRenderer';
+import Icon from './Icon';
 import { gameToSlug } from '../lib/gameSlugs';
 
 const platforms = ['PC', 'PlayStation', 'Xbox', 'All'];
@@ -171,7 +172,35 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
 
                 <EditableContentSection productId={product.id} section="how_it_works" title={t('sectionHowItWorks')} initialItems={splitContent(product.how_it_works, t.raw('fallbackHowItWorks'))} />
                 <EditableContentSection productId={product.id} section="requirements" title={t('sectionRequirements')} initialItems={splitContent(product.requirements, t.raw('fallbackRequirements'))} />
-                <EditableContentSection productId={product.id} section="faqs" title={t('sectionFaqs')} initialItems={splitContent(product.faqs, t.raw('fallbackFaqs'))} renderItem={(item) => { const [question, answer] = item.split('|'); return <details><summary className="font-bold text-white cursor-pointer">{question.trim()}</summary><p className="text-slate-400 mt-3">{(answer || t('faqFallbackAnswer')).trim()}</p></details>; }} />
+                <EditableContentSection
+                    productId={product.id}
+                    section="faqs"
+                    title={t('sectionFaqs')}
+                    initialItems={splitContent(product.faqs, t.raw('fallbackFaqs'))}
+                    renderItem={(item) => {
+                        const parts = item.split('|');
+                        const question = parts[0]?.trim() || '';
+                        const answer = parts.slice(1).join('|')?.trim() || t('faqFallbackAnswer');
+                        return (
+                            <details className="group text-left w-full">
+                                <summary className="flex items-center justify-between gap-4 font-bold text-white text-base sm:text-lg cursor-pointer list-none [&::-webkit-details-marker]:hidden hover:text-[#9d7cff] transition-colors py-1 select-none">
+                                    <span className="flex items-center gap-3 min-w-0 pr-2">
+                                        <span className="font-mono text-xs sm:text-sm font-black text-[#9d7cff] shrink-0">
+                                            Q.
+                                        </span>
+                                        <span className="leading-snug">{question}</span>
+                                    </span>
+                                    <span className="shrink-0 flex items-center justify-center w-7 h-7 rounded-full border border-white/15 bg-white/5 text-slate-400 group-open:border-[#9d7cff] group-open:bg-[#9d7cff] group-open:text-[#0d0914] group-open:rotate-45 transition-all duration-200">
+                                        <Icon name="plus" className="w-3.5 h-3.5" strokeWidth={2.4} />
+                                    </span>
+                                </summary>
+                                <div className="pt-3 pb-1 text-slate-300 text-sm leading-relaxed border-t border-white/5 mt-3">
+                                    {answer}
+                                </div>
+                            </details>
+                        );
+                    }}
+                />
             </section>
 
             {relatedProducts.length > 0 && (
