@@ -59,18 +59,8 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/store/game/CS2',
-        destination: '/store/game/cs2',
-        permanent: true,
-      },
-      {
         source: '/store/game/cs-2',
         destination: '/store/game/cs2',
-        permanent: true,
-      },
-      {
-        source: '/store/game/RDR2',
-        destination: '/store/game/rdr2',
         permanent: true,
       },
       {
