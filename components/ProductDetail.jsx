@@ -13,6 +13,7 @@ import PlatformBadges, { PlayStationIcon, XboxIcon, PcIcon } from './PlatformBad
 import ProductTrustBadges from './ProductTrustBadges';
 import GtaOrderConfigurator from './GtaOrderConfigurator';
 import ProductCard from './ProductCard';
+import { gameToSlug } from '../lib/gameSlugs';
 
 const platforms = ['PC', 'PlayStation', 'Xbox', 'All'];
 const splitContent = (value, fallback) => (value ? value.split('\n').map((item) => item.trim()).filter(Boolean) : fallback);
@@ -63,7 +64,7 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
 
     return (
         <div className="max-w-7xl mx-auto px-5 py-12 md:py-16">
-            <Link href={`/store/game/${encodeURIComponent(product.game || 'General')}`} className="text-sm text-slate-400 hover:text-[#9d7cff] transition-colors">{t('backTo', { game: product.game || 'game' })}</Link>
+            <Link href={`/store/game/${gameToSlug(product.game || 'general')}`} className="text-sm text-slate-400 hover:text-[#9d7cff] transition-colors">{t('backTo', { game: product.game || 'game' })}</Link>
             <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 mt-8 items-start">
                 <section className="panel-surface rounded-2xl p-7 md:p-10">
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-8 bg-black/40">

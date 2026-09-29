@@ -18,6 +18,7 @@ export default function SiteHeader() {
     const navItems = [
         { href: '/', label: t('home') },
         { href: '/store', label: t('store') },
+        { href: '/about', label: 'About' },
         { href: '/help', label: t('support') },
         { href: '/contact', label: t('contact') },
     ];
@@ -39,7 +40,7 @@ export default function SiteHeader() {
                     />
                 </Link>
 
-                <nav className="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-300">
+                <nav aria-label="Main navigation" className="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-300">
                     {navItems.map((item) => (
                         <Link
                             key={item.href}
@@ -52,7 +53,7 @@ export default function SiteHeader() {
                 </nav>
 
                 <div className="flex items-center gap-3">
-                    <CartLink className="min-h-[40px] min-w-[40px] h-10 w-10 rounded-full border border-white/15 bg-white/5 text-slate-300 hover:text-[#9d7cff] hover:border-[#9d7cff]/60 transition-[color,border-color,background-color,transform] duration-150 ease-out active:scale-[0.95] inline-flex items-center justify-center focus-visible:outline-2 focus-visible:outline-[#9d7cff]" />
+                    <CartLink className="min-h-[44px] min-w-[44px] h-11 w-11 rounded-full border border-white/15 bg-white/5 text-slate-300 hover:text-[#9d7cff] hover:border-[#9d7cff]/60 transition-[color,border-color,background-color,transform] duration-150 ease-out active:scale-[0.95] inline-flex items-center justify-center focus-visible:outline-2 focus-visible:outline-[#9d7cff]" />
                     <div className="hidden md:block">
                         <UserNav />
                     </div>
@@ -73,6 +74,7 @@ function MobileMenu({ pathname, session }) {
     const links = [
         { href: '/', label: t('home') },
         { href: '/store', label: t('store') },
+        { href: '/about', label: 'About' },
         { href: '/track', label: t('trackOrder') },
         { href: '/help', label: t('support') },
         { href: '/contact', label: t('contact') },
@@ -102,7 +104,7 @@ function MobileMenu({ pathname, session }) {
                 aria-label={open ? 'Close menu' : 'Open menu'}
                 aria-expanded={open}
                 onClick={() => setOpen((value) => !value)}
-                className="inline-flex items-center justify-center min-h-[40px] min-w-[40px] h-10 w-10 rounded-lg border border-white/10 bg-white/5 text-slate-300 hover:border-[#9d7cff]/40 hover:text-[#9d7cff] transition-[color,border-color,background-color] duration-150 active:scale-[0.95] focus-visible:outline-2 focus-visible:outline-[#9d7cff]"
+                className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] h-11 w-11 rounded-xl border border-white/10 bg-white/5 text-slate-300 hover:border-[#9d7cff]/40 hover:text-[#9d7cff] transition-[color,border-color,background-color] duration-150 active:scale-[0.95] focus-visible:outline-2 focus-visible:outline-[#9d7cff]"
             >
                 <Icon name={open ? 'x' : 'menu'} className="w-5 h-5" strokeWidth={2.2} />
             </button>

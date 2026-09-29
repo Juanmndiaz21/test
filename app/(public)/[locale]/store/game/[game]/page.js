@@ -6,7 +6,7 @@ import GameServicesCatalog from '@/components/GameServicesCatalog';
 import { ensureAppSchema } from '@/lib/schema';
 import { slugToGameName, gameToSlug, productToSlug } from '@/lib/gameSlugs';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 120;
 
 export default async function GameServicesPage({ params }) {
     const { locale, game: encodedGame } = await params;

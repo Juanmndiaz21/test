@@ -5,7 +5,7 @@ import PageHeaderBanner from '@/components/PageHeaderBanner';
 import { ensureAppSchema } from '@/lib/schema';
 import { gameToSlug } from '@/lib/gameSlugs';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 120;
 
 export async function generateMetadata({ params }) {
     const { locale } = await params;

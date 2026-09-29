@@ -38,7 +38,7 @@ export default async function Footer() {
                             <a
                                 href="https://discord.gg/qwyQjn4Aqx"
                                 target="_blank"
-                                rel="noopener noreferrer"
+                                rel="nofollow noopener noreferrer"
                                 aria-label="Join our Discord community"
                                 title="Discord"
                                 className="w-10 h-10 rounded-xl bg-white/5 hover:bg-[#5865F2] text-slate-300 hover:text-white border border-white/10 hover:border-[#5865F2] flex items-center justify-center transition-[background-color,border-color,color,transform] duration-150 ease-out hover:scale-105 active:scale-95 shadow-sm"
@@ -59,6 +59,9 @@ export default async function Footer() {
                             </li>
                             <li>
                                 <Link href="/store" className="text-slate-300 hover:text-[#9d7cff] transition-colors">{common('store')}</Link>
+                            </li>
+                            <li>
+                                <Link href="/about" className="text-slate-300 hover:text-[#9d7cff] transition-colors">About Us</Link>
                             </li>
                             <li>
                                 <Link href="/help" className="text-slate-300 hover:text-[#9d7cff] transition-colors">{common('support')}</Link>
@@ -89,7 +92,7 @@ export default async function Footer() {
                                 <a
                                     href="https://discord.gg/qwyQjn4Aqx"
                                     target="_blank"
-                                    rel="noopener noreferrer"
+                                    rel="nofollow noopener noreferrer"
                                     className="text-slate-300 hover:text-[#5865F2] transition-colors inline-flex items-center gap-1.5"
                                 >
                                     <Icon name="discord" className="w-3.5 h-3.5 text-[#5865F2]" />
@@ -133,7 +136,7 @@ export default async function Footer() {
                         <a
                             href="https://discord.gg/qwyQjn4Aqx"
                             target="_blank"
-                            rel="noopener noreferrer"
+                            rel="nofollow noopener noreferrer"
                             className="inline-flex items-center gap-1.5 text-slate-400 hover:text-[#5865F2] transition-colors"
                             aria-label="Discord Community"
                         >

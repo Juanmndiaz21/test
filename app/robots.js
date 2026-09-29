@@ -37,6 +37,8 @@ export default function robots() {
                     '/*/profile',
                     '/reset-password',
                     '/*/reset-password',
+                    '/track',
+                    '/*/track',
                 ],
             },
         ],

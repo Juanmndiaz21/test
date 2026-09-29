@@ -99,7 +99,7 @@ export default function SupportChannels({ translations = {} }) {
                         <a
                             href={channel.href}
                             target={channel.href.startsWith('http') ? '_blank' : undefined}
-                            rel={channel.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                            rel={channel.href.startsWith('http') ? 'nofollow noopener noreferrer' : undefined}
                             aria-label={`${channel.title}: ${channel.actionText}`}
                             className={`w-full min-h-[44px] py-2.5 px-4 rounded-lg font-['Trebuchet_MS',sans-serif] font-medium text-sm text-center flex items-center justify-center transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#252530] ${channel.buttonStyle}`}
                         >

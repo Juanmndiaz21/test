@@ -56,7 +56,7 @@
     "workWithUs": "Work With Us"
   },
   "home": {
-    "titleMeta": "OGmodz — Premium Game Boosting Services | Rank & Level Up",
+    "titleMeta": "Buy Game Boosting Services — GTA 5 & CS2 | OGmodz",
     "heroBrand": "OGmodz:",
     "heroH1": "Trusted & Legit",
     "heroTitle": "Game Boosting Services",
@@ -150,9 +150,9 @@
     "clearSearch": "Clear search"
   },
   "store": {
-    "titleMeta": "Browse Game Boosting Services | OGmodz",
+    "titleMeta": "Browse Game Boosting Services",
     "eyebrow": "Browse by title",
-    "title": "Browse games",
+    "title": "Game Boosting Services — Browse Catalog",
     "subtitle": "Explore verified game boosting services for GTA V, CS2, and more. Customize platform and packages with fast delivery and 24/7 pro support.",
     "liveCatalog": "Live catalog",
     "jumpTo": "Jump to",
@@ -468,6 +468,22 @@
     "req2": "Clean record — strictly zero third-party software, cheats, or toxic behavior.",
     "req3": "Reliable communication, punctuality, and professional customer etiquette.",
     "applyButton": "Apply Now via Contact"
+  },
+  "about": {
+    "titleMeta": "About Us — Trusted Game Boosting & Player Services",
+    "eyebrow": "Behind the Roster",
+    "title": "About OGmodz",
+    "subtitle": "Connecting competitive gamers with verified, elite-tier boosters, coaches, and recovery specialists since inception.",
+    "missionTitle": "Our Mission",
+    "missionText": "At OGmodz, our mission is to eliminate the unfair grind and allow passionate players to enjoy top-tier gaming content, rank milestones, and in-game assets without compromising safety or spending hundreds of hours on repetitive tasks.",
+    "pillar1Title": "Top 0.5% Human Boosters",
+    "pillar1Text": "We strictly prohibit bots, injection scripts, cheats, or automated tools. 100% of our boosts are executed manually by vetted, high-ranking competitive players.",
+    "pillar2Title": "Bank-Grade Account Security",
+    "pillar2Text": "Our boosters connect through dedicated, localized residential VPNs matching your exact city and country to ensure game servers see only standard domestic logins.",
+    "pillar3Title": "100% Money-Back Guarantee",
+    "pillar3Text": "Every order is protected by our transparent refund policy and customer warranty. If we cannot complete your service on time, you receive a full refund.",
+    "pillar4Title": "24/7 Real-Time Support",
+    "pillar4Text": "Our support specialists and active community are available round the clock on Discord and our web portal to assist with any questions or order milestones."
   },
   "track": {
     "title": "Order Tracking",

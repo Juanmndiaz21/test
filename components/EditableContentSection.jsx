@@ -53,7 +53,7 @@ export default function EditableContentSection({ productId, section, title, init
                 <div className="h-px bg-white/10 flex-1" />
             </div>
             <div className="space-y-3">
-                {items.map((item, index) => (
+                {((items && items.length > 0 && items.some(Boolean)) ? items : (initialItems || [])).map((item, index) => (
                     <div key={`${section}-${index}`} className="relative group">
                         {editingIndex === index ? (
                             <div className="panel-surface rounded-xl p-4 flex gap-3">

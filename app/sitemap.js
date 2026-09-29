@@ -4,10 +4,12 @@ import { gameToSlug, productToSlug } from '../lib/gameSlugs.js';
 export default async function sitemap() {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
     const now = new Date();
+    const staticLastMod = new Date('2026-09-29T00:00:00.000Z');
 
     const staticRoutes = [
         { path: '', priority: 1.0, changeFrequency: 'daily' },
         { path: '/store', priority: 0.9, changeFrequency: 'daily' },
+        { path: '/about', priority: 0.7, changeFrequency: 'monthly' },
         { path: '/help', priority: 0.6, changeFrequency: 'weekly' },
         { path: '/contact', priority: 0.6, changeFrequency: 'weekly' },
         { path: '/work-with-us', priority: 0.5, changeFrequency: 'monthly' },
@@ -25,7 +27,7 @@ export default async function sitemap() {
     for (const route of staticRoutes) {
         entries.push({
             url: getUrl(route.path),
-            lastModified: now,
+            lastModified: route.path === '' || route.path === '/store' ? now : staticLastMod,
             changeFrequency: route.changeFrequency,
             priority: route.priority,
         });

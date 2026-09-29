@@ -7,6 +7,8 @@ import Reveal from '@/components/Reveal';
 import ReviewGrid from '@/components/ReviewGrid';
 import FaqAccordion from '@/components/FaqAccordion';
 import Icon from '@/components/Icon';
+import ProductCard from '@/components/ProductCard';
+import { Link } from '@/i18n/navigation';
 import { getApprovedReviews } from '@/lib/reviews';
 import { ensureAppSchema } from '@/lib/schema';
 
@@ -50,12 +52,13 @@ export default async function Home({ params }) {
 
     let ladder = [];
     let dbApprovedReviews = [];
+    let featuredProducts = [];
 
     try {
         const sql = neon(process.env.DATABASE_URL);
         await ensureAppSchema(sql);
 
-        const [rows, reviewsData] = await Promise.all([
+        const [rows, reviewsData, featuredRows] = await Promise.all([
             sql`
                 SELECT g.name, g.image_url, g.mode, COUNT(p.id)::int AS services
                 FROM games g
@@ -64,12 +67,26 @@ export default async function Home({ params }) {
                 ORDER BY COUNT(p.id) DESC, g.name ASC
             `,
             getApprovedReviews(),
+            sql`
+                SELECT * FROM products
+                ORDER BY 
+                    CASE 
+                        WHEN LOWER(name) LIKE '%cash boost%' THEN 1
+                        WHEN LOWER(name) LIKE '%full modded%' THEN 2
+                        WHEN LOWER(name) LIKE '%commends%' THEN 3
+                        ELSE 4
+                    END,
+                    id DESC
+                LIMIT 4
+            `,
         ]);
         ladder = rows;
         dbApprovedReviews = reviewsData;
+        featuredProducts = featuredRows || [];
     } catch {
         ladder = [];
         dbApprovedReviews = await getApprovedReviews().catch(() => []);
+        featuredProducts = [];
     }
 
     const features = t.raw('features') ?? [];
@@ -130,6 +147,36 @@ export default async function Home({ params }) {
 
             {/* Standings Catalog Funnel */}
             <LandingCatalog games={ladder} />
+
+            {/* Direct Linking Hub: Top Featured Boosting Services for Maximum PageRank Transfer */}
+            {featuredProducts.length > 0 && (
+                <section aria-label="Featured Boosting Services" className="max-w-7xl mx-auto px-5 py-12 md:py-16 content-auto">
+                    <div className="flex items-center justify-between gap-4 mb-8">
+                        <div className="flex items-center gap-3">
+                            <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/20 text-[#9d7cff]">
+                                <Icon name="bolt" className="w-5 h-5" />
+                            </span>
+                            <div>
+                                <h2 className="display-font text-3xl sm:text-4xl uppercase text-white">Top Boosting Services</h2>
+                                <p className="text-xs sm:text-sm text-slate-400 mt-1">Instant start packages for GTA V, CS2, and Red Dead Online</p>
+                            </div>
+                        </div>
+                        <Link
+                            href="/store"
+                            className="hidden sm:inline-flex items-center gap-2 text-sm font-bold text-[#9d7cff] hover:text-white transition-colors"
+                        >
+                            <span>View All</span>
+                            <Icon name="arrow-right" className="w-4 h-4" />
+                        </Link>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                        {featuredProducts.map((product, index) => (
+                            <ProductCard key={product.id} product={product} index={index} />
+                        ))}
+                    </div>
+                </section>
+            )}
 
             {/* Tournament Protocol & Service Integrity */}
             <section aria-label={t('featuresTitle')} className="max-w-7xl mx-auto px-5 py-16 md:py-24 content-auto">

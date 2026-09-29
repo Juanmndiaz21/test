@@ -14,10 +14,17 @@ export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
 }
 
+export const viewport = {
+    themeColor: '#0d0914',
+    width: 'device-width',
+    initialScale: 1,
+    viewportFit: 'cover',
+};
+
 export async function generateMetadata({ params }) {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
 
-    const title = 'OGmodz — Buy Game Boosting, GTA 5 Cash Boost & CS2 Rank Services';
+    const title = 'Buy Game Boosting Services — GTA 5 & CS2 | OGmodz';
     const description = 'Buy premium game boosting at OGmodz. Fast delivery for GTA 5 cash boost, modded accounts & CS2 rank boost. 100% account safety with 24/7 support.';
 
     const englishKeywords = [
@@ -54,6 +61,9 @@ export async function generateMetadata({ params }) {
         robots: {
             index: true,
             follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
             googleBot: {
                 index: true,
                 follow: true,
@@ -93,11 +103,14 @@ export async function generateMetadata({ params }) {
         },
         icons: {
             icon: [
-                { url: '/favicon.ico?v=4', sizes: 'any' },
-                { url: '/favicon-32.png?v=4', type: 'image/png', sizes: '32x32' },
-                { url: '/icon-192.png?v=4', type: 'image/png', sizes: '192x192' },
+                { url: '/favicon.ico', sizes: 'any' },
+                { url: '/favicon-48.png', type: 'image/png', sizes: '48x48' },
+                { url: '/favicon-32.png', type: 'image/png', sizes: '32x32' },
+                { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
             ],
-            apple: '/apple-touch-icon.png?v=4',
+            apple: [
+                { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+            ],
         },
         manifest: '/site.webmanifest',
     };
@@ -123,13 +136,14 @@ export default async function LocaleLayout({ children, params }) {
                 url: baseUrl,
                 logo: `${baseUrl}/logo.png`,
                 description: 'Professional video game boosting and progression services for competitive titles.',
-                sameAs: [],
-                aggregateRating: {
-                    '@type': 'AggregateRating',
-                    ratingValue: '4.9',
-                    reviewCount: '120',
-                    bestRating: '5',
-                    worstRating: '1',
+                sameAs: [
+                    'https://discord.gg/qwyQjn4Aqx',
+                ],
+                contactPoint: {
+                    '@type': 'ContactPoint',
+                    contactType: 'customer service',
+                    url: `${baseUrl}/contact`,
+                    availableLanguage: ['English'],
                 },
             },
             {
@@ -145,6 +159,19 @@ export default async function LocaleLayout({ children, params }) {
                     target: `${storeSearchUrl}?search={search_term_string}`,
                     'query-input': 'required name=search_term_string',
                 },
+            },
+            {
+                '@type': 'WebPage',
+                '@id': `${baseUrl}/#webpage`,
+                url: baseUrl,
+                name: 'Buy Game Boosting Services — GTA 5 & CS2 | OGmodz',
+                isPartOf: {
+                    '@id': `${baseUrl}/#website`,
+                },
+                about: {
+                    '@id': `${baseUrl}/#organization`,
+                },
+                inLanguage: 'en-US',
             },
         ],
     };

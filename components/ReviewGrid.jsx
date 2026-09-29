@@ -351,12 +351,12 @@ export default function ReviewGrid({ reviews = [], starsAria }) {
                     </div>
 
                     {/* Set 2 (Identical duplicate for seamless wrap) */}
-                    <div ref={set2Ref} className="flex gap-5 shrink-0">
+                    <div ref={set2Ref} aria-hidden="true" className="flex gap-5 shrink-0">
                         {base.map((review, i) => renderCard(review, i, 's2'))}
                     </div>
 
                     {/* Set 3 (Buffer for wide viewports during manual drag) */}
-                    <div className="flex gap-5 shrink-0">
+                    <div aria-hidden="true" className="flex gap-5 shrink-0">
                         {base.map((review, i) => renderCard(review, i, 's3'))}
                     </div>
                 </div>

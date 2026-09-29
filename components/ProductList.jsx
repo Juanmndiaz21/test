@@ -3,6 +3,7 @@
 import { useState, useMemo, useDeferredValue, memo } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '../i18n/navigation';
+import { gameToSlug } from '@/lib/gameSlugs';
 import AddGameForm from './AddGameForm';
 import GameLogo from './GameLogo';
 import Icon from './Icon';
@@ -19,7 +20,7 @@ const GameCardItem = memo(function GameCardItem({ game, gameProducts, image, t, 
             style={{ animationDelay: `${staggerDelay}ms` }}
         >
             <Link
-                href={`/store/game/${encodeURIComponent(game)}`}
+                href={`/store/game/${gameToSlug(game)}`}
                 className="h-full flex items-center justify-between text-left group relative overflow-hidden panel-surface rounded-2xl p-4.5 border border-white/10 bg-[#171229] transition-[border-color,box-shadow,background-color,transform] duration-160 ease-[var(--ease-out)] hover:border-[#9d7cff]/60 hover:bg-[#1a142c] hover:shadow-[0_4px_20px_rgba(157,124,255,0.14)] active:scale-[0.985] active:duration-100 focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-[-2px] select-none cursor-pointer"
             >
                 <div className="flex items-center gap-4 min-w-0 flex-1 mr-3">
