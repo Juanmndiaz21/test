@@ -50,10 +50,12 @@ import {
     LuRadar,
     LuPackage,
     LuCopy,
+    LuBookOpen,
 } from 'react-icons/lu';
 import { SiDiscord } from 'react-icons/si';
 
 const ICONS = {
+    book: LuBookOpen,
     copy: LuCopy,
     search: LuSearch,
     'arrow-up-right': LuArrowUpRight,

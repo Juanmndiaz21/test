@@ -9,6 +9,7 @@ export default async function sitemap() {
     const staticRoutes = [
         { path: '', priority: 1.0, changeFrequency: 'daily' },
         { path: '/store', priority: 0.9, changeFrequency: 'daily' },
+        { path: '/blog', priority: 0.8, changeFrequency: 'daily' },
         { path: '/about', priority: 0.7, changeFrequency: 'monthly' },
         { path: '/help', priority: 0.6, changeFrequency: 'weekly' },
         { path: '/contact', priority: 0.6, changeFrequency: 'weekly' },
@@ -81,6 +82,30 @@ export default async function sitemap() {
                     changeFrequency: 'weekly',
                     priority: 0.7,
                 });
+            }
+
+            // 4. Dynamic blog post routes
+            try {
+                const blogPosts = await sql`
+                    SELECT slug, updated_at, created_at
+                    FROM blog_posts
+                    WHERE published = true
+                    ORDER BY created_at DESC
+                    LIMIT 100
+                `;
+
+                for (const post of blogPosts) {
+                    const postLastMod = post.updated_at || post.created_at || now;
+                    entries.push({
+                        url: getUrl(`/blog/${post.slug}`),
+                        lastModified: new Date(postLastMod),
+                        changeFrequency: 'weekly',
+                        priority: 0.7,
+                    });
+                }
+            } catch (blogErr) {
+                // Table might not exist yet if unseeded
+                console.error('Sitemap blog query error (non-fatal):', blogErr);
             }
         }
     } catch (err) {

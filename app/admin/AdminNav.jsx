@@ -12,6 +12,7 @@ const NAV_ITEMS = [
     { href: '/admin/reviews', label: 'Reviews', icon: 'star' },
     { href: '/admin/users', label: 'Users', icon: 'users' },
     { href: '/admin/help', label: 'Help / FAQs', icon: 'circle-help' },
+    { href: '/admin/blog', label: 'Blog & Guides', icon: 'book' },
     { href: '/admin/contact', label: 'Contact Messages', icon: 'mail' },
     { href: '/admin/settings', label: 'Payment Methods', icon: 'sliders' },
 ];

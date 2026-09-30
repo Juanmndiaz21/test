@@ -64,6 +64,9 @@ export default async function Footer() {
                                 <Link href="/about" className="text-slate-300 hover:text-[#9d7cff] transition-colors">About Us</Link>
                             </li>
                             <li>
+                                <Link href="/blog" className="text-slate-300 hover:text-[#9d7cff] transition-colors">Blog & Guides</Link>
+                            </li>
+                            <li>
                                 <Link href="/help" className="text-slate-300 hover:text-[#9d7cff] transition-colors">{common('support')}</Link>
                             </li>
                         </ul>
