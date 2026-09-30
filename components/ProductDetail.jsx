@@ -26,7 +26,7 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
         product.configurator_data && (
             (Array.isArray(product.configurator_data.packages) && product.configurator_data.packages.length > 0) ||
             product.configurator_data.versions ||
-            Array.isArray(product.configurator_data.addons)
+            (Array.isArray(product.configurator_data.addons) && product.configurator_data.addons.length > 0)
         )
     );
     const t = useTranslations('product');

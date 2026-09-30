@@ -74,10 +74,10 @@ export default function GtaOrderConfigurator({ product }) {
     }, [configData.versions]);
 
     const addonsCatalog = useMemo(() => {
-        return Array.isArray(configData.addons)
+        return Array.isArray(configData.addons) && configData.addons.length > 0
             ? configData.addons
-            : (product?.configurator_data ? [] : DEFAULT_ADDONS);
-    }, [configData.addons, product?.configurator_data]);
+            : DEFAULT_ADDONS;
+    }, [configData.addons]);
 
     // Available platforms determined by product.platform AND configData.versions
     const availablePlatforms = useMemo(() => {

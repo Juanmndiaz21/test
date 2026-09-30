@@ -330,36 +330,16 @@ export default function ConfiguratorEditor({ initialData }) {
                         <div className="space-y-2.5 max-h-80 overflow-y-auto pr-1">
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-[11px] font-mono text-slate-400 uppercase">
-                                    Addon Title · Orig $ · Disc $ {config.addons.length > 0 && `(${config.addons.length})`}
+                                    Addon Title · Orig $ · Disc $
                                 </span>
-                                <div className="flex items-center gap-3">
-                                    {config.addons.length === 0 && (
-                                        <button
-                                            type="button"
-                                            onClick={() => setConfig((prev) => ({ ...prev, addons: DEFAULT_CONFIG.addons }))}
-                                            className="text-xs text-slate-400 hover:text-white underline cursor-pointer"
-                                        >
-                                            Restore default addons
-                                        </button>
-                                    )}
-                                    <button
-                                        type="button"
-                                        onClick={addAddon}
-                                        className="text-xs text-[#9d7cff] hover:underline font-bold cursor-pointer"
-                                    >
-                                        + Add Addon
-                                    </button>
-                                </div>
+                                <button
+                                    type="button"
+                                    onClick={addAddon}
+                                    className="text-xs text-[#9d7cff] hover:underline font-bold cursor-pointer"
+                                >
+                                    + Add Addon
+                                </button>
                             </div>
-
-                            {config.addons.length === 0 && (
-                                <div className="p-6 text-center rounded-xl bg-black/20 border border-dashed border-white/10 text-slate-400 text-xs space-y-1">
-                                    <p className="font-bold text-slate-300">No addons configured</p>
-                                    <p className="text-[11px] text-slate-400">
-                                        This product will be sold without additional addons (the addons step will not be shown to customers).
-                                    </p>
-                                </div>
-                            )}
 
                             {config.addons.map((addon, idx) => (
                                 <div

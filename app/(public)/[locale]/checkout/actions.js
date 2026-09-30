@@ -7,7 +7,7 @@ import { ensureCouponsTable, findCouponByCode, evaluateCoupon, incrementCouponUs
 import { createStripeSession } from '@/lib/payments';
 import { createPayPalOrder, capturePayPalOrder } from '@/lib/paypal';
 import { ensureAppSchema } from '@/lib/schema';
-import { sendOrderConfirmationEmail } from '@/lib/email';
+import { sendOrderConfirmationEmail, notifyAdminsOfNewOrder } from '@/lib/email';
 import { rateLimit } from '@/lib/rateLimit';
 import { getTrustedOrigin } from '@/lib/guard';
 import { DEFAULT_OPTIONS, DEFAULT_PACKAGES, DEFAULT_ADDONS } from '@/lib/serviceDefaults';
@@ -23,9 +23,9 @@ function resolveAuthoritativeItemPrice(product, item) {
         const availablePackages = (Array.isArray(configData.packages) && configData.packages.length > 0)
             ? configData.packages
             : DEFAULT_PACKAGES;
-        const availableAddons = Array.isArray(configData.addons)
+        const availableAddons = (Array.isArray(configData.addons) && configData.addons.length > 0)
             ? configData.addons
-            : (product.configurator_data ? [] : DEFAULT_ADDONS);
+            : DEFAULT_ADDONS;
 
         let totalConfigured = 0;
         let foundAny = false;
@@ -339,6 +339,37 @@ export async function recordDemoOrder(prevState, formData) {
                 throw new Error('Failed to create PayPal payment order.');
             }
         } else if (paymentMethod === 'crypto_discord') {
+            // Send confirmation email to customer
+            try {
+                await sendOrderConfirmationEmail({
+                    to: emailKey,
+                    customerName: name,
+                    orderCode,
+                    total,
+                    items: orderItems,
+                    trackingUrl,
+                });
+            } catch (emailErr) {
+                console.error('Email confirmation error for crypto_discord order:', emailErr);
+            }
+
+            // Notify store administrators immediately
+            try {
+                await notifyAdminsOfNewOrder(sql, {
+                    orderId,
+                    orderCode,
+                    customerName: name,
+                    customerEmail: emailKey,
+                    total,
+                    paymentMethod: 'crypto_discord',
+                    status: 'queued',
+                    items: orderItems,
+                    origin,
+                });
+            } catch (adminEmailErr) {
+                console.error('Admin notification error for crypto_discord order:', adminEmailErr);
+            }
+
             // Manual Crypto / Binance Pay order -> route directly to success page with Discord ticket instructions
             return {
                 success: true,
@@ -363,6 +394,22 @@ export async function recordDemoOrder(prevState, formData) {
                 });
             } catch (emailErr) {
                 console.error('Email dispatch error during checkout:', emailErr);
+            }
+
+            try {
+                await notifyAdminsOfNewOrder(sql, {
+                    orderId,
+                    orderCode,
+                    customerName: name,
+                    customerEmail: emailKey,
+                    total,
+                    paymentMethod,
+                    status: 'queued',
+                    items: orderItems,
+                    origin,
+                });
+            } catch (adminEmailErr) {
+                console.error('Admin notification error during demo checkout:', adminEmailErr);
             }
         }
 
@@ -420,8 +467,20 @@ export async function capturePayPalPaymentAction({ orderId, paypalOrderId }) {
                         items,
                         trackingUrl,
                     });
+
+                    await notifyAdminsOfNewOrder(sql, {
+                        orderId,
+                        orderCode: order.order_code,
+                        customerName: order.customer_name,
+                        customerEmail: order.customer_email,
+                        total: order.total,
+                        paymentMethod: 'paypal',
+                        status: 'in_progress',
+                        items,
+                        origin: baseUrl,
+                    });
                 } catch (emailErr) {
-                    console.error('Failed to send confirmation email on PayPal capture:', emailErr);
+                    console.error('Failed to send confirmation / admin notification email on PayPal capture:', emailErr);
                 }
             }
 
