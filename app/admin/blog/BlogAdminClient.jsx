@@ -3,11 +3,15 @@
 import { useState, useTransition } from 'react';
 import Link from 'next/link';
 import Icon from '../../../components/Icon';
+import { LuImage } from 'react-icons/lu';
+import BlogCoverUpload from '../../../components/BlogCoverUpload';
+import { toast } from '../../../utils/toast';
 import {
     saveBlogPostAction,
     deleteBlogPostAction,
     toggleFeaturedAction,
-    togglePublishedAction
+    togglePublishedAction,
+    updateBlogCoverAction
 } from './actions';
 
 const DEFAULT_CATEGORIES = ['GTA 5', 'CS2', 'GTA 6', 'Guides', 'News', 'General'];
@@ -34,6 +38,8 @@ export default function BlogAdminClient({ initialPosts }) {
     const [categoryFilter, setCategoryFilter] = useState('All');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [activePost, setActivePost] = useState(EMPTY_POST);
+    const [coverModalPost, setCoverModalPost] = useState(null);
+    const [tempCoverUrl, setTempCoverUrl] = useState('');
     const [isPending, startTransition] = useTransition();
     const [errorMsg, setErrorMsg] = useState('');
     const [activeTab, setActiveTab] = useState('general'); // 'general' | 'content' | 'seo'
@@ -76,6 +82,29 @@ export default function BlogAdminClient({ initialPosts }) {
         setErrorMsg('');
         setActiveTab('general');
         setIsModalOpen(true);
+    };
+
+    const openCoverModal = (post) => {
+        setCoverModalPost(post);
+        setTempCoverUrl(post.image_url || '');
+    };
+
+    const handleSaveQuickCover = async () => {
+        if (!coverModalPost) return;
+        startTransition(async () => {
+            try {
+                await updateBlogCoverAction(coverModalPost.id, tempCoverUrl);
+                setPosts((prev) =>
+                    prev.map((p) =>
+                        p.id === coverModalPost.id ? { ...p, image_url: tempCoverUrl } : p
+                    )
+                );
+                toast.success('Cover image updated successfully!');
+                setCoverModalPost(null);
+            } catch (err) {
+                toast.error(err.message || 'Error updating cover photo');
+            }
+        });
     };
 
     const handleTitleChange = (e) => {
@@ -334,17 +363,27 @@ export default function BlogAdminClient({ initialPosts }) {
                                     <tr key={post.id} className="hover:bg-white/[0.02] transition-colors group">
                                         <td className="py-4 px-4">
                                             <div className="flex items-center gap-3.5">
-                                                {post.image_url ? (
-                                                    <img
-                                                        src={post.image_url}
-                                                        alt={post.title}
-                                                        className="w-14 h-10 object-cover rounded-lg border border-white/10 shrink-0"
-                                                    />
-                                                ) : (
-                                                    <div className="w-14 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 text-slate-500">
-                                                        <Icon name="book" className="w-5 h-5" />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => openCoverModal(post)}
+                                                    title="Click to view, upload, or change cover photo"
+                                                    className="group/thumb relative w-14 h-10 rounded-lg overflow-hidden border border-white/10 hover:border-[#9d7cff] transition-all cursor-pointer shrink-0 focus:outline-none focus:ring-1 focus:ring-[#9d7cff]"
+                                                >
+                                                    {post.image_url ? (
+                                                        <img
+                                                            src={post.image_url}
+                                                            alt={post.title}
+                                                            className="w-full h-full object-cover transition-transform group-hover/thumb:scale-110"
+                                                        />
+                                                    ) : (
+                                                        <div className="w-full h-full bg-white/5 flex items-center justify-center text-slate-500 group-hover/thumb:text-[#9d7cff]">
+                                                            <Icon name="book" className="w-5 h-5" />
+                                                        </div>
+                                                    )}
+                                                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/thumb:opacity-100 flex items-center justify-center transition-opacity text-[#9d7cff]">
+                                                        <LuImage className="w-4 h-4" />
                                                     </div>
-                                                )}
+                                                </button>
                                                 <div className="min-w-0 max-w-sm">
                                                     <p className="font-bold text-white truncate group-hover:text-[#9d7cff] transition-colors">
                                                         {post.title}
@@ -404,6 +443,13 @@ export default function BlogAdminClient({ initialPosts }) {
                                                 >
                                                     <Icon name="arrow-up-right" className="w-3.5 h-3.5" />
                                                 </Link>
+                                                <button
+                                                    onClick={() => openCoverModal(post)}
+                                                    title="Change cover photo"
+                                                    className="p-2 rounded-lg bg-white/5 hover:bg-[#9d7cff]/20 text-slate-400 hover:text-[#9d7cff] border border-white/10 transition-colors cursor-pointer"
+                                                >
+                                                    <LuImage className="w-3.5 h-3.5" />
+                                                </button>
                                                 <button
                                                     onClick={() => openEditModal(post)}
                                                     title="Edit post"
@@ -607,35 +653,15 @@ export default function BlogAdminClient({ initialPosts }) {
                                         </div>
                                     </div>
 
-                                    <div>
-                                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
-                                            Cover Image URL (16:9 ratio recommended)
-                                        </label>
-                                        <input
-                                            type="url"
-                                            placeholder="https://images.unsplash.com/..."
-                                            value={activePost.image_url}
-                                            onChange={(e) =>
-                                                setActivePost((prev) => ({
-                                                    ...prev,
-                                                    image_url: e.target.value
-                                                }))
-                                            }
-                                            className="w-full bg-[#171229] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-[#9d7cff] focus:outline-none"
-                                        />
-                                        {activePost.image_url && (
-                                            <div className="mt-3 relative rounded-xl overflow-hidden border border-white/10 h-36 w-full max-w-sm">
-                                                <img
-                                                    src={activePost.image_url}
-                                                    alt="Preview"
-                                                    className="w-full h-full object-cover"
-                                                    onError={(e) => {
-                                                        e.currentTarget.style.display = 'none';
-                                                    }}
-                                                />
-                                            </div>
-                                        )}
-                                    </div>
+                                    <BlogCoverUpload
+                                        value={activePost.image_url}
+                                        onChange={(url) =>
+                                            setActivePost((prev) => ({
+                                                ...prev,
+                                                image_url: url
+                                            }))
+                                        }
+                                    />
 
                                     <div>
                                         <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
@@ -875,6 +901,65 @@ export default function BlogAdminClient({ initialPosts }) {
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Quick Cover Image Modal */}
+            {coverModalPost && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+                    <div className="relative w-full max-w-2xl bg-[#120e1c] border border-white/15 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+                        {/* Header */}
+                        <div className="p-5 border-b border-white/10 flex items-center justify-between bg-[#161126]">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2.5 rounded-xl bg-[#9d7cff]/15 text-[#9d7cff] border border-[#9d7cff]/30">
+                                    <LuImage className="w-5 h-5" />
+                                </div>
+                                <div className="min-w-0">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#9d7cff]">
+                                            Quick Cover Editor
+                                        </span>
+                                    </div>
+                                    <h3 className="text-base sm:text-lg font-black text-white truncate max-w-md">
+                                        {coverModalPost.title}
+                                    </h3>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => setCoverModalPost(null)}
+                                className="p-2 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                            >
+                                <Icon name="x" className="w-5 h-5" />
+                            </button>
+                        </div>
+
+                        {/* Body */}
+                        <div className="p-6 space-y-6 max-h-[80vh] overflow-y-auto">
+                            <BlogCoverUpload
+                                value={tempCoverUrl}
+                                onChange={(url) => setTempCoverUrl(url)}
+                                label="Cover Photo (16:9 Banner)"
+                            />
+
+                            <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                                <button
+                                    type="button"
+                                    onClick={() => setCoverModalPost(null)}
+                                    className="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-bold transition-colors cursor-pointer"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={handleSaveQuickCover}
+                                    disabled={isPending}
+                                    className="px-6 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#8c67ff] text-[#0d0914] text-xs font-black transition-all shadow-[0_4px_16px_rgba(157,124,255,0.35)] cursor-pointer disabled:opacity-50"
+                                >
+                                    {isPending ? 'Saving Cover...' : 'Save Cover Photo'}
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}

@@ -95,3 +95,20 @@ export async function togglePublishedAction(id, currentStatus) {
 
     return { success: true };
 }
+
+export async function updateBlogCoverAction(id, imageUrl) {
+    await requireAdmin();
+    if (!id) throw new Error('ID is required');
+
+    const updated = await updateBlogPost(Number(id), {
+        image_url: imageUrl || null
+    });
+
+    revalidatePath('/admin/blog');
+    revalidatePath('/blog');
+    if (updated?.slug) {
+        revalidatePath(`/blog/${updated.slug}`);
+    }
+
+    return { success: true, post: updated };
+}
