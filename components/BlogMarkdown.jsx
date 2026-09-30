@@ -135,6 +135,28 @@ function renderInline(text) {
             continue;
         }
 
+        // Images: ![alt](url)
+        const imageMatch = remaining.match(/^!\[(.*?)\]\((.*?)\)/);
+        if (imageMatch) {
+            tokens.push(
+                <figure key={key++} className="my-6 block rounded-2xl overflow-hidden border border-white/10 bg-[#120e1c] shadow-lg">
+                    <img
+                        src={imageMatch[2]}
+                        alt={imageMatch[1] || 'Blog visual'}
+                        className="w-full max-h-[500px] object-cover"
+                        loading="lazy"
+                    />
+                    {imageMatch[1] && (
+                        <figcaption className="p-2.5 text-center text-xs text-slate-400 bg-[#161126] border-t border-white/5 font-mono">
+                            {imageMatch[1]}
+                        </figcaption>
+                    )}
+                </figure>
+            );
+            remaining = remaining.slice(imageMatch[0].length);
+            continue;
+        }
+
         // Links: [text](url)
         const linkMatch = remaining.match(/^\[(.*?)\]\((.*?)\)/);
         if (linkMatch) {
@@ -153,7 +175,7 @@ function renderInline(text) {
             continue;
         }
 
-        const nextSpecial = remaining.search(/[\*\_`\[]/);
+        const nextSpecial = remaining.search(/[\*\_`\[!]/);
         if (nextSpecial === -1) {
             tokens.push(remaining);
             break;
@@ -190,6 +212,30 @@ export default function BlogMarkdown({ content }) {
         // Horizontal rule: --- or ***
         if (/^(\-{3,}|\*{3,})$/.test(trimmed)) {
             elements.push(<hr key={key++} className="border-white/10 my-8" />);
+            i++;
+            continue;
+        }
+
+        // Image block: ![alt](url)
+        const standaloneImageMatch = trimmed.match(/^!\[(.*?)\]\((.*?)\)$/);
+        if (standaloneImageMatch) {
+            const alt = standaloneImageMatch[1];
+            const src = standaloneImageMatch[2];
+            elements.push(
+                <figure key={key++} className="my-8 rounded-2xl overflow-hidden border border-white/10 bg-[#120e1c] shadow-xl">
+                    <img
+                        src={src}
+                        alt={alt || 'Article visual'}
+                        className="w-full max-h-[550px] object-cover"
+                        loading="lazy"
+                    />
+                    {alt && (
+                        <figcaption className="p-3 text-center text-xs font-mono text-slate-400 bg-[#161126] border-t border-white/5">
+                            {alt}
+                        </figcaption>
+                    )}
+                </figure>
+            );
             i++;
             continue;
         }

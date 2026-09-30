@@ -40,6 +40,9 @@ export default function BlogAdminClient({ initialPosts }) {
     const [activePost, setActivePost] = useState(EMPTY_POST);
     const [coverModalPost, setCoverModalPost] = useState(null);
     const [tempCoverUrl, setTempCoverUrl] = useState('');
+    const [isContentImageModalOpen, setIsContentImageModalOpen] = useState(false);
+    const [contentModalImageUrl, setContentModalImageUrl] = useState('');
+    const [contentModalImageAlt, setContentModalImageAlt] = useState('');
     const [isPending, startTransition] = useTransition();
     const [errorMsg, setErrorMsg] = useState('');
     const [activeTab, setActiveTab] = useState('general'); // 'general' | 'content' | 'seo'
@@ -159,6 +162,62 @@ export default function BlogAdminClient({ initialPosts }) {
             textarea.focus();
             textarea.setSelectionRange(start + prefix.length, start + prefix.length + (selected ? selected.length : 4));
         }, 10);
+    };
+
+    const insertRawText = (insertedText) => {
+        const textarea = document.getElementById('blog-content-input');
+        if (!textarea) {
+            setActivePost((prev) => ({ ...prev, content: (prev.content || '') + insertedText }));
+            return;
+        }
+        const start = textarea.selectionStart ?? textarea.value.length;
+        const end = textarea.selectionEnd ?? textarea.value.length;
+        const text = textarea.value;
+        const newContent = text.substring(0, start) + insertedText + text.substring(end);
+
+        setActivePost((prev) => ({ ...prev, content: newContent }));
+        setTimeout(() => {
+            textarea.focus();
+            textarea.setSelectionRange(start + insertedText.length, start + insertedText.length);
+        }, 10);
+    };
+
+    const handleContentDrop = async (e) => {
+        const file = e.dataTransfer?.files?.[0];
+        if (file && file.type.startsWith('image/')) {
+            e.preventDefault();
+            e.stopPropagation();
+            toast.info('Uploading dropped image...');
+            const formData = new FormData();
+            formData.append('file', file);
+            try {
+                const res = await fetch('/api/admin/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Upload failed');
+
+                const caption = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
+                insertRawText(`\n\n![${caption}](${data.url})\n\n`);
+                toast.success('Image uploaded and inserted into article!');
+            } catch (err) {
+                toast.error(err.message || 'Error uploading image');
+            }
+        }
+    };
+
+    const handleInsertContentImage = () => {
+        if (!contentModalImageUrl) {
+            toast.warning('Please select or upload an image first');
+            return;
+        }
+        const caption = (contentModalImageAlt || 'Illustration').trim();
+        insertRawText(`\n\n![${caption}](${contentModalImageUrl})\n\n`);
+        setContentModalImageUrl('');
+        setContentModalImageAlt('');
+        setIsContentImageModalOpen(false);
+        toast.success('Image inserted into article!');
     };
 
     const handleSubmit = async (e) => {
@@ -762,26 +821,49 @@ export default function BlogAdminClient({ initialPosts }) {
                                             >
                                                 &quot; Quote
                                             </button>
+                                            <span className="w-px h-4 bg-white/10 mx-0.5" />
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    setContentModalImageUrl('');
+                                                    setContentModalImageAlt('');
+                                                    setIsContentImageModalOpen(true);
+                                                }}
+                                                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono font-bold text-[#9d7cff] hover:text-[#0d0914] bg-[#9d7cff]/15 hover:bg-[#9d7cff] rounded cursor-pointer transition-colors border border-[#9d7cff]/30"
+                                                title="Upload and insert an image illustration"
+                                            >
+                                                <LuImage className="w-3.5 h-3.5" />
+                                                <span>+ Subir Foto</span>
+                                            </button>
                                         </div>
                                     </div>
 
-                                    <textarea
-                                        id="blog-content-input"
-                                        rows={16}
-                                        required
-                                        placeholder="Write your article in markdown. Use # for titles, ## for sections, * for bullet lists, and > for quotes..."
-                                        value={activePost.content}
-                                        onChange={(e) =>
-                                            setActivePost((prev) => ({
-                                                ...prev,
-                                                content: e.target.value
-                                            }))
-                                        }
-                                        className="w-full bg-[#171229] border border-white/10 rounded-xl p-4 font-mono text-sm text-slate-100 placeholder-slate-600 focus:border-[#9d7cff] focus:outline-none leading-relaxed"
-                                    />
-                                    <p className="text-xs text-slate-500">
-                                        Pro-tip: Headings and markdown lists are automatically styled in the dark Night Violet aesthetic on the live post.
-                                    </p>
+                                    <div className="relative">
+                                        <textarea
+                                            id="blog-content-input"
+                                            rows={16}
+                                            required
+                                            placeholder="Write your article in markdown. Use # for titles, ## for sections, * for bullet lists, and > for quotes... (You can also drag & drop image files directly here!)"
+                                            value={activePost.content}
+                                            onDrop={handleContentDrop}
+                                            onChange={(e) =>
+                                                setActivePost((prev) => ({
+                                                    ...prev,
+                                                    content: e.target.value
+                                                }))
+                                            }
+                                            className="w-full bg-[#171229] border border-white/10 rounded-xl p-4 font-mono text-sm text-slate-100 placeholder-slate-600 focus:border-[#9d7cff] focus:outline-none leading-relaxed transition-colors"
+                                        />
+                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] text-slate-400 mt-1.5">
+                                            <span className="flex items-center gap-1.5">
+                                                <span>💡 Arrastra y suelta fotos aquí o usa</span>
+                                                <strong className="text-[#9d7cff]">&quot;+ Subir Foto&quot;</strong>
+                                            </span>
+                                            <span className="font-mono text-slate-500">
+                                                Formato: <code>![pie de foto](url)</code>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             )}
 
@@ -957,6 +1039,75 @@ export default function BlogAdminClient({ initialPosts }) {
                                     className="px-6 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#8c67ff] text-[#0d0914] text-xs font-black transition-all shadow-[0_4px_16px_rgba(157,124,255,0.35)] cursor-pointer disabled:opacity-50"
                                 >
                                     {isPending ? 'Saving Cover...' : 'Save Cover Photo'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* In-Article Image Insert Modal */}
+            {isContentImageModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+                    <div className="relative w-full max-w-2xl bg-[#120e1c] border border-white/15 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+                        <div className="p-5 border-b border-white/10 flex items-center justify-between bg-[#161126]">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2.5 rounded-xl bg-[#9d7cff]/15 text-[#9d7cff] border border-[#9d7cff]/30">
+                                    <LuImage className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <h3 className="text-base sm:text-lg font-black text-white">
+                                        Subir e Insertar Imagen en el Artículo
+                                    </h3>
+                                    <p className="text-xs text-slate-400">
+                                        Sube una captura desde tu PC, elige de la biblioteca o pega un enlace
+                                    </p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => setIsContentImageModalOpen(false)}
+                                className="p-2 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                            >
+                                <Icon name="x" className="w-5 h-5" />
+                            </button>
+                        </div>
+
+                        <div className="p-6 space-y-5 max-h-[80vh] overflow-y-auto">
+                            <BlogCoverUpload
+                                value={contentModalImageUrl}
+                                onChange={(url) => setContentModalImageUrl(url)}
+                                label="Seleccionar o Subir Imagen"
+                                recommendedText="PNG, JPG, WEBP o GIF hasta 5 MB"
+                            />
+
+                            <div>
+                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                                    Pie de Foto / Texto Alternativo (Opcional)
+                                </label>
+                                <input
+                                    type="text"
+                                    placeholder="Ej: Mapa de Vice City en GTA 6"
+                                    value={contentModalImageAlt}
+                                    onChange={(e) => setContentModalImageAlt(e.target.value)}
+                                    className="w-full bg-[#171229] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:border-[#9d7cff] focus:outline-none"
+                                />
+                            </div>
+
+                            <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                                <button
+                                    type="button"
+                                    onClick={() => setIsContentImageModalOpen(false)}
+                                    className="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-bold transition-colors cursor-pointer"
+                                >
+                                    Cancelar
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={handleInsertContentImage}
+                                    disabled={!contentModalImageUrl}
+                                    className="px-6 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#8c67ff] text-[#0d0914] text-xs font-black transition-all shadow-[0_4px_16px_rgba(157,124,255,0.35)] cursor-pointer disabled:opacity-40"
+                                >
+                                    Insertar en el Artículo
                                 </button>
                             </div>
                         </div>
