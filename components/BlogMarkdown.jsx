@@ -1,9 +1,108 @@
 import React from 'react';
 
+export function slugifyHeading(text) {
+    if (!text) return '';
+    return text
+        .toString()
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\-]+/g, '')
+        .replace(/\-\-+/g, '-')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '');
+}
+
+export function calculateWordCount(content) {
+    if (!content) return 0;
+    const clean = content.replace(/[#*`_\[\]()>-]/g, ' ');
+    const words = clean.trim().split(/\s+/).filter(Boolean);
+    return words.length;
+}
+
+export function extractHeadings(content) {
+    if (!content) return [];
+    const lines = content.split('\n');
+    const headings = [];
+
+    for (const rawLine of lines) {
+        const line = rawLine.trim();
+        if (line.startsWith('## ') && !line.startsWith('### ')) {
+            const title = line.replace(/^##\s+/, '').trim();
+            headings.push({
+                level: 2,
+                title,
+                id: slugifyHeading(title)
+            });
+        } else if (line.startsWith('### ')) {
+            const title = line.replace(/^###\s+/, '').trim();
+            headings.push({
+                level: 3,
+                title,
+                id: slugifyHeading(title)
+            });
+        }
+    }
+
+    return headings;
+}
+
+export function extractFaqItems(content) {
+    if (!content) return [];
+    const lines = content.split('\n');
+    const faqs = [];
+    let inFaq = false;
+    let currentQuestion = null;
+    let currentAnswer = [];
+
+    for (const rawLine of lines) {
+        const line = rawLine.trim();
+
+        if (/^##\s+(FAQ|Frequently Asked Questions)/i.test(line)) {
+            inFaq = true;
+            continue;
+        }
+
+        if (inFaq) {
+            // Next H2 ends FAQ section
+            if (line.startsWith('## ') && !line.startsWith('### ')) {
+                if (currentQuestion && currentAnswer.length > 0) {
+                    faqs.push({
+                        question: currentQuestion,
+                        answer: currentAnswer.join(' ').trim()
+                    });
+                }
+                break;
+            }
+
+            if (line.startsWith('### ')) {
+                if (currentQuestion && currentAnswer.length > 0) {
+                    faqs.push({
+                        question: currentQuestion,
+                        answer: currentAnswer.join(' ').trim()
+                    });
+                }
+                currentQuestion = line.replace(/^###\s+/, '').trim();
+                currentAnswer = [];
+            } else if (currentQuestion && line && !line.startsWith('#')) {
+                currentAnswer.push(line.replace(/[*_`]/g, ''));
+            }
+        }
+    }
+
+    if (currentQuestion && currentAnswer.length > 0) {
+        faqs.push({
+            question: currentQuestion,
+            answer: currentAnswer.join(' ').trim()
+        });
+    }
+
+    return faqs;
+}
+
 function renderInline(text) {
     if (!text) return '';
 
-    // Split text into chunks handling bold, italic, code, links
     const tokens = [];
     let remaining = text;
     let key = 0;
@@ -54,7 +153,6 @@ function renderInline(text) {
             continue;
         }
 
-        // Normal text up to next special char
         const nextSpecial = remaining.search(/[\*\_`\[]/);
         if (nextSpecial === -1) {
             tokens.push(remaining);
@@ -83,7 +181,7 @@ export default function BlogMarkdown({ content }) {
         const line = lines[i];
         const trimmed = line.trim();
 
-        // Empty line
+        // Blank line
         if (!trimmed) {
             i++;
             continue;
@@ -91,18 +189,17 @@ export default function BlogMarkdown({ content }) {
 
         // Horizontal rule: --- or ***
         if (/^(\-{3,}|\*{3,})$/.test(trimmed)) {
-            elements.push(
-                <hr key={key++} className="border-white/10 my-8" />
-            );
+            elements.push(<hr key={key++} className="border-white/10 my-8" />);
             i++;
             continue;
         }
 
         // Heading 1: # Title
         if (trimmed.startsWith('# ')) {
+            const rawTitle = trimmed.replace(/^#\s+/, '');
             elements.push(
                 <h1 key={key++} className="text-2xl sm:text-3xl md:text-4xl font-black text-white mt-8 mb-4 tracking-tight">
-                    {renderInline(trimmed.replace(/^#\s+/, ''))}
+                    {renderInline(rawTitle)}
                 </h1>
             );
             i++;
@@ -111,10 +208,25 @@ export default function BlogMarkdown({ content }) {
 
         // Heading 2: ## Section
         if (trimmed.startsWith('## ')) {
+            const rawTitle = trimmed.replace(/^##\s+/, '');
+            const headingId = slugifyHeading(rawTitle);
+            const isQuickInfo = /quick\s*info|key\s*takeaways/i.test(rawTitle);
+
             elements.push(
-                <h2 key={key++} className="text-xl sm:text-2xl font-bold text-white mt-8 mb-3 tracking-tight flex items-center gap-2">
-                    <span className="w-1.5 h-6 bg-[#9d7cff] rounded-full inline-block" />
-                    {renderInline(trimmed.replace(/^##\s+/, ''))}
+                <h2
+                    key={key++}
+                    id={headingId}
+                    className="text-xl sm:text-2xl font-bold text-white mt-10 mb-4 tracking-tight flex items-center gap-2.5 scroll-mt-28 group"
+                >
+                    <span className="w-1.5 h-6 bg-[#9d7cff] rounded-full inline-block group-hover:scale-y-110 transition-transform" />
+                    <span>{renderInline(rawTitle)}</span>
+                    <a
+                        href={`#${headingId}`}
+                        aria-label={`Link to ${rawTitle}`}
+                        className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-[#9d7cff] text-sm ml-1 transition-opacity"
+                    >
+                        #
+                    </a>
                 </h2>
             );
             i++;
@@ -123,9 +235,22 @@ export default function BlogMarkdown({ content }) {
 
         // Heading 3: ### Subsection
         if (trimmed.startsWith('### ')) {
+            const rawTitle = trimmed.replace(/^###\s+/, '');
+            const headingId = slugifyHeading(rawTitle);
             elements.push(
-                <h3 key={key++} className="text-lg sm:text-xl font-bold text-[#c084fc] mt-6 mb-2">
-                    {renderInline(trimmed.replace(/^###\s+/, ''))}
+                <h3
+                    key={key++}
+                    id={headingId}
+                    className="text-lg sm:text-xl font-bold text-[#c084fc] mt-6 mb-2.5 scroll-mt-28 group flex items-center gap-2"
+                >
+                    <span>{renderInline(rawTitle)}</span>
+                    <a
+                        href={`#${headingId}`}
+                        aria-label={`Link to ${rawTitle}`}
+                        className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-[#9d7cff] text-xs transition-opacity"
+                    >
+                        #
+                    </a>
                 </h3>
             );
             i++;
@@ -142,7 +267,7 @@ export default function BlogMarkdown({ content }) {
             elements.push(
                 <blockquote
                     key={key++}
-                    className="border-l-4 border-[#9d7cff] bg-[#161126]/80 p-4 sm:p-5 rounded-r-xl my-6 text-slate-300 italic text-base"
+                    className="border-l-4 border-[#9d7cff] bg-[#161126]/80 p-4 sm:p-5 rounded-r-xl my-6 text-slate-300 italic text-base leading-relaxed"
                 >
                     {quoteLines.map((ql, qIdx) => (
                         <p key={qIdx} className={qIdx > 0 ? 'mt-2' : ''}>
@@ -162,14 +287,40 @@ export default function BlogMarkdown({ content }) {
                 i++;
             }
             elements.push(
-                <ul key={key++} className="space-y-2 my-4 list-none pl-1">
+                <ul key={key++} className="space-y-2.5 my-4 list-none pl-1">
                     {listItems.map((item, lIdx) => (
-                        <li key={lIdx} className="flex items-start gap-2.5 text-slate-300 text-base leading-relaxed">
+                        <li key={lIdx} className="flex items-start gap-3 text-slate-300 text-base leading-relaxed">
                             <span className="h-1.5 w-1.5 rounded-full bg-[#9d7cff] shrink-0 mt-2.5" />
                             <span>{renderInline(item)}</span>
                         </li>
                     ))}
                 </ul>
+            );
+            continue;
+        }
+
+        // Numbered list: 1. 2. 3.
+        if (/^\d+\.\s+/.test(trimmed)) {
+            const listItems = [];
+            let counter = 1;
+            while (i < lines.length && /^\d+\.\s+/.test(lines[i].trim())) {
+                listItems.push({
+                    number: counter++,
+                    text: lines[i].trim().replace(/^\d+\.\s+/, '')
+                });
+                i++;
+            }
+            elements.push(
+                <ol key={key++} className="space-y-2.5 my-4 list-none pl-1">
+                    {listItems.map((item, lIdx) => (
+                        <li key={lIdx} className="flex items-start gap-3 text-slate-300 text-base leading-relaxed">
+                            <span className="px-1.5 py-0.5 rounded bg-white/10 text-xs font-mono font-bold text-[#c084fc] shrink-0 mt-0.5">
+                                {item.number}
+                            </span>
+                            <span>{renderInline(item.text)}</span>
+                        </li>
+                    ))}
+                </ol>
             );
             continue;
         }
@@ -190,16 +341,15 @@ export default function BlogMarkdown({ content }) {
                         .map((c) => c.trim());
 
                 const headers = parseRow(tableLines[0]);
-                // Filter out separator rows like |---|---|
                 const bodyRows = tableLines.slice(1).filter((r) => !/^[\|\-\s:]+$/.test(r)).map(parseRow);
 
                 elements.push(
-                    <div key={key++} className="overflow-x-auto my-6 rounded-xl border border-white/10 panel-surface">
+                    <div key={key++} className="overflow-x-auto my-6 rounded-2xl border border-white/10 panel-surface shadow-lg">
                         <table className="w-full text-left text-sm">
-                            <thead className="bg-white/5 border-b border-white/10 font-bold text-white font-mono text-xs uppercase tracking-wider">
+                            <thead className="bg-[#171229] border-b border-white/10 font-bold text-white font-mono text-xs uppercase tracking-wider">
                                 <tr>
                                     {headers.map((h, hIdx) => (
-                                        <th key={hIdx} className="py-3 px-4">
+                                        <th key={hIdx} className="py-3.5 px-4 text-slate-200">
                                             {renderInline(h)}
                                         </th>
                                     ))}
@@ -207,9 +357,9 @@ export default function BlogMarkdown({ content }) {
                             </thead>
                             <tbody className="divide-y divide-white/5 text-slate-300">
                                 {bodyRows.map((cols, rIdx) => (
-                                    <tr key={rIdx} className="hover:bg-white/[0.02]">
+                                    <tr key={rIdx} className="hover:bg-white/[0.03] transition-colors">
                                         {cols.map((col, cIdx) => (
-                                            <td key={cIdx} className="py-3 px-4">
+                                            <td key={cIdx} className="py-3.5 px-4">
                                                 {renderInline(col)}
                                             </td>
                                         ))}
@@ -223,7 +373,7 @@ export default function BlogMarkdown({ content }) {
             }
         }
 
-        // Paragraph: collect lines until blank line or special block
+        // Paragraph: collect lines
         const paragraphLines = [];
         while (
             i < lines.length &&
@@ -231,6 +381,7 @@ export default function BlogMarkdown({ content }) {
             !lines[i].trim().startsWith('#') &&
             !lines[i].trim().startsWith('>') &&
             !/^[\*\-]\s+/.test(lines[i].trim()) &&
+            !/^\d+\.\s+/.test(lines[i].trim()) &&
             !(lines[i].trim().startsWith('|') && lines[i].trim().endsWith('|')) &&
             !/^(\-{3,}|\*{3,})$/.test(lines[i].trim())
         ) {

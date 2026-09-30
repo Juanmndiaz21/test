@@ -19,6 +19,7 @@ export default function SiteHeader() {
     const navItems = [
         { href: '/', label: t('home') },
         { href: '/store', label: t('store') },
+        { href: '/blog', label: t('blog') },
         { href: '/help', label: t('support') },
         { href: '/contact', label: t('contact') },
     ];
@@ -79,6 +80,7 @@ function MobileMenu({ pathname, session }) {
     const links = [
         { href: '/', label: t('home') },
         { href: '/store', label: t('store') },
+        { href: '/blog', label: t('blog') },
         { href: '/track', label: t('trackOrder') },
         { href: '/help', label: t('support') },
         { href: '/contact', label: t('contact') },

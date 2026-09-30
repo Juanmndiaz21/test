@@ -3,6 +3,7 @@
     "brand": "OGmodz",
     "home": "Home",
     "store": "Browse games",
+    "blog": "Blog",
     "support": "Support",
     "contact": "Contact",
     "signIn": "Sign In",
@@ -150,7 +151,7 @@
   "store": {
     "titleMeta": "Browse Game Boosting Services",
     "eyebrow": "Browse by title",
-    "title": "Game Boosting Services — Browse Catalog",
+    "title": "Game Boosting Services",
     "subtitle": "Explore verified game boosting services for GTA V, CS2, and more. Customize platform and packages with fast delivery and 24/7 pro support.",
     "liveCatalog": "Live catalog",
     "jumpTo": "Jump to",

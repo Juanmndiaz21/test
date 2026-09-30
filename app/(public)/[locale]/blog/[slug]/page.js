@@ -3,7 +3,13 @@ import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import Icon from '@/components/Icon';
 import Reveal from '@/components/Reveal';
-import BlogMarkdown from '@/components/BlogMarkdown';
+import BlogMarkdown, {
+    extractHeadings,
+    calculateWordCount,
+    extractFaqItems,
+} from '@/components/BlogMarkdown';
+import BlogReadingProgress from '@/components/BlogReadingProgress';
+import BlogArticleSidebar from '@/components/BlogArticleSidebar';
 import { getBlogPostBySlug, getBlogPosts } from '@/lib/blog';
 
 export const revalidate = 60;
@@ -26,21 +32,44 @@ export async function generateMetadata({ params }) {
             ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
             : 'https://www.ogmodz.com');
 
+    const canonicalUrl = `${baseUrl}/blog/${post.slug}`;
+    const wordCount = calculateWordCount(post.content);
+
     return {
         title,
         description,
+        keywords: [
+            post.category,
+            'game guide',
+            'boosting',
+            'meta tips',
+            'GTA 5 boost',
+            'CS2 premier',
+            'OGmodz',
+        ],
         alternates: {
-            canonical: `/blog/${post.slug}`,
+            canonical: canonicalUrl,
         },
         openGraph: {
             title,
             description,
-            url: `/blog/${post.slug}`,
+            url: canonicalUrl,
+            siteName: 'OGmodz',
             type: 'article',
             publishedTime: post.created_at,
             modifiedTime: post.updated_at || post.created_at,
+            section: post.category,
             authors: [post.author || 'OGmodz Specialist'],
-            images: post.image_url ? [{ url: post.image_url }] : [],
+            images: post.image_url
+                ? [
+                      {
+                          url: post.image_url,
+                          width: 1280,
+                          height: 720,
+                          alt: post.title,
+                      },
+                  ]
+                : [],
         },
         twitter: {
             card: 'summary_large_image',
@@ -56,7 +85,7 @@ function formatDate(dateStr) {
     try {
         const d = new Date(dateStr);
         return d.toLocaleDateString('en-US', {
-            month: 'long',
+            month: 'short',
             day: 'numeric',
             year: 'numeric',
         });
@@ -74,7 +103,11 @@ export default async function BlogPostPage({ params }) {
         notFound();
     }
 
-    // Related posts from same category or latest
+    const wordCount = calculateWordCount(post.content);
+    const headings = extractHeadings(post.content);
+    const faqItems = extractFaqItems(post.content);
+
+    // Fetch related articles
     const allCategoryPosts = await getBlogPosts({
         category: post.category,
         publishedOnly: true,
@@ -90,21 +123,36 @@ export default async function BlogPostPage({ params }) {
             ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
             : 'https://www.ogmodz.com');
 
+    const canonicalUrl = `${baseUrl}/blog/${post.slug}`;
+    const formattedDate = formatDate(post.created_at);
+
+    // Schema: BlogPosting / Article
     const articleSchema = {
         '@context': 'https://schema.org',
         '@type': 'BlogPosting',
+        '@id': `${canonicalUrl}#article`,
         headline: post.title,
         description: post.excerpt,
         image: post.image_url || undefined,
         datePublished: post.created_at,
         dateModified: post.updated_at || post.created_at,
+        wordCount: wordCount,
+        articleSection: post.category,
+        inLanguage: 'en-US',
         author: {
             '@type': 'Person',
             name: post.author || 'OGmodz Specialist',
+            jobTitle: 'Game Specialist & Analyst',
+            worksFor: {
+                '@type': 'Organization',
+                name: 'OGmodz',
+                url: baseUrl,
+            },
         },
         publisher: {
             '@type': 'Organization',
             name: 'OGmodz',
+            url: baseUrl,
             logo: {
                 '@type': 'ImageObject',
                 url: `${baseUrl}/logo-v3.svg`,
@@ -112,13 +160,15 @@ export default async function BlogPostPage({ params }) {
         },
         mainEntityOfPage: {
             '@type': 'WebPage',
-            '@id': `${baseUrl}/blog/${post.slug}`,
+            '@id': canonicalUrl,
         },
     };
 
+    // Schema: BreadcrumbList
     const breadcrumbSchema = {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
+        '@id': `${canonicalUrl}#breadcrumb`,
         itemListElement: [
             {
                 '@type': 'ListItem',
@@ -136,19 +186,48 @@ export default async function BlogPostPage({ params }) {
                 '@type': 'ListItem',
                 position: 3,
                 name: post.title,
-                item: `${baseUrl}/blog/${post.slug}`,
+                item: canonicalUrl,
             },
         ],
     };
 
+    // Schema: FAQPage (if FAQs are detected)
+    const faqSchema =
+        faqItems.length > 0
+            ? {
+                  '@context': 'https://schema.org',
+                  '@type': 'FAQPage',
+                  '@id': `${canonicalUrl}#faq`,
+                  mainEntity: faqItems.map((item) => ({
+                      '@type': 'Question',
+                      name: item.question,
+                      acceptedAnswer: {
+                          '@type': 'Answer',
+                          text: item.answer,
+                      },
+                  })),
+              }
+            : null;
+
     return (
-        <main className="min-h-screen bg-[#0d0914] text-slate-100 pt-28 pb-20 relative overflow-hidden">
-            {/* Ambient Background Glows */}
+        <main
+            id="blog-article-root"
+            className="min-h-screen bg-[#0d0914] text-slate-100 pt-28 pb-20 relative overflow-hidden"
+        >
+            {/* Reading Progress Bar (Top of Viewport) */}
+            <BlogReadingProgress />
+
+            {/* Ambient Ambient Glows */}
             <div
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-[#9d7cff]/10 blur-[130px] rounded-full pointer-events-none"
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-[#9d7cff]/10 blur-[140px] rounded-full pointer-events-none"
+                aria-hidden="true"
+            />
+            <div
+                className="absolute top-96 right-0 w-[500px] h-[500px] bg-[#9d7cff]/5 blur-[130px] rounded-full pointer-events-none"
                 aria-hidden="true"
             />
 
+            {/* Structured Data JSON-LD for Google Rich Results */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
@@ -157,12 +236,18 @@ export default async function BlogPostPage({ params }) {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
+            {faqSchema && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+                />
+            )}
 
-            <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                {/* Breadcrumbs */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                {/* Breadcrumbs Navigation */}
                 <nav
                     aria-label="Breadcrumbs"
-                    className="flex items-center gap-2 text-xs font-mono text-slate-400 mb-8 overflow-x-auto whitespace-nowrap scrollbar-none"
+                    className="flex items-center gap-2 text-xs font-mono text-slate-400 mb-6 overflow-x-auto whitespace-nowrap scrollbar-none"
                 >
                     <Link href="/" className="hover:text-white transition-colors">
                         Home
@@ -172,13 +257,13 @@ export default async function BlogPostPage({ params }) {
                         Blog
                     </Link>
                     <Icon name="chevron-right" className="w-3.5 h-3.5 text-slate-600 shrink-0" />
-                    <span className="text-[#9d7cff] truncate max-w-[220px] sm:max-w-none">
+                    <span className="text-[#9d7cff] truncate max-w-[240px] sm:max-w-md">
                         {post.title}
                     </span>
                 </nav>
 
                 {/* Article Header */}
-                <header className="mb-8 sm:mb-12">
+                <header className="max-w-4xl mb-8">
                     <div className="flex items-center gap-3 flex-wrap mb-4">
                         <Link
                             href={`/blog?category=${encodeURIComponent(post.category)}`}
@@ -193,45 +278,39 @@ export default async function BlogPostPage({ params }) {
                             </span>
                         )}
                         <span className="text-xs text-slate-400 font-mono">
-                            {formatDate(post.created_at)}
+                            {formattedDate}
                         </span>
                     </div>
 
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight sm:leading-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[44px] font-black text-white tracking-tight leading-tight">
                         {post.title}
                     </h1>
 
-                    {/* Excerpt preview if available */}
-                    {post.excerpt && (
-                        <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
-                            {post.excerpt}
-                        </p>
-                    )}
-
-                    {/* Author & Read Time Meta */}
-                    <div className="mt-6 pt-6 border-t border-white/10 flex items-center justify-between flex-wrap gap-4">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-[#9d7cff]/20 border border-[#9d7cff]/40 flex items-center justify-center text-[#9d7cff] font-bold text-sm">
+                    {/* Byline with Author & Read time */}
+                    <div className="mt-5 flex items-center gap-4 text-xs text-slate-400 font-mono flex-wrap">
+                        <div className="flex items-center gap-2">
+                            <div className="w-6 h-6 rounded-full bg-[#9d7cff]/20 border border-[#9d7cff]/40 flex items-center justify-center text-[#9d7cff] font-bold text-[11px]">
                                 {post.author.charAt(0)}
                             </div>
-                            <div>
-                                <p className="text-sm font-bold text-white leading-none">
-                                    {post.author}
-                                </p>
-                                <p className="text-xs text-slate-400 mt-1">Verified OGmodz Specialist</p>
-                            </div>
+                            <span className="font-bold text-slate-200">{post.author}</span>
                         </div>
-
-                        <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
-                            <Icon name="clock" className="w-4 h-4 text-[#9d7cff]" />
+                        <span>•</span>
+                        <div className="flex items-center gap-1.5">
+                            <Icon name="clock" className="w-3.5 h-3.5 text-[#9d7cff]" />
                             <span>{post.read_time}</span>
                         </div>
+                        {wordCount > 0 && (
+                            <>
+                                <span>•</span>
+                                <span>{wordCount.toLocaleString()} words</span>
+                            </>
+                        )}
                     </div>
                 </header>
 
-                {/* Hero Cover Image */}
+                {/* Cover Image Banner */}
                 {post.image_url && (
-                    <div className="relative aspect-[16/9] w-full rounded-2xl md:rounded-3xl overflow-hidden mb-12 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+                    <div className="relative aspect-[16/9] w-full max-w-5xl rounded-2xl md:rounded-3xl overflow-hidden mb-12 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
                         <img
                             src={post.image_url}
                             alt={post.title}
@@ -240,99 +319,149 @@ export default async function BlogPostPage({ params }) {
                     </div>
                 )}
 
-                {/* Article Body Content */}
-                <div className="panel-surface rounded-2xl md:rounded-3xl p-6 sm:p-10 md:p-12 border border-white/10 shadow-2xl">
-                    <BlogMarkdown content={post.content} />
-                </div>
+                {/* TWO-COLUMN GRID: Main Content (8 cols) + Sticky Sidebar (4 cols) */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+                    {/* LEFT COLUMN: Main Article */}
+                    <div className="lg:col-span-8 space-y-10">
+                        {/* Quick Answer / Excerpt Box */}
+                        {post.excerpt && (
+                            <div className="p-5 sm:p-6 rounded-2xl bg-[#161126]/90 border border-white/10 text-slate-300 text-base leading-relaxed">
+                                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#9d7cff] block mb-2">
+                                    SUMMARY &amp; QUICK TAKEAWAY
+                                </span>
+                                <p className="font-medium text-slate-200">{post.excerpt}</p>
+                            </div>
+                        )}
 
-                {/* In-Article Contextual Boosting Promotion Banner */}
-                <div className="mt-12 rounded-2xl p-6 sm:p-8 bg-gradient-to-r from-[#1b142e] via-[#161126] to-[#120e1c] border border-[#9d7cff]/30 shadow-xl">
-                    <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-                        <div className="text-center sm:text-left">
-                            <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#9d7cff] inline-block mb-1">
-                                VERIFIED SERVICES · 100% BAN-SAFE
-                            </span>
-                            <h3 className="text-xl sm:text-2xl font-black text-white">
-                                Ready to Dominate Your Favorite Game?
-                            </h3>
-                            <p className="text-xs sm:text-sm text-slate-300 mt-1.5 max-w-lg leading-relaxed">
-                                Get instant delivery, VPN-protected lobbies, and 24/7 specialist assistance for GTA 5, CS2, and more.
-                            </p>
+                        {/* Article Markdown Body */}
+                        <div className="panel-surface rounded-2xl md:rounded-3xl p-6 sm:p-10 border border-white/10 shadow-xl">
+                            <BlogMarkdown content={post.content} />
                         </div>
-                        <Link
-                            href="/store"
-                            className="shrink-0 px-6 py-3 rounded-xl bg-[#9d7cff] hover:bg-[#8c67ff] text-[#0d0914] font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-[0_4px_16px_rgba(157,124,255,0.35)] hover:scale-105 active:scale-95"
-                        >
-                            Browse Boosting Catalog
-                        </Link>
+
+                        {/* In-Article Contextual Boosting Promotion Banner */}
+                        <div className="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-[#1d1536] via-[#140e26] to-[#0e0918] border border-[#9d7cff]/35 shadow-[0_16px_40px_rgba(0,0,0,0.5),0_0_30px_rgba(157,124,255,0.12)] relative overflow-hidden">
+                            <div
+                                className="absolute -right-10 -bottom-10 w-64 h-64 bg-[#9d7cff]/15 rounded-full blur-2xl pointer-events-none"
+                                aria-hidden="true"
+                            />
+                            <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+                                <div className="text-center sm:text-left">
+                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono font-bold uppercase tracking-wider text-[#c8b4ff] mb-2.5">
+                                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                        <span>100% BAN-SAFE · INSTANT DELIVERY</span>
+                                    </div>
+                                    <h3 className="display-font text-2xl sm:text-3xl font-black uppercase text-white tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
+                                        Ready to Dominate Your Game?
+                                    </h3>
+                                    <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-lg leading-relaxed font-normal">
+                                        Skip hundreds of hours of repetitive grinding. Get instant fulfillment, private VPN-protected lobbies, and 24/7 dedicated support.
+                                    </p>
+                                </div>
+                                <Link
+                                    href="/store"
+                                    className="shrink-0 px-7 py-3.5 rounded-xl bg-[#9d7cff] hover:bg-[#b59dff] text-[#0d0914] font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-[0_4px_16px_rgba(157,124,255,0.4)] hover:scale-105 active:scale-95"
+                                >
+                                    Browse Catalog
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Author Bio Box */}
+                        <div className="p-6 rounded-2xl bg-[#120e1c] border border-white/10 flex items-start gap-4">
+                            <div className="w-12 h-12 rounded-full bg-[#9d7cff]/20 border border-[#9d7cff]/40 flex items-center justify-center text-[#9d7cff] font-black text-lg shrink-0">
+                                {post.author.charAt(0)}
+                            </div>
+                            <div className="space-y-1">
+                                <div className="flex items-center gap-2">
+                                    <h4 className="font-bold text-white text-base">{post.author}</h4>
+                                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                        Verified Specialist
+                                    </span>
+                                </div>
+                                <p className="text-xs text-slate-400 leading-relaxed">
+                                    Competitive gaming analyst and booster at OGmodz. Specializing in high-rank matchmaking algorithms, ban-prevention safety architecture, and in-game economy optimization.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Related Articles Section */}
+                        {relatedPosts.length > 0 && (
+                            <section className="pt-10 border-t border-white/10">
+                                <div className="flex items-center justify-between mb-6">
+                                    <div>
+                                        <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#9d7cff]">
+                                            CONTINUE READING
+                                        </span>
+                                        <h3 className="text-2xl font-black text-white tracking-tight mt-1">
+                                            Related Guides &amp; Articles
+                                        </h3>
+                                    </div>
+                                    <Link
+                                        href="/blog"
+                                        className="text-xs font-bold text-[#9d7cff] hover:underline underline-offset-4 flex items-center gap-1"
+                                    >
+                                        View all
+                                        <Icon name="arrow-right" className="w-3.5 h-3.5" />
+                                    </Link>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                                    {relatedPosts.map((related) => (
+                                        <Link
+                                            key={related.id}
+                                            href={`/blog/${related.slug}`}
+                                            className="group flex flex-col h-full rounded-xl bg-[#120e1c] border border-white/10 hover:border-[#9d7cff]/40 overflow-hidden transition-all duration-300 hover:-translate-y-1 shadow-md"
+                                        >
+                                            <div className="aspect-video w-full overflow-hidden bg-black/40 relative">
+                                                {related.image_url ? (
+                                                    <img
+                                                        src={related.image_url}
+                                                        alt={related.title}
+                                                        className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                                                    />
+                                                ) : (
+                                                    <div className="w-full h-full flex items-center justify-center bg-[#171229] text-slate-600">
+                                                        <Icon name="book" className="w-8 h-8" />
+                                                    </div>
+                                                )}
+                                                <div className="absolute top-2 left-2">
+                                                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-[#0d0914]/80 text-[#9d7cff]">
+                                                        {related.category}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div className="p-4 flex-1 flex flex-col justify-between">
+                                                <div>
+                                                    <span className="text-[11px] font-mono text-slate-400">
+                                                        {formatDate(related.created_at)}
+                                                    </span>
+                                                    <h4 className="text-sm font-bold text-white group-hover:text-[#9d7cff] transition-colors mt-1 line-clamp-2">
+                                                        {related.title}
+                                                    </h4>
+                                                </div>
+                                                <span className="mt-3 text-xs font-bold text-[#9d7cff] inline-flex items-center gap-1">
+                                                    Read article <Icon name="arrow-right" className="w-3 h-3" />
+                                                </span>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </section>
+                        )}
+                    </div>
+
+                    {/* RIGHT COLUMN: Sticky Sidebar */}
+                    <div className="lg:col-span-4 lg:sticky lg:top-28">
+                        <BlogArticleSidebar
+                            headings={headings}
+                            post={post}
+                            wordCount={wordCount}
+                            formattedDate={formattedDate}
+                            shareUrl={canonicalUrl}
+                        />
                     </div>
                 </div>
-
-                {/* Related Articles Section */}
-                {relatedPosts.length > 0 && (
-                    <section className="mt-16 sm:mt-20 pt-12 border-t border-white/10">
-                        <div className="flex items-center justify-between mb-8">
-                            <div>
-                                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#9d7cff]">
-                                    EXPLORE MORE
-                                </span>
-                                <h3 className="text-2xl font-black text-white tracking-tight mt-1">
-                                    Related Guides &amp; Articles
-                                </h3>
-                            </div>
-                            <Link
-                                href="/blog"
-                                className="text-xs font-bold text-[#9d7cff] hover:underline underline-offset-4 flex items-center gap-1"
-                            >
-                                View all posts
-                                <Icon name="arrow-right" className="w-3.5 h-3.5" />
-                            </Link>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {relatedPosts.map((related) => (
-                                <Link
-                                    key={related.id}
-                                    href={`/blog/${related.slug}`}
-                                    className="group flex flex-col h-full rounded-xl bg-[#120e1c] border border-white/10 hover:border-[#9d7cff]/40 overflow-hidden transition-all duration-300 hover:-translate-y-1 shadow-md"
-                                >
-                                    <div className="aspect-video w-full overflow-hidden bg-black/40 relative">
-                                        {related.image_url ? (
-                                            <img
-                                                src={related.image_url}
-                                                alt={related.title}
-                                                className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                                            />
-                                        ) : (
-                                            <div className="w-full h-full flex items-center justify-center bg-[#171229] text-slate-600">
-                                                <Icon name="book" className="w-8 h-8" />
-                                            </div>
-                                        )}
-                                        <div className="absolute top-2 left-2">
-                                            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-[#0d0914]/80 text-[#9d7cff]">
-                                                {related.category}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div className="p-4 flex-1 flex flex-col justify-between">
-                                        <div>
-                                            <span className="text-[11px] font-mono text-slate-400">
-                                                {formatDate(related.created_at)}
-                                            </span>
-                                            <h4 className="text-sm font-bold text-white group-hover:text-[#9d7cff] transition-colors mt-1 line-clamp-2">
-                                                {related.title}
-                                            </h4>
-                                        </div>
-                                        <span className="mt-3 text-xs font-bold text-[#9d7cff] inline-flex items-center gap-1">
-                                            Read article <Icon name="arrow-right" className="w-3 h-3" />
-                                        </span>
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
-                    </section>
-                )}
-            </article>
+            </div>
         </main>
     );
 }

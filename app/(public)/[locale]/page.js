@@ -249,25 +249,40 @@ export default async function Home({ params }) {
 
             {/* Closing Conversion Anchor */}
             <section aria-label="Ready to climb" className="max-w-7xl mx-auto px-5 pb-20 md:pb-28 content-auto">
-                <div className="panel-surface rounded-3xl border border-white/10 bg-[#171229] p-8 sm:p-12 md:p-16 text-center relative overflow-hidden shadow-[0_24px_70px_rgba(0,0,0,0.35)]">
+                <div className="rounded-3xl border border-[#9d7cff]/30 bg-gradient-to-br from-[#1c1533] via-[#140e26] to-[#0e0918] p-8 sm:p-12 md:p-16 text-center relative overflow-hidden shadow-[0_24px_70px_rgba(0,0,0,0.5),0_0_40px_rgba(157,124,255,0.12)]">
+                    {/* Deep Ambient Glows */}
+                    <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute -top-24 -left-24 w-80 h-80 rounded-full bg-[#9d7cff]/20 blur-[90px]"
+                    />
+                    <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-[#7928ca]/20 blur-[90px]"
+                    />
+
                     <div className="max-w-2xl mx-auto relative z-10">
-                        <h2 className="display-font text-4xl sm:text-5xl md:text-6xl uppercase text-white leading-tight">
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono font-bold uppercase tracking-wider text-[#c8b4ff] mb-4">
+                            <span className="h-1.5 w-1.5 rounded-full bg-[#9d7cff] animate-pulse" />
+                            <span>VERIFIED BOOSTING MARKETPLACE</span>
+                        </div>
+
+                        <h2 className="display-font text-4xl sm:text-5xl md:text-6xl uppercase text-white leading-tight drop-shadow-[0_2px_16px_rgba(0,0,0,0.8)]">
                             {t('ctaTitle')}
                         </h2>
-                        <p className="text-slate-300 text-base sm:text-lg mt-4 max-w-lg mx-auto leading-relaxed">
+                        <p className="text-slate-300 text-base sm:text-lg mt-4 max-w-lg mx-auto leading-relaxed font-normal">
                             {t('ctaSub')}
                         </p>
                         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
                             <a
                                 href="#landing-search"
-                                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-[#9d7cff] text-[#0d0914] hover:bg-[#b59dff] font-['Trebuchet_MS',sans-serif] text-sm font-black uppercase tracking-wider transition-all duration-150 focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2"
+                                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-[#9d7cff] text-[#0d0914] hover:bg-[#b59dff] font-['Trebuchet_MS',sans-serif] text-sm font-black uppercase tracking-wider transition-all duration-150 shadow-[0_4px_20px_rgba(157,124,255,0.4)] hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2"
                             >
                                 <span>{t('ctaButton')}</span>
                                 <Icon name="arrow-up-right" className="w-4 h-4" strokeWidth={2.4} />
                             </a>
                             <a
                                 href="/store"
-                                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl border border-white/15 bg-white/5 hover:border-[#9d7cff]/50 hover:text-white font-['Trebuchet_MS',sans-serif] text-sm font-bold uppercase tracking-wider text-slate-300 transition-all duration-150 focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2"
+                                className="inline-flex items-center gap-2.5 px-7 py-4 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 hover:border-[#9d7cff]/50 hover:text-white font-['Trebuchet_MS',sans-serif] text-sm font-bold uppercase tracking-wider text-slate-200 transition-all duration-150 focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2"
                             >
                                 <span>{t('ctaSecondary')}</span>
                                 <Icon name="arrow-right" className="w-4 h-4" />
