@@ -2,10 +2,10 @@
 
 import { useState, useTransition } from 'react';
 import Link from 'next/link';
-import Icon from '../../../components/Icon';
+import Icon from '@/components/Icon';
 import { LuImage } from 'react-icons/lu';
-import BlogCoverUpload from '../../../components/BlogCoverUpload';
-import { toast } from '../../../utils/toast';
+import BlogCoverUpload from '@/components/BlogCoverUpload';
+import { toast } from '@/utils/toast';
 import {
     saveBlogPostAction,
     deleteBlogPostAction,
