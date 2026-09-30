@@ -14,7 +14,7 @@ import {
     updateBlogCoverAction
 } from './actions';
 
-const DEFAULT_CATEGORIES = ['GTA 5', 'CS2', 'GTA 6', 'Guides', 'News', 'General'];
+const DEFAULT_CATEGORIES = ['GTA 5', 'CS2', 'RDR2', 'GTA 6', 'Guides', 'News', 'General'];
 
 const EMPTY_POST = {
     id: null,
