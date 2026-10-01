@@ -254,6 +254,21 @@ export default function BlogMarkdown({ content }) {
             }
 
             if (lang === 'diagram' || lang === 'flow' || lang === 'steps') {
+                let customTitle = 'Visual Process Roadmap';
+                let customBadge = 'Visual Process Diagram';
+                const stepLines = [];
+
+                for (const rawL of codeLines) {
+                    const l = rawL.trim();
+                    if (/^title:\s*/i.test(l)) {
+                        customTitle = l.replace(/^title:\s*/i, '').trim();
+                    } else if (/^badge:\s*/i.test(l)) {
+                        customBadge = l.replace(/^badge:\s*/i, '').trim();
+                    } else if (l) {
+                        stepLines.push(l);
+                    }
+                }
+
                 const stepIcons = [
                     // Step 1: Globe / Download
                     (
@@ -294,17 +309,15 @@ export default function BlogMarkdown({ content }) {
                     )
                 ];
 
-                const parsedSteps = codeLines
-                    .filter((l) => l.trim())
-                    .map((l) => {
-                        const parts = l.split('|').map((p) => p.trim());
-                        const cleanTitle = (parts[0] || '').replace(/^\d+[\.\)]\s*/, '');
-                        return {
-                            title: cleanTitle,
-                            description: parts[1] || '',
-                            subtext: parts[2] || ''
-                        };
-                    });
+                const parsedSteps = stepLines.map((l) => {
+                    const parts = l.split('|').map((p) => p.trim());
+                    const cleanTitle = (parts[0] || '').replace(/^\d+[\.\)]\s*/, '');
+                    return {
+                        title: cleanTitle,
+                        description: parts[1] || '',
+                        subtext: parts[2] || ''
+                    };
+                });
 
                 elements.push(
                     <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/40 shadow-[0_12px_40px_rgba(157,124,255,0.12)] p-6 sm:p-8">
@@ -320,11 +333,11 @@ export default function BlogMarkdown({ content }) {
                                     <div className="flex items-center gap-2">
                                         <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                                         <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#c084fc]">
-                                            Visual Process Diagram
+                                            {customBadge}
                                         </span>
                                     </div>
                                     <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
-                                        Step-by-Step Account Creation Pipeline
+                                        {customTitle}
                                     </h4>
                                 </div>
                             </div>
@@ -379,8 +392,193 @@ export default function BlogMarkdown({ content }) {
                         </div>
                     </div>
                 );
+            } else if (lang === 'timeline' || lang === 'roadmap') {
+                let customTitle = 'Milestones & Execution Timeline';
+                let customBadge = 'Chronological Roadmap';
+                const timelineLines = [];
+
+                for (const rawL of codeLines) {
+                    const l = rawL.trim();
+                    if (/^title:\s*/i.test(l)) {
+                        customTitle = l.replace(/^title:\s*/i, '').trim();
+                    } else if (/^badge:\s*/i.test(l)) {
+                        customBadge = l.replace(/^badge:\s*/i, '').trim();
+                    } else if (l) {
+                        timelineLines.push(l);
+                    }
+                }
+
+                const parsedTimeline = timelineLines.map((l) => {
+                    const parts = l.split('|').map((p) => p.trim());
+                    return {
+                        time: parts[0] || '',
+                        title: parts[1] || '',
+                        description: parts[2] || '',
+                        badge: parts[3] || ''
+                    };
+                });
+
+                elements.push(
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-cyan-500/30 shadow-[0_12px_40px_rgba(6,182,212,0.12)] p-6 sm:p-8">
+                        {/* Header Banner */}
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
+                            <div className="flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center shrink-0">
+                                    <svg className="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-cyan-400">
+                                            {customBadge}
+                                        </span>
+                                    </div>
+                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
+                                        {customTitle}
+                                    </h4>
+                                </div>
+                            </div>
+                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 self-start sm:self-auto">
+                                {parsedTimeline.length} Milestones
+                            </span>
+                        </div>
+
+                        {/* Timeline Flow */}
+                        <div className="relative pl-6 sm:pl-8 border-l-2 border-[#9d7cff]/30 space-y-6 sm:space-y-8 my-2">
+                            {parsedTimeline.map((item, tIdx) => (
+                                <div key={tIdx} className="relative group">
+                                    {/* Glowing timeline node */}
+                                    <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#0a0614] border-2 border-cyan-400 flex items-center justify-center group-hover:scale-125 transition-transform shadow-[0_0_10px_rgba(6,182,212,0.6)]">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-cyan-300" />
+                                    </div>
+
+                                    <div className="rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-cyan-500/40 p-4 sm:p-5 transition-all">
+                                        <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                            <span className="text-xs font-mono font-bold text-cyan-400 px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20">
+                                                {item.time}
+                                            </span>
+                                            {item.badge && (
+                                                <span className="text-[11px] font-mono font-semibold text-emerald-400 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                                                    {item.badge}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <h5 className="font-bold text-white text-base group-hover:text-cyan-300 transition-colors">
+                                            {item.title}
+                                        </h5>
+                                        {item.description && (
+                                            <p className="text-xs text-slate-300 mt-2 leading-relaxed">
+                                                {item.description}
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                );
+            } else if (lang === 'vs' || lang === 'compare') {
+                let customTitle = 'Head-to-Head Comparison Matrix';
+                let customBadge = 'Comparative Analysis';
+                const vsLines = [];
+
+                for (const rawL of codeLines) {
+                    const l = rawL.trim();
+                    if (/^title:\s*/i.test(l)) {
+                        customTitle = l.replace(/^title:\s*/i, '').trim();
+                    } else if (/^badge:\s*/i.test(l)) {
+                        customBadge = l.replace(/^badge:\s*/i, '').trim();
+                    } else if (l) {
+                        vsLines.push(l);
+                    }
+                }
+
+                const parsedCards = vsLines.map((l, cIdx) => {
+                    const parts = l.split('|').map((p) => p.trim());
+                    return {
+                        title: parts[0] || `Option 0${cIdx + 1}`,
+                        subtitle: parts[1] || '',
+                        points: parts.slice(2).filter(Boolean)
+                    };
+                });
+
+                elements.push(
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/40 shadow-[0_12px_40px_rgba(157,124,255,0.12)] p-6 sm:p-8">
+                        {/* Header Banner */}
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
+                            <div className="flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center shrink-0">
+                                    <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
+                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-purple-400">
+                                            {customBadge}
+                                        </span>
+                                    </div>
+                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
+                                        {customTitle}
+                                    </h4>
+                                </div>
+                            </div>
+                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 self-start sm:self-auto">
+                                Side-by-Side Comparison
+                            </span>
+                        </div>
+
+                        {/* 2 or 3 Column Comparison Grid */}
+                        <div className={`grid grid-cols-1 ${parsedCards.length > 2 ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-4 sm:gap-6`}>
+                            {parsedCards.map((card, idx) => {
+                                const isFirst = idx === 0;
+                                return (
+                                    <div
+                                        key={idx}
+                                        className={`rounded-xl border p-5 sm:p-6 transition-all ${
+                                            isFirst
+                                                ? 'bg-gradient-to-b from-emerald-500/[0.08] to-transparent border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.1)]'
+                                                : 'bg-gradient-to-b from-[#9d7cff]/[0.08] to-transparent border-[#9d7cff]/40 shadow-[0_0_20px_rgba(157,124,255,0.1)]'
+                                        }`}
+                                    >
+                                        <div className="flex items-center justify-between gap-2 mb-3">
+                                            <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${
+                                                isFirst
+                                                    ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                                                    : 'bg-[#9d7cff]/20 text-[#c084fc] border-[#9d7cff]/30'
+                                            }`}>
+                                                {isFirst ? 'RECOMMENDED' : 'ALTERNATIVE'}
+                                            </span>
+                                            {card.subtitle && (
+                                                <span className="text-xs font-mono text-slate-400">
+                                                    {card.subtitle}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <h5 className="text-lg font-black text-white mb-4">
+                                            {card.title}
+                                        </h5>
+                                        <ul className="space-y-2.5">
+                                            {card.points.map((pt, pIdx) => (
+                                                <li key={pIdx} className="text-xs text-slate-300 flex items-start gap-2 leading-relaxed">
+                                                    <span className={`mt-0.5 text-sm ${isFirst ? 'text-emerald-400' : 'text-[#c084fc]'}`}>
+                                                        ✓
+                                                    </span>
+                                                    <span>{pt}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                );
             } else {
-                // High-polish terminal code / schematic block
+                // High-polish terminal code / command block
                 elements.push(
                     <div key={key++} className="my-6 rounded-2xl overflow-hidden border border-white/10 bg-[#0c0816] shadow-xl">
                         {/* Terminal title bar with macOS-like dots */}
@@ -390,10 +588,10 @@ export default function BlogMarkdown({ content }) {
                                 <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
                                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
                                 <span className="ml-2 text-[11px] font-mono text-slate-400 uppercase tracking-wider">
-                                    {lang || 'Flowchart Architecture'}
+                                    {lang || 'Code'}
                                 </span>
                             </div>
-                            <span className="text-[10px] font-mono text-slate-500">ASCII Architecture</span>
+                            <span className="text-[10px] font-mono text-slate-500">Terminal</span>
                         </div>
                         <pre className="p-4 sm:p-5 overflow-x-auto text-xs sm:text-sm font-mono text-emerald-300/90 leading-relaxed scrollbar-thin">
                             <code>{codeLines.join('\n')}</code>
