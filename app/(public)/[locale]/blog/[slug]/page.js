@@ -243,7 +243,7 @@ export default async function BlogPostPage({ params }) {
                 />
             )}
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Breadcrumbs Navigation */}
                 <nav
                     aria-label="Breadcrumbs"
@@ -263,7 +263,7 @@ export default async function BlogPostPage({ params }) {
                 </nav>
 
                 {/* Article Header */}
-                <header className="max-w-4xl mb-8">
+                <header className="max-w-5xl mb-8">
                     <div className="flex items-center gap-3 flex-wrap mb-4">
                         <Link
                             href={`/blog?category=${encodeURIComponent(post.category)}`}
@@ -282,7 +282,7 @@ export default async function BlogPostPage({ params }) {
                         </span>
                     </div>
 
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[44px] font-black text-white tracking-tight leading-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
                         {post.title}
                     </h1>
 
@@ -310,7 +310,7 @@ export default async function BlogPostPage({ params }) {
 
                 {/* Cover Image Banner */}
                 {post.image_url && (
-                    <div className="relative aspect-[16/9] w-full max-w-5xl rounded-2xl md:rounded-3xl overflow-hidden mb-12 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+                    <div className="relative aspect-[16/9] w-full max-w-full rounded-2xl md:rounded-3xl overflow-hidden mb-12 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
                         <img
                             src={post.image_url}
                             alt={post.title}
@@ -319,10 +319,10 @@ export default async function BlogPostPage({ params }) {
                     </div>
                 )}
 
-                {/* TWO-COLUMN GRID: Main Content (8 cols) + Sticky Sidebar (4 cols) */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+                {/* TWO-COLUMN GRID: Main Content (8-9 cols) + Sticky Sidebar (4-3 cols) */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start">
                     {/* LEFT COLUMN: Main Article */}
-                    <div className="lg:col-span-8 space-y-10">
+                    <div className="lg:col-span-8 xl:col-span-9 space-y-10">
                         {/* Quick Answer / Excerpt Box */}
                         {post.excerpt && (
                             <div className="p-5 sm:p-6 rounded-2xl bg-[#161126]/90 border border-white/10 text-slate-300 text-base leading-relaxed">
@@ -334,7 +334,7 @@ export default async function BlogPostPage({ params }) {
                         )}
 
                         {/* Article Markdown Body */}
-                        <div className="panel-surface rounded-2xl md:rounded-3xl p-6 sm:p-10 border border-white/10 shadow-xl">
+                        <div className="panel-surface rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10 border border-white/10 shadow-xl">
                             <BlogMarkdown content={post.content} />
                         </div>
 
@@ -374,7 +374,7 @@ export default async function BlogPostPage({ params }) {
                             <div className="space-y-1">
                                 <div className="flex items-center gap-2">
                                     <h4 className="font-bold text-white text-base">{post.author}</h4>
-                                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                    <span className="px-2 py-0.5 rounded text-xs font-mono font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                                         Verified Specialist
                                     </span>
                                 </div>
@@ -425,7 +425,7 @@ export default async function BlogPostPage({ params }) {
                                                     </div>
                                                 )}
                                                 <div className="absolute top-2 left-2">
-                                                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-[#0d0914]/80 text-[#9d7cff]">
+                                                    <span className="px-2 py-0.5 rounded text-xs font-mono font-bold uppercase tracking-wider bg-[#0d0914]/80 text-[#9d7cff]">
                                                         {related.category}
                                                     </span>
                                                 </div>
@@ -451,7 +451,7 @@ export default async function BlogPostPage({ params }) {
                     </div>
 
                     {/* RIGHT COLUMN: Sticky Sidebar */}
-                    <div className="lg:col-span-4 lg:sticky lg:top-28">
+                    <div className="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-28">
                         <BlogArticleSidebar
                             headings={headings}
                             post={post}
