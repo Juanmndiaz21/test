@@ -255,7 +255,7 @@ export default function BlogMarkdown({ content }) {
 
             if (lang === 'diagram' || lang === 'flow' || lang === 'steps') {
                 let customTitle = 'Visual Process Roadmap';
-                let customBadge = 'Visual Process Diagram';
+                let customBadge = 'Sequential Pipeline';
                 const stepLines = [];
 
                 for (const rawL of codeLines) {
@@ -270,43 +270,25 @@ export default function BlogMarkdown({ content }) {
                 }
 
                 const stepIcons = [
-                    // Step 1: Globe / Download
-                    (
-                        <svg className="w-5 h-5 text-[#9d7cff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                        </svg>
-                    ),
-                    // Step 2: User / Credentials
-                    (
-                        <svg className="w-5 h-5 text-[#9d7cff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                    ),
-                    // Step 3: Calendar / Birthday / Verification
-                    (
-                        <svg className="w-5 h-5 text-[#9d7cff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                    ),
-                    // Step 4: Mail / Confirmation
-                    (
-                        <svg className="w-5 h-5 text-[#9d7cff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                    ),
-                    // Step 5: Shield / Security / 2FA
-                    (
-                        <svg className="w-5 h-5 text-[#9d7cff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                        </svg>
-                    ),
-                    // Step 6: Gamepad / Community
-                    (
-                        <svg className="w-5 h-5 text-[#9d7cff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    )
+                    <svg key="1" className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                    </svg>,
+                    <svg key="2" className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>,
+                    <svg key="3" className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>,
+                    <svg key="4" className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>,
+                    <svg key="5" className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>,
+                    <svg key="6" className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
                 ];
 
                 const parsedSteps = stepLines.map((l) => {
@@ -320,47 +302,42 @@ export default function BlogMarkdown({ content }) {
                 });
 
                 elements.push(
-                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/40 shadow-[0_12px_40px_rgba(157,124,255,0.12)] p-6 sm:p-8">
-                        {/* Header Banner */}
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/30 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-6 sm:p-8">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
                             <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-xl bg-[#9d7cff]/20 border border-[#9d7cff]/40 flex items-center justify-center shrink-0">
+                                <div className="w-10 h-10 rounded-xl bg-[#9d7cff]/15 border border-[#9d7cff]/30 flex items-center justify-center shrink-0">
                                     <svg className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                                     </svg>
                                 </div>
-                                <div>
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#c084fc]">
-                                            {customBadge}
-                                        </span>
-                                    </div>
-                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
-                                        {customTitle}
-                                    </h4>
-                                </div>
+                                <h4 className="text-lg font-black text-white tracking-tight">
+                                    {customTitle}
+                                </h4>
                             </div>
-                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 self-start sm:self-auto">
-                                {parsedSteps.length} Sequential Steps
-                            </span>
+                            <div className="flex items-center gap-2 self-start sm:self-auto">
+                                <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-[#9d7cff]/15 border border-[#9d7cff]/30 text-[#c084fc]">
+                                    {customBadge}
+                                </span>
+                                <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300">
+                                    {parsedSteps.length} Steps
+                                </span>
+                            </div>
                         </div>
 
-                        {/* Interactive Step Cards Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             {parsedSteps.map((step, sIdx) => {
                                 const icon = stepIcons[sIdx % stepIcons.length];
                                 return (
                                     <div
                                         key={sIdx}
-                                        className="relative rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#9d7cff]/50 transition-all duration-200 p-5 flex flex-col justify-between group shadow-sm"
+                                        className="relative rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#9d7cff]/40 transition-all duration-200 p-5 flex flex-col justify-between group shadow-sm"
                                     >
                                         <div>
                                             <div className="flex items-center justify-between mb-3">
-                                                <div className="w-8 h-8 rounded-lg bg-[#9d7cff]/10 border border-[#9d7cff]/30 flex items-center justify-center">
+                                                <div className="w-8 h-8 rounded-lg bg-[#9d7cff]/10 border border-[#9d7cff]/25 flex items-center justify-center">
                                                     {icon}
                                                 </div>
-                                                <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#9d7cff]/20 text-[#c084fc] border border-[#9d7cff]/30">
+                                                <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#9d7cff]/15 text-[#c084fc] border border-[#9d7cff]/25">
                                                     STEP 0{sIdx + 1}
                                                 </span>
                                             </div>
@@ -380,9 +357,9 @@ export default function BlogMarkdown({ content }) {
                                                     {step.subtext}
                                                 </span>
                                                 {sIdx < parsedSteps.length - 1 && (
-                                                    <span className="text-slate-500 hidden lg:inline font-mono">
-                                                        ➔
-                                                    </span>
+                                                    <svg className="w-3.5 h-3.5 text-slate-500 hidden lg:inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                                    </svg>
                                                 )}
                                             </div>
                                         )}
@@ -419,38 +396,32 @@ export default function BlogMarkdown({ content }) {
                 });
 
                 elements.push(
-                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-cyan-500/30 shadow-[0_12px_40px_rgba(6,182,212,0.12)] p-6 sm:p-8">
-                        {/* Header Banner */}
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-cyan-500/30 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-6 sm:p-8">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
                             <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center shrink-0">
+                                <div className="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0">
                                     <svg className="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                 </div>
-                                <div>
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-cyan-400">
-                                            {customBadge}
-                                        </span>
-                                    </div>
-                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
-                                        {customTitle}
-                                    </h4>
-                                </div>
+                                <h4 className="text-lg font-black text-white tracking-tight">
+                                    {customTitle}
+                                </h4>
                             </div>
-                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 self-start sm:self-auto">
-                                {parsedTimeline.length} Milestones
-                            </span>
+                            <div className="flex items-center gap-2 self-start sm:self-auto">
+                                <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-400">
+                                    {customBadge}
+                                </span>
+                                <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300">
+                                    {parsedTimeline.length} Milestones
+                                </span>
+                            </div>
                         </div>
 
-                        {/* Timeline Flow */}
                         <div className="relative pl-6 sm:pl-8 border-l-2 border-[#9d7cff]/30 space-y-6 sm:space-y-8 my-2">
                             {parsedTimeline.map((item, tIdx) => (
                                 <div key={tIdx} className="relative group">
-                                    {/* Glowing timeline node */}
-                                    <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#0a0614] border-2 border-cyan-400 flex items-center justify-center group-hover:scale-125 transition-transform shadow-[0_0_10px_rgba(6,182,212,0.6)]">
+                                    <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#0a0614] border-2 border-cyan-400 flex items-center justify-center group-hover:scale-125 transition-transform shadow-[0_0_10px_rgba(6,182,212,0.4)]">
                                         <div className="w-1.5 h-1.5 rounded-full bg-cyan-300" />
                                     </div>
 
@@ -505,33 +476,23 @@ export default function BlogMarkdown({ content }) {
                 });
 
                 elements.push(
-                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/40 shadow-[0_12px_40px_rgba(157,124,255,0.12)] p-6 sm:p-8">
-                        {/* Header Banner */}
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/30 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-6 sm:p-8">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
                             <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center shrink-0">
+                                <div className="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center shrink-0">
                                     <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                                     </svg>
                                 </div>
-                                <div>
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-purple-400">
-                                            {customBadge}
-                                        </span>
-                                    </div>
-                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
-                                        {customTitle}
-                                    </h4>
-                                </div>
+                                <h4 className="text-lg font-black text-white tracking-tight">
+                                    {customTitle}
+                                </h4>
                             </div>
-                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 self-start sm:self-auto">
-                                Side-by-Side Comparison
+                            <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 self-start sm:self-auto">
+                                {customBadge}
                             </span>
                         </div>
 
-                        {/* 2 or 3 Column Comparison Grid */}
                         <div className={`grid grid-cols-1 ${parsedCards.length > 2 ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-4 sm:gap-6`}>
                             {parsedCards.map((card, idx) => {
                                 const isFirst = idx === 0;
@@ -540,12 +501,12 @@ export default function BlogMarkdown({ content }) {
                                         key={idx}
                                         className={`rounded-xl border p-5 sm:p-6 transition-all ${
                                             isFirst
-                                                ? 'bg-gradient-to-b from-emerald-500/[0.08] to-transparent border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.1)]'
-                                                : 'bg-gradient-to-b from-[#9d7cff]/[0.08] to-transparent border-[#9d7cff]/40 shadow-[0_0_20px_rgba(157,124,255,0.1)]'
+                                                ? 'bg-gradient-to-b from-emerald-500/[0.08] to-transparent border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.08)]'
+                                                : 'bg-gradient-to-b from-[#9d7cff]/[0.08] to-transparent border-[#9d7cff]/40 shadow-[0_0_20px_rgba(157,124,255,0.08)]'
                                         }`}
                                     >
                                         <div className="flex items-center justify-between gap-2 mb-3">
-                                            <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${
+                                            <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded-full border ${
                                                 isFirst
                                                     ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
                                                     : 'bg-[#9d7cff]/20 text-[#c084fc] border-[#9d7cff]/30'
@@ -553,7 +514,7 @@ export default function BlogMarkdown({ content }) {
                                                 {isFirst ? 'RECOMMENDED' : 'ALTERNATIVE'}
                                             </span>
                                             {card.subtitle && (
-                                                <span className="text-xs font-mono text-slate-400">
+                                                <span className="text-xs font-mono text-slate-300">
                                                     {card.subtitle}
                                                 </span>
                                             )}
@@ -563,10 +524,10 @@ export default function BlogMarkdown({ content }) {
                                         </h5>
                                         <ul className="space-y-2.5">
                                             {card.points.map((pt, pIdx) => (
-                                                <li key={pIdx} className="text-xs text-slate-300 flex items-start gap-2 leading-relaxed">
-                                                    <span className={`mt-0.5 text-sm ${isFirst ? 'text-emerald-400' : 'text-[#c084fc]'}`}>
-                                                        ✓
-                                                    </span>
+                                                <li key={pIdx} className="text-xs text-slate-200 flex items-start gap-2.5 leading-relaxed">
+                                                    <svg className={`w-4 h-4 mt-0.5 shrink-0 ${isFirst ? 'text-emerald-400' : 'text-[#c084fc]'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                                    </svg>
                                                     <span>{pt}</span>
                                                 </li>
                                             ))}
@@ -604,42 +565,42 @@ export default function BlogMarkdown({ content }) {
                 });
 
                 elements.push(
-                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#10b981]/30 shadow-[0_12px_40px_rgba(16,185,129,0.12)] p-6 sm:p-8">
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-emerald-500/30 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-6 sm:p-8">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
                             <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0">
+                                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center shrink-0">
                                     <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                     </svg>
                                 </div>
-                                <div>
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-emerald-400">
-                                            {customBadge}
-                                        </span>
-                                    </div>
-                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
-                                        {customTitle}
-                                    </h4>
-                                </div>
+                                <h4 className="text-lg font-black text-white tracking-tight">
+                                    {customTitle}
+                                </h4>
                             </div>
-                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 self-start sm:self-auto">
-                                ↺ Infinite Cycle ({parsedPhases.length} Phases)
-                            </span>
+                            <div className="flex items-center gap-2 self-start sm:self-auto">
+                                <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+                                    {customBadge}
+                                </span>
+                                <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300">
+                                    {parsedPhases.length} Phases
+                                </span>
+                            </div>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                             {parsedPhases.map((phase, pIdx) => (
-                                <div key={pIdx} className="relative rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-emerald-500/50 p-5 flex flex-col justify-between transition-all group">
+                                <div key={pIdx} className="relative rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-emerald-500/40 p-5 flex flex-col justify-between transition-all group">
                                     <div>
                                         <div className="flex items-center justify-between mb-3">
-                                            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                            <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
                                                 PHASE 0{pIdx + 1}
                                             </span>
                                             {phase.timing && (
-                                                <span className="text-[11px] font-mono text-slate-400">
-                                                    ⏱ {phase.timing}
+                                                <span className="text-[11px] font-mono text-slate-300 flex items-center gap-1">
+                                                    <svg className="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                    </svg>
+                                                    <span>{phase.timing}</span>
                                                 </span>
                                             )}
                                         </div>
@@ -656,9 +617,18 @@ export default function BlogMarkdown({ content }) {
                                         <span className="text-emerald-400 font-semibold">
                                             {phase.badge || 'Repeat Cycle'}
                                         </span>
-                                        <span className="text-slate-500 font-mono">
-                                            {pIdx === parsedPhases.length - 1 ? '↺ Loop' : '➔'}
-                                        </span>
+                                        {pIdx === parsedPhases.length - 1 ? (
+                                            <span className="flex items-center gap-1 text-[11px] font-mono text-emerald-400">
+                                                <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                                </svg>
+                                                <span>Loop</span>
+                                            </span>
+                                        ) : (
+                                            <svg className="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                            </svg>
+                                        )}
                                     </div>
                                 </div>
                             ))}
@@ -692,28 +662,20 @@ export default function BlogMarkdown({ content }) {
                 });
 
                 elements.push(
-                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-amber-500/30 shadow-[0_12px_40px_rgba(245,158,11,0.12)] p-6 sm:p-8">
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-amber-500/30 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-6 sm:p-8">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
                             <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center shrink-0">
+                                <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center shrink-0">
                                     <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
                                 </div>
-                                <div>
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-amber-400">
-                                            {customBadge}
-                                        </span>
-                                    </div>
-                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
-                                        {customTitle}
-                                    </h4>
-                                </div>
+                                <h4 className="text-lg font-black text-white tracking-tight">
+                                    {customTitle}
+                                </h4>
                             </div>
-                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 self-start sm:self-auto">
-                                Conditional Logic ({parsedRules.length} Branches)
+                            <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 self-start sm:self-auto">
+                                {customBadge} ({parsedRules.length} Branches)
                             </span>
                         </div>
 
@@ -722,7 +684,7 @@ export default function BlogMarkdown({ content }) {
                                 <div key={rIdx} className="rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-amber-500/40 p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all">
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2 mb-1.5">
-                                            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                                            <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
                                                 IF SCENARIO
                                             </span>
                                             <span className="text-sm font-bold text-white">
@@ -730,15 +692,21 @@ export default function BlogMarkdown({ content }) {
                                             </span>
                                         </div>
                                         {rule.action && (
-                                            <p className="text-xs text-slate-300 pl-2 border-l-2 border-amber-500/40 mt-2">
-                                                ➔ <span className="font-semibold text-slate-200">Action:</span> {rule.action}
-                                            </p>
+                                            <div className="text-xs text-slate-300 pl-3 border-l-2 border-amber-500/40 mt-2 flex items-center gap-2">
+                                                <svg className="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                                </svg>
+                                                <span><span className="font-semibold text-slate-200">Action:</span> {rule.action}</span>
+                                            </div>
                                         )}
                                     </div>
                                     {rule.outcome && (
                                         <div className="shrink-0">
-                                            <span className="text-xs font-mono font-semibold px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 flex items-center gap-1.5">
-                                                <span>✓</span> {rule.outcome}
+                                            <span className="text-xs font-mono font-semibold px-3 py-1.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 flex items-center gap-1.5">
+                                                <svg className="w-3.5 h-3.5 text-emerald-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                                <span>{rule.outcome}</span>
                                             </span>
                                         </div>
                                     )}
@@ -773,62 +741,55 @@ export default function BlogMarkdown({ content }) {
                 });
 
                 const tierColors = [
-                    'border-amber-400/50 bg-amber-500/[0.08] text-amber-300',
-                    'border-rose-400/50 bg-rose-500/[0.08] text-rose-300',
-                    'border-purple-400/50 bg-purple-500/[0.08] text-[#c084fc]',
-                    'border-cyan-400/50 bg-cyan-500/[0.08] text-cyan-300',
-                    'border-slate-500/40 bg-white/[0.03] text-slate-300'
+                    'border-amber-400/40 bg-amber-500/[0.08] text-amber-200',
+                    'border-rose-400/40 bg-rose-500/[0.08] text-rose-200',
+                    'border-purple-400/40 bg-purple-500/[0.08] text-[#c084fc]',
+                    'border-cyan-400/40 bg-cyan-500/[0.08] text-cyan-200',
+                    'border-slate-500/30 bg-white/[0.03] text-slate-300'
                 ];
 
+                const tierWidths = ['max-w-md', 'max-w-lg', 'max-w-xl', 'max-w-2xl', 'max-w-3xl'];
+
                 elements.push(
-                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/40 shadow-[0_12px_40px_rgba(157,124,255,0.12)] p-6 sm:p-8">
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/30 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-6 sm:p-8">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
                             <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center shrink-0">
+                                <div className="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center shrink-0">
                                     <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                                     </svg>
                                 </div>
-                                <div>
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-purple-400">
-                                            {customBadge}
-                                        </span>
-                                    </div>
-                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
-                                        {customTitle}
-                                    </h4>
-                                </div>
+                                <h4 className="text-lg font-black text-white tracking-tight">
+                                    {customTitle}
+                                </h4>
                             </div>
-                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 self-start sm:self-auto">
-                                {parsedTiers.length} Stratified Levels
+                            <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 self-start sm:self-auto">
+                                {customBadge} ({parsedTiers.length} Levels)
                             </span>
                         </div>
 
-                        <div className="flex flex-col items-center gap-3 my-4">
+                        <div className="flex flex-col items-center gap-3.5 my-4">
                             {parsedTiers.map((t, idx) => {
                                 const colorClass = tierColors[idx % tierColors.length];
-                                const widthPercentages = ['w-full sm:w-[70%]', 'w-full sm:w-[80%]', 'w-full sm:w-[90%]', 'w-full'];
-                                const widthClass = widthPercentages[Math.min(idx, widthPercentages.length - 1)];
+                                const widthClass = tierWidths[Math.min(idx, tierWidths.length - 1)];
 
                                 return (
                                     <div
                                         key={idx}
-                                        className={`${widthClass} rounded-xl border p-4 sm:p-5 transition-all shadow-md ${colorClass}`}
+                                        className={`w-full ${widthClass} rounded-xl border p-4 sm:p-5 transition-all shadow-sm ${colorClass}`}
                                     >
                                         <div className="flex flex-wrap items-center justify-between gap-2">
                                             <span className="font-bold text-white text-base">
                                                 {t.tier}
                                             </span>
                                             {t.share && (
-                                                <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-white/10">
+                                                <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-white/10 text-white">
                                                     {t.share}
                                                 </span>
                                             )}
                                         </div>
                                         {t.description && (
-                                            <p className="text-xs text-slate-300 mt-2 leading-relaxed">
+                                            <p className="text-xs text-slate-200 mt-2 leading-relaxed">
                                                 {t.description}
                                             </p>
                                         )}
@@ -866,34 +827,26 @@ export default function BlogMarkdown({ content }) {
                 });
 
                 const riskStyles = [
-                    { border: 'border-emerald-500/40', badge: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30', glow: 'shadow-[0_0_20px_rgba(16,185,129,0.1)]' },
-                    { border: 'border-amber-500/40', badge: 'bg-amber-500/20 text-amber-300 border-amber-500/30', glow: 'shadow-[0_0_20px_rgba(245,158,11,0.1)]' },
-                    { border: 'border-rose-500/40', badge: 'bg-rose-500/20 text-rose-300 border-rose-500/30', glow: 'shadow-[0_0_20px_rgba(244,63,94,0.1)]' }
+                    { border: 'border-emerald-500/40', badge: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30', glow: 'shadow-[0_0_20px_rgba(16,185,129,0.08)]' },
+                    { border: 'border-amber-500/40', badge: 'bg-amber-500/20 text-amber-300 border-amber-500/30', glow: 'shadow-[0_0_20px_rgba(245,158,11,0.08)]' },
+                    { border: 'border-rose-500/40', badge: 'bg-rose-500/20 text-rose-300 border-rose-500/30', glow: 'shadow-[0_0_20px_rgba(244,63,94,0.08)]' }
                 ];
 
                 elements.push(
-                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.5)] p-6 sm:p-8">
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-white/10 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-6 sm:p-8">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
                             <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center shrink-0">
+                                <div className="w-10 h-10 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center shrink-0">
                                     <svg className="w-5 h-5 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                                     </svg>
                                 </div>
-                                <div>
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-rose-400 animate-pulse" />
-                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-rose-400">
-                                            {customBadge}
-                                        </span>
-                                    </div>
-                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
-                                        {customTitle}
-                                    </h4>
-                                </div>
+                                <h4 className="text-lg font-black text-white tracking-tight">
+                                    {customTitle}
+                                </h4>
                             </div>
-                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 self-start sm:self-auto">
-                                3-Tier Risk Profile
+                            <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 self-start sm:self-auto">
+                                {customBadge}
                             </span>
                         </div>
 
@@ -904,11 +857,11 @@ export default function BlogMarkdown({ content }) {
                                     <div key={idx} className={`rounded-xl border ${style.border} ${style.glow} bg-white/[0.02] p-5 flex flex-col justify-between`}>
                                         <div>
                                             <div className="flex items-center justify-between gap-2 mb-3">
-                                                <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${style.badge}`}>
+                                                <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded-full border ${style.badge}`}>
                                                     {p.level}
                                                 </span>
                                                 {p.tag && (
-                                                    <span className="text-xs font-mono text-slate-400">
+                                                    <span className="text-xs font-mono text-slate-300">
                                                         {p.tag}
                                                     </span>
                                                 )}
@@ -916,13 +869,13 @@ export default function BlogMarkdown({ content }) {
                                             <h5 className="font-bold text-white text-base mb-2">
                                                 {p.title}
                                             </h5>
-                                            <p className="text-xs text-slate-300 leading-relaxed">
+                                            <p className="text-xs text-slate-200 leading-relaxed">
                                                 {p.description}
                                             </p>
                                         </div>
                                         {p.yield && (
                                             <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs font-mono">
-                                                <span className="text-slate-400">Expected Yield:</span>
+                                                <span className="text-slate-300">Expected Yield:</span>
                                                 <span className="text-emerald-400 font-bold">{p.yield}</span>
                                             </div>
                                         )}
@@ -958,28 +911,20 @@ export default function BlogMarkdown({ content }) {
                 });
 
                 elements.push(
-                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/40 shadow-[0_12px_40px_rgba(157,124,255,0.12)] p-6 sm:p-8">
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/30 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-6 sm:p-8">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
                             <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center shrink-0">
+                                <div className="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center shrink-0">
                                     <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                                     </svg>
                                 </div>
-                                <div>
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-purple-400">
-                                            {customBadge}
-                                        </span>
-                                    </div>
-                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
-                                        {customTitle}
-                                    </h4>
-                                </div>
+                                <h4 className="text-lg font-black text-white tracking-tight">
+                                    {customTitle}
+                                </h4>
                             </div>
-                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 self-start sm:self-auto">
-                                4 Quadrant Analysis
+                            <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 self-start sm:self-auto">
+                                {customBadge}
                             </span>
                         </div>
 
@@ -991,11 +936,11 @@ export default function BlogMarkdown({ content }) {
                                         key={idx}
                                         className={`rounded-xl border p-5 transition-all ${
                                             isTopRight
-                                                ? 'bg-emerald-500/[0.06] border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.08)]'
+                                                ? 'bg-emerald-500/[0.06] border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.06)]'
                                                 : 'bg-white/[0.03] border-white/10 hover:border-purple-500/40'
                                         }`}
                                     >
-                                        <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${
+                                        <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded-full border ${
                                             isTopRight ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-white/10 text-slate-300 border-white/10'
                                         }`}>
                                             {q.quadrant}
@@ -1003,7 +948,7 @@ export default function BlogMarkdown({ content }) {
                                         <h5 className="font-bold text-white text-base mt-2.5 mb-1.5">
                                             {q.title}
                                         </h5>
-                                        <p className="text-xs text-slate-300 leading-relaxed">
+                                        <p className="text-xs text-slate-200 leading-relaxed">
                                             {q.description}
                                         </p>
                                     </div>
@@ -1039,28 +984,20 @@ export default function BlogMarkdown({ content }) {
                 });
 
                 elements.push(
-                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/40 shadow-[0_12px_40px_rgba(157,124,255,0.12)] p-6 sm:p-8">
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/30 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-6 sm:p-8">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
                             <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-xl bg-[#9d7cff]/20 border border-[#9d7cff]/40 flex items-center justify-center shrink-0">
+                                <div className="w-10 h-10 rounded-xl bg-[#9d7cff]/15 border border-[#9d7cff]/30 flex items-center justify-center shrink-0">
                                     <svg className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
                                     </svg>
                                 </div>
-                                <div>
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-[#c084fc] animate-pulse" />
-                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#c084fc]">
-                                            {customBadge}
-                                        </span>
-                                    </div>
-                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
-                                        {customTitle}
-                                    </h4>
-                                </div>
+                                <h4 className="text-lg font-black text-white tracking-tight">
+                                    {customTitle}
+                                </h4>
                             </div>
-                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 self-start sm:self-auto">
-                                Modular Bento Architecture
+                            <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-[#9d7cff]/15 border border-[#9d7cff]/30 text-[#c084fc] self-start sm:self-auto">
+                                {customBadge}
                             </span>
                         </div>
 
@@ -1073,7 +1010,7 @@ export default function BlogMarkdown({ content }) {
                                 return (
                                     <div
                                         key={bIdx}
-                                        className={`${spanClass} rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#9d7cff]/40 p-5 flex flex-col justify-between transition-all`}
+                                        className={`${spanClass} rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#9d7cff]/40 p-5 sm:p-6 flex flex-col justify-between transition-all`}
                                     >
                                         <div>
                                             <div className="flex items-center justify-between mb-2.5">
@@ -1081,12 +1018,12 @@ export default function BlogMarkdown({ content }) {
                                                     {item.title}
                                                 </h5>
                                                 {item.badge && (
-                                                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#9d7cff]/20 text-[#c084fc] border border-[#9d7cff]/30">
+                                                    <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-[#9d7cff]/15 text-[#c084fc] border border-[#9d7cff]/25">
                                                         {item.badge}
                                                     </span>
                                                 )}
                                             </div>
-                                            <p className="text-xs text-slate-300 leading-relaxed">
+                                            <p className="text-xs text-slate-200 leading-relaxed">
                                                 {item.description}
                                             </p>
                                         </div>
@@ -1110,7 +1047,7 @@ export default function BlogMarkdown({ content }) {
                                     {lang || 'Code'}
                                 </span>
                             </div>
-                            <span className="text-[10px] font-mono text-slate-500">Terminal</span>
+                            <span className="text-xs font-mono text-slate-500">Terminal</span>
                         </div>
                         <pre className="p-4 sm:p-5 overflow-x-auto text-xs sm:text-sm font-mono text-emerald-300/90 leading-relaxed scrollbar-thin">
                             <code>{codeLines.join('\n')}</code>
@@ -1194,7 +1131,7 @@ export default function BlogMarkdown({ content }) {
             elements.push(
                 <blockquote
                     key={key++}
-                    className="border-l-4 border-[#9d7cff] bg-[#161126]/80 p-4 sm:p-5 rounded-r-xl my-6 text-slate-300 italic text-base leading-relaxed"
+                    className="border border-[#9d7cff]/20 bg-[#161126]/40 px-6 py-5 rounded-xl my-6 text-slate-200 italic text-base leading-relaxed"
                 >
                     {quoteLines.map((ql, qIdx) => (
                         <p key={qIdx} className={qIdx > 0 ? 'mt-2' : ''}>
@@ -1320,7 +1257,7 @@ export default function BlogMarkdown({ content }) {
 
         if (paragraphLines.length > 0) {
             elements.push(
-                <p key={key++} className="text-slate-300 text-base sm:text-[17px] leading-relaxed my-4">
+                <p key={key++} className="text-slate-300 text-base leading-relaxed my-4">
                     {paragraphLines.map((pl, pIdx) => (
                         <React.Fragment key={pIdx}>
                             {pIdx > 0 && ' '}
