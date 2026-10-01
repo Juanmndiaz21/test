@@ -254,59 +254,148 @@ export default function BlogMarkdown({ content }) {
             }
 
             if (lang === 'diagram' || lang === 'flow' || lang === 'steps') {
+                const stepIcons = [
+                    // Step 1: Globe / Download
+                    (
+                        <svg className="w-5 h-5 text-[#9d7cff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                        </svg>
+                    ),
+                    // Step 2: User / Credentials
+                    (
+                        <svg className="w-5 h-5 text-[#9d7cff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    ),
+                    // Step 3: Calendar / Birthday / Verification
+                    (
+                        <svg className="w-5 h-5 text-[#9d7cff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    ),
+                    // Step 4: Mail / Confirmation
+                    (
+                        <svg className="w-5 h-5 text-[#9d7cff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    ),
+                    // Step 5: Shield / Security / 2FA
+                    (
+                        <svg className="w-5 h-5 text-[#9d7cff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                    ),
+                    // Step 6: Gamepad / Community
+                    (
+                        <svg className="w-5 h-5 text-[#9d7cff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    )
+                ];
+
                 const parsedSteps = codeLines
                     .filter((l) => l.trim())
                     .map((l) => {
                         const parts = l.split('|').map((p) => p.trim());
+                        const cleanTitle = (parts[0] || '').replace(/^\d+[\.\)]\s*/, '');
                         return {
-                            title: parts[0] || '',
+                            title: cleanTitle,
                             description: parts[1] || '',
                             subtext: parts[2] || ''
                         };
                     });
 
                 elements.push(
-                    <div key={key++} className="my-8 p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[#161126] via-[#120d20] to-[#0d0914] border border-[#9d7cff]/30 shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
-                        <div className="flex items-center gap-2 mb-6 text-xs font-mono font-bold uppercase tracking-wider text-[#9d7cff]">
-                            <span className="w-2 h-2 rounded-full bg-[#9d7cff] animate-pulse" />
-                            <span>Visual Process Diagram • Flujo Paso a Paso</span>
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/40 shadow-[0_12px_40px_rgba(157,124,255,0.12)] p-6 sm:p-8">
+                        {/* Header Banner */}
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
+                            <div className="flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-xl bg-[#9d7cff]/20 border border-[#9d7cff]/40 flex items-center justify-center shrink-0">
+                                    <svg className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#c084fc]">
+                                            Visual Process Diagram
+                                        </span>
+                                    </div>
+                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
+                                        Step-by-Step Account Creation Pipeline
+                                    </h4>
+                                </div>
+                            </div>
+                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 self-start sm:self-auto">
+                                {parsedSteps.length} Sequential Steps
+                            </span>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {parsedSteps.map((step, sIdx) => (
-                                <div key={sIdx} className="relative rounded-xl bg-white/[0.03] border border-white/10 p-5 flex flex-col justify-between hover:border-[#9d7cff]/40 transition-colors group">
-                                    <div>
-                                        <div className="flex items-center justify-between mb-2">
-                                            <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#9d7cff]/20 text-[#c084fc] border border-[#9d7cff]/30">
-                                                Paso {sIdx + 1}
-                                            </span>
-                                            {sIdx < parsedSteps.length - 1 && (
-                                                <span className="text-slate-600 font-mono text-sm hidden lg:inline">→</span>
+
+                        {/* Interactive Step Cards Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {parsedSteps.map((step, sIdx) => {
+                                const icon = stepIcons[sIdx % stepIcons.length];
+                                return (
+                                    <div
+                                        key={sIdx}
+                                        className="relative rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#9d7cff]/50 transition-all duration-200 p-5 flex flex-col justify-between group shadow-sm"
+                                    >
+                                        <div>
+                                            <div className="flex items-center justify-between mb-3">
+                                                <div className="w-8 h-8 rounded-lg bg-[#9d7cff]/10 border border-[#9d7cff]/30 flex items-center justify-center">
+                                                    {icon}
+                                                </div>
+                                                <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#9d7cff]/20 text-[#c084fc] border border-[#9d7cff]/30">
+                                                    STEP 0{sIdx + 1}
+                                                </span>
+                                            </div>
+                                            <h5 className="font-bold text-white text-base group-hover:text-[#c084fc] transition-colors leading-snug">
+                                                {step.title}
+                                            </h5>
+                                            {step.description && (
+                                                <p className="text-xs text-slate-300 mt-2 leading-relaxed">
+                                                    {step.description}
+                                                </p>
                                             )}
                                         </div>
-                                        <h4 className="font-bold text-white text-base mt-2 group-hover:text-[#9d7cff] transition-colors">{step.title}</h4>
-                                        {step.description && (
-                                            <p className="text-xs text-slate-300 mt-2 leading-relaxed">{step.description}</p>
+                                        {step.subtext && (
+                                            <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono">
+                                                <span className="text-emerald-400 font-semibold flex items-center gap-1.5">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                                                    {step.subtext}
+                                                </span>
+                                                {sIdx < parsedSteps.length - 1 && (
+                                                    <span className="text-slate-500 hidden lg:inline font-mono">
+                                                        ➔
+                                                    </span>
+                                                )}
+                                            </div>
                                         )}
                                     </div>
-                                    {step.subtext && (
-                                        <div className="mt-3 pt-2.5 border-t border-white/5 text-[11px] font-mono text-emerald-400">
-                                            ✓ {step.subtext}
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </div>
                 );
             } else {
+                // High-polish terminal code / schematic block
                 elements.push(
-                    <div key={key++} className="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#0d0914] shadow-lg">
-                        {lang && (
-                            <div className="flex items-center justify-between px-4 py-1.5 bg-white/5 border-b border-white/5 text-[11px] font-mono text-slate-400">
-                                <span>{lang}</span>
+                    <div key={key++} className="my-6 rounded-2xl overflow-hidden border border-white/10 bg-[#0c0816] shadow-xl">
+                        {/* Terminal title bar with macOS-like dots */}
+                        <div className="flex items-center justify-between px-4 py-2.5 bg-[#140e24] border-b border-white/5">
+                            <div className="flex items-center gap-1.5">
+                                <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
+                                <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
+                                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
+                                <span className="ml-2 text-[11px] font-mono text-slate-400 uppercase tracking-wider">
+                                    {lang || 'Flowchart Architecture'}
+                                </span>
                             </div>
-                        )}
-                        <pre className="p-4 overflow-x-auto text-xs sm:text-sm font-mono text-emerald-400 leading-relaxed">
+                            <span className="text-[10px] font-mono text-slate-500">ASCII Architecture</span>
+                        </div>
+                        <pre className="p-4 sm:p-5 overflow-x-auto text-xs sm:text-sm font-mono text-emerald-300/90 leading-relaxed scrollbar-thin">
                             <code>{codeLines.join('\n')}</code>
                         </pre>
                     </div>
@@ -501,6 +590,8 @@ export default function BlogMarkdown({ content }) {
             lines[i].trim() &&
             !lines[i].trim().startsWith('#') &&
             !lines[i].trim().startsWith('>') &&
+            !lines[i].trim().startsWith('```') &&
+            !lines[i].trim().startsWith('![') &&
             !/^[\*\-]\s+/.test(lines[i].trim()) &&
             !/^\d+\.\s+/.test(lines[i].trim()) &&
             !(lines[i].trim().startsWith('|') && lines[i].trim().endsWith('|')) &&
