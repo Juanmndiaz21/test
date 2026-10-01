@@ -16,7 +16,10 @@ export default async function AdminProducts({ searchParams }) {
     const sql = neon(process.env.DATABASE_URL);
     const params = await searchParams;
     const selectedGame = params?.game || '';
-    const products = await sql`SELECT * FROM products ORDER BY id DESC`;
+    const [products, gamesData] = await Promise.all([
+        sql`SELECT * FROM products ORDER BY id DESC`,
+        sql`SELECT id, name FROM games ORDER BY name ASC`,
+    ]);
     const { options } = await getServiceOptions(sql);
 
     // Compute key catalog statistics
@@ -102,7 +105,7 @@ export default async function AdminProducts({ searchParams }) {
             </div>
 
             {/* Create Service Section (Collapsible Accordion Form) */}
-            <AddProductForm selectedGame={selectedGame} initialOptions={options} />
+            <AddProductForm selectedGame={selectedGame} initialOptions={options} games={gamesData} />
 
             {/* Services Table Client Component */}
             <div className="space-y-4">

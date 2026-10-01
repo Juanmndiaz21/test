@@ -45,9 +45,12 @@ export async function addProduct(formData) {
     await sql`UPDATE products SET options = COALESCE(boost_options, commends_options) WHERE options IS NULL AND boost_options IS NOT NULL`;
     await sql`UPDATE products SET options = COALESCE(boost_options, commends_options) WHERE options IS NULL AND commends_options IS NOT NULL`;
     const name = String(formData.get('name') || '').trim();
-    const game = String(formData.get('game') || '').trim();
+    const rawGame = String(formData.get('game') || '').trim();
     if (!name) throw new Error('Product name is required.');
-    if (!game) throw new Error('Game is required.');
+    if (!rawGame) throw new Error('Game is required.');
+
+    const existingGame = await sql`SELECT name FROM games WHERE LOWER(name) = LOWER(${rawGame}) LIMIT 1`;
+    const game = existingGame[0]?.name || rawGame;
 
     const price = Number(formData.get('price'));
     if (!Number.isFinite(price) || price <= 0) {
@@ -124,8 +127,14 @@ export async function updateProduct(formData) {
     if (!Number.isInteger(id) || id <= 0) throw new Error('Invalid product id.');
 
     const name = String(formData.get('name') || '').trim();
-    const game = String(formData.get('game') || '').trim();
+    const rawGame = String(formData.get('game') || '').trim();
     if (!name) throw new Error('Product name is required.');
+
+    let game = rawGame;
+    if (rawGame) {
+        const existingGame = await sql`SELECT name FROM games WHERE LOWER(name) = LOWER(${rawGame}) LIMIT 1`;
+        game = existingGame[0]?.name || rawGame;
+    }
 
     const price = Number(formData.get('price'));
     if (!Number.isFinite(price) || price <= 0) {

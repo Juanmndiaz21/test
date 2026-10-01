@@ -9,7 +9,7 @@ import { PlatformFormField } from './PlatformSelector';
 import ProductDescriptionEditor from './ProductDescriptionEditor';
 import Icon from '../../../components/Icon';
 
-export default function AddProductForm({ selectedGame, initialOptions }) {
+export default function AddProductForm({ selectedGame, initialOptions, games = [] }) {
     const formRef = useRef(null);
     const [isPending, startTransition] = useTransition();
     const [game, setGame] = useState(selectedGame || '');
@@ -92,12 +92,18 @@ export default function AddProductForm({ selectedGame, initialOptions }) {
                             name="game"
                             type="text"
                             required
+                            list="admin-available-games"
                             value={game}
                             onChange={(e) => setGame(e.target.value)}
                             readOnly={Boolean(selectedGame)}
-                            placeholder="e.g. GTA 5, CS2, BO6..."
+                            placeholder="e.g. GTA V, CS2, Steam..."
                             className="w-full bg-[#120e1c] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 read-only:text-[#9d7cff] read-only:cursor-not-allowed focus:border-[#9d7cff] outline-none transition-colors"
                         />
+                        <datalist id="admin-available-games">
+                            {games.map((g) => (
+                                <option key={g.id || g.name} value={g.name} />
+                            ))}
+                        </datalist>
                     </div>
 
                     {/* Platform Selector (Interactive component) */}

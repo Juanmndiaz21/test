@@ -55,17 +55,34 @@ export default function ProductList({ products, games: catalogGames = [] }) {
     const [activeLetter, setActiveLetter] = useState('ALL');
 
     const { games, gameImages } = useMemo(() => {
-        const grouped = (products || []).reduce((groups, product) => {
-            const game = product.game || 'General';
-            if (!groups[game]) groups[game] = [];
-            groups[game].push(product);
-            return groups;
-        }, {});
-
-        const images = {};
+        const catalogMap = new Map();
         catalogGames.forEach(({ name, image_url: imageUrl }) => {
+            catalogMap.set(name.toLowerCase(), { canonicalName: name, imageUrl });
+        });
+
+        const grouped = {};
+        const images = {};
+
+        // Pre-populate with all registered catalog games so empty ones still appear with their official art
+        catalogGames.forEach(({ name, image_url: imageUrl }) => {
+            grouped[name] = [];
             images[name] = imageUrl;
-            if (!grouped[name]) grouped[name] = [];
+        });
+
+        // Group products into canonical game names case-insensitively
+        (products || []).forEach((product) => {
+            const rawGame = (product.game || 'General').trim();
+            const lower = rawGame.toLowerCase();
+            const matched = catalogMap.get(lower);
+            const targetName = matched ? matched.canonicalName : rawGame;
+
+            if (!grouped[targetName]) {
+                grouped[targetName] = [];
+            }
+            if (matched && !images[targetName]) {
+                images[targetName] = matched.imageUrl;
+            }
+            grouped[targetName].push(product);
         });
 
         const sortedGames = Object.entries(grouped).sort(([firstGame], [secondGame]) =>
