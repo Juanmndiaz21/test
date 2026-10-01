@@ -240,6 +240,81 @@ export default function BlogMarkdown({ content }) {
             continue;
         }
 
+        // Fenced Code Block or Visual Diagram: ```lang ... ```
+        if (trimmed.startsWith('```')) {
+            const lang = trimmed.replace(/^```/, '').trim().toLowerCase();
+            const codeLines = [];
+            i++;
+            while (i < lines.length && !lines[i].trim().startsWith('```')) {
+                codeLines.push(lines[i]);
+                i++;
+            }
+            if (i < lines.length && lines[i].trim().startsWith('```')) {
+                i++; // skip closing backticks
+            }
+
+            if (lang === 'diagram' || lang === 'flow' || lang === 'steps') {
+                const parsedSteps = codeLines
+                    .filter((l) => l.trim())
+                    .map((l) => {
+                        const parts = l.split('|').map((p) => p.trim());
+                        return {
+                            title: parts[0] || '',
+                            description: parts[1] || '',
+                            subtext: parts[2] || ''
+                        };
+                    });
+
+                elements.push(
+                    <div key={key++} className="my-8 p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[#161126] via-[#120d20] to-[#0d0914] border border-[#9d7cff]/30 shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
+                        <div className="flex items-center gap-2 mb-6 text-xs font-mono font-bold uppercase tracking-wider text-[#9d7cff]">
+                            <span className="w-2 h-2 rounded-full bg-[#9d7cff] animate-pulse" />
+                            <span>Visual Process Diagram • Flujo Paso a Paso</span>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {parsedSteps.map((step, sIdx) => (
+                                <div key={sIdx} className="relative rounded-xl bg-white/[0.03] border border-white/10 p-5 flex flex-col justify-between hover:border-[#9d7cff]/40 transition-colors group">
+                                    <div>
+                                        <div className="flex items-center justify-between mb-2">
+                                            <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#9d7cff]/20 text-[#c084fc] border border-[#9d7cff]/30">
+                                                Paso {sIdx + 1}
+                                            </span>
+                                            {sIdx < parsedSteps.length - 1 && (
+                                                <span className="text-slate-600 font-mono text-sm hidden lg:inline">→</span>
+                                            )}
+                                        </div>
+                                        <h4 className="font-bold text-white text-base mt-2 group-hover:text-[#9d7cff] transition-colors">{step.title}</h4>
+                                        {step.description && (
+                                            <p className="text-xs text-slate-300 mt-2 leading-relaxed">{step.description}</p>
+                                        )}
+                                    </div>
+                                    {step.subtext && (
+                                        <div className="mt-3 pt-2.5 border-t border-white/5 text-[11px] font-mono text-emerald-400">
+                                            ✓ {step.subtext}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                );
+            } else {
+                elements.push(
+                    <div key={key++} className="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#0d0914] shadow-lg">
+                        {lang && (
+                            <div className="flex items-center justify-between px-4 py-1.5 bg-white/5 border-b border-white/5 text-[11px] font-mono text-slate-400">
+                                <span>{lang}</span>
+                            </div>
+                        )}
+                        <pre className="p-4 overflow-x-auto text-xs sm:text-sm font-mono text-emerald-400 leading-relaxed">
+                            <code>{codeLines.join('\n')}</code>
+                        </pre>
+                    </div>
+                );
+            }
+            continue;
+        }
+
         // Heading 1: # Title
         if (trimmed.startsWith('# ')) {
             const rawTitle = trimmed.replace(/^#\s+/, '');
