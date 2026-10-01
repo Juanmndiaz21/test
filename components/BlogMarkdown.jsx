@@ -577,6 +577,525 @@ export default function BlogMarkdown({ content }) {
                         </div>
                     </div>
                 );
+            } else if (lang === 'cycle' || lang === 'loop') {
+                let customTitle = 'Cyclic Workflow & Farming Loop';
+                let customBadge = 'Closed-Loop System';
+                const loopLines = [];
+
+                for (const rawL of codeLines) {
+                    const l = rawL.trim();
+                    if (/^title:\s*/i.test(l)) {
+                        customTitle = l.replace(/^title:\s*/i, '').trim();
+                    } else if (/^badge:\s*/i.test(l)) {
+                        customBadge = l.replace(/^badge:\s*/i, '').trim();
+                    } else if (l) {
+                        loopLines.push(l);
+                    }
+                }
+
+                const parsedPhases = loopLines.map((l) => {
+                    const parts = l.split('|').map((p) => p.trim());
+                    return {
+                        phase: parts[0] || '',
+                        description: parts[1] || '',
+                        timing: parts[2] || '',
+                        badge: parts[3] || ''
+                    };
+                });
+
+                elements.push(
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#10b981]/30 shadow-[0_12px_40px_rgba(16,185,129,0.12)] p-6 sm:p-8">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
+                            <div className="flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0">
+                                    <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-emerald-400">
+                                            {customBadge}
+                                        </span>
+                                    </div>
+                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
+                                        {customTitle}
+                                    </h4>
+                                </div>
+                            </div>
+                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 self-start sm:self-auto">
+                                ↺ Infinite Cycle ({parsedPhases.length} Phases)
+                            </span>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            {parsedPhases.map((phase, pIdx) => (
+                                <div key={pIdx} className="relative rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-emerald-500/50 p-5 flex flex-col justify-between transition-all group">
+                                    <div>
+                                        <div className="flex items-center justify-between mb-3">
+                                            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                                PHASE 0{pIdx + 1}
+                                            </span>
+                                            {phase.timing && (
+                                                <span className="text-[11px] font-mono text-slate-400">
+                                                    ⏱ {phase.timing}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <h5 className="font-bold text-white text-base group-hover:text-emerald-300 transition-colors">
+                                            {phase.phase}
+                                        </h5>
+                                        {phase.description && (
+                                            <p className="text-xs text-slate-300 mt-2 leading-relaxed">
+                                                {phase.description}
+                                            </p>
+                                        )}
+                                    </div>
+                                    <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono">
+                                        <span className="text-emerald-400 font-semibold">
+                                            {phase.badge || 'Repeat Cycle'}
+                                        </span>
+                                        <span className="text-slate-500 font-mono">
+                                            {pIdx === parsedPhases.length - 1 ? '↺ Loop' : '➔'}
+                                        </span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                );
+            } else if (lang === 'decision' || lang === 'logic') {
+                let customTitle = 'Branching Decision Tree';
+                let customBadge = 'Decision Logic';
+                const decisionLines = [];
+
+                for (const rawL of codeLines) {
+                    const l = rawL.trim();
+                    if (/^title:\s*/i.test(l)) {
+                        customTitle = l.replace(/^title:\s*/i, '').trim();
+                    } else if (/^badge:\s*/i.test(l)) {
+                        customBadge = l.replace(/^badge:\s*/i, '').trim();
+                    } else if (l) {
+                        decisionLines.push(l);
+                    }
+                }
+
+                const parsedRules = decisionLines.map((l) => {
+                    const delimiter = l.includes('➔') ? '➔' : '|';
+                    const parts = l.split(delimiter).map((p) => p.trim());
+                    return {
+                        condition: parts[0] || '',
+                        action: parts.slice(1, parts.length - 1).join(' ➔ ') || parts[1] || '',
+                        outcome: parts[parts.length - 1] || ''
+                    };
+                });
+
+                elements.push(
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-amber-500/30 shadow-[0_12px_40px_rgba(245,158,11,0.12)] p-6 sm:p-8">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
+                            <div className="flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center shrink-0">
+                                    <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-amber-400">
+                                            {customBadge}
+                                        </span>
+                                    </div>
+                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
+                                        {customTitle}
+                                    </h4>
+                                </div>
+                            </div>
+                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 self-start sm:self-auto">
+                                Conditional Logic ({parsedRules.length} Branches)
+                            </span>
+                        </div>
+
+                        <div className="space-y-4">
+                            {parsedRules.map((rule, rIdx) => (
+                                <div key={rIdx} className="rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-amber-500/40 p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all">
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-2 mb-1.5">
+                                            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                                                IF SCENARIO
+                                            </span>
+                                            <span className="text-sm font-bold text-white">
+                                                {rule.condition}
+                                            </span>
+                                        </div>
+                                        {rule.action && (
+                                            <p className="text-xs text-slate-300 pl-2 border-l-2 border-amber-500/40 mt-2">
+                                                ➔ <span className="font-semibold text-slate-200">Action:</span> {rule.action}
+                                            </p>
+                                        )}
+                                    </div>
+                                    {rule.outcome && (
+                                        <div className="shrink-0">
+                                            <span className="text-xs font-mono font-semibold px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 flex items-center gap-1.5">
+                                                <span>✓</span> {rule.outcome}
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                );
+            } else if (lang === 'stack' || lang === 'pyramid') {
+                let customTitle = 'Rank Hierarchy & Progression Pyramid';
+                let customBadge = 'Tier Architecture';
+                const stackLines = [];
+
+                for (const rawL of codeLines) {
+                    const l = rawL.trim();
+                    if (/^title:\s*/i.test(l)) {
+                        customTitle = l.replace(/^title:\s*/i, '').trim();
+                    } else if (/^badge:\s*/i.test(l)) {
+                        customBadge = l.replace(/^badge:\s*/i, '').trim();
+                    } else if (l) {
+                        stackLines.push(l);
+                    }
+                }
+
+                const parsedTiers = stackLines.map((l) => {
+                    const parts = l.split('|').map((p) => p.trim());
+                    return {
+                        tier: parts[0] || '',
+                        share: parts[1] || '',
+                        description: parts[2] || ''
+                    };
+                });
+
+                const tierColors = [
+                    'border-amber-400/50 bg-amber-500/[0.08] text-amber-300',
+                    'border-rose-400/50 bg-rose-500/[0.08] text-rose-300',
+                    'border-purple-400/50 bg-purple-500/[0.08] text-[#c084fc]',
+                    'border-cyan-400/50 bg-cyan-500/[0.08] text-cyan-300',
+                    'border-slate-500/40 bg-white/[0.03] text-slate-300'
+                ];
+
+                elements.push(
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/40 shadow-[0_12px_40px_rgba(157,124,255,0.12)] p-6 sm:p-8">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
+                            <div className="flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center shrink-0">
+                                    <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
+                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-purple-400">
+                                            {customBadge}
+                                        </span>
+                                    </div>
+                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
+                                        {customTitle}
+                                    </h4>
+                                </div>
+                            </div>
+                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 self-start sm:self-auto">
+                                {parsedTiers.length} Stratified Levels
+                            </span>
+                        </div>
+
+                        <div className="flex flex-col items-center gap-3 my-4">
+                            {parsedTiers.map((t, idx) => {
+                                const colorClass = tierColors[idx % tierColors.length];
+                                const widthPercentages = ['w-full sm:w-[70%]', 'w-full sm:w-[80%]', 'w-full sm:w-[90%]', 'w-full'];
+                                const widthClass = widthPercentages[Math.min(idx, widthPercentages.length - 1)];
+
+                                return (
+                                    <div
+                                        key={idx}
+                                        className={`${widthClass} rounded-xl border p-4 sm:p-5 transition-all shadow-md ${colorClass}`}
+                                    >
+                                        <div className="flex flex-wrap items-center justify-between gap-2">
+                                            <span className="font-bold text-white text-base">
+                                                {t.tier}
+                                            </span>
+                                            {t.share && (
+                                                <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-white/10">
+                                                    {t.share}
+                                                </span>
+                                            )}
+                                        </div>
+                                        {t.description && (
+                                            <p className="text-xs text-slate-300 mt-2 leading-relaxed">
+                                                {t.description}
+                                            </p>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                );
+            } else if (lang === 'risk' || lang === 'spectrum') {
+                let customTitle = 'Risk vs. Reward Spectrum';
+                let customBadge = 'Risk / Yield Analysis';
+                const riskLines = [];
+
+                for (const rawL of codeLines) {
+                    const l = rawL.trim();
+                    if (/^title:\s*/i.test(l)) {
+                        customTitle = l.replace(/^title:\s*/i, '').trim();
+                    } else if (/^badge:\s*/i.test(l)) {
+                        customBadge = l.replace(/^badge:\s*/i, '').trim();
+                    } else if (l) {
+                        riskLines.push(l);
+                    }
+                }
+
+                const parsedProfiles = riskLines.map((l) => {
+                    const parts = l.split('|').map((p) => p.trim());
+                    return {
+                        level: parts[0] || '',
+                        title: parts[1] || '',
+                        description: parts[2] || '',
+                        yield: parts[3] || '',
+                        tag: parts[4] || ''
+                    };
+                });
+
+                const riskStyles = [
+                    { border: 'border-emerald-500/40', badge: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30', glow: 'shadow-[0_0_20px_rgba(16,185,129,0.1)]' },
+                    { border: 'border-amber-500/40', badge: 'bg-amber-500/20 text-amber-300 border-amber-500/30', glow: 'shadow-[0_0_20px_rgba(245,158,11,0.1)]' },
+                    { border: 'border-rose-500/40', badge: 'bg-rose-500/20 text-rose-300 border-rose-500/30', glow: 'shadow-[0_0_20px_rgba(244,63,94,0.1)]' }
+                ];
+
+                elements.push(
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.5)] p-6 sm:p-8">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
+                            <div className="flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center shrink-0">
+                                    <svg className="w-5 h-5 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-rose-400 animate-pulse" />
+                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-rose-400">
+                                            {customBadge}
+                                        </span>
+                                    </div>
+                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
+                                        {customTitle}
+                                    </h4>
+                                </div>
+                            </div>
+                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 self-start sm:self-auto">
+                                3-Tier Risk Profile
+                            </span>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                            {parsedProfiles.map((p, idx) => {
+                                const style = riskStyles[idx % riskStyles.length];
+                                return (
+                                    <div key={idx} className={`rounded-xl border ${style.border} ${style.glow} bg-white/[0.02] p-5 flex flex-col justify-between`}>
+                                        <div>
+                                            <div className="flex items-center justify-between gap-2 mb-3">
+                                                <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${style.badge}`}>
+                                                    {p.level}
+                                                </span>
+                                                {p.tag && (
+                                                    <span className="text-xs font-mono text-slate-400">
+                                                        {p.tag}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <h5 className="font-bold text-white text-base mb-2">
+                                                {p.title}
+                                            </h5>
+                                            <p className="text-xs text-slate-300 leading-relaxed">
+                                                {p.description}
+                                            </p>
+                                        </div>
+                                        {p.yield && (
+                                            <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs font-mono">
+                                                <span className="text-slate-400">Expected Yield:</span>
+                                                <span className="text-emerald-400 font-bold">{p.yield}</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                );
+            } else if (lang === 'quadrant') {
+                let customTitle = 'Strategic 2×2 Decision Matrix';
+                let customBadge = 'Quadrant Analysis';
+                const quadLines = [];
+
+                for (const rawL of codeLines) {
+                    const l = rawL.trim();
+                    if (/^title:\s*/i.test(l)) {
+                        customTitle = l.replace(/^title:\s*/i, '').trim();
+                    } else if (/^badge:\s*/i.test(l)) {
+                        customBadge = l.replace(/^badge:\s*/i, '').trim();
+                    } else if (l) {
+                        quadLines.push(l);
+                    }
+                }
+
+                const parsedQuads = quadLines.map((l) => {
+                    const parts = l.split('|').map((p) => p.trim());
+                    return {
+                        quadrant: parts[0] || '',
+                        title: parts[1] || '',
+                        description: parts[2] || ''
+                    };
+                });
+
+                elements.push(
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/40 shadow-[0_12px_40px_rgba(157,124,255,0.12)] p-6 sm:p-8">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
+                            <div className="flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center shrink-0">
+                                    <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
+                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-purple-400">
+                                            {customBadge}
+                                        </span>
+                                    </div>
+                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
+                                        {customTitle}
+                                    </h4>
+                                </div>
+                            </div>
+                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 self-start sm:self-auto">
+                                4 Quadrant Analysis
+                            </span>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {parsedQuads.map((q, idx) => {
+                                const isTopRight = idx === 0;
+                                return (
+                                    <div
+                                        key={idx}
+                                        className={`rounded-xl border p-5 transition-all ${
+                                            isTopRight
+                                                ? 'bg-emerald-500/[0.06] border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.08)]'
+                                                : 'bg-white/[0.03] border-white/10 hover:border-purple-500/40'
+                                        }`}
+                                    >
+                                        <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${
+                                            isTopRight ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-white/10 text-slate-300 border-white/10'
+                                        }`}>
+                                            {q.quadrant}
+                                        </span>
+                                        <h5 className="font-bold text-white text-base mt-2.5 mb-1.5">
+                                            {q.title}
+                                        </h5>
+                                        <p className="text-xs text-slate-300 leading-relaxed">
+                                            {q.description}
+                                        </p>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                );
+            } else if (lang === 'bento') {
+                let customTitle = 'Comprehensive Ecosystem Grid';
+                let customBadge = 'Bento Overview';
+                const bentoLines = [];
+
+                for (const rawL of codeLines) {
+                    const l = rawL.trim();
+                    if (/^title:\s*/i.test(l)) {
+                        customTitle = l.replace(/^title:\s*/i, '').trim();
+                    } else if (/^badge:\s*/i.test(l)) {
+                        customBadge = l.replace(/^badge:\s*/i, '').trim();
+                    } else if (l) {
+                        bentoLines.push(l);
+                    }
+                }
+
+                const parsedBento = bentoLines.map((l) => {
+                    const parts = l.split('|').map((p) => p.trim());
+                    return {
+                        layout: parts[0] || 'normal',
+                        title: parts[1] || '',
+                        description: parts[2] || '',
+                        badge: parts[3] || ''
+                    };
+                });
+
+                elements.push(
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/40 shadow-[0_12px_40px_rgba(157,124,255,0.12)] p-6 sm:p-8">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
+                            <div className="flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-xl bg-[#9d7cff]/20 border border-[#9d7cff]/40 flex items-center justify-center shrink-0">
+                                    <svg className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-[#c084fc] animate-pulse" />
+                                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#c084fc]">
+                                            {customBadge}
+                                        </span>
+                                    </div>
+                                    <h4 className="text-lg font-black text-white tracking-tight mt-0.5">
+                                        {customTitle}
+                                    </h4>
+                                </div>
+                            </div>
+                            <span className="text-[11px] font-mono font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 self-start sm:self-auto">
+                                Modular Bento Architecture
+                            </span>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {parsedBento.map((item, bIdx) => {
+                                const isWide = item.layout.includes('wide') || item.layout.includes('full');
+                                const isLarge = item.layout.includes('large');
+                                const spanClass = isWide ? 'md:col-span-3' : isLarge ? 'md:col-span-2' : 'md:col-span-1';
+
+                                return (
+                                    <div
+                                        key={bIdx}
+                                        className={`${spanClass} rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#9d7cff]/40 p-5 flex flex-col justify-between transition-all`}
+                                    >
+                                        <div>
+                                            <div className="flex items-center justify-between mb-2.5">
+                                                <h5 className="font-bold text-white text-base">
+                                                    {item.title}
+                                                </h5>
+                                                {item.badge && (
+                                                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#9d7cff]/20 text-[#c084fc] border border-[#9d7cff]/30">
+                                                        {item.badge}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <p className="text-xs text-slate-300 leading-relaxed">
+                                                {item.description}
+                                            </p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                );
             } else {
                 // High-polish terminal code / command block
                 elements.push(
