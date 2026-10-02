@@ -53,6 +53,51 @@ export default async function ProductPage({ params }) {
     const localizedProductUrl = `${baseUrl}/store/${canonicalSlug}`;
     const cleanGameSlug = gameToSlug(product.game || 'store');
 
+    const offerValidFrom = product.created_at
+        ? new Date(product.created_at).toISOString().split('T')[0]
+        : '2024-01-01';
+
+    const merchantReturnPolicy = {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountry: 'US',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+        merchantReturnDays: 14,
+        returnMethod: 'https://schema.org/ReturnOnline',
+        returnFees: 'https://schema.org/FreeReturn',
+        refundType: 'https://schema.org/FullRefund',
+        url: `${baseUrl}/refunds`,
+    };
+
+    const shippingDetails = [
+        {
+            '@type': 'OfferShippingDetails',
+            shippingRate: {
+                '@type': 'MonetaryAmount',
+                value: '0.00',
+                currency: 'USD',
+            },
+            shippingDestination: {
+                '@type': 'DefinedRegion',
+                addressCountry: 'US',
+            },
+            deliveryTime: {
+                '@type': 'ShippingDeliveryTime',
+                handlingTime: {
+                    '@type': 'QuantitativeValue',
+                    minValue: 0,
+                    maxValue: 1,
+                    unitCode: 'd',
+                },
+                transitTime: {
+                    '@type': 'QuantitativeValue',
+                    minValue: 0,
+                    maxValue: 1,
+                    unitCode: 'd',
+                },
+            },
+        },
+    ];
+
     // Schema.org structured data for product page with Breadcrumbs and AggregateRating
     const jsonLd = {
         '@context': 'https://schema.org',
@@ -93,6 +138,8 @@ export default async function ProductPage({ params }) {
                 description: product.description || `Fast, reliable ${product.name} boosting service for ${product.game}. 100% hand-played by verified professionals with instant delivery.`,
                 image: product.image_url ? [product.image_url] : [`${baseUrl}/og-image.png`],
                 category: `${product.game || 'Gaming'} Boosting`,
+                sku: String(product.id || canonicalSlug),
+                mpn: `OGM-${product.id || 'BOOST'}`,
                 brand: {
                     '@type': 'Brand',
                     name: 'OGmodz',
@@ -103,6 +150,7 @@ export default async function ProductPage({ params }) {
                     priceCurrency: 'USD',
                     price: Number(product.price || 0).toFixed(2),
                     priceValidUntil: '2027-12-31',
+                    validFrom: offerValidFrom,
                     availability: 'https://schema.org/InStock',
                     itemCondition: 'https://schema.org/NewCondition',
                     seller: {
@@ -110,6 +158,8 @@ export default async function ProductPage({ params }) {
                         name: 'OGmodz',
                         url: baseUrl,
                     },
+                    hasMerchantReturnPolicy: merchantReturnPolicy,
+                    shippingDetails,
                 },
                 aggregateRating: {
                     '@type': 'AggregateRating',

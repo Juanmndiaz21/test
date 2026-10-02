@@ -91,6 +91,47 @@ export default async function GameServicesPage({ params }) {
     const highPrice = validPrices.length ? Math.max(...validPrices).toFixed(2) : '199.99';
     const offerCount = products.length || 1;
 
+    const merchantReturnPolicy = {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountry: 'US',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+        merchantReturnDays: 14,
+        returnMethod: 'https://schema.org/ReturnOnline',
+        returnFees: 'https://schema.org/FreeReturn',
+        refundType: 'https://schema.org/FullRefund',
+        url: `${baseUrl}/refunds`,
+    };
+
+    const shippingDetails = [
+        {
+            '@type': 'OfferShippingDetails',
+            shippingRate: {
+                '@type': 'MonetaryAmount',
+                value: '0.00',
+                currency: 'USD',
+            },
+            shippingDestination: {
+                '@type': 'DefinedRegion',
+                addressCountry: 'US',
+            },
+            deliveryTime: {
+                '@type': 'ShippingDeliveryTime',
+                handlingTime: {
+                    '@type': 'QuantitativeValue',
+                    minValue: 0,
+                    maxValue: 1,
+                    unitCode: 'd',
+                },
+                transitTime: {
+                    '@type': 'QuantitativeValue',
+                    minValue: 0,
+                    maxValue: 1,
+                    unitCode: 'd',
+                },
+            },
+        },
+    ];
+
     // Schema.org structured data for game services category, breadcrumbs, AggregateOffer & FAQPage
     const jsonLd = {
         '@context': 'https://schema.org',
@@ -142,8 +183,15 @@ export default async function GameServicesPage({ params }) {
                         description: product.description || `${product.name} boost for ${game}`,
                         price: Number(product.price || 0).toFixed(2),
                         priceCurrency: 'USD',
+                        priceValidUntil: '2027-12-31',
+                        validFrom: product.created_at
+                            ? new Date(product.created_at).toISOString().split('T')[0]
+                            : '2024-01-01',
                         availability: 'https://schema.org/InStock',
+                        itemCondition: 'https://schema.org/NewCondition',
                         url: `${baseUrl}/store/${product.slug || productToSlug(product.name)}`,
+                        hasMerchantReturnPolicy: merchantReturnPolicy,
+                        shippingDetails,
                     })),
                 },
             },

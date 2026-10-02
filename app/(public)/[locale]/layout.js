@@ -146,6 +146,16 @@ export default async function LocaleLayout({ children, params }) {
                     url: `${baseUrl}/contact`,
                     availableLanguage: ['English'],
                 },
+                hasMerchantReturnPolicy: {
+                    '@type': 'MerchantReturnPolicy',
+                    applicableCountry: 'US',
+                    returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+                    merchantReturnDays: 14,
+                    returnMethod: 'https://schema.org/ReturnOnline',
+                    returnFees: 'https://schema.org/FreeReturn',
+                    refundType: 'https://schema.org/FullRefund',
+                    url: `${baseUrl}/refunds`,
+                },
             },
             {
                 '@type': 'WebSite',
