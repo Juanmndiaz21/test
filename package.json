@@ -41,5 +41,10 @@
   },
   "allowScripts": {
     "@vercel/postgres@0.10.0": true
+  },
+  "overrides": {
+    "next-auth": {
+      "nodemailer": "$nodemailer"
+    }
   }
 }
