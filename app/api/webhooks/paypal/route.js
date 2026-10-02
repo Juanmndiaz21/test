@@ -14,8 +14,19 @@ export async function POST(req) {
         const transmissionTime = headers.get('paypal-transmission-time');
         const webhookId = process.env.PAYPAL_WEBHOOK_ID;
 
-        // If webhookId is configured, verify the signature with PayPal API
-        if (webhookId) {
+        // Security check: PAYPAL_WEBHOOK_ID is required to verify signatures
+        if (!webhookId) {
+            if (process.env.NODE_ENV === 'production') {
+                console.error('PayPal webhook error: PAYPAL_WEBHOOK_ID is not configured in production.');
+                return NextResponse.json({ error: 'Webhook verification not configured' }, { status: 500 });
+            }
+            console.warn('PayPal webhook warning: PAYPAL_WEBHOOK_ID is unset. Skipping verification in non-production environment.');
+        } else {
+            if (!authAlgo || !certUrl || !transmissionId || !transmissionSig || !transmissionTime) {
+                console.warn('PayPal webhook error: Missing required signature headers.');
+                return NextResponse.json({ error: 'Missing PayPal signature headers' }, { status: 400 });
+            }
+
             const isValid = await verifyPayPalWebhookSignature({
                 authAlgo,
                 certUrl,
