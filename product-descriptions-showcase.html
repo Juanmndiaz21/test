@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
     
     <script>
         tailwind.config = {
@@ -53,6 +53,13 @@
             color: #f8fafc;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
+        }
+
+                iconify-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
         }
 
         .display-font {
@@ -125,7 +132,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
             <div class="flex items-center gap-3">
                 <div class="h-10 w-10 rounded-xl bg-[#9d7cff]/15 border border-[#9d7cff]/30 text-[#9d7cff] flex items-center justify-center">
-                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                    <iconify-icon icon="solar:document-text-bold-duotone" class="w-5 h-5"></iconify-icon>
                 </div>
                 <div>
                     <h1 class="display-font text-xl font-black text-white uppercase tracking-wider flex items-center gap-2">
@@ -138,12 +145,12 @@
 
             <div class="flex items-center gap-3">
                 <a href="/admin/products" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 bg-[#161226] text-xs font-mono font-bold text-slate-300 hover:text-white hover:border-[#9d7cff]/40 transition-colors">
-                    <i data-lucide="layout-dashboard" class="w-4 h-4 text-[#9d7cff]"></i>
+                    <iconify-icon icon="solar:widget-2-bold-duotone" class="w-4 h-4 text-[#9d7cff]"></iconify-icon>
                     <span class="hidden sm:inline">Admin Panel</span>
                 </a>
                 <a href="/store" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all">
                     <span>Live Store</span>
-                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    <iconify-icon icon="solar:arrow-right-up-bold-duotone" class="w-4 h-4"></iconify-icon>
                 </a>
             </div>
         </div>
@@ -155,7 +162,7 @@
         <section class="desc-card p-6 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-5 bg-gradient-to-r from-[#17112b] to-[#120d22]">
             <div>
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#9d7cff]/10 border border-[#9d7cff]/30 text-[11px] font-mono font-bold text-[#9d7cff] mb-2 uppercase">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                    <iconify-icon icon="solar:stars-bold-duotone" class="w-3.5 h-3.5"></iconify-icon>
                     Product Copywriting Master Suite
                 </span>
                 <h2 class="display-font text-2xl sm:text-3xl font-black text-white uppercase">
@@ -170,7 +177,7 @@
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <!-- Search Input -->
                 <div class="relative min-w-[200px]">
-                    <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                    <iconify-icon icon="solar:minimalistic-magnifer-bold-duotone" class="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></iconify-icon>
                     <input 
                         type="text" 
                         id="productSearch" 
@@ -208,7 +215,7 @@
                     </div>
 
                     <button onclick="copyDescription('desc-gta-outfits', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
-                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <iconify-icon icon="solar:copy-bold-duotone" class="w-4 h-4"></iconify-icon>
                         <span>Copy Description</span>
                     </button>
                 </div>
@@ -219,7 +226,7 @@
                     <!-- Live Formatted Preview (7 Cols) -->
                     <div class="lg:col-span-7 space-y-5">
                         <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <iconify-icon icon="solar:eye-bold-duotone" class="w-4 h-4 text-[#9d7cff]"></iconify-icon>
                             <span>Storefront Rendered Preview</span>
                         </div>
 
@@ -232,40 +239,40 @@
                             <!-- Heading: Service Details -->
                             <div>
                                 <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
-                                    <i data-lucide="shield-check" class="w-4 h-4"></i>
+                                    <iconify-icon icon="solar:shield-check-bold-duotone" class="w-4 h-4"></iconify-icon>
                                     <span>Service Details &amp; Compatibility:</span>
                                 </h4>
                                 <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Applied directly to your account</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Works for PC Enhanced &amp; Legacy</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Fast delivery: 0 - 24 hours</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">100% Anti-Ban Guarantee</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Rare Colored Joggers (Black, Tan, Red)</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Invisible Torso, Arms &amp; Ankles</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Police Duty Belts, Holsters &amp; Badges</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Saved permanently in wardrobe slots</span>
                                     </div>
                                 </div>
@@ -274,7 +281,7 @@
                             <!-- Heading: Flickr Photo Catalogs -->
                             <div>
                                 <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
-                                    <i data-lucide="camera" class="w-4 h-4"></i>
+                                    <iconify-icon icon="solar:camera-bold-duotone" class="w-4 h-4"></iconify-icon>
                                     <span>Flickr Photo Catalogs:</span>
                                 </h4>
                                 <div class="grid sm:grid-cols-2 gap-2.5">
@@ -289,7 +296,7 @@
                                                 <div class="text-[10px] text-slate-400 font-mono">Flickr Photo Catalog &bull; 40+ Styles</div>
                                             </div>
                                         </div>
-                                        <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-white"></i>
+                                        <iconify-icon icon="solar:arrow-right-up-bold-duotone" class="w-4 h-4 text-slate-400 group-hover:text-white"></iconify-icon>
                                     </a>
 
                                     <a href="https://flic.kr/s/aHBqjBPsAH" target="_blank" rel="noopener noreferrer" class="flickr-btn-preview p-3 rounded-xl flex items-center justify-between group">
@@ -303,14 +310,14 @@
                                                 <div class="text-[10px] text-slate-400 font-mono">Flickr Photo Catalog &bull; 35+ Styles</div>
                                             </div>
                                         </div>
-                                        <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-white"></i>
+                                        <iconify-icon icon="solar:arrow-right-up-bold-duotone" class="w-4 h-4 text-slate-400 group-hover:text-white"></iconify-icon>
                                     </a>
                                 </div>
                             </div>
 
                             <!-- NOTE Banner -->
                             <div class="p-3.5 rounded-xl border border-[#9d7cff]/30 bg-[#9d7cff]/10 text-xs font-mono text-slate-200 flex items-start gap-2.5">
-                                <i data-lucide="info" class="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5"></i>
+                                <iconify-icon icon="solar:info-circle-bold-duotone" class="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5"></iconify-icon>
                                 <div>
                                     <strong class="text-white">NOTE:</strong> All outfits are saved directly into your official saved outfit slots and remain fully accessible from your Interaction Menu.
                                 </div>
@@ -360,7 +367,7 @@ NOTE: All outfits are saved directly into your official saved outfit slots and r
                     </div>
 
                     <button onclick="copyDescription('desc-gta-cars', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
-                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <iconify-icon icon="solar:copy-bold-duotone" class="w-4 h-4"></iconify-icon>
                         <span>Copy Description</span>
                     </button>
                 </div>
@@ -368,7 +375,7 @@ NOTE: All outfits are saved directly into your official saved outfit slots and r
                 <div class="grid lg:grid-cols-12 gap-6 items-start">
                     <div class="lg:col-span-7 space-y-5">
                         <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <iconify-icon icon="solar:eye-bold-duotone" class="w-4 h-4 text-[#9d7cff]"></iconify-icon>
                             <span>Storefront Rendered Preview</span>
                         </div>
 
@@ -379,40 +386,40 @@ NOTE: All outfits are saved directly into your official saved outfit slots and r
 
                             <div>
                                 <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
-                                    <i data-lucide="car" class="w-4 h-4"></i>
+                                    <iconify-icon icon="solar:car-bold-duotone" class="w-4 h-4"></iconify-icon>
                                     <span>Vehicles &amp; Customization Specs:</span>
                                 </h4>
                                 <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Delivered directly to your personal garages</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Works for Enhanced &amp; Legacy Edition</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Exclusive Bennys Bespoke &amp; F1 Wheels</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Authentic North Yankton Plates</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Unselected Chameleon &amp; 3D Pearlescent Paints</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Full EMS Engine, Transmission &amp; Armor 100%</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Green / Patriot Tire Smoke &amp; Xenon Lights</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Fulfillment turnaround: 0 - 6 hours</span>
                                     </div>
                                 </div>
@@ -420,7 +427,7 @@ NOTE: All outfits are saved directly into your official saved outfit slots and r
 
                             <div>
                                 <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
-                                    <i data-lucide="camera" class="w-4 h-4"></i>
+                                    <iconify-icon icon="solar:camera-bold-duotone" class="w-4 h-4"></iconify-icon>
                                     <span>Flickr Photo Catalogs:</span>
                                 </h4>
                                 <a href="https://flic.kr/s/aHBqjBersP" target="_blank" rel="noopener noreferrer" class="flickr-btn-preview p-3 rounded-xl flex items-center justify-between group">
@@ -434,12 +441,12 @@ NOTE: All outfits are saved directly into your official saved outfit slots and r
                                             <div class="text-[10px] text-slate-400 font-mono">Flickr Photo Catalog &bull; 60+ Custom Built Vehicles</div>
                                         </div>
                                     </div>
-                                    <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-white"></i>
+                                    <iconify-icon icon="solar:arrow-right-up-bold-duotone" class="w-4 h-4 text-slate-400 group-hover:text-white"></iconify-icon>
                                 </a>
                             </div>
 
                             <div class="p-3.5 rounded-xl border border-[#9d7cff]/30 bg-[#9d7cff]/10 text-xs font-mono text-slate-200 flex items-start gap-2.5">
-                                <i data-lucide="info" class="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5"></i>
+                                <iconify-icon icon="solar:info-circle-bold-duotone" class="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5"></iconify-icon>
                                 <div>
                                     <strong class="text-white">NOTE:</strong> Make sure your account has enough empty garage spaces to store your chosen vehicle amount before delivery.
                                 </div>
@@ -487,7 +494,7 @@ NOTE: Make sure your account has enough empty garage spaces to store your chosen
                     </div>
 
                     <button onclick="copyDescription('desc-gta-cash', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
-                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <iconify-icon icon="solar:copy-bold-duotone" class="w-4 h-4"></iconify-icon>
                         <span>Copy Description</span>
                     </button>
                 </div>
@@ -495,7 +502,7 @@ NOTE: Make sure your account has enough empty garage spaces to store your chosen
                 <div class="grid lg:grid-cols-12 gap-6 items-start">
                     <div class="lg:col-span-7 space-y-5">
                         <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <iconify-icon icon="solar:eye-bold-duotone" class="w-4 h-4 text-[#9d7cff]"></iconify-icon>
                             <span>Storefront Rendered Preview</span>
                         </div>
 
@@ -506,39 +513,39 @@ NOTE: Make sure your account has enough empty garage spaces to store your chosen
 
                             <div>
                                 <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
-                                    <i data-lucide="dollar-sign" class="w-4 h-4"></i>
+                                    <iconify-icon icon="solar:dollar-minimalistic-bold-duotone" class="w-4 h-4"></iconify-icon>
                                     <span>Progression &amp; Wealth:</span>
                                 </h4>
                                 <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Up to 2 Billion Cash packages</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Clean heist &amp; vehicle trade method</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">No memory injection or mod menus</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Residential VPN matching your city</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Works for Enhanced &amp; Legacy Edition</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Delivery turnaround: 15 mins to 2 hours</span>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="p-3.5 rounded-xl border border-[#9d7cff]/30 bg-[#9d7cff]/10 text-xs font-mono text-slate-200 flex items-start gap-2.5">
-                                <i data-lucide="info" class="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5"></i>
+                                <iconify-icon icon="solar:info-circle-bold-duotone" class="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5"></iconify-icon>
                                 <div>
                                     <strong class="text-white">NOTE:</strong> Funds are deposited safely and can be spent immediately on vehicles, properties, weapon upgrades, and businesses.
                                 </div>
@@ -581,7 +588,7 @@ NOTE: Funds are deposited safely and can be spent immediately on vehicles, prope
                     </div>
 
                     <button onclick="copyDescription('desc-gta-rank', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
-                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <iconify-icon icon="solar:copy-bold-duotone" class="w-4 h-4"></iconify-icon>
                         <span>Copy Description</span>
                     </button>
                 </div>
@@ -589,7 +596,7 @@ NOTE: Funds are deposited safely and can be spent immediately on vehicles, prope
                 <div class="grid lg:grid-cols-12 gap-6 items-start">
                     <div class="lg:col-span-7 space-y-5">
                         <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <iconify-icon icon="solar:eye-bold-duotone" class="w-4 h-4 text-[#9d7cff]"></iconify-icon>
                             <span>Storefront Rendered Preview</span>
                         </div>
 
@@ -600,39 +607,39 @@ NOTE: Funds are deposited safely and can be spent immediately on vehicles, prope
 
                             <div>
                                 <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
-                                    <i data-lucide="trending-up" class="w-4 h-4"></i>
+                                    <iconify-icon icon="solar:ranking-bold-duotone" class="w-4 h-4"></iconify-icon>
                                     <span>Account Progression &amp; Unlocks:</span>
                                 </h4>
                                 <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Custom target rank up to Level 8000</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Recommended legit levels: 120, 250, 420, 777</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Minigun, RPG, and Heavy Sniper Unlocked</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Max Body Armor capacity (10x Super Heavy)</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Works on PC, PlayStation 4/5, and Xbox</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Fast delivery: completed in 15 - 45 mins</span>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="p-3.5 rounded-xl border border-[#9d7cff]/30 bg-[#9d7cff]/10 text-xs font-mono text-slate-200 flex items-start gap-2.5">
-                                <i data-lucide="info" class="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5"></i>
+                                <iconify-icon icon="solar:info-circle-bold-duotone" class="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5"></iconify-icon>
                                 <div>
                                     <strong class="text-white">NOTE:</strong> Rank 120 is the official threshold that unlocks all in-game gameplay perks and weapons.
                                 </div>
@@ -676,7 +683,7 @@ NOTE: Rank 120 is the official threshold that unlocks all in-game gameplay perks
                     </div>
 
                     <button onclick="copyDescription('desc-gta-unlock-all', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
-                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <iconify-icon icon="solar:copy-bold-duotone" class="w-4 h-4"></iconify-icon>
                         <span>Copy Description</span>
                     </button>
                 </div>
@@ -684,7 +691,7 @@ NOTE: Rank 120 is the official threshold that unlocks all in-game gameplay perks
                 <div class="grid lg:grid-cols-12 gap-6 items-start">
                     <div class="lg:col-span-7 space-y-5">
                         <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <iconify-icon icon="solar:eye-bold-duotone" class="w-4 h-4 text-[#9d7cff]"></iconify-icon>
                             <span>Storefront Rendered Preview</span>
                         </div>
 
@@ -695,24 +702,24 @@ NOTE: Rank 120 is the official threshold that unlocks all in-game gameplay perks
 
                             <div>
                                 <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
-                                    <i data-lucide="layers" class="w-4 h-4"></i>
+                                    <iconify-icon icon="solar:layers-bold-duotone" class="w-4 h-4"></iconify-icon>
                                     <span>Vehicle Fleet &amp; Luxuries:</span>
                                 </h4>
                                 <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">350+ Cars purchased (including Pegasus)</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">50+ Helicopters &amp; Airplanes purchased</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Super Yacht, Avenger, Kosatka &amp; Terrorbyte</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Unlock All LSC content &amp; Chrome Rims</span>
                                     </div>
                                 </div>
@@ -720,24 +727,24 @@ NOTE: Rank 120 is the official threshold that unlocks all in-game gameplay perks
 
                             <div>
                                 <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
-                                    <i data-lucide="award" class="w-4 h-4"></i>
+                                    <iconify-icon icon="solar:cup-first-bold-duotone" class="w-4 h-4"></iconify-icon>
                                     <span>Weapons, Customization &amp; Research:</span>
                                 </h4>
                                 <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">51/51 Bunker Research Projects Unlocked</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Purchased 500+ Clothing Suits &amp; Old DLCs</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Purchased 100+ Rare Masks &amp; Tattoos</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Max Stats, Fast Run &amp; All 77 Achievements</span>
                                     </div>
                                 </div>
@@ -790,7 +797,7 @@ NOTE: Fully compatible with both Enhanced and Legacy versions on PC.</textarea>
                     </div>
 
                     <button onclick="copyDescription('desc-cs2-commends', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
-                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <iconify-icon icon="solar:copy-bold-duotone" class="w-4 h-4"></iconify-icon>
                         <span>Copy Description</span>
                     </button>
                 </div>
@@ -798,7 +805,7 @@ NOTE: Fully compatible with both Enhanced and Legacy versions on PC.</textarea>
                 <div class="grid lg:grid-cols-12 gap-6 items-start">
                     <div class="lg:col-span-7 space-y-5">
                         <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <iconify-icon icon="solar:eye-bold-duotone" class="w-4 h-4 text-[#9d7cff]"></iconify-icon>
                             <span>Storefront Rendered Preview</span>
                         </div>
 
@@ -809,39 +816,39 @@ NOTE: Fully compatible with both Enhanced and Legacy versions on PC.</textarea>
 
                             <div>
                                 <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
-                                    <i data-lucide="thumbs-up" class="w-4 h-4"></i>
+                                    <iconify-icon icon="solar:like-bold-duotone" class="w-4 h-4"></iconify-icon>
                                     <span>Profile Impact &amp; Delivery Details:</span>
                                 </h4>
                                 <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Equal split across Friendly, Teacher &amp; Leader</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Packages from 100 up to 10,000 Commends</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Delivered via official game server coordination</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">No account credentials required (Steam ID only)</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">100% VAC-Safe with natural drip-feed</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Instant start: dispatched in under 15 minutes</span>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="p-3.5 rounded-xl border border-[#9d7cff]/30 bg-[#9d7cff]/10 text-xs font-mono text-slate-200 flex items-start gap-2.5">
-                                <i data-lucide="info" class="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5"></i>
+                                <iconify-icon icon="solar:info-circle-bold-duotone" class="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5"></iconify-icon>
                                 <div>
                                     <strong class="text-white">NOTE:</strong> You only need to provide your Steam profile URL or vanity link. Your account stays in your hands the entire time.
                                 </div>
@@ -884,7 +891,7 @@ NOTE: You only need to provide your Steam profile URL. You do not need to share 
                     </div>
 
                     <button onclick="copyDescription('desc-rdr2-cash', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
-                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <iconify-icon icon="solar:copy-bold-duotone" class="w-4 h-4"></iconify-icon>
                         <span>Copy Description</span>
                     </button>
                 </div>
@@ -892,7 +899,7 @@ NOTE: You only need to provide your Steam profile URL. You do not need to share 
                 <div class="grid lg:grid-cols-12 gap-6 items-start">
                     <div class="lg:col-span-7 space-y-5">
                         <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <iconify-icon icon="solar:eye-bold-duotone" class="w-4 h-4 text-[#9d7cff]"></iconify-icon>
                             <span>Storefront Rendered Preview</span>
                         </div>
 
@@ -903,32 +910,32 @@ NOTE: You only need to provide your Steam profile URL. You do not need to share 
 
                             <div>
                                 <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
-                                    <i data-lucide="dollar-sign" class="w-4 h-4"></i>
+                                    <iconify-icon icon="solar:dollar-minimalistic-bold-duotone" class="w-4 h-4"></iconify-icon>
                                     <span>Wealth &amp; Camp Upgrades:</span>
                                 </h4>
                                 <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Clean legal trade &amp; collector deliveries</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Works on PC (Steam/Rockstar/Epic) &amp; PS5</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Compatible with all 5 specialist roles</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Residential VPN protection included</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Fulfillment time: 1 - 4 hours</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">100% Money-Back &amp; Anti-Ban Guarantee</span>
                                     </div>
                                 </div>
@@ -970,7 +977,7 @@ NOTE: All funds are permanent cash balances deposited into your character wallet
                     </div>
 
                     <button onclick="copyDescription('desc-rdr2-gold', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
-                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <iconify-icon icon="solar:copy-bold-duotone" class="w-4 h-4"></iconify-icon>
                         <span>Copy Description</span>
                     </button>
                 </div>
@@ -978,7 +985,7 @@ NOTE: All funds are permanent cash balances deposited into your character wallet
                 <div class="grid lg:grid-cols-12 gap-6 items-start">
                     <div class="lg:col-span-7 space-y-5">
                         <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <iconify-icon icon="solar:eye-bold-duotone" class="w-4 h-4 text-[#9d7cff]"></iconify-icon>
                             <span>Storefront Rendered Preview</span>
                         </div>
 
@@ -989,32 +996,32 @@ NOTE: All funds are permanent cash balances deposited into your character wallet
 
                             <div>
                                 <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
-                                    <i data-lucide="award" class="w-4 h-4"></i>
+                                    <iconify-icon icon="solar:cup-first-bold-duotone" class="w-4 h-4"></iconify-icon>
                                     <span>Premium Unlocks &amp; Features:</span>
                                 </h4>
                                 <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Gold packages from 25 to 500+ Gold Bars</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Unlock all 5 Frontier Pursuits licenses instantly</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Purchase gold-exclusive weapon metals &amp; engravings</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Hand-played via legitimate event rewards</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Stealth mode with localized VPN</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Average kickoff: 15 to 30 minutes</span>
                                     </div>
                                 </div>
@@ -1057,7 +1064,7 @@ NOTE: Gold Bars are added permanently to your currency wallet.</textarea>
                     </div>
 
                     <button onclick="copyDescription('desc-steam-comments', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
-                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <iconify-icon icon="solar:copy-bold-duotone" class="w-4 h-4"></iconify-icon>
                         <span>Copy Description</span>
                     </button>
                 </div>
@@ -1065,7 +1072,7 @@ NOTE: Gold Bars are added permanently to your currency wallet.</textarea>
                 <div class="grid lg:grid-cols-12 gap-6 items-start">
                     <div class="lg:col-span-7 space-y-5">
                         <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <iconify-icon icon="solar:eye-bold-duotone" class="w-4 h-4 text-[#9d7cff]"></iconify-icon>
                             <span>Storefront Rendered Preview</span>
                         </div>
 
@@ -1076,24 +1083,24 @@ NOTE: Gold Bars are added permanently to your currency wallet.</textarea>
 
                             <div>
                                 <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
-                                    <i data-lucide="message-square" class="w-4 h-4"></i>
+                                    <iconify-icon icon="solar:chat-round-dots-bold-duotone" class="w-4 h-4"></iconify-icon>
                                     <span>Comment Details &amp; Options:</span>
                                 </h4>
                                 <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Comments from high Steam level profiles (Level 50+)</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Customizable comment texts or varied legit presets</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">No account credentials required (Profile link only)</span>
                                     </div>
                                     <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" class="text-base text-[#9d7cff] shrink-0"></iconify-icon>
                                         <span class="text-slate-300">Instant start &bull; Natural drip-feed interval</span>
                                     </div>
                                 </div>
@@ -1127,18 +1134,14 @@ NOTE: Ensure your Steam profile privacy settings for "Comments" are set to Publi
     <!-- TOAST NOTIFICATION -->
     <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
         <div class="px-4 py-3 rounded-xl border border-[#9d7cff]/40 bg-[#161028] text-white text-xs font-mono flex items-center gap-3 shadow-2xl shadow-black">
-            <i data-lucide="check-circle" class="w-4 h-4 text-[#10b981]"></i>
+            <iconify-icon icon="solar:check-circle-bold-duotone" class="w-4 h-4 text-[#10b981]"></iconify-icon>
             <span id="toast-msg">Description copied to clipboard!</span>
         </div>
     </div>
 
     <!-- SCRIPTS -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            if (window.lucide) {
-                lucide.createIcons();
-            }
-        });
+        // Solar Duotone Bold loaded via Iconify Web Component
 
         // Copy Description
         function copyDescription(textareaId, btn) {
@@ -1147,14 +1150,13 @@ NOTE: Ensure your Steam profile privacy settings for "Comments" are set to Publi
 
             navigator.clipboard.writeText(textarea.value).then(() => {
                 const originalText = btn.innerHTML;
-                btn.innerHTML = '<i data-lucide="check" class="w-4 h-4 text-emerald-300"></i><span class="text-emerald-300">Copied!</span>';
+                btn.innerHTML = '<iconify-icon icon="solar:check-circle-bold-duotone" class="w-4 h-4 text-emerald-300"></iconify-icon><span class="text-emerald-300">Copied!</span>';
                 if (window.lucide) lucide.createIcons();
 
                 showToast('Description markdown copied! Paste into product editor.');
 
                 setTimeout(() => {
                     btn.innerHTML = originalText;
-                    if (window.lucide) lucide.createIcons();
                 }, 2000);
             });
         }
