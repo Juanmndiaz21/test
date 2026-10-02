@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OGMODZ &bull; Official Product Descriptions Catalog &bull; Admin Showcase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                        display: ['"Syne"', '"Trebuchet MS"', 'sans-serif'],
+                    },
+                    colors: {
+                        og: {
+                            purple: '#9d7cff',
+                            deep: '#7928ca',
+                            dark: '#0a0710',
+                            surface: '#141022',
+                            elevated: '#1a142c',
+                            border: 'rgba(255, 255, 255, 0.08)',
+                            borderHover: 'rgba(157, 124, 255, 0.45)',
+                            cyan: '#38bdf8',
+                            emerald: '#10b981',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-canvas: #0a0710;
+            --bg-card: #141022;
+            --bg-card-inner: #0d0916;
+            --accent-brand: #9d7cff;
+            --border-card: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(157, 124, 255, 0.5);
+        }
+
+        body {
+            background-color: #06040a;
+            color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .display-font {
+            font-family: 'Syne', 'Trebuchet MS', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        .desc-card {
+            background-color: rgba(20, 16, 34, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid var(--border-card);
+            border-radius: 1.25rem;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .desc-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), 0 0 30px -5px rgba(157, 124, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .desc-inner {
+            background-color: var(--bg-card-inner);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 0.875rem;
+        }
+
+        .custom-check {
+            background: rgba(157, 124, 255, 0.1);
+            border: 1px solid rgba(157, 124, 255, 0.25);
+            color: #9d7cff;
+        }
+
+        .flickr-btn-preview {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: all 0.2s ease;
+        }
+        .flickr-btn-preview:hover {
+            background: rgba(157, 124, 255, 0.15);
+            border-color: rgba(157, 124, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0710;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #251b3d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9d7cff;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-100 antialiased selection:bg-[#9d7cff] selection:text-black relative">
+
+    <!-- ATMOSPHERIC BACKGROUND CANVAS (Fluid Light Folds & Screen-Blended Glow) -->
+    <canvas id="atmosphere-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+    <!-- TOP BAR -->
+    <header class="sticky top-0 z-50 w-full border-b border-white/[0.08] bg-[#0a0710]/90 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="h-10 w-10 rounded-xl bg-[#9d7cff]/15 border border-[#9d7cff]/30 text-[#9d7cff] flex items-center justify-center">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h1 class="display-font text-xl font-black text-white uppercase tracking-wider flex items-center gap-2">
+                        <span>OG<span class="text-[#9d7cff]">MODZ</span></span>
+                        <span class="text-xs px-2 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400 font-mono font-normal">Descriptions Catalog</span>
+                    </h1>
+                    <p class="text-[11px] font-mono text-slate-400">Ready-to-copy structured descriptions for all store products</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a href="/admin/products" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 bg-[#161226] text-xs font-mono font-bold text-slate-300 hover:text-white hover:border-[#9d7cff]/40 transition-colors">
+                    <i data-lucide="layout-dashboard" class="w-4 h-4 text-[#9d7cff]"></i>
+                    <span class="hidden sm:inline">Admin Panel</span>
+                </a>
+                <a href="/store" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all">
+                    <span>Live Store</span>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
+
+        <!-- INTRO & CONTROLS BAR -->
+        <section class="desc-card p-6 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-5 bg-gradient-to-r from-[#17112b] to-[#120d22]">
+            <div>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#9d7cff]/10 border border-[#9d7cff]/30 text-[11px] font-mono font-bold text-[#9d7cff] mb-2 uppercase">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                    Product Copywriting Master Suite
+                </span>
+                <h2 class="display-font text-2xl sm:text-3xl font-black text-white uppercase">
+                    High-Converting Product Descriptions
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                    Formatted specifically for the <strong class="text-white">ProductDescriptionRenderer</strong>: clean sections, 2-column checklist badges, interactive Flickr photo album buttons, and security callouts. Click <strong class="text-[#9d7cff]">Copy Description</strong> on any product to paste into the admin editor.
+                </p>
+            </div>
+
+            <!-- Controls: Filter & Search -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <!-- Search Input -->
+                <div class="relative min-w-[200px]">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                    <input 
+                        type="text" 
+                        id="productSearch" 
+                        oninput="handleSearch(this.value)"
+                        placeholder="Search product..." 
+                        class="w-full pl-9 pr-3 py-2 rounded-xl bg-black/40 border border-white/10 text-xs font-mono text-white placeholder-slate-500 focus:border-[#9d7cff] outline-none"
+                    />
+                </div>
+
+                <!-- Game Filter Pills -->
+                <div class="flex items-center gap-1 p-1 rounded-xl bg-black/40 border border-white/10 text-xs font-mono">
+                    <button class="px-3 py-1.5 rounded-lg bg-[#9d7cff] text-black font-bold uppercase transition-all" onclick="filterGame('all', this)">All</button>
+                    <button class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white uppercase transition-all" onclick="filterGame('GTA V', this)">GTA V</button>
+                    <button class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white uppercase transition-all" onclick="filterGame('RDR2', this)">RDR2</button>
+                    <button class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white uppercase transition-all" onclick="filterGame('CS2', this)">CS2</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCT CARDS CONTAINER -->
+        <div id="products-list" class="space-y-8">
+
+            <!-- ====================================================================
+                 1. GTA V | SAFE MODDED OUTFITS
+                 ==================================================================== -->
+            <article class="desc-card p-6 sm:p-8 space-y-6 product-item" data-game="GTA V" data-title="gta v safe modded outfits male female flickr">
+                <!-- Header with Action -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <span class="px-2.5 py-1 rounded-md bg-[#9d7cff]/20 border border-[#9d7cff]/40 text-[#9d7cff] font-mono text-xs font-bold uppercase">GTA V</span>
+                        <div>
+                            <h3 class="display-font text-xl sm:text-2xl font-black text-white uppercase">GTA V &bull; Safe Modded Outfits</h3>
+                            <span class="text-xs font-mono text-slate-400">ID: 39 &bull; Base Price: $9.99 &bull; Flickr Albums Integrated</span>
+                        </div>
+                    </div>
+
+                    <button onclick="copyDescription('desc-gta-outfits', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
+                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <span>Copy Description</span>
+                    </button>
+                </div>
+
+                <!-- Grid: Live Preview & Raw Code -->
+                <div class="grid lg:grid-cols-12 gap-6 items-start">
+                    
+                    <!-- Live Formatted Preview (7 Cols) -->
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <span>Storefront Rendered Preview</span>
+                        </div>
+
+                        <!-- Card Preview Container -->
+                        <div class="desc-inner p-6 space-y-5">
+                            <p class="text-sm leading-relaxed text-slate-200">
+                                Unlock exclusive GTA Online modded outfits featuring invisible components, rare colored jogger pants, official FIB/IAA badges, and custom glitched gear for PC — 100% safe, permanent, and verified.
+                            </p>
+
+                            <!-- Heading: Service Details -->
+                            <div>
+                                <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
+                                    <i data-lucide="shield-check" class="w-4 h-4"></i>
+                                    <span>Service Details &amp; Compatibility:</span>
+                                </h4>
+                                <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Applied directly to your account</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Works for PC Enhanced &amp; Legacy</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Fast delivery: 0 - 24 hours</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">100% Anti-Ban Guarantee</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Rare Colored Joggers (Black, Tan, Red)</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Invisible Torso, Arms &amp; Ankles</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Police Duty Belts, Holsters &amp; Badges</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Saved permanently in wardrobe slots</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Heading: Flickr Photo Catalogs -->
+                            <div>
+                                <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
+                                    <i data-lucide="camera" class="w-4 h-4"></i>
+                                    <span>Flickr Photo Catalogs:</span>
+                                </h4>
+                                <div class="grid sm:grid-cols-2 gap-2.5">
+                                    <a href="https://flic.kr/s/aHBqjBTWye" target="_blank" rel="noopener noreferrer" class="flickr-btn-preview p-3 rounded-xl flex items-center justify-between group">
+                                        <div class="flex items-center gap-2.5">
+                                            <span class="flex items-center gap-1">
+                                                <span class="w-2.5 h-2.5 rounded-full bg-[#0063dc]"></span>
+                                                <span class="w-2.5 h-2.5 rounded-full bg-[#ff0084]"></span>
+                                            </span>
+                                            <div>
+                                                <div class="text-xs font-bold text-white group-hover:text-[#9d7cff]">Pictures of Male Modded Outfits</div>
+                                                <div class="text-[10px] text-slate-400 font-mono">Flickr Photo Catalog &bull; 40+ Styles</div>
+                                            </div>
+                                        </div>
+                                        <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-white"></i>
+                                    </a>
+
+                                    <a href="https://flic.kr/s/aHBqjBPsAH" target="_blank" rel="noopener noreferrer" class="flickr-btn-preview p-3 rounded-xl flex items-center justify-between group">
+                                        <div class="flex items-center gap-2.5">
+                                            <span class="flex items-center gap-1">
+                                                <span class="w-2.5 h-2.5 rounded-full bg-[#0063dc]"></span>
+                                                <span class="w-2.5 h-2.5 rounded-full bg-[#ff0084]"></span>
+                                            </span>
+                                            <div>
+                                                <div class="text-xs font-bold text-white group-hover:text-[#9d7cff]">Pictures of Female Modded Outfits</div>
+                                                <div class="text-[10px] text-slate-400 font-mono">Flickr Photo Catalog &bull; 35+ Styles</div>
+                                            </div>
+                                        </div>
+                                        <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-white"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- NOTE Banner -->
+                            <div class="p-3.5 rounded-xl border border-[#9d7cff]/30 bg-[#9d7cff]/10 text-xs font-mono text-slate-200 flex items-start gap-2.5">
+                                <i data-lucide="info" class="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5"></i>
+                                <div>
+                                    <strong class="text-white">NOTE:</strong> All outfits are saved directly into your official saved outfit slots and remain fully accessible from your Interaction Menu.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Raw Markdown / Text (5 Cols) -->
+                    <div class="lg:col-span-5 space-y-2">
+                        <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+                            <span class="uppercase">Raw Markdown Text:</span>
+                            <span class="text-[10px] text-[#9d7cff]">Format: ProductDescriptionRenderer</span>
+                        </div>
+                        <textarea id="desc-gta-outfits" readonly class="w-full h-80 bg-black/60 border border-white/10 rounded-xl p-3.5 text-[11px] font-mono text-slate-300 focus:outline-none resize-none selection:bg-[#9d7cff] selection:text-black">Unlock exclusive GTA Online modded outfits featuring invisible components, rare colored jogger pants, official FIB/IAA badges, and custom glitched gear for PC — 100% safe, permanent, and verified.
+
+Service Details & Compatibility:
+✓ Applied directly to your account
+✓ Works for both PC Enhanced & Legacy Edition
+✓ Fast fulfillment time: 0-24 hours
+✓ 100% Anti-Ban Guarantee backed
+✓ Rare Colored Joggers (Black, Tan, Red, White)
+✓ Invisible components (Arms, Torso, and Glitched Ankles)
+✓ Police Duty Belts, Holsters & Rare Helmets
+✓ Permanent save in your character's wardrobe slots
+
+Flickr Photo Catalogs:
+✓ Pictures of Male Modded Outfits: https://flic.kr/s/aHBqjBTWye
+✓ Pictures of Female Modded Outfits: https://flic.kr/s/aHBqjBPsAH
+
+NOTE: All outfits are saved directly into your official saved outfit slots and remain fully accessible from your Interaction Menu.</textarea>
+                    </div>
+
+                </div>
+            </article>
+
+            <!-- ====================================================================
+                 2. GTA V | SAFE MODDED CARS (BENNYS & F1)
+                 ==================================================================== -->
+            <article class="desc-card p-6 sm:p-8 space-y-6 product-item" data-game="GTA V" data-title="gta v safe modded cars bennys f1 flickr">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <span class="px-2.5 py-1 rounded-md bg-[#fbbf24]/20 border border-[#fbbf24]/40 text-[#fbbf24] font-mono text-xs font-bold uppercase">GTA V</span>
+                        <div>
+                            <h3 class="display-font text-xl sm:text-2xl font-black text-white uppercase">GTA V &bull; Safe Modded Cars</h3>
+                            <span class="text-xs font-mono text-slate-400">ID: 40 &bull; Base Price: $9.99 &bull; Bennys / F1 Wheels Catalog</span>
+                        </div>
+                    </div>
+
+                    <button onclick="copyDescription('desc-gta-cars', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
+                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <span>Copy Description</span>
+                    </button>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-6 items-start">
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <span>Storefront Rendered Preview</span>
+                        </div>
+
+                        <div class="desc-inner p-6 space-y-5">
+                            <p class="text-sm leading-relaxed text-slate-200">
+                                Acquire rare GTA Online modded vehicles equipped with exclusive Bennys bespoke wheels, Formula 1 racing tires, unselected chameleon paintjobs, and authentic North Yankton license plates for PC.
+                            </p>
+
+                            <div>
+                                <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
+                                    <i data-lucide="car" class="w-4 h-4"></i>
+                                    <span>Vehicles &amp; Customization Specs:</span>
+                                </h4>
+                                <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Delivered directly to your personal garages</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Works for Enhanced &amp; Legacy Edition</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Exclusive Bennys Bespoke &amp; F1 Wheels</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Authentic North Yankton Plates</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Unselected Chameleon &amp; 3D Pearlescent Paints</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Full EMS Engine, Transmission &amp; Armor 100%</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Green / Patriot Tire Smoke &amp; Xenon Lights</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Fulfillment turnaround: 0 - 6 hours</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
+                                    <i data-lucide="camera" class="w-4 h-4"></i>
+                                    <span>Flickr Photo Catalogs:</span>
+                                </h4>
+                                <a href="https://flic.kr/s/aHBqjBersP" target="_blank" rel="noopener noreferrer" class="flickr-btn-preview p-3 rounded-xl flex items-center justify-between group">
+                                    <div class="flex items-center gap-2.5">
+                                        <span class="flex items-center gap-1">
+                                            <span class="w-2.5 h-2.5 rounded-full bg-[#0063dc]"></span>
+                                            <span class="w-2.5 h-2.5 rounded-full bg-[#ff0084]"></span>
+                                        </span>
+                                        <div>
+                                            <div class="text-xs font-bold text-white group-hover:text-[#9d7cff]">Pictures of Modded Cars (Bennys &amp; F1 Garage)</div>
+                                            <div class="text-[10px] text-slate-400 font-mono">Flickr Photo Catalog &bull; 60+ Custom Built Vehicles</div>
+                                        </div>
+                                    </div>
+                                    <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-white"></i>
+                                </a>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl border border-[#9d7cff]/30 bg-[#9d7cff]/10 text-xs font-mono text-slate-200 flex items-start gap-2.5">
+                                <i data-lucide="info" class="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5"></i>
+                                <div>
+                                    <strong class="text-white">NOTE:</strong> Make sure your account has enough empty garage spaces to store your chosen vehicle amount before delivery.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-2">
+                        <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+                            <span class="uppercase">Raw Markdown Text:</span>
+                            <span class="text-[10px] text-[#9d7cff]">Format: ProductDescriptionRenderer</span>
+                        </div>
+                        <textarea id="desc-gta-cars" readonly class="w-full h-80 bg-black/60 border border-white/10 rounded-xl p-3.5 text-[11px] font-mono text-slate-300 focus:outline-none resize-none selection:bg-[#9d7cff] selection:text-black">Acquire rare GTA Online modded vehicles equipped with exclusive Bennys bespoke wheels, Formula 1 racing tires, unselected chameleon paintjobs, and authentic North Yankton license plates for PC.
+
+Service Details & Compatibility:
+✓ Applied directly to your account
+✓ Works for both PC Enhanced & Legacy Edition
+✓ Fast fulfillment time: 0-6 hours
+✓ 100% Anti-Ban Guarantee backed
+✓ Exclusive Bennys Bespoke & F1 Wheels
+✓ Authentic North Yankton Plates
+✓ Unselected Chameleon & 3D Pearlescent Paints
+✓ Full EMS Engine, Transmission & Armor 100%
+✓ Green / Patriot Tire Smoke & Xenon Lights
+
+Flickr Photo Catalogs:
+✓ Pictures of Modded Cars: https://flic.kr/s/aHBqjBersP
+
+NOTE: Make sure your account has enough empty garage spaces to store your chosen vehicle amount before delivery.</textarea>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ====================================================================
+                 3. GTA V | SAFE CASH BOOST
+                 ==================================================================== -->
+            <article class="desc-card p-6 sm:p-8 space-y-6 product-item" data-game="GTA V" data-title="gta v cash boost money transfer">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <span class="px-2.5 py-1 rounded-md bg-[#10b981]/20 border border-[#10b981]/40 text-[#10b981] font-mono text-xs font-bold uppercase">GTA V</span>
+                        <div>
+                            <h3 class="display-font text-xl sm:text-2xl font-black text-white uppercase">GTA V &bull; Cash Boost</h3>
+                            <span class="text-xs font-mono text-slate-400">ID: 30 &bull; Base Price: $9.99 &bull; Stealth Maze Bank Drop</span>
+                        </div>
+                    </div>
+
+                    <button onclick="copyDescription('desc-gta-cash', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
+                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <span>Copy Description</span>
+                    </button>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-6 items-start">
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <span>Storefront Rendered Preview</span>
+                        </div>
+
+                        <div class="desc-inner p-6 space-y-5">
+                            <p class="text-sm leading-relaxed text-slate-200">
+                                Get the GTA Online lifestyle you want without the endless grind. Purchase luxury penthouses, max out underground facilities, and acquire every super car. Our stealth bank transfer delivers clean, reliable funds directly to your Maze Bank account.
+                            </p>
+
+                            <div>
+                                <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
+                                    <i data-lucide="dollar-sign" class="w-4 h-4"></i>
+                                    <span>Progression &amp; Wealth:</span>
+                                </h4>
+                                <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Up to 2 Billion Cash packages</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Clean heist &amp; vehicle trade method</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">No memory injection or mod menus</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Residential VPN matching your city</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Works for Enhanced &amp; Legacy Edition</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Delivery turnaround: 15 mins to 2 hours</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl border border-[#9d7cff]/30 bg-[#9d7cff]/10 text-xs font-mono text-slate-200 flex items-start gap-2.5">
+                                <i data-lucide="info" class="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5"></i>
+                                <div>
+                                    <strong class="text-white">NOTE:</strong> Funds are deposited safely and can be spent immediately on vehicles, properties, weapon upgrades, and businesses.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-2">
+                        <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+                            <span class="uppercase">Raw Markdown Text:</span>
+                            <span class="text-[10px] text-[#9d7cff]">Format: ProductDescriptionRenderer</span>
+                        </div>
+                        <textarea id="desc-gta-cash" readonly class="w-full h-80 bg-black/60 border border-white/10 rounded-xl p-3.5 text-[11px] font-mono text-slate-300 focus:outline-none resize-none selection:bg-[#9d7cff] selection:text-black">Get the GTA Online lifestyle you want without the endless grind. Purchase luxury penthouses, max out underground facilities, and acquire every super car. Our stealth bank transfer delivers clean, reliable funds directly to your Maze Bank account.
+
+Progression & Wealth:
+✓ Up to 2 Billion Cash packages
+✓ Clean heist & vehicle trade method
+✓ No memory injection or mod menus
+✓ Residential VPN matching your city
+✓ Works for Enhanced & Legacy Edition
+✓ Delivery turnaround: 15 mins to 2 hours
+✓ 100% Anti-Ban Guarantee backed
+
+NOTE: Funds are deposited safely and can be spent immediately on vehicles, properties, weapon upgrades, and businesses.</textarea>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ====================================================================
+                 4. GTA V | SAFE RANK BOOST
+                 ==================================================================== -->
+            <article class="desc-card p-6 sm:p-8 space-y-6 product-item" data-game="GTA V" data-title="gta v safe rank boost rp level">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <span class="px-2.5 py-1 rounded-md bg-[#38bdf8]/20 border border-[#38bdf8]/40 text-[#38bdf8] font-mono text-xs font-bold uppercase">GTA V</span>
+                        <div>
+                            <h3 class="display-font text-xl sm:text-2xl font-black text-white uppercase">GTA V &bull; Safe Rank Boost</h3>
+                            <span class="text-xs font-mono text-slate-400">ID: 41 &bull; Base Price: $9.99 &bull; Levels 1 to 8000</span>
+                        </div>
+                    </div>
+
+                    <button onclick="copyDescription('desc-gta-rank', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
+                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <span>Copy Description</span>
+                    </button>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-6 items-start">
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <span>Storefront Rendered Preview</span>
+                        </div>
+
+                        <div class="desc-inner p-6 space-y-5">
+                            <p class="text-sm leading-relaxed text-slate-200">
+                                Boost your GTA Online character to any desired level between Rank 1 and 8000. Unlock all level-restricted weaponry, maximum health regeneration, heavy armor carrying capacity, and Los Santos Customs tuning options instantly.
+                            </p>
+
+                            <div>
+                                <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
+                                    <i data-lucide="trending-up" class="w-4 h-4"></i>
+                                    <span>Account Progression &amp; Unlocks:</span>
+                                </h4>
+                                <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Custom target rank up to Level 8000</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Recommended legit levels: 120, 250, 420, 777</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Minigun, RPG, and Heavy Sniper Unlocked</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Max Body Armor capacity (10x Super Heavy)</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Works on PC, PlayStation 4/5, and Xbox</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Fast delivery: completed in 15 - 45 mins</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl border border-[#9d7cff]/30 bg-[#9d7cff]/10 text-xs font-mono text-slate-200 flex items-start gap-2.5">
+                                <i data-lucide="info" class="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5"></i>
+                                <div>
+                                    <strong class="text-white">NOTE:</strong> Rank 120 is the official threshold that unlocks all in-game gameplay perks and weapons.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-2">
+                        <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+                            <span class="uppercase">Raw Markdown Text:</span>
+                            <span class="text-[10px] text-[#9d7cff]">Format: ProductDescriptionRenderer</span>
+                        </div>
+                        <textarea id="desc-gta-rank" readonly class="w-full h-80 bg-black/60 border border-white/10 rounded-xl p-3.5 text-[11px] font-mono text-slate-300 focus:outline-none resize-none selection:bg-[#9d7cff] selection:text-black">Boost your GTA Online character to any desired level between Rank 1 and 8000. Unlock all level-restricted weaponry, maximum health regeneration, heavy armor carrying capacity, and Los Santos Customs tuning options instantly.
+
+Account Progression & Unlocks:
+✓ Custom target rank up to Level 8000
+✓ Recommended legit levels: 120, 250, 420, 777
+✓ Minigun, RPG, and Heavy Sniper Unlocked
+✓ Max Body Armor capacity (10x Super Heavy)
+✓ Max Health regeneration rate (Rank 100+)
+✓ Works on PC, PlayStation 4/5, and Xbox
+✓ Fast delivery: completed in 15 - 45 mins
+✓ 100% Anti-Ban Guarantee backed
+
+NOTE: Rank 120 is the official threshold that unlocks all in-game gameplay perks and weapons.</textarea>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ====================================================================
+                 5. GTA V | SAFE UNLOCK ALL
+                 ==================================================================== -->
+            <article class="desc-card p-6 sm:p-8 space-y-6 product-item" data-game="GTA V" data-title="gta v safe unlock all bunker research stats clothes">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <span class="px-2.5 py-1 rounded-md bg-[#c084fc]/20 border border-[#c084fc]/40 text-[#c084fc] font-mono text-xs font-bold uppercase">GTA V</span>
+                        <div>
+                            <h3 class="display-font text-xl sm:text-2xl font-black text-white uppercase">GTA V &bull; Safe Unlock All</h3>
+                            <span class="text-xs font-mono text-slate-400">ID: 45 &bull; Base Price: $110.00 &bull; Complete Game Completion</span>
+                        </div>
+                    </div>
+
+                    <button onclick="copyDescription('desc-gta-unlock-all', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
+                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <span>Copy Description</span>
+                    </button>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-6 items-start">
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <span>Storefront Rendered Preview</span>
+                        </div>
+
+                        <div class="desc-inner p-6 space-y-5">
+                            <p class="text-sm leading-relaxed text-slate-200">
+                                The definitive ultimate GTA Online package. Unlocks every vehicle, property, business, bunker research item, clothing set, rare mask, weapon tint, and award across your entire character profile with zero bans.
+                            </p>
+
+                            <div>
+                                <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
+                                    <i data-lucide="layers" class="w-4 h-4"></i>
+                                    <span>Vehicle Fleet &amp; Luxuries:</span>
+                                </h4>
+                                <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">350+ Cars purchased (including Pegasus)</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">50+ Helicopters &amp; Airplanes purchased</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Super Yacht, Avenger, Kosatka &amp; Terrorbyte</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Unlock All LSC content &amp; Chrome Rims</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
+                                    <i data-lucide="award" class="w-4 h-4"></i>
+                                    <span>Weapons, Customization &amp; Research:</span>
+                                </h4>
+                                <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">51/51 Bunker Research Projects Unlocked</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Purchased 500+ Clothing Suits &amp; Old DLCs</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Purchased 100+ Rare Masks &amp; Tattoos</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Max Stats, Fast Run &amp; All 77 Achievements</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-2">
+                        <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+                            <span class="uppercase">Raw Markdown Text:</span>
+                            <span class="text-[10px] text-[#9d7cff]">Format: ProductDescriptionRenderer</span>
+                        </div>
+                        <textarea id="desc-gta-unlock-all" readonly class="w-full h-80 bg-black/60 border border-white/10 rounded-xl p-3.5 text-[11px] font-mono text-slate-300 focus:outline-none resize-none selection:bg-[#9d7cff] selection:text-black">The definitive ultimate GTA Online package. Unlocks every vehicle, property, business, bunker research item, clothing set, rare mask, weapon tint, and award across your entire character profile with zero bans.
+
+Vehicle Fleet & Luxuries:
+✓ 350+ Cars purchased (including Pegasus vehicles)
+✓ 50+ Helicopters & Airplanes purchased
+✓ Purchased Super Yacht, Mobile Command Post, Avenger, Terrorbyte & Kosatka Submarine
+✓ Special Vehicles unlocked: Go Go Monkey Blista, Shotaro Bike, Heist Vehicles
+✓ Unlock all LSC content, Chrome Rims & Exclusive Liveries
+
+Business Empire & Properties:
+✓ Purchased Enterprises, Offices & Nightclub with 100% Popularity
+✓ Money on the Office Floor unlocked
+✓ All 51/51 Bunker Research Projects fully completed
+
+Customization, Weapons & Extras:
+✓ Purchased 500+ Clothing Suits & Old DLC Costumes
+✓ Purchased 100+ Masks, Hairstyles, Tattoos & Parachutes
+✓ Purchased 65+ Weapons (including Railgun)
+✓ Max Character Stats & Fast Run enabled
+✓ 77 In-Game Achievements Unlocked
+
+NOTE: Fully compatible with both Enhanced and Legacy versions on PC.</textarea>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ====================================================================
+                 6. CS2 | SAFE COMMENDS
+                 ==================================================================== -->
+            <article class="desc-card p-6 sm:p-8 space-y-6 product-item" data-game="CS2" data-title="cs2 safe commends commendations trust factor steam">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <span class="px-2.5 py-1 rounded-md bg-[#38bdf8]/20 border border-[#38bdf8]/40 text-[#38bdf8] font-mono text-xs font-bold uppercase">CS2</span>
+                        <div>
+                            <h3 class="display-font text-xl sm:text-2xl font-black text-white uppercase">CS2 &bull; Safe Commends</h3>
+                            <span class="text-xs font-mono text-slate-400">ID: 34 &bull; Base Price: $25.00 &bull; Trust Factor Calibration</span>
+                        </div>
+                    </div>
+
+                    <button onclick="copyDescription('desc-cs2-commends', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
+                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <span>Copy Description</span>
+                    </button>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-6 items-start">
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <span>Storefront Rendered Preview</span>
+                        </div>
+
+                        <div class="desc-inner p-6 space-y-5">
+                            <p class="text-sm leading-relaxed text-slate-200">
+                                Upgrade your Counter-Strike 2 profile reputation with our fast and verified Commends Boost service. Distribute in-game "Friendly," "Teacher," and "Leader" commendations to make your profile stand out, command respect from teammates, and reinforce your Trust Factor for cleaner matchmaking lobbies.
+                            </p>
+
+                            <div>
+                                <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
+                                    <i data-lucide="thumbs-up" class="w-4 h-4"></i>
+                                    <span>Profile Impact &amp; Delivery Details:</span>
+                                </h4>
+                                <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Equal split across Friendly, Teacher &amp; Leader</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Packages from 100 up to 10,000 Commends</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Delivered via official game server coordination</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">No account credentials required (Steam ID only)</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">100% VAC-Safe with natural drip-feed</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Instant start: dispatched in under 15 minutes</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl border border-[#9d7cff]/30 bg-[#9d7cff]/10 text-xs font-mono text-slate-200 flex items-start gap-2.5">
+                                <i data-lucide="info" class="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5"></i>
+                                <div>
+                                    <strong class="text-white">NOTE:</strong> You only need to provide your Steam profile URL or vanity link. Your account stays in your hands the entire time.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-2">
+                        <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+                            <span class="uppercase">Raw Markdown Text:</span>
+                            <span class="text-[10px] text-[#9d7cff]">Format: ProductDescriptionRenderer</span>
+                        </div>
+                        <textarea id="desc-cs2-commends" readonly class="w-full h-80 bg-black/60 border border-white/10 rounded-xl p-3.5 text-[11px] font-mono text-slate-300 focus:outline-none resize-none selection:bg-[#9d7cff] selection:text-black">Upgrade your Counter-Strike 2 profile reputation with our fast and verified Commends Boost service. Distribute in-game "Friendly," "Teacher," and "Leader" commendations to make your profile stand out, command respect from teammates, and reinforce your Trust Factor for cleaner matchmaking lobbies.
+
+Profile Impact & Delivery Details:
+✓ Equal split across Friendly, Teacher & Leader commendations
+✓ Packages available from 100 up to 10,000 Commends
+✓ Delivered via official game server coordination
+✓ No account credentials required (Steam Profile URL only)
+✓ 100% VAC-Safe with natural pacing
+✓ Fast turnaround: dispatched within 15 minutes
+✓ Helps maintain Green Trust Factor status
+
+NOTE: You only need to provide your Steam profile URL. You do not need to share passwords or log out of your client.</textarea>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ====================================================================
+                 7. RDR2 | SAFE ONLINE CASH SERVICE
+                 ==================================================================== -->
+            <article class="desc-card p-6 sm:p-8 space-y-6 product-item" data-game="RDR2" data-title="rdr2 safe online cash money boost gold">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <span class="px-2.5 py-1 rounded-md bg-[#e2b774]/20 border border-[#e2b774]/40 text-[#e2b774] font-mono text-xs font-bold uppercase">RDR2</span>
+                        <div>
+                            <h3 class="display-font text-xl sm:text-2xl font-black text-white uppercase">RDR2 &bull; Safe Online Cash Service</h3>
+                            <span class="text-xs font-mono text-slate-400">ID: 35 &bull; Base Price: $9.99 &bull; Fast Camp &amp; Wagon Upgrades</span>
+                        </div>
+                    </div>
+
+                    <button onclick="copyDescription('desc-rdr2-cash', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
+                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <span>Copy Description</span>
+                    </button>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-6 items-start">
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <span>Storefront Rendered Preview</span>
+                        </div>
+
+                        <div class="desc-inner p-6 space-y-5">
+                            <p class="text-sm leading-relaxed text-slate-200">
+                                Safe and lightning-fast Red Dead Online cash boost service for PC and PlayStation. Accumulate in-game dollars rapidly to fully upgrade your camp, purchase elite Arabian horses, hunting wagons, and Tier-3 crafting pamphlets with zero ban risk.
+                            </p>
+
+                            <div>
+                                <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
+                                    <i data-lucide="dollar-sign" class="w-4 h-4"></i>
+                                    <span>Wealth &amp; Camp Upgrades:</span>
+                                </h4>
+                                <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Clean legal trade &amp; collector deliveries</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Works on PC (Steam/Rockstar/Epic) &amp; PS5</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Compatible with all 5 specialist roles</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Residential VPN protection included</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Fulfillment time: 1 - 4 hours</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">100% Money-Back &amp; Anti-Ban Guarantee</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-2">
+                        <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+                            <span class="uppercase">Raw Markdown Text:</span>
+                            <span class="text-[10px] text-[#9d7cff]">Format: ProductDescriptionRenderer</span>
+                        </div>
+                        <textarea id="desc-rdr2-cash" readonly class="w-full h-80 bg-black/60 border border-white/10 rounded-xl p-3.5 text-[11px] font-mono text-slate-300 focus:outline-none resize-none selection:bg-[#9d7cff] selection:text-black">Safe and lightning-fast Red Dead Online cash boost service for PC and PlayStation. Accumulate in-game dollars rapidly to fully upgrade your camp, purchase elite Arabian horses, hunting wagons, and Tier-3 crafting pamphlets with zero ban risk.
+
+Wealth & Camp Upgrades:
+✓ Clean legal trade & collector deliveries
+✓ Works on PC (Steam, Epic, Rockstar) & PlayStation 4/5
+✓ Compatible with all 5 specialist roles
+✓ Residential VPN protection matching your location
+✓ Turnaround time: 1 - 4 hours
+✓ 100% Anti-Ban Guarantee backed
+
+NOTE: All funds are permanent cash balances deposited into your character wallet.</textarea>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ====================================================================
+                 8. RDR2 | SAFE ONLINE GOLD BARS SERVICE
+                 ==================================================================== -->
+            <article class="desc-card p-6 sm:p-8 space-y-6 product-item" data-game="RDR2" data-title="rdr2 safe gold bars bounty hunter collector role licenses">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <span class="px-2.5 py-1 rounded-md bg-[#e2b774]/20 border border-[#e2b774]/40 text-[#e2b774] font-mono text-xs font-bold uppercase">RDR2</span>
+                        <div>
+                            <h3 class="display-font text-xl sm:text-2xl font-black text-white uppercase">RDR2 &bull; Safe Online Gold Bars Service</h3>
+                            <span class="text-xs font-mono text-slate-400">ID: 36 &bull; Base Price: $9.99 &bull; Role Licenses &amp; Passes</span>
+                        </div>
+                    </div>
+
+                    <button onclick="copyDescription('desc-rdr2-gold', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
+                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <span>Copy Description</span>
+                    </button>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-6 items-start">
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <span>Storefront Rendered Preview</span>
+                        </div>
+
+                        <div class="desc-inner p-6 space-y-5">
+                            <p class="text-sm leading-relaxed text-slate-200">
+                                Buy Red Dead Online Gold Bars safely and quickly for PC and PlayStation. Unlock premium specialist roles (Bounty Hunter, Collector, Trader, Moonshiner, Naturalist), exclusive catalog outfits, weapon customizations, and Outlaw Passes without the endless daily challenges.
+                            </p>
+
+                            <div>
+                                <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
+                                    <i data-lucide="award" class="w-4 h-4"></i>
+                                    <span>Premium Unlocks &amp; Features:</span>
+                                </h4>
+                                <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Gold packages from 25 to 500+ Gold Bars</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Unlock all 5 Frontier Pursuits licenses instantly</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Purchase gold-exclusive weapon metals &amp; engravings</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Hand-played via legitimate event rewards</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Stealth mode with localized VPN</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Average kickoff: 15 to 30 minutes</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-2">
+                        <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+                            <span class="uppercase">Raw Markdown Text:</span>
+                            <span class="text-[10px] text-[#9d7cff]">Format: ProductDescriptionRenderer</span>
+                        </div>
+                        <textarea id="desc-rdr2-gold" readonly class="w-full h-80 bg-black/60 border border-white/10 rounded-xl p-3.5 text-[11px] font-mono text-slate-300 focus:outline-none resize-none selection:bg-[#9d7cff] selection:text-black">Buy Red Dead Online Gold Bars safely and quickly for PC and PlayStation. Unlock premium specialist roles (Bounty Hunter, Collector, Trader, Moonshiner, Naturalist), exclusive catalog outfits, weapon customizations, and Outlaw Passes without the endless daily challenges.
+
+Premium Unlocks & Features:
+✓ Gold packages available from 25 to 500+ Gold Bars
+✓ Unlock all 5 Frontier Pursuits licenses instantly
+✓ Purchase gold-exclusive weapon metals, engravings & saddles
+✓ Hand-played via verified high-yield event rewards
+✓ Stealth mode with localized residential VPN
+✓ Average kickoff: within 15 to 30 minutes
+✓ 100% Anti-Ban Guarantee backed
+
+NOTE: Gold Bars are added permanently to your currency wallet.</textarea>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ====================================================================
+                 9. STEAM COMMENTS
+                 ==================================================================== -->
+            <article class="desc-card p-6 sm:p-8 space-y-6 product-item" data-game="Steam" data-title="steam comments rep profile reputation">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/[0.08]">
+                    <div class="flex items-center gap-3">
+                        <span class="px-2.5 py-1 rounded-md bg-[#64748b]/20 border border-[#64748b]/40 text-slate-300 font-mono text-xs font-bold uppercase">Steam</span>
+                        <div>
+                            <h3 class="display-font text-xl sm:text-2xl font-black text-white uppercase">Steam Profile Comments</h3>
+                            <span class="text-xs font-mono text-slate-400">ID: 47 &bull; Base Price: $5.00 &bull; High Reputation Boost</span>
+                        </div>
+                    </div>
+
+                    <button onclick="copyDescription('desc-steam-comments', this)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#b399ff] text-black text-xs font-mono font-black uppercase transition-all shadow-[0_0_15px_rgba(157,124,255,0.3)]">
+                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <span>Copy Description</span>
+                    </button>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-6 items-start">
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                            <i data-lucide="eye" class="w-4 h-4 text-[#9d7cff]"></i>
+                            <span>Storefront Rendered Preview</span>
+                        </div>
+
+                        <div class="desc-inner p-6 space-y-5">
+                            <p class="text-sm leading-relaxed text-slate-200">
+                                Give your Steam profile the prestige and trustworthiness it deserves. Receive positive reputation comments (+rep trader, +rep good player, +rep friendly) from established, high-level Steam accounts.
+                            </p>
+
+                            <div>
+                                <h4 class="display-font text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
+                                    <i data-lucide="message-square" class="w-4 h-4"></i>
+                                    <span>Comment Details &amp; Options:</span>
+                                </h4>
+                                <div class="grid sm:grid-cols-2 gap-2 text-xs font-sans">
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Comments from high Steam level profiles (Level 50+)</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Customizable comment texts or varied legit presets</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">No account credentials required (Profile link only)</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                        <span class="h-4 w-4 rounded-full custom-check flex items-center justify-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                        <span class="text-slate-300">Instant start &bull; Natural drip-feed interval</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-2">
+                        <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+                            <span class="uppercase">Raw Markdown Text:</span>
+                            <span class="text-[10px] text-[#9d7cff]">Format: ProductDescriptionRenderer</span>
+                        </div>
+                        <textarea id="desc-steam-comments" readonly class="w-full h-80 bg-black/60 border border-white/10 rounded-xl p-3.5 text-[11px] font-mono text-slate-300 focus:outline-none resize-none selection:bg-[#9d7cff] selection:text-black">Give your Steam profile the prestige and trustworthiness it deserves. Receive positive reputation comments (+rep trader, +rep good player, +rep friendly) from established, high-level Steam accounts.
+
+Comment Details & Options:
+✓ Comments from high Steam level profiles (Level 50+)
+✓ Customizable comment texts or varied legit presets (+rep)
+✓ No account login or passwords required (Steam Profile URL only)
+✓ Instant start with natural drip-feed delivery interval
+✓ Increases profile reputation for CS2 trading and matchmaking
+
+NOTE: Ensure your Steam profile privacy settings for "Comments" are set to Public prior to order placement.</textarea>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </main>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="px-4 py-3 rounded-xl border border-[#9d7cff]/40 bg-[#161028] text-white text-xs font-mono flex items-center gap-3 shadow-2xl shadow-black">
+            <i data-lucide="check-circle" class="w-4 h-4 text-[#10b981]"></i>
+            <span id="toast-msg">Description copied to clipboard!</span>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+
+        // Copy Description
+        function copyDescription(textareaId, btn) {
+            const textarea = document.getElementById(textareaId);
+            if (!textarea) return;
+
+            navigator.clipboard.writeText(textarea.value).then(() => {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i data-lucide="check" class="w-4 h-4 text-emerald-300"></i><span class="text-emerald-300">Copied!</span>';
+                if (window.lucide) lucide.createIcons();
+
+                showToast('Description markdown copied! Paste into product editor.');
+
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    if (window.lucide) lucide.createIcons();
+                }, 2000);
+            });
+        }
+
+        // Search Filter
+        function handleSearch(query) {
+            const clean = query.trim().toLowerCase();
+            const items = document.querySelectorAll('.product-item');
+            items.forEach(item => {
+                const title = item.dataset.title || '';
+                const game = item.dataset.game || '';
+                if (!clean || title.includes(clean) || game.toLowerCase().includes(clean)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Game Filter
+        function filterGame(game, btn) {
+            const buttons = btn.parentElement.querySelectorAll('button');
+            buttons.forEach(b => {
+                b.className = 'px-3 py-1.5 rounded-lg text-slate-400 hover:text-white uppercase transition-all';
+            });
+            btn.className = 'px-3 py-1.5 rounded-lg bg-[#9d7cff] text-black font-bold uppercase transition-all';
+
+            const items = document.querySelectorAll('.product-item');
+            items.forEach(item => {
+                if (game === 'all' || item.dataset.game === game) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Toast Helper
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            toastMsg.textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        /* -----------------------------------------------------------
+         * ATMOSPHERE BACKGROUND ENGINE
+         * Drifting vertical light folds, screen-blended glow & focal bloom
+         * ----------------------------------------------------------- */
+        (function initAtmosphereBackground() {
+            const canvas = document.getElementById('atmosphere-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width = 0;
+            let height = 0;
+            let dpr = 1;
+            let animFrameId = null;
+
+            function handleResize() {
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = Math.floor(width * dpr);
+                canvas.height = Math.floor(height * dpr);
+                canvas.style.width = width + 'px';
+                canvas.style.height = height + 'px';
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.scale(dpr, dpr);
+            }
+            window.addEventListener('resize', handleResize);
+            handleResize();
+
+            // Configured light folds with organic undulating wave frequencies
+            const folds = [
+                {
+                    baseXPct: 0.12,
+                    halfW: 160,
+                    color: 'rgba(121, 40, 202, ALPHA)',
+                    baseAlpha: 0.13,
+                    freqTop: 0.00035,
+                    freqMid: 0.00042,
+                    freqBot: 0.00030,
+                    amp: 55,
+                    phase: 0.4
+                },
+                {
+                    baseXPct: 0.28,
+                    halfW: 200,
+                    color: 'rgba(56, 189, 248, ALPHA)',
+                    baseAlpha: 0.09,
+                    freqTop: 0.00028,
+                    freqMid: 0.00034,
+                    freqBot: 0.00040,
+                    amp: 70,
+                    phase: 1.8
+                },
+                {
+                    baseXPct: 0.46,
+                    halfW: 190,
+                    color: 'rgba(157, 124, 255, ALPHA)',
+                    baseAlpha: 0.15,
+                    freqTop: 0.00032,
+                    freqMid: 0.00025,
+                    freqBot: 0.00038,
+                    amp: 65,
+                    phase: 3.1
+                },
+                {
+                    baseXPct: 0.65,
+                    halfW: 230,
+                    color: 'rgba(139, 92, 246, ALPHA)',
+                    baseAlpha: 0.17,
+                    freqTop: 0.00022,
+                    freqMid: 0.00036,
+                    freqBot: 0.00029,
+                    amp: 85,
+                    phase: 4.6
+                },
+                {
+                    baseXPct: 0.83,
+                    halfW: 260,
+                    color: 'rgba(157, 124, 255, ALPHA)',
+                    baseAlpha: 0.22,
+                    freqTop: 0.00040,
+                    freqMid: 0.00031,
+                    freqBot: 0.00045,
+                    amp: 95,
+                    phase: 2.3
+                },
+                {
+                    baseXPct: 0.95,
+                    halfW: 210,
+                    color: 'rgba(192, 38, 211, ALPHA)',
+                    baseAlpha: 0.12,
+                    freqTop: 0.00033,
+                    freqMid: 0.00027,
+                    freqBot: 0.00036,
+                    amp: 60,
+                    phase: 5.7
+                }
+            ];
+
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            function render(timestamp) {
+                const t = prefersReducedMotion ? 1200 : timestamp;
+                ctx.clearRect(0, 0, width, height);
+
+                // Step 1: Deep charcoal-navy base wash
+                const baseGrad = ctx.createLinearGradient(0, 0, 0, height);
+                baseGrad.addColorStop(0, '#090611');
+                baseGrad.addColorStop(0.5, '#07050e');
+                baseGrad.addColorStop(1, '#050308');
+                ctx.fillStyle = baseGrad;
+                ctx.fillRect(0, 0, width, height);
+
+                // Step 2: Layered drifting vertical light folds (screen blend)
+                ctx.save();
+                ctx.globalCompositeOperation = 'screen';
+
+                folds.forEach(fold => {
+                    const topX = (fold.baseXPct * width) + Math.sin(t * fold.freqTop + fold.phase) * (fold.amp * 0.5);
+                    const midX = (fold.baseXPct * width) + Math.sin(t * fold.freqMid + fold.phase + 1.3) * fold.amp;
+                    const botX = (fold.baseXPct * width) + Math.cos(t * fold.freqBot + fold.phase + 2.7) * (fold.amp * 1.35);
+
+                    const hw = Math.max(fold.halfW, width * 0.12);
+
+                    // Vertical gradient for fold: transparent top, luminous swell near lower 70%-90%
+                    const vGrad = ctx.createLinearGradient(0, 0, 0, height);
+                    vGrad.addColorStop(0, 'rgba(0, 0, 0, 0)');
+                    vGrad.addColorStop(0.25, fold.color.replace('ALPHA', (fold.baseAlpha * 0.25).toFixed(3)));
+                    vGrad.addColorStop(0.65, fold.color.replace('ALPHA', fold.baseAlpha.toFixed(3)));
+                    vGrad.addColorStop(0.88, fold.color.replace('ALPHA', (fold.baseAlpha * 1.25).toFixed(3)));
+                    vGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+                    ctx.beginPath();
+                    ctx.moveTo(topX - hw * 0.7, -40);
+                    ctx.bezierCurveTo(midX - hw * 0.9, height * 0.42, botX - hw * 1.15, height * 0.82, botX - hw * 1.3, height + 40);
+                    ctx.lineTo(botX + hw * 1.3, height + 40);
+                    ctx.bezierCurveTo(botX + hw * 1.15, height * 0.82, midX + hw * 0.9, height * 0.42, topX + hw * 0.7, -40);
+                    ctx.closePath();
+
+                    ctx.fillStyle = vGrad;
+                    ctx.fill();
+                });
+
+                // Step 3: Cinematic focal glow (accumulated bloom toward lower edge & lower right)
+                const focalX = width * 0.86;
+                const focalY = height * 0.93;
+                const focalRadius = Math.max(width, height) * 0.68;
+                const focalBloom = ctx.createRadialGradient(focalX, focalY, 15, focalX, focalY, focalRadius);
+                focalBloom.addColorStop(0, 'rgba(157, 124, 255, 0.25)');
+                focalBloom.addColorStop(0.32, 'rgba(121, 40, 202, 0.14)');
+                focalBloom.addColorStop(0.65, 'rgba(56, 189, 248, 0.04)');
+                focalBloom.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+                ctx.fillStyle = focalBloom;
+                ctx.fillRect(0, 0, width, height);
+
+                // Secondary lower-left subtle cyan anchor bloom
+                const leftX = width * 0.12;
+                const leftY = height * 0.96;
+                const leftRadius = Math.max(width, height) * 0.46;
+                const leftBloom = ctx.createRadialGradient(leftX, leftY, 10, leftX, leftY, leftRadius);
+                leftBloom.addColorStop(0, 'rgba(56, 189, 248, 0.09)');
+                leftBloom.addColorStop(0.45, 'rgba(99, 102, 241, 0.04)');
+                leftBloom.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+                ctx.fillStyle = leftBloom;
+                ctx.fillRect(0, 0, width, height);
+
+                ctx.restore();
+
+                if (!prefersReducedMotion) {
+                    animFrameId = requestAnimationFrame(render);
+                }
+            }
+
+            render(0);
+        })();
+    </script>
+</body>
+</html>
