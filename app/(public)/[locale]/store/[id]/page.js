@@ -11,27 +11,49 @@ export default async function ProductPage({ params }) {
     const { locale, id } = await params;
     setRequestLocale(locale);
     const cleanId = parseProductId(id);
-    const sql = neon(process.env.DATABASE_URL);
-    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS slug VARCHAR(255)`;
-    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS game VARCHAR(120)`;
-    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS image_url TEXT`;
-    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS how_it_works TEXT`;
-    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS requirements TEXT`;
-    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS faqs TEXT`;
+    let product = null;
+    let relatedProducts = [];
+    let options = {};
 
-    let products;
-    if (cleanId) {
-        products = await sql`SELECT * FROM products WHERE id = ${cleanId} LIMIT 1`;
-    } else {
-        const rawSlug = decodeURIComponent(String(id)).trim().toLowerCase();
-        products = await sql`SELECT * FROM products WHERE slug = ${rawSlug} OR id::text = ${rawSlug} LIMIT 1`;
-        if (!products || products.length === 0) {
-            const allProducts = await sql`SELECT * FROM products`;
-            const matched = allProducts.find(p => (p.slug || productToSlug(p.name)) === rawSlug);
-            if (matched) products = [matched];
+    try {
+        if (process.env.DATABASE_URL) {
+            const sql = neon(process.env.DATABASE_URL);
+            await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS slug VARCHAR(255)`;
+            await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS game VARCHAR(120)`;
+            await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS image_url TEXT`;
+            await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS how_it_works TEXT`;
+            await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS requirements TEXT`;
+            await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS faqs TEXT`;
+
+            let products;
+            if (cleanId) {
+                products = await sql`SELECT * FROM products WHERE id = ${cleanId} LIMIT 1`;
+            } else {
+                const rawSlug = decodeURIComponent(String(id)).trim().toLowerCase();
+                products = await sql`SELECT * FROM products WHERE slug = ${rawSlug} OR id::text = ${rawSlug} LIMIT 1`;
+                if (!products || products.length === 0) {
+                    const allProducts = await sql`SELECT * FROM products`;
+                    const matched = allProducts.find(p => (p.slug || productToSlug(p.name)) === rawSlug);
+                    if (matched) products = [matched];
+                }
+            }
+            product = products?.[0] || null;
+
+            if (product) {
+                relatedProducts = await sql`
+                    SELECT * FROM products
+                    WHERE game = ${product.game || ''} AND id <> ${product.id}
+                    ORDER BY id DESC
+                    LIMIT 4
+                `;
+
+                const optRes = await getServiceOptions(sql);
+                options = optRes?.options || {};
+            }
         }
+    } catch (err) {
+        console.warn(`ProductPage: Failed to load product "${id}" from DB:`, err.message);
     }
-    const product = products?.[0];
 
     if (!product) notFound();
 
@@ -39,15 +61,6 @@ export default async function ProductPage({ params }) {
     if (decodeURIComponent(String(id)) !== canonicalSlug) {
         permanentRedirect(`/store/${canonicalSlug}`);
     }
-
-    const relatedProducts = await sql`
-        SELECT * FROM products
-        WHERE game = ${product.game || ''} AND id <> ${product.id}
-        ORDER BY id DESC
-        LIMIT 4
-    `;
-
-    const { options } = await getServiceOptions(sql);
 
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
     const localizedProductUrl = `${baseUrl}/store/${canonicalSlug}`;

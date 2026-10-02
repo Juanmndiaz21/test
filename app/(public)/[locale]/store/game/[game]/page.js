@@ -12,17 +12,28 @@ export default async function GameServicesPage({ params }) {
     const { locale, game: encodedGame } = await params;
     setRequestLocale(locale);
     const game = slugToGameName(encodedGame);
-    const sql = neon(process.env.DATABASE_URL);
-    await ensureAppSchema(sql);
+    let gameRows = [];
+    let products = [];
 
-    const [gameRows, products] = await Promise.all([
-        sql`SELECT name, image_url, mode FROM games WHERE LOWER(name) = LOWER(${game}) LIMIT 1`,
-        sql`
-            SELECT * FROM products
-            WHERE LOWER(game) = LOWER(${game})
-            ORDER BY id DESC
-        `,
-    ]);
+    try {
+        if (process.env.DATABASE_URL) {
+            const sql = neon(process.env.DATABASE_URL);
+            await ensureAppSchema(sql);
+
+            const [gRes, pRes] = await Promise.all([
+                sql`SELECT name, image_url, mode FROM games WHERE LOWER(name) = LOWER(${game}) LIMIT 1`,
+                sql`
+                    SELECT * FROM products
+                    WHERE LOWER(game) = LOWER(${game})
+                    ORDER BY id DESC
+                `,
+            ]);
+            gameRows = gRes || [];
+            products = pRes || [];
+        }
+    } catch (err) {
+        console.warn(`GameServicesPage: Failed to load services for "${game}":`, err.message);
+    }
 
     if (!game || !gameRows[0]) notFound();
 

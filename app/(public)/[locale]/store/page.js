@@ -40,13 +40,26 @@ export default async function Store({ params }) {
     setRequestLocale(locale);
     const t = await getTranslations('store');
 
-    const sql = neon(process.env.DATABASE_URL);
-    await ensureAppSchema(sql);
+    let products = [];
+    let games = [];
 
-    const [products, games] = await Promise.all([
-        sql`SELECT * FROM products ORDER BY id DESC`,
-        sql`SELECT name, image_url FROM games ORDER BY name ASC`,
-    ]);
+    try {
+        if (process.env.DATABASE_URL) {
+            const sql = neon(process.env.DATABASE_URL);
+            await ensureAppSchema(sql);
+
+            const [productsRes, gamesRes] = await Promise.all([
+                sql`SELECT * FROM products ORDER BY id DESC`,
+                sql`SELECT name, image_url FROM games ORDER BY name ASC`,
+            ]);
+            products = productsRes || [];
+            games = gamesRes || [];
+        }
+    } catch (err) {
+        console.warn('Store page: Failed to fetch products from DB during render:', err.message);
+        products = [];
+        games = [];
+    }
 
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
     const storeUrl = `${baseUrl}/store`;
