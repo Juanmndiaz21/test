@@ -1,25 +1,15 @@
 'use client';
 
 import React from 'react';
-import {
-    LuShieldCheck,
-    LuCamera,
-    LuMessageSquare,
-    LuSparkles,
-    LuZap,
-    LuPackage,
-    LuInfo,
-    LuCheck,
-    LuExternalLink,
-} from 'react-icons/lu';
+import { Icon } from '@iconify/react';
 
 /**
- * Maps heading text to an appropriate semantic icon matching the showcase design
+ * Maps heading text to an appropriate semantic icon matching the Solar Duotone Bold showcase
  */
 function getHeadingIcon(title = '') {
     const lower = title.toLowerCase();
     if (lower.includes('flickr') || lower.includes('photo') || lower.includes('album') || lower.includes('picture')) {
-        return <LuCamera className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+        return <Icon icon="solar:camera-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0" />;
     }
     if (
         lower.includes('service') ||
@@ -28,36 +18,40 @@ function getHeadingIcon(title = '') {
         lower.includes('safe') ||
         lower.includes('security') ||
         lower.includes('anti-ban') ||
-        lower.includes('guarantee')
+        lower.includes('guarantee') ||
+        lower.includes('account')
     ) {
-        return <LuShieldCheck className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+        return <Icon icon="solar:shield-check-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0" />;
     }
     if (lower.includes('comment') || lower.includes('review') || lower.includes('rep') || lower.includes('feedback')) {
-        return <LuMessageSquare className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+        return <Icon icon="solar:chat-round-dots-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0" />;
     }
-    if (lower.includes('speed') || lower.includes('fast') || lower.includes('delivery') || lower.includes('instant')) {
-        return <LuZap className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+    if (lower.includes('speed') || lower.includes('fast') || lower.includes('delivery') || lower.includes('instant') || lower.includes('boost')) {
+        return <Icon icon="solar:bolt-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+    }
+    if (lower.includes('car') || lower.includes('vehicle') || lower.includes('drift')) {
+        return <Icon icon="solar:car-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+    }
+    if (lower.includes('weapon') || lower.includes('gun') || lower.includes('tactical')) {
+        return <Icon icon="solar:target-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0" />;
     }
     if (
         lower.includes('package') ||
         lower.includes('item') ||
-        lower.includes('vehicle') ||
-        lower.includes('car') ||
-        lower.includes('weapon') ||
         lower.includes('aircraft') ||
         lower.includes('role') ||
         lower.includes('rank')
     ) {
-        return <LuPackage className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+        return <Icon icon="solar:box-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0" />;
     }
-    return <LuSparkles className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+    return <Icon icon="solar:stars-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0" />;
 }
 
 /**
- * Circular Checkmark Icon matching the showcase design
+ * Solar Duotone Bold Checkmark Icon
  */
-export function GreenCheckIcon({ className = 'w-3 h-3' }) {
-    return <LuCheck className={className} />;
+export function GreenCheckIcon({ className = 'w-4 h-4 text-[#9d7cff]' }) {
+    return <Icon icon="solar:check-circle-bold-duotone" className={className} />;
 }
 
 /**
@@ -339,9 +333,7 @@ export default function ProductDescriptionRenderer({ content = '', className = '
                                     key={itemIdx}
                                     className="flex items-center gap-2.5 p-2 sm:p-2.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-white/10 transition-colors"
                                 >
-                                    <span className="h-4 w-4 sm:h-5 sm:w-5 rounded-full bg-[#9d7cff]/10 border border-[#9d7cff]/25 text-[#9d7cff] flex items-center justify-center shrink-0">
-                                        <LuCheck className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#9d7cff] stroke-[2.5]" />
-                                    </span>
+                                    <Icon icon="solar:check-circle-bold-duotone" className="w-4 h-4 sm:w-5 sm:h-5 text-[#9d7cff] shrink-0" />
                                     <span className="text-slate-300 font-medium leading-snug">
                                         {renderInlineFormatting(item)}
                                     </span>
@@ -383,7 +375,7 @@ export default function ProductDescriptionRenderer({ content = '', className = '
                                             </div>
                                         </div>
                                     </div>
-                                    <LuExternalLink className="w-4 h-4 text-slate-400 group-hover:text-white shrink-0 ml-2 transition-colors" />
+                                    <Icon icon="solar:arrow-right-up-bold-duotone" className="w-4 h-4 text-slate-400 group-hover:text-white shrink-0 ml-2 transition-colors" />
                                 </a>
                             ))}
                         </div>
@@ -408,7 +400,7 @@ export default function ProductDescriptionRenderer({ content = '', className = '
                             key={`note-${idx}`}
                             className="p-3.5 sm:p-4 rounded-xl border border-[#9d7cff]/30 bg-[#9d7cff]/10 text-xs sm:text-sm font-mono text-slate-200 flex items-start gap-2.5 sm:gap-3 my-4 shadow-[0_0_15px_rgba(157,124,255,0.07)]"
                         >
-                            <LuInfo className="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5" />
+                            <Icon icon="solar:info-circle-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5" />
                             <div className="leading-relaxed">
                                 <strong className="text-white mr-1.5">{block.prefix}</strong>
                                 <span>{renderInlineFormatting(block.text)}</span>
