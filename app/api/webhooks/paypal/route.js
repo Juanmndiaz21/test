@@ -55,9 +55,9 @@ export async function POST(req) {
 
         return NextResponse.json(result);
     } catch (err) {
-        console.error('PayPal webhook handler error:', err.message);
+        console.error('PayPal webhook handler error:', err);
         return NextResponse.json(
-            { error: `PayPal webhook handler failed: ${err.message}` },
+            { error: 'Webhook processing error' },
             { status: 400 }
         );
     }

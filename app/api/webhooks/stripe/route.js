@@ -20,9 +20,9 @@ export async function POST(req) {
 
         return NextResponse.json(result);
     } catch (err) {
-        console.error('Stripe webhook error:', err.message);
+        console.error('Stripe webhook error:', err);
         return NextResponse.json(
-            { error: `Webhook handler failed: ${err.message}` },
+            { error: 'Webhook processing error' },
             { status: 400 }
         );
     }

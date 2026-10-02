@@ -41,6 +41,6 @@ export async function GET() {
         return NextResponse.json({ success: true, orders });
     } catch (err) {
         console.error('Error in /api/user/orders:', err);
-        return NextResponse.json({ success: false, error: err.message, orders: [] }, { status: 500 });
+        return NextResponse.json({ success: false, error: 'Internal server error', orders: [] }, { status: 500 });
     }
 }

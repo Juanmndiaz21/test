@@ -79,7 +79,7 @@ export async function GET() {
         if (err.message?.includes('Unauthorized')) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
-        return NextResponse.json({ error: err.message || 'Failed to list uploads' }, { status: 500 });
+        return NextResponse.json({ error: 'Failed to list uploads' }, { status: 500 });
     }
 }
 
@@ -152,7 +152,7 @@ export async function POST(request) {
         }
         console.error('Image upload error:', err);
         return NextResponse.json(
-            { error: err.message || 'Failed to upload image' },
+            { error: 'Failed to upload image' },
             { status: 500 }
         );
     }
