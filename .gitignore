@@ -74,6 +74,9 @@ lerna-debug.log*
 .env.production.local
 !.env.example
 
+# Temporary / Scratch Scripts
+/scripts/
+
 # Vercel
 .vercel
 
