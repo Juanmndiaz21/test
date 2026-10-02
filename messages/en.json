@@ -297,7 +297,7 @@
     "payWithPayPal": "Continue with PayPal",
     "payWithCrypto": "Pay with Crypto",
     "redirectingToStripe": "Redirecting to secure gateway...",
-    "stripeSandboxNotice": "Integration / Sandbox Mode: When STRIPE_SECRET_KEY is configured in production, it redirects to Stripe Checkout.",
+    "stripeSandboxNotice": "",
     "successTitle": "Order Confirmed!",
     "successSubtitle": "Your transaction has been recorded successfully",
     "orderConfirmed": "Payment and Order Recorded",
@@ -433,7 +433,7 @@
     "sec5Title": "5. Transparent Pricing & Guarantees",
     "sec5Text": "All prices displayed on OGmodz are strictly final with no hidden fees, recurring subscriptions, or surprise checkout surcharges. All services are protected by our Refund Policy and Roster Replacement Guarantee.",
     "sec6Title": "6. Contact & Legal Inquiries",
-    "sec6Text": "For legal inquiries, dispute resolution, or clarifications regarding our terms, reach out to our legal department at support@ogmodz.com or via our Contact page. Typical response time is under 24 hours."
+    "sec6Text": "For legal inquiries, dispute resolution, or clarifications regarding our terms, reach out to our legal department at admin@ogmodz.com or via our Contact page. Typical response time is under 24 hours."
   },
   "privacy": {
     "titleMeta": "Privacy Policy — OGmodz",
