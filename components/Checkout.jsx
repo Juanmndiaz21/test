@@ -418,6 +418,11 @@ export default function Checkout() {
                         </div>
                     )}
 
+                    <div className="flex justify-between items-center text-xs text-emerald-400">
+                        <span>Taxes & Processing Fees</span>
+                        <span className="font-mono font-medium">Included ($0.00)</span>
+                    </div>
+
                     <div className="pt-2 border-t border-white/10 flex justify-between items-baseline">
                         <span className="text-sm uppercase font-bold text-white tracking-wider">
                             {t('totalToPay')}
@@ -429,6 +434,11 @@ export default function Checkout() {
                             <span className="ml-1 text-xs text-slate-400 font-sans">USD</span>
                         </div>
                     </div>
+
+                    <div className="pt-2 border-t border-white/5 flex items-center gap-1.5 text-[11px] text-slate-300">
+                        <Icon name="shield" className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                        <span>Guaranteed Final Price — No hidden checkout fees; taxes & gateway processing included.</span>
+                    </div>
                 </div>
 
                 {/* Hidden form fields */}
@@ -436,8 +446,27 @@ export default function Checkout() {
                 <input type="hidden" name="payment_method" value={paymentMethod} />
                 <input type="hidden" name="coupon_code" value={appliedCoupon ? appliedCoupon.code : ''} />
 
+                {/* Explicit Consent Checkbox (Opt-in, non-preselected) */}
+                <div className="pt-1">
+                    <label className="flex items-start gap-2.5 text-xs text-slate-300 select-none cursor-pointer">
+                        <input
+                            type="checkbox"
+                            name="consent_terms"
+                            required
+                            defaultChecked={false}
+                            className="mt-0.5 h-4 w-4 rounded border-white/20 bg-[#120e1c] text-[#9d7cff] accent-[#9d7cff] focus:ring-2 focus:ring-[#9d7cff] focus:outline-none cursor-pointer"
+                        />
+                        <span className="leading-relaxed">
+                            I confirm I am at least 16 years of age (or have parental authorization) and I agree to the{' '}
+                            <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-[#c8b4ff] underline hover:text-white">Terms of Service</a>,{' '}
+                            <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-[#c8b4ff] underline hover:text-white">Privacy Policy</a>, and{' '}
+                            <a href="/refunds" target="_blank" rel="noopener noreferrer" className="text-[#c8b4ff] underline hover:text-white">Refund Policy</a>.
+                        </span>
+                    </label>
+                </div>
+
                 {/* Submit Payment Button */}
-                <div className="pt-2">
+                <div className="pt-1">
                     <button
                         type="submit"
                         disabled={isPending}

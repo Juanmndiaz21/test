@@ -6,7 +6,7 @@ function GameArt({ name, image_url: imageUrl, className = '', priority = false }
         return (
             <img
                 src={imageUrl}
-                alt={name}
+                alt={name ? `${name} artwork` : 'Game artwork'}
                 loading={priority ? 'eager' : 'lazy'}
                 fetchPriority={priority ? 'high' : 'auto'}
                 decoding="async"

@@ -2,29 +2,28 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Reveal from '@/components/Reveal';
 import PageHeaderBanner from '@/components/PageHeaderBanner';
 import { Link } from '@/i18n/navigation';
-import Icon from '@/components/Icon';
 
 export async function generateMetadata({ params }) {
     const { locale } = await params;
-    const t = await getTranslations({ locale, namespace: 'privacy' });
+    const t = await getTranslations({ locale, namespace: 'cookies' });
     return {
         title: t('titleMeta'),
         description: t('sec1Text'),
         alternates: {
-            canonical: '/privacy',
+            canonical: '/cookies',
         },
         openGraph: {
             title: t('titleMeta'),
             description: t('sec1Text'),
-            url: '/privacy',
+            url: '/cookies',
         },
     };
 }
 
-export default async function PrivacyPage({ params }) {
+export default async function CookiesPage({ params }) {
     const { locale } = await params;
     setRequestLocale(locale);
-    const t = await getTranslations('privacy');
+    const t = await getTranslations('cookies');
 
     const sections = [
         { title: t('sec1Title'), text: t('sec1Text') },
@@ -32,8 +31,6 @@ export default async function PrivacyPage({ params }) {
         { title: t('sec3Title'), text: t('sec3Text') },
         { title: t('sec4Title'), text: t('sec4Text') },
         { title: t('sec5Title'), text: t('sec5Text') },
-        { title: t('sec6Title'), text: t('sec6Text') },
-        { title: t('sec7Title'), text: t('sec7Text') },
     ];
 
     return (
@@ -59,22 +56,19 @@ export default async function PrivacyPage({ params }) {
                         </Reveal>
                     ))}
 
-                    <Reveal delay={0.4}>
-                        <div className="rounded-xl bg-[#1c162b] p-6 sm:p-7 border border-[#9d7cff]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-                            <div>
-                                <h2 className="font-['Trebuchet_MS',sans-serif] text-lg sm:text-xl font-bold text-white mb-2">
-                                    Request Data Erasure or Export
-                                </h2>
-                                <p className="text-sm leading-relaxed text-slate-300 max-w-xl">
-                                    Under GDPR Art. 17 and CCPA, you have the right to request full deletion or a copy of your personal data at any time.
-                                </p>
-                            </div>
+                    <Reveal delay={0.35}>
+                        <div className="rounded-xl bg-[#1c162b] p-6 sm:p-7 border border-[#9d7cff]/30 text-center">
+                            <h3 className="font-['Trebuchet_MS',sans-serif] text-base font-bold text-white mb-2">
+                                {t('privacyLinkTitle')}
+                            </h3>
+                            <p className="text-sm text-slate-300 mb-4">
+                                {t('privacyLinkText')}
+                            </p>
                             <Link
-                                href="/contact?subject=Data+Deletion+Request"
-                                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#9d7cff] text-[#0d0914] hover:bg-[#b59dff] font-['Trebuchet_MS',sans-serif] text-xs font-bold uppercase tracking-wider transition-colors shrink-0 focus-visible:outline-2 focus-visible:outline-[#9d7cff]"
+                                href="/privacy"
+                                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-[#9d7cff] text-[#0d0914] text-xs font-bold uppercase tracking-wider hover:bg-[#b59dff] transition-colors focus-visible:outline-2 focus-visible:outline-[#9d7cff]"
                             >
-                                <span>Submit Deletion Request</span>
-                                <Icon name="arrow-right" className="w-4 h-4" />
+                                {t('viewPrivacyBtn')}
                             </Link>
                         </div>
                     </Reveal>

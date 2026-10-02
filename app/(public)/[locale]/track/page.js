@@ -263,7 +263,7 @@ export default function TrackOrderPage({ searchParams }) {
                                                                 ? 'bg-[#9d7cff] text-[#0d0914] shadow-[0_0_16px_rgba(157,124,255,0.45)]'
                                                                 : isCurrent
                                                                 ? 'bg-white text-[#0d0914] ring-4 ring-[#9d7cff]/40 shadow-[0_0_20px_rgba(255,255,255,0.5)] scale-105'
-                                                                : 'bg-[#120e1c] border border-white/15 text-slate-500'
+                                                                : 'bg-[#120e1c] border border-white/15 text-slate-400'
                                                         }`}
                                                     >
                                                         {isDone ? (
@@ -283,7 +283,7 @@ export default function TrackOrderPage({ searchParams }) {
                                                                 ? 'text-white'
                                                                 : isDone
                                                                 ? 'text-[#c8b4ff]'
-                                                                : 'text-slate-500'
+                                                                : 'text-slate-400'
                                                         }`}
                                                     >
                                                         {step.label}
@@ -364,7 +364,7 @@ export default function TrackOrderPage({ searchParams }) {
                                         <Icon name="box" className="w-4 h-4 text-[#9d7cff]" />
                                         <span>{t('servicesIncluded')}</span>
                                     </h3>
-                                    <span className="text-xs font-mono text-slate-500 font-semibold">
+                                    <span className="text-xs font-mono text-slate-400 font-semibold">
                                         {result.items.length} {result.items.length === 1 ? 'item' : 'items'}
                                     </span>
                                 </div>

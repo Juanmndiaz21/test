@@ -87,7 +87,7 @@ export default function UserNav() {
                 ) : (
                     <img
                         src={avatarUrl}
-                        alt=""
+                        alt="User profile avatar"
                         onError={() => setAvatarFailed(true)}
                         className="h-full w-full rounded-full object-cover"
                     />
@@ -127,7 +127,7 @@ export default function UserNav() {
                                 ) : (
                                     <img
                                         src={avatarUrl}
-                                        alt=""
+                                        alt="User profile avatar"
                                         onError={() => setAvatarFailed(true)}
                                         className="h-10 w-10 rounded-full object-cover border border-[#9d7cff]/40 group-hover:border-[#9d7cff] transition-colors"
                                     />

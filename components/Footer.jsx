@@ -126,15 +126,42 @@ export default async function Footer() {
                                     {t('privacy')}
                                 </Link>
                             </li>
+                            <li>
+                                <Link href="/refunds" className="text-slate-300 hover:text-[#9d7cff] transition-colors">
+                                    {t('refunds')}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/cookies" className="text-slate-300 hover:text-[#9d7cff] transition-colors">
+                                    Cookie Policy
+                                </Link>
+                            </li>
                         </ul>
                     </div>
+                </div>
+
+                {/* Business Info & Trademark Disclaimer Banner */}
+                <div className="mt-12 pt-8 border-t border-white/10 text-xs text-slate-400 space-y-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-slate-300">
+                        <div>
+                            <span className="font-bold text-white">OGmodz Marketplace</span> · Operated for independent digital gaming services & coaching.
+                        </div>
+                        <div className="flex items-center gap-4 text-xs font-mono">
+                            <span>Email: <a href="mailto:support@ogmodz.com" className="text-[#c8b4ff] hover:underline">support@ogmodz.com</a></span>
+                            <span>·</span>
+                            <span>Avg. Response: &lt; 24h</span>
+                        </div>
+                    </div>
+                    <p className="text-[11px] leading-relaxed text-slate-400">
+                        <strong className="text-slate-300">Trademark & Copyright Disclaimer:</strong> Grand Theft Auto, GTA V, Counter-Strike 2, CS2, Red Dead Redemption 2, Steam, PlayStation, Xbox, and all associated brand names and logos are registered trademarks of their respective owners (Take-Two Interactive, Rockstar Games, Valve Corporation, Sony Interactive Entertainment, Microsoft Corporation). OGmodz is an independent service marketplace and is not affiliated with, endorsed by, or authorized by any game developer or publisher.
+                    </p>
                 </div>
             </div>
 
             {/* Bottom Bar */}
             <div className="border-t border-white/5 bg-black/40">
                 <div className="max-w-7xl mx-auto px-5 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
-                    <span>{t('rights', { year })}</span>
+                    <span>{t('rights', { year })} · All trademarks belong to their respective owners.</span>
                     <div className="flex items-center gap-4">
                         <a
                             href="https://discord.gg/qwyQjn4Aqx"

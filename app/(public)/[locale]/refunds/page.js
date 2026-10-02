@@ -37,9 +37,9 @@ export default async function RefundsPage({ params }) {
             <div className="max-w-4xl mx-auto px-5 py-10 sm:py-12">
                 <div className="space-y-4">
                     <Reveal delay={0.05}>
-                        <div className="rounded-xl bg-[#252530] p-6 sm:p-7">
+                        <div className="rounded-xl bg-[#252530] p-6 sm:p-7 border border-white/5">
                             <div className="flex items-center gap-3 mb-3">
-                                <span className="w-9 h-9 rounded-lg bg-[#9333EA] text-white flex items-center justify-center shrink-0">
+                                <span className="w-9 h-9 rounded-lg bg-[#9d7cff]/20 text-[#9d7cff] flex items-center justify-center shrink-0">
                                     <Icon name="shield" className="w-5 h-5" />
                                 </span>
                                 <h2 className="font-['Trebuchet_MS',sans-serif] text-lg sm:text-xl font-bold text-white">
@@ -53,7 +53,7 @@ export default async function RefundsPage({ params }) {
                     </Reveal>
 
                     <Reveal delay={0.1}>
-                        <div className="rounded-xl bg-[#252530] p-6 sm:p-7">
+                        <div className="rounded-xl bg-[#252530] p-6 sm:p-7 border border-white/5">
                             <h2 className="font-['Trebuchet_MS',sans-serif] text-lg sm:text-xl font-bold text-white mb-2.5">
                                 {t('sec2Title')}
                             </h2>
@@ -64,7 +64,7 @@ export default async function RefundsPage({ params }) {
                     </Reveal>
 
                     <Reveal delay={0.15}>
-                        <div className="rounded-xl bg-[#252530] p-6 sm:p-7">
+                        <div className="rounded-xl bg-[#252530] p-6 sm:p-7 border border-white/5">
                             <h2 className="font-['Trebuchet_MS',sans-serif] text-lg sm:text-xl font-bold text-white mb-2.5">
                                 {t('sec3Title')}
                             </h2>
@@ -75,20 +75,31 @@ export default async function RefundsPage({ params }) {
                     </Reveal>
 
                     <Reveal delay={0.2}>
-                        <div className="rounded-xl bg-[#252530] p-6 sm:p-7 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                        <div className="rounded-xl bg-[#252530] p-6 sm:p-7 border border-white/5">
+                            <h2 className="font-['Trebuchet_MS',sans-serif] text-lg sm:text-xl font-bold text-white mb-2.5">
+                                {t('sec4Title')}
+                            </h2>
+                            <p className="text-sm sm:text-base leading-relaxed text-slate-300">
+                                {t('sec4Text')}
+                            </p>
+                        </div>
+                    </Reveal>
+
+                    <Reveal delay={0.25}>
+                        <div className="rounded-xl bg-[#1c162b] p-6 sm:p-7 border border-[#9d7cff]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                             <div>
                                 <h2 className="font-['Trebuchet_MS',sans-serif] text-lg sm:text-xl font-bold text-white mb-2">
-                                    {t('sec4Title')}
+                                    {t('sec5Title')}
                                 </h2>
                                 <p className="text-sm sm:text-base leading-relaxed text-slate-300 max-w-xl">
-                                    {t('sec4Text')}
+                                    {t('sec5Text')}
                                 </p>
                             </div>
                             <Link
-                                href="/contact"
-                                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#9333EA] text-white hover:bg-[#8229b8] font-['Trebuchet_MS',sans-serif] text-xs font-bold uppercase tracking-wider transition-colors shrink-0"
+                                href="/contact?subject=Refund+Request"
+                                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#9d7cff] text-[#0d0914] hover:bg-[#b59dff] font-['Trebuchet_MS',sans-serif] text-xs font-bold uppercase tracking-wider transition-colors shrink-0 focus-visible:outline-2 focus-visible:outline-[#9d7cff]"
                             >
-                                <span>Contact Support</span>
+                                <span>Request Refund</span>
                                 <Icon name="arrow-right" className="w-4 h-4" />
                             </Link>
                         </div>

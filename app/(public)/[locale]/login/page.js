@@ -254,7 +254,7 @@ export default function Login() {
                                         onChange={(e) => setSetupToken(e.target.value)}
                                         className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-[#9d7cff] outline-none transition-colors"
                                     />
-                                    <p className="text-xs text-slate-500 mt-1">{t('setupTokenHint')}</p>
+                                    <p className="text-xs text-slate-400 mt-1">{t('setupTokenHint')}</p>
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -318,7 +318,7 @@ export default function Login() {
                                     {t('signInLink')}
                                 </button>
                             </p>
-                            <span className="block text-xs text-slate-500 mt-3">
+                            <span className="block text-xs text-slate-400 mt-3">
                                 {t('roleHint')}
                             </span>
                         </div>

@@ -12,7 +12,7 @@ function GameLogo({ name = '', imageUrl = null, className = '' }) {
         return (
             <img
                 src={imageUrl}
-                alt={name || ''}
+                alt={name ? `${name} logo` : 'Game logo'}
                 loading="lazy"
                 decoding="async"
                 className={`max-h-full max-w-full object-contain filter drop-shadow ${className}`}
@@ -590,7 +590,7 @@ function GameLogo({ name = '', imageUrl = null, className = '' }) {
         return (
             <img
                 src={imageUrl}
-                alt=""
+                alt={name ? `${name} logo` : 'Game logo'}
                 loading="lazy"
                 decoding="async"
                 className={`max-h-full max-w-full object-contain filter drop-shadow transition-transform duration-150 group-hover:scale-105 ${className}`}

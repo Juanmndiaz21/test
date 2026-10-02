@@ -20,8 +20,10 @@ export async function generateMetadata({ params }) {
     };
 }
 
-export default async function ContactPage({ params }) {
+export default async function ContactPage({ params, searchParams }) {
     const { locale } = await params;
+    const resolvedSearchParams = await searchParams;
+    const initialSubject = resolvedSearchParams?.subject || '';
     setRequestLocale(locale);
     const t = await getTranslations('contact');
 
@@ -35,7 +37,7 @@ export default async function ContactPage({ params }) {
 
             <div className="max-w-4xl mx-auto px-5 py-10 sm:py-12">
                 <Reveal>
-                    <ContactForm />
+                    <ContactForm initialSubject={initialSubject} />
                 </Reveal>
             </div>
         </div>

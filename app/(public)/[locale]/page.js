@@ -175,7 +175,7 @@ export default async function Home({ params }) {
                                                     strokeWidth={2.2}
                                                 />
                                             </div>
-                                            <span className="font-mono text-[11px] font-semibold tracking-wider text-slate-500 group-hover:text-slate-300 transition-colors duration-200 data-readout">
+                                            <span className="font-mono text-[11px] font-semibold tracking-wider text-slate-400 group-hover:text-slate-300 transition-colors duration-200 data-readout">
                                                 {meta.tag}
                                             </span>
                                         </div>

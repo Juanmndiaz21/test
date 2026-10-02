@@ -9,6 +9,7 @@ import Footer from '../../../components/Footer';
 import PageTransition from '../../../components/PageTransition';
 import BackToTop from '../../../components/BackToTop';
 import BisSkinCleaner from '../../../components/BisSkinCleaner';
+import CookieConsentBanner from '../../../components/CookieConsentBanner';
 import { Analytics } from '@vercel/analytics/next';
 
 export function generateStaticParams() {
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }) {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
 
     const title = 'Buy Game Boosting Services — GTA 5 & CS2 | OGmodz';
-    const description = 'Buy premium game boosting at OGmodz. Fast delivery for GTA 5 cash boost, modded accounts & CS2 rank boost. 100% account safety with 24/7 support.';
+    const description = 'Buy premium game boosting at OGmodz. Fast delivery for GTA 5 cash boost, modded accounts & CS2 rank boost. Verified account safety protocols, private VPN routing and 24/7 support.';
 
     const englishKeywords = [
         'game boosting',
@@ -200,11 +201,18 @@ export default async function LocaleLayout({ children, params }) {
             <body suppressHydrationWarning className="text-slate-50 selection:bg-[#9d7cff] selection:text-[#0d0914] min-h-screen flex flex-col">
                 <AuthSession>
                     <NextIntlClientProvider messages={messages}>
+                        <a
+                            href="#main-content"
+                            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-[#9d7cff] focus:text-[#0d0914] focus:font-black focus:rounded-lg focus:shadow-[0_0_25px_rgba(157,124,255,0.6)] focus:outline-none"
+                        >
+                            Skip to main content
+                        </a>
                         <SiteHeader />
-                        <main className="flex-grow">
+                        <main id="main-content" tabIndex={-1} className="flex-grow focus:outline-none">
                             <PageTransition>{children}</PageTransition>
                         </main>
                         <Footer />
+                        <CookieConsentBanner />
                         <BackToTop />
                     </NextIntlClientProvider>
                 </AuthSession>
