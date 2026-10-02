@@ -9,6 +9,7 @@ import Footer from '../../../components/Footer';
 import PageTransition from '../../../components/PageTransition';
 import BackToTop from '../../../components/BackToTop';
 import BisSkinCleaner from '../../../components/BisSkinCleaner';
+import { Analytics } from '@vercel/analytics/next';
 
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
@@ -196,6 +197,7 @@ export default async function LocaleLayout({ children, params }) {
                         <BackToTop />
                     </NextIntlClientProvider>
                 </AuthSession>
+                <Analytics />
             </body>
         </html>
     );
