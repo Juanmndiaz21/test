@@ -37,20 +37,6 @@ export default function Cart() {
                 </button>
             </div>
 
-            {/* Swipe hint / warning banner */}
-            <div className="flex items-center justify-between gap-3 px-3.5 py-2.5 mb-4 rounded-xl bg-gradient-to-r from-red-500/10 via-red-500/5 to-transparent border border-red-500/20 text-slate-300 text-xs">
-                <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center justify-center w-5 h-5 rounded-lg bg-red-500/20 text-red-400 font-bold text-xs shrink-0 animate-pulse">
-                        ←
-                    </span>
-                    <span>
-                        <strong className="text-red-300">Tip:</strong> Desliza hacia la <strong>izquierda</strong> para eliminar / Swipe left to delete.
-                    </span>
-                </div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 shrink-0 hidden sm:inline">
-                    Swipe to delete
-                </span>
-            </div>
 
             <ul className="space-y-3 mb-6">
                 <AnimatePresence initial={false}>
@@ -82,7 +68,6 @@ export default function Cart() {
                                     <div className="min-w-0 flex-1">
                                         <div className="flex items-center gap-2">
                                             <p className="font-medium text-slate-200 break-words">{item.name}</p>
-                                            <span className="text-[10px] text-slate-500 font-mono hidden sm:inline-block">← deslizar</span>
                                         </div>
                                         {Array.isArray(item.addons) && item.addons.length > 0 && (
                                             <div className="mt-2 flex flex-wrap gap-1">
