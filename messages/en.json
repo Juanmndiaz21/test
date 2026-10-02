@@ -272,7 +272,7 @@
     "infoTitle": "Checkout",
     "infoText": "This is a demo — no real payment is processed. Your order is recorded so the team can manage the boost.",
     "nameLabel": "Name",
-    "namePlaceholder": "Your in-game / contact name",
+    "namePlaceholder": "Your Discord ID / contact name",
     "emailLabel": "Email",
     "emailPlaceholder": "you@example.com",
     "payPal": "Pay with PayPal",

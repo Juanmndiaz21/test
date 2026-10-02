@@ -402,7 +402,7 @@ export default function GtaOrderConfigurator({ product }) {
                             <div className="flex items-center justify-between">
                                 <label className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
                                     <span className="text-[#9d7cff] font-black">[04]</span>
-                                    <span>SAVE 10% WITH ADDONS</span>
+                                    <span>SAVE 50% WITH ADDONS</span>
                                 </label>
 
                                 <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#9d7cff]/15 border border-[#9d7cff]/30 text-[#9d7cff] font-bold">

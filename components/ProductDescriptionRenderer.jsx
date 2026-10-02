@@ -1,25 +1,63 @@
 'use client';
 
 import React from 'react';
+import {
+    LuShieldCheck,
+    LuCamera,
+    LuMessageSquare,
+    LuSparkles,
+    LuZap,
+    LuPackage,
+    LuInfo,
+    LuCheck,
+    LuExternalLink,
+} from 'react-icons/lu';
 
 /**
- * Green Circular Checkmark Icon matching the design specification
+ * Maps heading text to an appropriate semantic icon matching the showcase design
+ */
+function getHeadingIcon(title = '') {
+    const lower = title.toLowerCase();
+    if (lower.includes('flickr') || lower.includes('photo') || lower.includes('album') || lower.includes('picture')) {
+        return <LuCamera className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+    }
+    if (
+        lower.includes('service') ||
+        lower.includes('compatibility') ||
+        lower.includes('detail') ||
+        lower.includes('safe') ||
+        lower.includes('security') ||
+        lower.includes('anti-ban') ||
+        lower.includes('guarantee')
+    ) {
+        return <LuShieldCheck className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+    }
+    if (lower.includes('comment') || lower.includes('review') || lower.includes('rep') || lower.includes('feedback')) {
+        return <LuMessageSquare className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+    }
+    if (lower.includes('speed') || lower.includes('fast') || lower.includes('delivery') || lower.includes('instant')) {
+        return <LuZap className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+    }
+    if (
+        lower.includes('package') ||
+        lower.includes('item') ||
+        lower.includes('vehicle') ||
+        lower.includes('car') ||
+        lower.includes('weapon') ||
+        lower.includes('aircraft') ||
+        lower.includes('role') ||
+        lower.includes('rank')
+    ) {
+        return <LuPackage className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+    }
+    return <LuSparkles className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+}
+
+/**
+ * Circular Checkmark Icon matching the showcase design
  */
 export function GreenCheckIcon({ className = 'w-3 h-3' }) {
-    return (
-        <svg
-            className={className}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-        >
-            <polyline points="20 6 9 17 4 12" />
-        </svg>
-    );
+    return <LuCheck className={className} />;
 }
 
 /**
@@ -215,14 +253,17 @@ export function parseDescriptionBlocks(rawText = '') {
             continue;
         }
 
-        // Check if line is a standalone heading (e.g. "Account Includes:", "Flickr Photo Catalogs:")
+        // Check if line is a standalone heading (e.g. "Account Includes:", "Game Access & Compatibility", "Flickr Photo Catalogs:")
+        const nextLine = lines[i + 1]?.trim() || '';
+        const nextIsChecklist = /^(?:\[[xX✓]\]|✓|✔|☑|- \[[xX✓]\]|-|\*)\s+/.test(nextLine) || /^(?:\[[xX✓]\]|✓|✔|☑)/.test(nextLine);
         const isHeaderPattern =
             /^(?:#{1,4}\s+|[A-Z][A-Za-z0-9\s/&,+-]+:)$/.test(trimmed) ||
-            (trimmed.endsWith(':') && trimmed.length < 50);
+            (trimmed.endsWith(':') && trimmed.length < 60) ||
+            (nextIsChecklist && trimmed.length < 50 && !trimmed.includes('.') && /^[A-Z]/.test(trimmed));
 
         if (isHeaderPattern) {
             flushAll();
-            const cleanTitle = trimmed.replace(/^#{1,4}\s+/, '');
+            const cleanTitle = trimmed.replace(/^#{1,4}\s+/, '').replace(/:$/, '');
             blocks.push({
                 type: 'heading',
                 text: cleanTitle,
@@ -278,12 +319,12 @@ export default function ProductDescriptionRenderer({ content = '', className = '
             {blocks.map((block, idx) => {
                 if (block.type === 'heading') {
                     return (
-                        <h3
-                            key={`h-${idx}`}
-                            className="text-white text-base sm:text-lg font-bold tracking-tight pt-2 first:pt-0"
-                        >
-                            {renderInlineFormatting(block.text)}
-                        </h3>
+                        <div key={`h-${idx}`} className="pt-2 first:pt-0">
+                            <h4 className="font-['Syne',sans-serif] text-xs sm:text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
+                                {getHeadingIcon(block.text)}
+                                <span>{renderInlineFormatting(block.text)}</span>
+                            </h4>
+                        </div>
                     );
                 }
 
@@ -291,14 +332,17 @@ export default function ProductDescriptionRenderer({ content = '', className = '
                     return (
                         <div
                             key={`cl-${idx}`}
-                            className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5 my-3"
+                            className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm font-sans my-3"
                         >
                             {block.items.map((item, itemIdx) => (
-                                <div key={itemIdx} className="flex items-center gap-2.5">
-                                    <span className="w-5 h-5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(16,185,129,0.25)]">
-                                        <GreenCheckIcon className="w-3 h-3 text-emerald-400" />
+                                <div
+                                    key={itemIdx}
+                                    className="flex items-center gap-2.5 p-2 sm:p-2.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-white/10 transition-colors"
+                                >
+                                    <span className="h-4 w-4 sm:h-5 sm:w-5 rounded-full bg-[#9d7cff]/10 border border-[#9d7cff]/25 text-[#9d7cff] flex items-center justify-center shrink-0">
+                                        <LuCheck className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#9d7cff] stroke-[2.5]" />
                                     </span>
-                                    <span className="text-white text-sm sm:text-base font-medium leading-snug">
+                                    <span className="text-slate-300 font-medium leading-snug">
                                         {renderInlineFormatting(item)}
                                     </span>
                                 </div>
@@ -311,7 +355,7 @@ export default function ProductDescriptionRenderer({ content = '', className = '
                     return (
                         <div
                             key={`btns-${idx}`}
-                            className={`grid grid-cols-1 ${block.buttons.length > 1 ? 'sm:grid-cols-2' : 'sm:max-w-md'} gap-3 my-3.5`}
+                            className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 my-3"
                         >
                             {block.buttons.map((btn, btnIdx) => (
                                 <a
@@ -319,53 +363,27 @@ export default function ProductDescriptionRenderer({ content = '', className = '
                                     href={btn.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="group relative flex items-center justify-between p-3.5 sm:p-4 rounded-xl bg-[#171229] hover:bg-[#1f1837] border border-[#9d7cff]/25 hover:border-[#9d7cff] transition-all duration-200 shadow-[0_4px_16px_rgba(0,0,0,0.35)] hover:shadow-[0_8px_26px_rgba(157,124,255,0.22)] hover:-translate-y-0.5 no-underline cursor-pointer"
+                                    className="p-3 sm:p-3.5 rounded-xl flex items-center justify-between bg-white/[0.04] border border-white/10 hover:border-[#9d7cff]/50 hover:bg-[#9d7cff]/10 transition-all duration-200 group no-underline shadow-sm cursor-pointer"
                                 >
-                                    <div className="flex items-center gap-3 min-w-0">
-                                        {/* Brand / Type Icon */}
-                                        <div className="w-10 h-10 rounded-xl bg-[#120e1c] border border-white/10 group-hover:border-[#9d7cff]/50 flex items-center justify-center shrink-0 transition-colors shadow-inner">
-                                            {btn.isFlickr ? (
-                                                <span className="flex items-center gap-1" aria-hidden="true" title="Flickr Photo Album">
-                                                    <span className="w-2.5 h-2.5 rounded-full bg-[#0063dc] shadow-[0_0_8px_rgba(0,99,220,0.7)]" />
-                                                    <span className="w-2.5 h-2.5 rounded-full bg-[#ff0084] shadow-[0_0_8px_rgba(255,0,132,0.7)]" />
-                                                </span>
-                                            ) : btn.isYoutube ? (
-                                                <svg className="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor">
-                                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                                                </svg>
-                                            ) : (
-                                                <svg className="w-4 h-4 text-[#9d7cff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                </svg>
-                                            )}
-                                        </div>
+                                    <div className="flex items-center gap-2.5 min-w-0">
+                                        {btn.isFlickr ? (
+                                            <span className="flex items-center gap-1 shrink-0" aria-hidden="true" title="Flickr Photo Album">
+                                                <span className="w-2.5 h-2.5 rounded-full bg-[#0063dc] shadow-[0_0_8px_rgba(0,99,220,0.5)]" />
+                                                <span className="w-2.5 h-2.5 rounded-full bg-[#ff0084] shadow-[0_0_8px_rgba(255,0,132,0.5)]" />
+                                            </span>
+                                        ) : (
+                                            <span className="w-2.5 h-2.5 rounded-full bg-[#9d7cff] shrink-0" />
+                                        )}
                                         <div className="min-w-0">
-                                            <div className="flex items-center gap-1.5 mb-0.5">
-                                                <span className="text-[10px] font-mono uppercase font-bold tracking-wider text-[#9d7cff]">
-                                                    {btn.badge}
-                                                </span>
-                                                <span className="text-[10px] text-slate-500 font-mono hidden sm:inline">• Album</span>
-                                            </div>
-                                            <div className="text-white text-sm font-bold truncate group-hover:text-[#f1ecfb]">
+                                            <div className="text-xs sm:text-sm font-bold text-white group-hover:text-[#9d7cff] truncate transition-colors">
                                                 {btn.title}
                                             </div>
+                                            <div className="text-[10px] text-slate-400 font-mono truncate">
+                                                {btn.isFlickr ? 'Flickr Photo Catalog • Live Album' : 'External Showcase'}
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="flex items-center gap-1.5 pl-3 shrink-0 text-slate-400 group-hover:text-white transition-colors">
-                                        <span className="text-xs font-mono font-medium hidden sm:inline text-slate-400 group-hover:text-[#9d7cff]">
-                                            Open
-                                        </span>
-                                        <svg
-                                            className="w-4 h-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-[#9d7cff]"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            strokeWidth="2.2"
-                                        >
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                        </svg>
-                                    </div>
+                                    <LuExternalLink className="w-4 h-4 text-slate-400 group-hover:text-white shrink-0 ml-2 transition-colors" />
                                 </a>
                             ))}
                         </div>
@@ -376,7 +394,7 @@ export default function ProductDescriptionRenderer({ content = '', className = '
                     return (
                         <div
                             key={`prop-${idx}`}
-                            className="text-slate-200 text-sm sm:text-base font-medium leading-relaxed"
+                            className="text-slate-200 text-xs sm:text-sm font-medium leading-relaxed"
                         >
                             <span className="text-white font-bold">{block.label}</span>{' '}
                             <span>{renderInlineFormatting(block.value)}</span>
@@ -388,12 +406,13 @@ export default function ProductDescriptionRenderer({ content = '', className = '
                     return (
                         <div
                             key={`note-${idx}`}
-                            className="text-sm sm:text-base leading-relaxed text-slate-300 pt-1"
+                            className="p-3.5 sm:p-4 rounded-xl border border-[#9d7cff]/30 bg-[#9d7cff]/10 text-xs sm:text-sm font-mono text-slate-200 flex items-start gap-2.5 sm:gap-3 my-4 shadow-[0_0_15px_rgba(157,124,255,0.07)]"
                         >
-                            <strong className="text-white font-bold tracking-wide mr-1.5">
-                                {block.prefix}
-                            </strong>
-                            <span>{renderInlineFormatting(block.text)}</span>
+                            <LuInfo className="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5" />
+                            <div className="leading-relaxed">
+                                <strong className="text-white mr-1.5">{block.prefix}</strong>
+                                <span>{renderInlineFormatting(block.text)}</span>
+                            </div>
                         </div>
                     );
                 }
@@ -401,7 +420,7 @@ export default function ProductDescriptionRenderer({ content = '', className = '
                 return (
                     <p
                         key={`p-${idx}`}
-                        className="text-slate-300 text-sm sm:text-base leading-relaxed"
+                        className="text-slate-200 text-sm sm:text-base leading-relaxed"
                     >
                         {renderInlineFormatting(block.text)}
                     </p>
