@@ -1,85 +1,90 @@
-'use client';
-
 import React from 'react';
-import { Icon as IconifyIcon } from '@iconify/react';
 import { SiDiscord } from 'react-icons/si';
+import { SOLAR_ICONS_DATA } from './solarIconsData';
 
 /**
  * Solar Duotone Bold Icon mappings for the entire project
- * Adheres to the solar-duotone-bold design system specification.
+ * Renders pure inline SVGs without external network requests or CSP restrictions.
  */
-const SOLAR_ICONS = {
-    book: 'solar:book-bookmark-bold-duotone',
-    copy: 'solar:copy-bold-duotone',
-    search: 'solar:magnifer-bold-duotone',
-    'arrow-up-right': 'solar:arrow-right-up-bold-duotone',
-    'arrow-left': 'solar:arrow-left-bold-duotone',
-    'arrow-right': 'solar:arrow-right-bold-duotone',
-    'arrow-down': 'solar:arrow-down-bold-duotone',
-    'chevron-down': 'solar:alt-arrow-down-bold-duotone',
-    'chevron-up': 'solar:alt-arrow-up-bold-duotone',
-    'chevron-left': 'solar:alt-arrow-left-bold-duotone',
-    'chevron-right': 'solar:alt-arrow-right-bold-duotone',
-    menu: 'solar:hamburger-menu-bold-duotone',
-    globe: 'solar:global-bold-duotone',
-    message: 'solar:chat-round-dots-bold-duotone',
-    cart: 'solar:cart-large-bold-duotone',
-    box: 'solar:box-bold-duotone',
-    check: 'solar:check-circle-bold-duotone',
-    x: 'solar:close-circle-bold-duotone',
-    plus: 'solar:add-circle-bold-duotone',
-    minus: 'solar:minus-circle-bold-duotone',
-    eye: 'solar:eye-bold-duotone',
-    'eye-off': 'solar:eye-closed-bold-duotone',
-    bell: 'solar:bell-bold-duotone',
-    bolt: 'solar:bolt-bold-duotone',
-    gamepad: 'solar:gamepad-bold-duotone',
-    star: 'solar:star-bold-duotone',
-    users: 'solar:users-group-two-rounded-bold-duotone',
-    clipboard: 'solar:clipboard-list-bold-duotone',
-    dashboard: 'solar:widget-2-bold-duotone',
-    'circle-help': 'solar:question-circle-bold-duotone',
-    edit: 'solar:pen-new-square-bold-duotone',
-    trash: 'solar:trash-bin-trash-bold-duotone',
-    shield: 'solar:shield-check-bold-duotone',
-    store: 'solar:shop-2-bold-duotone',
-    wallet: 'solar:wallet-2-bold-duotone',
-    'trending-up': 'solar:chart-2-bold-duotone',
-    mail: 'solar:letter-bold-duotone',
-    clock: 'solar:clock-circle-bold-duotone',
-    tag: 'solar:tag-price-bold-duotone',
-    crown: 'solar:crown-bold-duotone',
-    logout: 'solar:logout-2-bold-duotone',
-    info: 'solar:info-circle-bold-duotone',
-    'check-circle': 'solar:check-circle-bold-duotone',
-    'alert-circle': 'solar:danger-circle-bold-duotone',
-    'alert-triangle': 'solar:danger-triangle-bold-duotone',
-    play: 'solar:play-circle-bold-duotone',
-    pause: 'solar:pause-circle-bold-duotone',
-    headset: 'solar:headphones-round-sound-bold-duotone',
-    sliders: 'solar:tuning-bold-duotone',
-    sparkles: 'solar:stars-bold-duotone',
-    layers: 'solar:layers-bold-duotone',
-    radar: 'solar:radar-2-bold-duotone',
-    package: 'solar:box-bold-duotone',
+const SOLAR_NAME_MAP = {
+    book: 'book-bookmark-bold-duotone',
+    copy: 'copy-bold-duotone',
+    search: 'magnifer-bold-duotone',
+    'arrow-up-right': 'arrow-right-up-bold-duotone',
+    'arrow-left': 'arrow-left-bold-duotone',
+    'arrow-right': 'arrow-right-bold-duotone',
+    'arrow-down': 'arrow-down-bold-duotone',
+    'chevron-down': 'alt-arrow-down-bold-duotone',
+    'chevron-up': 'alt-arrow-up-bold-duotone',
+    'chevron-left': 'alt-arrow-left-bold-duotone',
+    'chevron-right': 'alt-arrow-right-bold-duotone',
+    menu: 'hamburger-menu-bold-duotone',
+    globe: 'global-bold-duotone',
+    message: 'chat-round-dots-bold-duotone',
+    cart: 'cart-large-bold-duotone',
+    box: 'box-bold-duotone',
+    check: 'check-circle-bold-duotone',
+    x: 'close-circle-bold-duotone',
+    plus: 'add-circle-bold-duotone',
+    minus: 'minus-circle-bold-duotone',
+    eye: 'eye-bold-duotone',
+    'eye-off': 'eye-closed-bold-duotone',
+    bell: 'bell-bold-duotone',
+    bolt: 'bolt-bold-duotone',
+    gamepad: 'gamepad-bold-duotone',
+    star: 'star-bold-duotone',
+    users: 'users-group-two-rounded-bold-duotone',
+    clipboard: 'clipboard-list-bold-duotone',
+    dashboard: 'widget-2-bold-duotone',
+    'circle-help': 'question-circle-bold-duotone',
+    edit: 'pen-new-square-bold-duotone',
+    trash: 'trash-bin-trash-bold-duotone',
+    shield: 'shield-check-bold-duotone',
+    store: 'shop-2-bold-duotone',
+    wallet: 'wallet-2-bold-duotone',
+    'trending-up': 'chart-2-bold-duotone',
+    mail: 'letter-bold-duotone',
+    clock: 'clock-circle-bold-duotone',
+    tag: 'tag-price-bold-duotone',
+    crown: 'crown-bold-duotone',
+    logout: 'logout-2-bold-duotone',
+    info: 'info-circle-bold-duotone',
+    'check-circle': 'check-circle-bold-duotone',
+    'alert-circle': 'danger-circle-bold-duotone',
+    'alert-triangle': 'danger-triangle-bold-duotone',
+    play: 'play-circle-bold-duotone',
+    pause: 'pause-circle-bold-duotone',
+    headset: 'headphones-round-sound-bold-duotone',
+    sliders: 'tuning-bold-duotone',
+    sparkles: 'stars-bold-duotone',
+    layers: 'layers-bold-duotone',
+    radar: 'radar-2-bold-duotone',
+    package: 'box-bold-duotone',
 };
 
-export default function Icon({ name, className = 'w-5 h-5', strokeWidth, ...props }) {
-    if (!name) return null;
+export default function Icon({ name, icon, className = 'w-5 h-5', strokeWidth, ...props }) {
+    const iconIdentifier = name || icon;
+    if (!iconIdentifier) return null;
 
-    if (name === 'discord') {
+    if (iconIdentifier === 'discord') {
         return <SiDiscord className={className} aria-hidden="true" {...props} />;
     }
 
-    const solarIconName = name.startsWith('solar:')
-        ? name
-        : SOLAR_ICONS[name] || (name.includes(':') ? name : `solar:${name}-bold-duotone`);
+    const cleanName = iconIdentifier.replace(/^solar:/, '');
+    const key = SOLAR_NAME_MAP[cleanName] || cleanName;
+    const svgBody = SOLAR_ICONS_DATA[key] || SOLAR_ICONS_DATA[`${key}-bold-duotone`];
+
+    if (!svgBody) {
+        return null;
+    }
 
     return (
-        <IconifyIcon
-            icon={solarIconName}
+        <svg
+            viewBox="0 0 24 24"
             className={className}
+            fill="currentColor"
             aria-hidden="true"
+            dangerouslySetInnerHTML={{ __html: svgBody }}
             {...props}
         />
     );

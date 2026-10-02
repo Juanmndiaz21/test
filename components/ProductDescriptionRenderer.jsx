@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Icon } from '@iconify/react';
+import Icon from './Icon';
 
 /**
  * Maps heading text to an appropriate semantic icon matching the Solar Duotone Bold showcase

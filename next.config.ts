@@ -10,7 +10,7 @@ const cspHeader = `
   img-src 'self' blob: data: https:;
   font-src 'self' data:;
   frame-src 'self' https://challenges.cloudflare.com;
-  connect-src 'self' https://challenges.cloudflare.com;
+  connect-src 'self' https://challenges.cloudflare.com https://api.iconify.design;
   object-src 'none';
   base-uri 'self';
   form-action 'self';
