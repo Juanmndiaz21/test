@@ -133,6 +133,18 @@ export default function ProductDescriptionEditor({
                     </button>
                     <button
                         type="button"
+                        onClick={() => insertText('Flickr Photo Catalogs:\n✓ Pictures of Male Modded Outfits: https://flic.kr/s/aHBqjBTWye\n✓ Pictures of Female Modded Outfits: https://flic.kr/s/aHBqjBPsAH')}
+                        className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#9d7cff]/20 hover:text-[#9d7cff] text-slate-300 border border-white/10 transition-colors cursor-pointer inline-flex items-center gap-1.5"
+                        title="Add Flickr Photo Catalogs buttons"
+                    >
+                        <span className="flex items-center gap-0.5" aria-hidden="true">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#0063dc]" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#ff0084]" />
+                        </span>
+                        <span>Flickr Catalogs</span>
+                    </button>
+                    <button
+                        type="button"
                         onClick={handleApplyTemplate}
                         className="ml-auto px-2.5 py-1 rounded-lg bg-[#9d7cff]/15 hover:bg-[#9d7cff]/25 text-[#9d7cff] hover:text-white border border-[#9d7cff]/30 transition-colors cursor-pointer inline-flex items-center gap-1"
                         title="Fill with the full sample template"
