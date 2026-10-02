@@ -189,10 +189,11 @@ export default async function LocaleLayout({ children, params }) {
 
     return (
         <html lang={locale} suppressHydrationWarning>
-            <head>
+            <head suppressHydrationWarning>
                 <BisSkinCleaner />
                 <script
                     type="application/ld+json"
+                    suppressHydrationWarning
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
                 />
             </head>
