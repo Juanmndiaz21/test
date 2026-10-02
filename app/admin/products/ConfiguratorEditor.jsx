@@ -57,10 +57,14 @@ export default function ConfiguratorEditor({ initialData }) {
             return {
                 versions: initialData.versions || DEFAULT_CONFIG.versions,
                 packages: Array.isArray(initialData.packages) ? initialData.packages : DEFAULT_CONFIG.packages,
-                addons: Array.isArray(initialData.addons) ? initialData.addons : DEFAULT_CONFIG.addons,
+                addons: Array.isArray(initialData.addons) ? initialData.addons : [],
             };
         }
-        return DEFAULT_CONFIG;
+        return {
+            versions: DEFAULT_CONFIG.versions,
+            packages: DEFAULT_CONFIG.packages,
+            addons: [],
+        };
     });
 
     // Version handlers
@@ -332,14 +336,38 @@ export default function ConfiguratorEditor({ initialData }) {
                                 <span className="text-[11px] font-mono text-slate-400 uppercase">
                                     Addon Title · Orig $ · Disc $
                                 </span>
-                                <button
-                                    type="button"
-                                    onClick={addAddon}
-                                    className="text-xs text-[#9d7cff] hover:underline font-bold cursor-pointer"
-                                >
-                                    + Add Addon
-                                </button>
+                                <div className="flex items-center gap-3">
+                                    {config.addons.length > 0 && (
+                                        <button
+                                            type="button"
+                                            onClick={() => setConfig((prev) => ({ ...prev, addons: [] }))}
+                                            className="text-xs text-red-400 hover:text-red-300 hover:underline cursor-pointer"
+                                        >
+                                            Remove All
+                                        </button>
+                                    )}
+                                    <button
+                                        type="button"
+                                        onClick={addAddon}
+                                        className="text-xs text-[#9d7cff] hover:underline font-bold cursor-pointer"
+                                    >
+                                        + Add Addon
+                                    </button>
+                                </div>
                             </div>
+
+                            {config.addons.length === 0 && (
+                                <div className="text-center py-6 px-4 border border-dashed border-white/10 rounded-lg text-xs text-slate-400 font-mono space-y-2.5">
+                                    <p className="text-slate-300">No addons configured. This product will not show any addons to customers.</p>
+                                    <button
+                                        type="button"
+                                        onClick={() => setConfig((prev) => ({ ...prev, addons: DEFAULT_CONFIG.addons }))}
+                                        className="px-3 py-1.5 text-xs rounded-lg bg-white/5 hover:bg-[#9d7cff]/20 text-[#9d7cff] border border-[#9d7cff]/30 cursor-pointer font-bold transition-colors"
+                                    >
+                                        Insert Default GTA Addons
+                                    </button>
+                                </div>
+                            )}
 
                             {config.addons.map((addon, idx) => (
                                 <div

@@ -23,9 +23,9 @@ function resolveAuthoritativeItemPrice(product, item) {
         const availablePackages = (Array.isArray(configData.packages) && configData.packages.length > 0)
             ? configData.packages
             : DEFAULT_PACKAGES;
-        const availableAddons = (Array.isArray(configData.addons) && configData.addons.length > 0)
+        const availableAddons = Array.isArray(configData.addons)
             ? configData.addons
-            : DEFAULT_ADDONS;
+            : (product?.configurator_data ? [] : DEFAULT_ADDONS);
 
         let totalConfigured = 0;
         let foundAny = false;
