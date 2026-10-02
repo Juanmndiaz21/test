@@ -4,12 +4,12 @@ import React from 'react';
 import Icon from './Icon';
 
 /**
- * Maps heading text to an appropriate semantic icon matching the Solar Duotone Bold showcase
+ * Maps heading text to an appropriate semantic Tabler Icon
  */
 function getHeadingIcon(title = '') {
     const lower = title.toLowerCase();
     if (lower.includes('flickr') || lower.includes('photo') || lower.includes('album') || lower.includes('picture')) {
-        return <Icon icon="solar:camera-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+        return <Icon name="camera" className="w-4 h-4 text-[#9d7cff] shrink-0" stroke={2} />;
     }
     if (
         lower.includes('service') ||
@@ -21,19 +21,19 @@ function getHeadingIcon(title = '') {
         lower.includes('guarantee') ||
         lower.includes('account')
     ) {
-        return <Icon icon="solar:shield-check-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+        return <Icon name="shield-check" className="w-4 h-4 text-[#9d7cff] shrink-0" stroke={2} />;
     }
     if (lower.includes('comment') || lower.includes('review') || lower.includes('rep') || lower.includes('feedback')) {
-        return <Icon icon="solar:chat-round-dots-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+        return <Icon name="message" className="w-4 h-4 text-[#9d7cff] shrink-0" stroke={2} />;
     }
     if (lower.includes('speed') || lower.includes('fast') || lower.includes('delivery') || lower.includes('instant') || lower.includes('boost')) {
-        return <Icon icon="solar:bolt-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+        return <Icon name="bolt" className="w-4 h-4 text-[#9d7cff] shrink-0" stroke={2} />;
     }
     if (lower.includes('car') || lower.includes('vehicle') || lower.includes('drift')) {
-        return <Icon icon="solar:car-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+        return <Icon name="car" className="w-4 h-4 text-[#9d7cff] shrink-0" stroke={2} />;
     }
     if (lower.includes('weapon') || lower.includes('gun') || lower.includes('tactical')) {
-        return <Icon icon="solar:target-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+        return <Icon name="target" className="w-4 h-4 text-[#9d7cff] shrink-0" stroke={2} />;
     }
     if (
         lower.includes('package') ||
@@ -42,16 +42,16 @@ function getHeadingIcon(title = '') {
         lower.includes('role') ||
         lower.includes('rank')
     ) {
-        return <Icon icon="solar:box-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+        return <Icon name="package" className="w-4 h-4 text-[#9d7cff] shrink-0" stroke={2} />;
     }
-    return <Icon icon="solar:stars-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0" />;
+    return <Icon name="sparkles" className="w-4 h-4 text-[#9d7cff] shrink-0" stroke={2} />;
 }
 
 /**
- * Solar Duotone Bold Checkmark Icon
+ * Tabler Checkmark Icon
  */
 export function GreenCheckIcon({ className = 'w-4 h-4 text-[#9d7cff]' }) {
-    return <Icon icon="solar:check-circle-bold-duotone" className={className} />;
+    return <Icon name="check-circle" className={className} stroke={2.5} />;
 }
 
 /**
@@ -333,7 +333,7 @@ export default function ProductDescriptionRenderer({ content = '', className = '
                                     key={itemIdx}
                                     className="flex items-center gap-2.5 p-2 sm:p-2.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-white/10 transition-colors"
                                 >
-                                    <Icon icon="solar:check-circle-bold-duotone" className="w-4 h-4 sm:w-5 sm:h-5 text-[#9d7cff] shrink-0" />
+                                    <Icon name="check-circle" className="w-4 h-4 sm:w-5 sm:h-5 text-[#9d7cff] shrink-0" stroke={2.5} />
                                     <span className="text-slate-300 font-medium leading-snug">
                                         {renderInlineFormatting(item)}
                                     </span>
@@ -375,7 +375,7 @@ export default function ProductDescriptionRenderer({ content = '', className = '
                                             </div>
                                         </div>
                                     </div>
-                                    <Icon icon="solar:arrow-right-up-bold-duotone" className="w-4 h-4 text-slate-400 group-hover:text-white shrink-0 ml-2 transition-colors" />
+                                    <Icon name="arrow-up-right" className="w-4 h-4 text-slate-400 group-hover:text-white shrink-0 ml-2 transition-colors" stroke={2} />
                                 </a>
                             ))}
                         </div>
@@ -400,7 +400,7 @@ export default function ProductDescriptionRenderer({ content = '', className = '
                             key={`note-${idx}`}
                             className="p-3.5 sm:p-4 rounded-xl border border-[#9d7cff]/30 bg-[#9d7cff]/10 text-xs sm:text-sm font-mono text-slate-200 flex items-start gap-2.5 sm:gap-3 my-4 shadow-[0_0_15px_rgba(157,124,255,0.07)]"
                         >
-                            <Icon icon="solar:info-circle-bold-duotone" className="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5" />
+                            <Icon name="info-circle" className="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5" stroke={2} />
                             <div className="leading-relaxed">
                                 <strong className="text-white mr-1.5">{block.prefix}</strong>
                                 <span>{renderInlineFormatting(block.text)}</span>

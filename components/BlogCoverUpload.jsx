@@ -2,16 +2,16 @@
 
 import { useState, useRef } from 'react';
 import {
-    LuUpload,
-    LuImage,
-    LuX,
-    LuLoader,
-    LuFolderOpen,
-    LuCheck,
-    LuLink,
-    LuRefreshCw,
-    LuExternalLink
-} from 'react-icons/lu';
+    IconUpload as LuUpload,
+    IconPhoto as LuImage,
+    IconX as LuX,
+    IconLoader2 as LuLoader,
+    IconFolder as LuFolderOpen,
+    IconCheck as LuCheck,
+    IconLink as LuLink,
+    IconRefresh as LuRefreshCw,
+    IconArrowUpRight as LuExternalLink,
+} from '@tabler/icons-react';
 import { toast } from '@/utils/toast';
 
 export default function BlogCoverUpload({

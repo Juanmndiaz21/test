@@ -6,22 +6,22 @@ const BADGES = [
     {
         title: 'Money-Back Guarantee',
         description: 'Covered by our refund policy',
-        icon: 'solar:shield-check-bold-duotone',
+        icon: 'shield-check',
     },
     {
         title: 'Secure checkout',
         description: 'Encrypted payments',
-        icon: 'solar:lock-password-bold-duotone',
+        icon: 'lock',
     },
     {
         title: 'Fast start',
         description: 'Quick order review',
-        icon: 'solar:bolt-bold-duotone',
+        icon: 'bolt',
     },
     {
         title: '24/7 support',
         description: 'Before and after delivery',
-        icon: 'solar:headphones-round-sound-bold-duotone',
+        icon: 'headphones',
     },
 ];
 

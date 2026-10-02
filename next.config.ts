@@ -34,7 +34,7 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
   },
   experimental: {
-    optimizePackageImports: ['motion', 'animejs', 'next-intl'],
+    optimizePackageImports: ['motion', 'animejs', 'next-intl', '@tabler/icons-react'],
   },
   async redirects() {
     return [

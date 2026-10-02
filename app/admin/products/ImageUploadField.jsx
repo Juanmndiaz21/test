@@ -1,7 +1,14 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { LuUpload, LuImage, LuX, LuLoader, LuFolderOpen, LuCheck } from 'react-icons/lu';
+import {
+    IconUpload as LuUpload,
+    IconPhoto as LuImage,
+    IconX as LuX,
+    IconLoader2 as LuLoader,
+    IconFolder as LuFolderOpen,
+    IconCheck as LuCheck,
+} from '@tabler/icons-react';
 import { toast } from '../../../utils/toast';
 
 export default function ImageUploadField({

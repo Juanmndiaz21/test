@@ -1,90 +1,167 @@
 import React from 'react';
-import { SiDiscord } from 'react-icons/si';
-import { SOLAR_ICONS_DATA } from './solarIconsData';
+import {
+    IconBook,
+    IconCopy,
+    IconSearch,
+    IconArrowUpRight,
+    IconArrowLeft,
+    IconArrowRight,
+    IconArrowDown,
+    IconChevronDown,
+    IconChevronUp,
+    IconChevronLeft,
+    IconChevronRight,
+    IconMenu2,
+    IconWorld,
+    IconBrandDiscord,
+    IconMessage,
+    IconShoppingCart,
+    IconBox,
+    IconCheck,
+    IconX,
+    IconPlus,
+    IconMinus,
+    IconEye,
+    IconEyeOff,
+    IconBell,
+    IconBolt,
+    IconDeviceGamepad2,
+    IconStar,
+    IconUsers,
+    IconClipboardList,
+    IconLayoutDashboard,
+    IconHelpCircle,
+    IconEdit,
+    IconTrash,
+    IconShieldCheck,
+    IconBuildingStore,
+    IconWallet,
+    IconTrendingUp,
+    IconMail,
+    IconClock,
+    IconTag,
+    IconCrown,
+    IconLogout,
+    IconLock,
+    IconInfoCircle,
+    IconCircleCheck,
+    IconAlertCircle,
+    IconAlertTriangle,
+    IconPlayerPlay,
+    IconPlayerPause,
+    IconHeadphones,
+    IconAdjustmentsHorizontal,
+    IconSparkles,
+    IconLayersLinked,
+    IconRadar,
+    IconPackage,
+    IconCamera,
+    IconCar,
+    IconTarget,
+    IconCoin,
+    IconPhoto,
+    IconUpload,
+    IconFolder,
+    IconLoader2,
+} from '@tabler/icons-react';
 
 /**
- * Solar Duotone Bold Icon mappings for the entire project
- * Renders pure inline SVGs without external network requests or CSP restrictions.
+ * Tabler Icons mapping for the entire project
+ * https://github.com/tabler/tabler-icons
  */
-const SOLAR_NAME_MAP = {
-    book: 'book-bookmark-bold-duotone',
-    copy: 'copy-bold-duotone',
-    search: 'magnifer-bold-duotone',
-    'arrow-up-right': 'arrow-right-up-bold-duotone',
-    'arrow-left': 'arrow-left-bold-duotone',
-    'arrow-right': 'arrow-right-bold-duotone',
-    'arrow-down': 'arrow-down-bold-duotone',
-    'chevron-down': 'alt-arrow-down-bold-duotone',
-    'chevron-up': 'alt-arrow-up-bold-duotone',
-    'chevron-left': 'alt-arrow-left-bold-duotone',
-    'chevron-right': 'alt-arrow-right-bold-duotone',
-    menu: 'hamburger-menu-bold-duotone',
-    globe: 'global-bold-duotone',
-    message: 'chat-round-dots-bold-duotone',
-    cart: 'cart-large-bold-duotone',
-    box: 'box-bold-duotone',
-    check: 'check-circle-bold-duotone',
-    x: 'close-circle-bold-duotone',
-    plus: 'add-circle-bold-duotone',
-    minus: 'minus-circle-bold-duotone',
-    eye: 'eye-bold-duotone',
-    'eye-off': 'eye-closed-bold-duotone',
-    bell: 'bell-bold-duotone',
-    bolt: 'bolt-bold-duotone',
-    gamepad: 'gamepad-bold-duotone',
-    star: 'star-bold-duotone',
-    users: 'users-group-two-rounded-bold-duotone',
-    clipboard: 'clipboard-list-bold-duotone',
-    dashboard: 'widget-2-bold-duotone',
-    'circle-help': 'question-circle-bold-duotone',
-    edit: 'pen-new-square-bold-duotone',
-    trash: 'trash-bin-trash-bold-duotone',
-    shield: 'shield-check-bold-duotone',
-    store: 'shop-2-bold-duotone',
-    wallet: 'wallet-2-bold-duotone',
-    'trending-up': 'chart-2-bold-duotone',
-    mail: 'letter-bold-duotone',
-    clock: 'clock-circle-bold-duotone',
-    tag: 'tag-price-bold-duotone',
-    crown: 'crown-bold-duotone',
-    logout: 'logout-2-bold-duotone',
-    info: 'info-circle-bold-duotone',
-    'check-circle': 'check-circle-bold-duotone',
-    'alert-circle': 'danger-circle-bold-duotone',
-    'alert-triangle': 'danger-triangle-bold-duotone',
-    play: 'play-circle-bold-duotone',
-    pause: 'pause-circle-bold-duotone',
-    headset: 'headphones-round-sound-bold-duotone',
-    sliders: 'tuning-bold-duotone',
-    sparkles: 'stars-bold-duotone',
-    layers: 'layers-bold-duotone',
-    radar: 'radar-2-bold-duotone',
-    package: 'box-bold-duotone',
+const TABLER_MAP = {
+    book: IconBook,
+    copy: IconCopy,
+    search: IconSearch,
+    'arrow-up-right': IconArrowUpRight,
+    'arrow-left': IconArrowLeft,
+    'arrow-right': IconArrowRight,
+    'arrow-down': IconArrowDown,
+    'chevron-down': IconChevronDown,
+    'chevron-up': IconChevronUp,
+    'chevron-left': IconChevronLeft,
+    'chevron-right': IconChevronRight,
+    menu: IconMenu2,
+    globe: IconWorld,
+    world: IconWorld,
+    discord: IconBrandDiscord,
+    message: IconMessage,
+    cart: IconShoppingCart,
+    box: IconBox,
+    check: IconCheck,
+    x: IconX,
+    plus: IconPlus,
+    minus: IconMinus,
+    eye: IconEye,
+    'eye-off': IconEyeOff,
+    bell: IconBell,
+    bolt: IconBolt,
+    gamepad: IconDeviceGamepad2,
+    star: IconStar,
+    users: IconUsers,
+    clipboard: IconClipboardList,
+    dashboard: IconLayoutDashboard,
+    'circle-help': IconHelpCircle,
+    help: IconHelpCircle,
+    edit: IconEdit,
+    trash: IconTrash,
+    shield: IconShieldCheck,
+    'shield-check': IconShieldCheck,
+    store: IconBuildingStore,
+    wallet: IconWallet,
+    'trending-up': IconTrendingUp,
+    mail: IconMail,
+    clock: IconClock,
+    tag: IconTag,
+    crown: IconCrown,
+    logout: IconLogout,
+    lock: IconLock,
+    info: IconInfoCircle,
+    'info-circle': IconInfoCircle,
+    'check-circle': IconCircleCheck,
+    'alert-circle': IconAlertCircle,
+    'alert-triangle': IconAlertTriangle,
+    play: IconPlayerPlay,
+    pause: IconPlayerPause,
+    headset: IconHeadphones,
+    headphones: IconHeadphones,
+    sliders: IconAdjustmentsHorizontal,
+    sparkles: IconSparkles,
+    stars: IconSparkles,
+    layers: IconLayersLinked,
+    radar: IconRadar,
+    package: IconPackage,
+    camera: IconCamera,
+    car: IconCar,
+    target: IconTarget,
+    coin: IconCoin,
+    coins: IconCoin,
+    photo: IconPhoto,
+    image: IconPhoto,
+    upload: IconUpload,
+    folder: IconFolder,
+    loader: IconLoader2,
 };
 
-export default function Icon({ name, icon, className = 'w-5 h-5', strokeWidth, ...props }) {
-    const iconIdentifier = name || icon;
-    if (!iconIdentifier) return null;
+export default function Icon({ name, icon, className = 'w-5 h-5', stroke = 2, strokeWidth, size, ...props }) {
+    const raw = (name || icon || '').toString().toLowerCase().trim();
+    if (!raw) return null;
 
-    if (iconIdentifier === 'discord') {
-        return <SiDiscord className={className} aria-hidden="true" {...props} />;
-    }
+    // Normalize name removing prefixes like 'solar:', 'icon', 'tb'
+    const normalized = raw
+        .replace(/^solar:/i, '')
+        .replace(/-bold-duotone$/i, '')
+        .replace(/^icon-?/i, '')
+        .replace(/^tb-?/i, '');
 
-    const cleanName = iconIdentifier.replace(/^solar:/, '');
-    const key = SOLAR_NAME_MAP[cleanName] || cleanName;
-    const svgBody = SOLAR_ICONS_DATA[key] || SOLAR_ICONS_DATA[`${key}-bold-duotone`];
-
-    if (!svgBody) {
-        return null;
-    }
+    const Component = TABLER_MAP[raw] || TABLER_MAP[normalized] || IconBox;
 
     return (
-        <svg
-            viewBox="0 0 24 24"
+        <Component
             className={className}
-            fill="currentColor"
+            stroke={strokeWidth || stroke}
+            size={size}
             aria-hidden="true"
-            dangerouslySetInnerHTML={{ __html: svgBody }}
             {...props}
         />
     );

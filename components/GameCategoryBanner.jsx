@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { RiTimeLine, RiShieldCheckLine, RiCoinsLine } from 'react-icons/ri';
+import { IconClock, IconShieldCheck, IconCoin } from '@tabler/icons-react';
 import AdminActionLink from './AdminActionLink';
 import EditGameButton from './EditGameButton';
 import DeleteGameButton from './DeleteGameButton';
@@ -86,17 +86,17 @@ export default function GameCategoryBanner({ game, count = 0, imageUrl = null, g
                 {/* Trust / Value Proposition Badges */}
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-8 pt-7 border-t border-white/10 text-xs sm:text-sm text-slate-200">
                     <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm shadow-sm">
-                        <RiTimeLine className="w-4 h-4 sm:w-5 sm:h-5 text-[#9d7cff] shrink-0" />
+                        <IconClock className="w-4 h-4 sm:w-5 sm:h-5 text-[#9d7cff] shrink-0" stroke={2} />
                         <span className="font-medium">{t('instantDelivery')}</span>
                     </div>
 
                     <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm shadow-sm">
-                        <RiShieldCheckLine className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 shrink-0" />
+                        <IconShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 shrink-0" stroke={2} />
                         <span className="font-medium">{t('orderProtected')}</span>
                     </div>
 
                     <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm shadow-sm">
-                        <RiCoinsLine className="w-4 h-4 sm:w-5 sm:h-5 text-amber-300 shrink-0" />
+                        <IconCoin className="w-4 h-4 sm:w-5 sm:h-5 text-amber-300 shrink-0" stroke={2} />
                         <span className="font-medium">{t('moneyBackGuarantee')}</span>
                     </div>
                 </div>
