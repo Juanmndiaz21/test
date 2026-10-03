@@ -293,6 +293,28 @@ details.faq-row[open] .faq-toggle {
   will-change: transform, opacity;
 }
 
+/* ── Animation On Scroll (Keyframes + Observer Trigger) ── */
+@keyframes animationIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+.animate-on-scroll {
+  animation-play-state: paused !important;
+}
+
+.animate-on-scroll.animate {
+  animation-play-state: running !important;
+}
+
 /* ── UI Performance Optimization: Skip offscreen layout/paint ── */
 .content-auto {
   content-visibility: auto;

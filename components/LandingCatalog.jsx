@@ -67,15 +67,22 @@ const BrowseGameCard = memo(function BrowseGameCard({ game, t }) {
             href={`/store/game/${gameToSlug(game.name)}`}
             title={game.name}
             aria-label={game.name}
-            className="group relative aspect-[1.12/1] sm:aspect-square rounded-xl sm:rounded-2xl border border-white/10 bg-[#161224] hover:bg-[#1f1833] hover:border-[#9d7cff]/80 flex items-center justify-center p-2.5 sm:p-3 md:p-3.5 transition-[transform,border-color,background-color,box-shadow] duration-200 ease-out hover:-translate-y-1 active:scale-[0.97] hover:shadow-[0_12px_28px_rgba(0,0,0,0.7),0_0_20px_rgba(157,124,255,0.25)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 select-none overflow-hidden"
+            className="group relative aspect-[1.12/1] sm:aspect-square rounded-xl sm:rounded-2xl border border-white/10 bg-[#161224] hover:bg-[#1f1833] hover:border-[#9d7cff]/80 flex flex-col items-center justify-center p-2 sm:p-3 md:p-3.5 transition-[transform,border-color,background-color,box-shadow] duration-200 ease-out hover:-translate-y-1 active:scale-[0.97] hover:shadow-[0_12px_28px_rgba(0,0,0,0.7),0_0_20px_rgba(157,124,255,0.25)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 select-none overflow-hidden"
         >
             {/* Background Game Logo (dims and scales smoothly on hover) */}
-            <div className="w-full h-full flex items-center justify-center transition-[transform,opacity] duration-200 ease-out group-hover:scale-105 group-hover:opacity-20">
+            <div className="w-full h-full flex items-center justify-center pb-4 sm:pb-0 transition-[transform,opacity] duration-200 ease-out group-hover:scale-105 group-hover:opacity-20">
                 <GameLogo name={game.name} imageUrl={game.image_url} />
             </div>
 
-            {/* Inside-Card Hover Overlay matching reference design with brand colors */}
-            <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-[#0d0914]/85 backdrop-blur-[2px] p-2 flex flex-col items-center justify-center text-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-200 ease-out z-10 pointer-events-none select-none">
+            {/* Persistent Mobile Title Label (ensures touch users identify games without hover) */}
+            <div className="sm:hidden absolute inset-x-0 bottom-0 py-1 px-1 bg-[#0d0914]/90 border-t border-white/10 text-center pointer-events-none">
+                <span className="font-['Trebuchet_MS',sans-serif] font-bold text-[11px] text-slate-200 tracking-tight line-clamp-1">
+                    {game.name}
+                </span>
+            </div>
+
+            {/* Inside-Card Desktop Hover Overlay matching reference design with brand colors */}
+            <div className="hidden sm:flex absolute inset-0 rounded-xl sm:rounded-2xl bg-[#0d0914]/85 backdrop-blur-[2px] p-2 flex-col items-center justify-center text-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-200 ease-out z-10 pointer-events-none select-none">
                 <span className="font-['Trebuchet_MS',sans-serif] font-black text-xs text-white uppercase tracking-wider leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] line-clamp-2 px-1">
                     {game.name}
                 </span>

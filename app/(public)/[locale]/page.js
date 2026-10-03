@@ -8,6 +8,7 @@ import ReviewGrid from '@/components/ReviewGrid';
 import FaqAccordion from '@/components/FaqAccordion';
 import Icon from '@/components/Icon';
 import TopBoostingServices from '@/components/TopBoostingServices';
+import AnimateOnScroll, { AnimationOnScrollInit } from '@/components/AnimateOnScroll';
 import { Link } from '@/i18n/navigation';
 import { getApprovedReviews } from '@/lib/reviews';
 import { ensureAppSchema } from '@/lib/schema';
@@ -104,15 +105,16 @@ export default async function Home({ params }) {
 
     return (
         <>
-            {/* Hero Section matching reference banner */}
-            <section aria-label="Hero" className="relative max-w-7xl mx-auto px-5 pt-12 pb-10 md:pt-16 md:pb-14 text-center">
+            <AnimationOnScrollInit />
+            {/* Hero Section matching reference banner - Calibrated Proportion */}
+            <section aria-label="Hero" className="relative max-w-7xl mx-auto px-5 pt-14 pb-14 sm:pt-20 sm:pb-20 md:pt-24 md:pb-24 lg:pt-28 lg:pb-28 min-h-[520px] sm:min-h-[580px] md:min-h-[640px] flex items-center justify-center text-center">
                 <HeroEffects />
                 <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
                     {/* Centered Brand Logo with Violet Glow */}
-                    <div className="relative mb-5 flex items-center justify-center">
+                    <div className="relative mb-5 sm:mb-6 flex items-center justify-center">
                         <div
                             aria-hidden="true"
-                            className="absolute inset-0 w-40 h-12 sm:w-52 sm:h-14 md:w-60 md:h-16 rounded-full bg-[#9d7cff]/25 blur-2xl scale-125 mx-auto"
+                            className="absolute inset-0 w-48 h-14 sm:w-60 sm:h-16 md:w-72 md:h-18 rounded-full bg-[#9d7cff]/30 blur-2xl scale-125 mx-auto"
                         />
                         <Image
                             src="/logo-v3.svg"
@@ -121,31 +123,66 @@ export default async function Home({ params }) {
                             height={176}
                             priority
                             loading="eager"
-                            className="relative h-10 sm:h-12 md:h-14 w-auto object-contain drop-shadow-[0_4px_24px_rgba(146,37,207,0.45)]"
+                            className="relative h-11 sm:h-14 md:h-16 lg:h-18 w-auto object-contain drop-shadow-[0_6px_28px_rgba(146,37,207,0.5)]"
                         />
                     </div>
 
                     {/* H1 with SEO keywords: Brand Hero Title */}
-                    <h1 className="font-['Trebuchet_MS',sans-serif] text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mt-1 sm:mt-2">
+                    <h1 className="font-['Trebuchet_MS',sans-serif] text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1] max-w-4xl">
                         {t('heroH1')}{' '}
-                        <span className="block text-[#9d7cff]">{t('heroTitle')}</span>
+                        <span className="block text-[#9d7cff] mt-1">{t('heroTitle')}</span>
                     </h1>
 
                     {/* Subtitle Description */}
-                    <p className="text-slate-300 text-sm sm:text-base md:text-lg mt-4 max-w-2xl mx-auto font-normal leading-relaxed">
+                    <p className="text-slate-200 text-sm sm:text-base md:text-lg lg:text-xl mt-4 sm:mt-5 max-w-2xl mx-auto font-normal leading-relaxed">
                         {t('heroSub')}
                     </p>
+
+                    {/* Quick Hero Call To Actions */}
+                    <div className="mt-6 sm:mt-8 flex flex-col items-center gap-5">
+                        <Link
+                            href="/store"
+                            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-[#9d7cff] text-[#0d0914] font-['Trebuchet_MS',sans-serif] font-black text-sm uppercase tracking-wider shadow-[0_6px_24px_rgba(157,124,255,0.45)] hover:bg-[#b59dff] hover:shadow-[0_10px_32px_rgba(157,124,255,0.6)] hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer"
+                        >
+                            <span>Explore Store</span>
+                            <span className="text-base font-bold">→</span>
+                        </Link>
+
+                        {/* Above-The-Fold Trust & Security Verification Bar */}
+                        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 pt-1 text-xs font-mono text-slate-300">
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-sm">
+                                <span className="text-amber-400 font-bold">★ 4.9/5</span>
+                                <span className="text-slate-400">Verified Reviews</span>
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-sm">
+                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                <span className="text-slate-300">100% Anti-Cheat Safe</span>
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-sm">
+                                <span className="text-[#9d7cff]">⚡ 15-Min</span>
+                                <span className="text-slate-400">Express Start</span>
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-sm">
+                                <span className="text-emerald-400">✓</span>
+                                <span className="text-slate-400">Money-Back Guarantee</span>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             {/* Standings Catalog Funnel */}
-            <LandingCatalog games={ladder} />
+            <AnimateOnScroll duration="0.8s" delay="0.1s">
+                <LandingCatalog games={ladder} />
+            </AnimateOnScroll>
 
             {/* Top Boosting Services: Horizontal mini-cards with Best Sellers / Featured / New / On Sale filter tabs */}
-            <TopBoostingServices products={featuredProducts} />
+            <AnimateOnScroll duration="0.8s" delay="0.1s">
+                <TopBoostingServices products={featuredProducts} />
+            </AnimateOnScroll>
 
             {/* Tournament Protocol & Service Integrity */}
-            <section aria-label={t('featuresTitle')} className="max-w-7xl mx-auto px-5 py-16 md:py-24 content-auto">
+            <AnimateOnScroll as="section" duration="0.8s" delay="0.1s" aria-label={t('featuresTitle')} className="max-w-7xl mx-auto px-5 py-16 md:py-24 content-auto">
                 <div className="flex items-center gap-4 mb-12">
                     <div className="flex items-center gap-3">
                         <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/20 text-[#9d7cff]">
@@ -206,10 +243,10 @@ export default async function Home({ params }) {
                         );
                     })}
                 </div>
-            </section>
+            </AnimateOnScroll>
 
             {/* Verified Player Reviews */}
-            <section aria-label={t('reviewsTitle')} className="max-w-7xl mx-auto px-5 py-16 md:py-24 content-auto">
+            <AnimateOnScroll as="section" duration="0.8s" delay="0.1s" aria-label={t('reviewsTitle')} className="max-w-7xl mx-auto px-5 py-16 md:py-24 content-auto">
                 <div className="flex items-center gap-4 mb-4">
                     <div className="flex items-center gap-3">
                         <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/20 text-[#9d7cff]">
@@ -223,10 +260,10 @@ export default async function Home({ params }) {
                     {t('reviewsNote')}
                 </p>
                 <ReviewGrid reviews={reviews} starsAria={t('starsAria')} />
-            </section>
+            </AnimateOnScroll>
 
             {/* FAQ Section for AI Search (GEO) and Player Trust */}
-            <section aria-label={faqTitle} className="max-w-7xl mx-auto px-5 py-16 md:py-24 content-auto">
+            <AnimateOnScroll as="section" duration="0.8s" delay="0.1s" aria-label={faqTitle} className="max-w-7xl mx-auto px-5 py-16 md:py-24 content-auto">
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -245,10 +282,10 @@ export default async function Home({ params }) {
                 </p>
 
                 <FaqAccordion faqs={faqs} />
-            </section>
+            </AnimateOnScroll>
 
             {/* Closing Conversion Anchor */}
-            <section aria-label="Ready to climb" className="max-w-7xl mx-auto px-5 pb-20 md:pb-28 content-auto">
+            <AnimateOnScroll as="section" duration="0.8s" delay="0.1s" aria-label="Ready to climb" className="max-w-7xl mx-auto px-5 pb-20 md:pb-28 content-auto">
                 <div className="rounded-3xl border border-[#9d7cff]/30 bg-gradient-to-br from-[#1c1533] via-[#140e26] to-[#0e0918] p-8 sm:p-12 md:p-16 text-center relative overflow-hidden shadow-[0_24px_70px_rgba(0,0,0,0.5),0_0_40px_rgba(157,124,255,0.12)]">
                     {/* Deep Ambient Glows */}
                     <div
@@ -290,7 +327,7 @@ export default async function Home({ params }) {
                         </div>
                     </div>
                 </div>
-            </section>
+            </AnimateOnScroll>
         </>
     );
 }

@@ -124,6 +124,7 @@ export default function TopBoostingServices({ products = [] }) {
                                 role="tab"
                                 type="button"
                                 aria-selected={isActive}
+                                aria-controls="top-services-grid"
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs font-mono font-bold tracking-wide transition-all duration-150 cursor-pointer whitespace-nowrap select-none ${
                                     isActive
@@ -139,7 +140,12 @@ export default function TopBoostingServices({ products = [] }) {
             </div>
 
             {/* Product Cards Grid: 4 Columns Horizontal Mini-Cards matching screenshot */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+            <div
+                id="top-services-grid"
+                role="tabpanel"
+                aria-label="Top boosting services"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4"
+            >
                 {displayedProducts.map((product) => {
                     const price = Number(product.price) || 0;
                     const originalPrice = product.original_price ? Number(product.original_price) : null;
@@ -191,7 +197,7 @@ export default function TopBoostingServices({ products = [] }) {
                                     >
                                         {product.name}
                                     </h3>
-                                    <span className="shrink-0 px-1.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-[0_0_8px_rgba(249,115,22,0.4)] ml-1">
+                                    <span className="shrink-0 px-2 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-[#9d7cff]/20 text-[#d8c7ff] border border-[#9d7cff]/40 ml-1">
                                         {badgeLabel}
                                     </span>
                                 </div>
@@ -204,7 +210,7 @@ export default function TopBoostingServices({ products = [] }) {
                                 {/* Row 3: Pricing */}
                                 <div className="mt-1.5 flex items-baseline gap-1.5 font-mono">
                                     {wasPrice && (
-                                        <span className="text-[11px] text-slate-500 line-through">
+                                        <span className="text-[11px] text-slate-400 line-through">
                                             ${wasPrice.toFixed(2)}
                                         </span>
                                     )}

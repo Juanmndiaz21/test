@@ -1,9 +1,28 @@
+import CursorGrid from './CursorGrid';
+
 export default function HeroEffects() {
     return (
         <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 overflow-hidden select-none"
         >
+            <div style={{ width: '100%', height: '600px', position: 'relative' }}>
+                <CursorGrid
+                    cellSize={70}
+                    color="#9d7cff"
+                    radius={140}
+                    falloff="smooth"
+                    holdTime={400}
+                    fadeDuration={800}
+                    lineWidth={1.2}
+                    maxOpacity={1}
+                    fillOpacity={0}
+                    gridOpacity={0}
+                    cellRadius={0}
+                    clickPulse
+                    pulseSpeed={600}
+                />
+            </div>
             {/* Deep violet radial aura centered behind the logo */}
             <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] sm:w-[800px] md:w-[1000px] h-[500px] rounded-full bg-[#9d7cff]/[0.12] blur-[120px] pointer-events-none" />
 
