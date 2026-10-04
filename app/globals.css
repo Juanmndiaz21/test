@@ -293,26 +293,80 @@ details.faq-row[open] .faq-toggle {
   will-change: transform, opacity;
 }
 
-/* ── Animation On Scroll (Keyframes + Observer Trigger) ── */
+/* ── Cinematic Motion System (GSAP + Lenis) ──
+   Elements start hidden only when JS motion is active (html.has-motion is set by an
+   inline head script). If the system never boots, .motion-failsafe reveals everything. */
+html.has-motion:not(.motion-failsafe) [data-hero],
+html.has-motion:not(.motion-failsafe) [data-reveal],
+html.has-motion:not(.motion-failsafe) [data-reveal-item],
+html.has-motion:not(.motion-failsafe) [data-motion-text] {
+  visibility: hidden;
+}
+
+.motion-word-mask,
+.hero-line-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.hero-line-mask {
+  display: block;
+}
+
+.motion-word,
+[data-hero-line] {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.has-motion [data-hero],
+  html.has-motion [data-reveal],
+  html.has-motion [data-reveal-item],
+  html.has-motion [data-motion-text] {
+    visibility: visible !important;
+  }
+}
+
+/* ── Animation On Scroll (Buttery Smooth Hardware-Accelerated Reveal) ── */
 @keyframes animationIn {
   0% {
     opacity: 0;
-    transform: translateY(30px);
-    filter: blur(8px);
+    transform: translate3d(0, 22px, 0) scale3d(0.985, 0.985, 1);
+    filter: blur(4px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
     filter: blur(0px);
   }
 }
 
 .animate-on-scroll {
   animation-play-state: paused !important;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .animate-on-scroll.animate {
   animation-play-state: running !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
 }
 
 /* ── UI Performance Optimization: Skip offscreen layout/paint ── */

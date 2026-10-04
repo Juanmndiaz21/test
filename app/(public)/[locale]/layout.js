@@ -10,6 +10,7 @@ import PageTransition from '../../../components/PageTransition';
 import BackToTop from '../../../components/BackToTop';
 import BisSkinCleaner from '../../../components/BisSkinCleaner';
 import CookieConsentBanner from '../../../components/CookieConsentBanner';
+import MotionSystem from '../../../components/MotionSystem';
 import { Analytics } from '@vercel/analytics/next';
 
 export function generateStaticParams() {
@@ -193,6 +194,12 @@ export default async function LocaleLayout({ children, params }) {
             <head suppressHydrationWarning>
                 <BisSkinCleaner />
                 <script
+                    suppressHydrationWarning
+                    dangerouslySetInnerHTML={{
+                        __html: `if(typeof window!=='undefined'&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('has-motion');setTimeout(function(){document.documentElement.classList.add('motion-failsafe')},3000);}`,
+                    }}
+                />
+                <script
                     type="application/ld+json"
                     suppressHydrationWarning
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
@@ -201,6 +208,7 @@ export default async function LocaleLayout({ children, params }) {
             <body suppressHydrationWarning className="text-slate-50 selection:bg-[#9d7cff] selection:text-[#0d0914] min-h-screen flex flex-col">
                 <AuthSession>
                     <NextIntlClientProvider messages={messages}>
+                        <MotionSystem />
                         <a
                             href="#main-content"
                             className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-[#9d7cff] focus:text-[#0d0914] focus:font-black focus:rounded-lg focus:shadow-[0_0_25px_rgba(157,124,255,0.6)] focus:outline-none"

@@ -4,12 +4,14 @@ export default function HeroEffects() {
     return (
         <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 overflow-hidden select-none"
+            data-hero-parallax="bg"
+            data-hero="0"
+            className="pointer-events-none absolute inset-0 w-full h-full overflow-hidden select-none"
         >
-            <div style={{ width: '100%', height: '600px', position: 'relative' }}>
+            <div style={{ width: '100%', height: '100%', position: 'absolute', inset: 0 }}>
                 <CursorGrid
                     cellSize={70}
-                    color="#9d7cff"
+                    color="#D946EF"
                     radius={140}
                     falloff="smooth"
                     holdTime={400}

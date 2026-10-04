@@ -19,7 +19,11 @@ export function ProductDeleteButton({ productId, productName }) {
     const handleDelete = () => {
         startTransition(async () => {
             try {
-                await deleteProduct(productId);
+                const res = await deleteProduct(productId);
+                if (res?.error) {
+                    toast.error(res.error, { title: 'Delete Failed' });
+                    return;
+                }
                 toast.success(`Service "${productName}" deleted successfully`, { title: 'Product Deleted' });
                 setConfirming(false);
             } catch (err) {
@@ -100,7 +104,11 @@ export function ProductEditDrawer({ product, defaultOptions }) {
         const fd = new FormData(e.currentTarget);
         startTransition(async () => {
             try {
-                await updateProduct(fd);
+                const res = await updateProduct(fd);
+                if (res?.error) {
+                    toast.error(res.error, { title: 'Update Failed' });
+                    return;
+                }
                 toast.success(`Service "${product.name}" updated successfully!`, { title: 'Changes Saved' });
                 setOpen(false);
             } catch (err) {

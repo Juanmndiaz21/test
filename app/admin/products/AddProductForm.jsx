@@ -21,7 +21,11 @@ export default function AddProductForm({ selectedGame, initialOptions, games = [
 
         startTransition(async () => {
             try {
-                await addProduct(fd);
+                const res = await addProduct(fd);
+                if (res?.error) {
+                    toast.error(res.error, { title: 'Creation Failed' });
+                    return;
+                }
                 toast.success('Service created successfully!', { title: 'Product Added' });
                 formRef.current?.reset();
                 setGame(selectedGame || '');

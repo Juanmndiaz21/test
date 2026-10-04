@@ -7,8 +7,8 @@ import { useEffect, useRef } from 'react';
  * Automatically discovers any `.animate-on-scroll` element and triggers the CSS animation.
  */
 export function AnimationOnScrollInit({
-    threshold = 0.15,
-    rootMargin = '0px 0px -10% 0px',
+    threshold = 0.06,
+    rootMargin = '0px 0px -60px 0px',
     once = true,
 }) {
     useEffect(() => {
@@ -31,16 +31,22 @@ export function AnimationOnScrollInit({
         window.initInViewAnimations = function (selector = '.animate-on-scroll') {
             if (!window.__inViewIO) return;
             document.querySelectorAll(selector).forEach((el) => {
+                // If already visible in viewport, animate immediately to avoid hitch
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    el.classList.add('animate');
+                    return;
+                }
                 window.__inViewIO.observe(el);
             });
         };
 
         window.initInViewAnimations();
 
-        // Observe elements that might mount after hydration
+        // Observe elements that mount after hydration
         const timer = setTimeout(() => {
             if (window.initInViewAnimations) window.initInViewAnimations();
-        }, 150);
+        }, 100);
 
         return () => clearTimeout(timer);
     }, [threshold, rootMargin, once]);
@@ -50,15 +56,16 @@ export function AnimationOnScrollInit({
 
 /**
  * React wrapper component for animating elements on scroll.
- * Applies the skill's keyframe animation: [animation:animationIn_0.8s_ease-out_0.1s_both] animate-on-scroll
+ * Applies the buttery smooth cubic-bezier keyframe animation:
+ * [animation:animationIn_0.85s_cubic-bezier(0.16,1,0.3,1)_0.08s_both] animate-on-scroll
  */
 export default function AnimateOnScroll({
     children,
     className = '',
-    duration = '0.8s',
-    delay = '0.1s',
-    threshold = 0.15,
-    rootMargin = '0px 0px -10% 0px',
+    duration = '0.85s',
+    delay = '0.08s',
+    threshold = 0.06,
+    rootMargin = '0px 0px -60px 0px',
     once = true,
     as: Component = 'div',
     ...props
@@ -70,6 +77,13 @@ export default function AnimateOnScroll({
         if (!el || typeof window === 'undefined') return;
 
         if (!('IntersectionObserver' in window)) {
+            el.classList.add('animate');
+            return;
+        }
+
+        // Immediate check: if already in viewport, reveal right away
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
             el.classList.add('animate');
             return;
         }
@@ -96,7 +110,7 @@ export default function AnimateOnScroll({
     return (
         <Component
             ref={ref}
-            className={`animate-on-scroll [animation:animationIn_${duration}_ease-out_${delay}_both] ${className}`}
+            className={`animate-on-scroll [animation:animationIn_${duration}_cubic-bezier(0.16,1,0.3,1)_${delay}_both] ${className}`}
             {...props}
         >
             {children}

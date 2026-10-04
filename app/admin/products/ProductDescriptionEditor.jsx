@@ -156,7 +156,7 @@ export default function ProductDescriptionEditor({
             )}
 
             {/* Hidden Input for Form Submission when in preview mode */}
-            <input type="hidden" name={name} value={value} />
+            {mode === 'preview' && <input type="hidden" name={name} value={value} />}
 
             {/* Editor or Live Preview */}
             {mode === 'write' ? (
