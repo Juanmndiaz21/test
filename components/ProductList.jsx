@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useDeferredValue, memo } from 'react';
+import { useState, useEffect, useMemo, useDeferredValue, memo } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '../i18n/navigation';
 import { gameToSlug } from '@/lib/gameSlugs';
@@ -53,6 +53,14 @@ export default function ProductList({ products, games: catalogGames = [] }) {
     const [searchQuery, setSearchQuery] = useState('');
     const deferredQuery = useDeferredValue(searchQuery);
     const [activeLetter, setActiveLetter] = useState('ALL');
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const params = new URLSearchParams(window.location.search);
+            const q = params.get('search') || params.get('q');
+            if (q) setSearchQuery(q);
+        }
+    }, []);
 
     const { games, gameImages } = useMemo(() => {
         const catalogMap = new Map();

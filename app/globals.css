@@ -20,6 +20,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-border: var(--line);
+  --color-ring: #9225CF;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 

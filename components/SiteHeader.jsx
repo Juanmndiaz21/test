@@ -12,17 +12,26 @@ import {
     MobileNavMenu,
 } from '@/components/ui/resizable-navbar';
 import { useTranslations } from 'next-intl';
-import { Link, usePathname } from '../i18n/navigation';
+import { Link, usePathname, useRouter } from '../i18n/navigation';
 import { useSession } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 import CartLink from './CartLink';
 import UserNav from './UserNav';
+import { GooeyInput } from '@/components/ui/gooey-input';
 
 export default function SiteHeader() {
     const t = useTranslations('common');
     const { data: session } = useSession();
     const pathname = usePathname();
+    const router = useRouter();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const handleSearchSubmit = (searchTerm) => {
+        if (searchTerm && searchTerm.trim()) {
+            router.push(`/store?search=${encodeURIComponent(searchTerm.trim())}`);
+            setIsMobileMenuOpen(false);
+        }
+    };
 
     const navItems = [
         { name: t('home'), link: '/' },
@@ -38,7 +47,14 @@ export default function SiteHeader() {
             <NavBody>
                 <NavbarLogo />
                 <NavItems items={navItems} pathname={pathname} />
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2.5">
+                    <GooeyInput
+                        placeholder="Search..."
+                        collapsedWidth={105}
+                        expandedWidth={195}
+                        expandedOffset={45}
+                        onSubmit={handleSearchSubmit}
+                    />
                     <CartLink className="min-h-[40px] min-w-[40px] h-10 w-10 rounded-full border border-white/10 bg-zinc-900/80 text-zinc-300 hover:text-purple-400 hover:border-[#9225CF]/50 hover:bg-zinc-800 transition-[color,border-color,background-color,transform] duration-150 ease-out active:scale-[0.95] inline-flex items-center justify-center focus-visible:outline-2 focus-visible:outline-[#9225CF]" />
                     <UserNav />
                 </div>
@@ -61,6 +77,16 @@ export default function SiteHeader() {
                     isOpen={isMobileMenuOpen}
                     onClose={() => setIsMobileMenuOpen(false)}
                 >
+                    <div className="pb-3 px-1 flex justify-center">
+                        <GooeyInput
+                            placeholder="Search..."
+                            collapsedWidth={130}
+                            expandedWidth={220}
+                            expandedOffset={45}
+                            onSubmit={handleSearchSubmit}
+                        />
+                    </div>
+
                     <div className="flex flex-col gap-1.5">
                         {navItems.map((item, idx) => {
                             const cleanPath = (pathname || '').replace(/\/$/, '') || '/';
