@@ -259,7 +259,7 @@ export function SignupFormDemo({ onSwitchToLogin, onSuccess }) {
                     )}
                 </p>
                 <span className="block text-xs text-zinc-400 mt-3">
-                    {t('roleHint') || 'Customer accounts get the USER role. The very first account created becomes the administrator only when the setup code is entered.'}
+                    {t('roleHint') || ''}
                 </span>
             </div>
         </motion.div>
