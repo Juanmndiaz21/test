@@ -14,7 +14,7 @@ import {
 } from '../../lib/passwordReset';
 import { sendPasswordResetEmail } from '../../lib/email';
 
-export async function registerUser(email, password, turnstile, setupToken) {
+export async function registerUser(email, password, turnstile, setupToken, name = null) {
     try {
         if (!email || !password) {
             return { success: false, error: 'Email and password are required.' };
@@ -55,7 +55,7 @@ export async function registerUser(email, password, turnstile, setupToken) {
         if ((count[0]?.total ?? 0) === 0 && process.env.SETUP_TOKEN && setupToken === process.env.SETUP_TOKEN) {
             role = 'ADMIN';
         }
-        await sql`INSERT INTO users (email, password, role) VALUES (${emailKey}, ${hashedPassword}, ${role})`;
+        await sql`INSERT INTO users (email, password, name, role) VALUES (${emailKey}, ${hashedPassword}, ${name ? String(name).trim() : null}, ${role})`;
 
         return { success: true, role };
     } catch (err) {

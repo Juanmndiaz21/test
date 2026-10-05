@@ -50,7 +50,7 @@ export default function UserNav() {
                     {t('signIn')}
                 </Link>
                 <Link
-                    href="/login"
+                    href="/register"
                     className="bg-[#9225CF] hover:bg-[#a83ff0] text-white font-bold px-4 py-2 rounded-lg transition-[background-color,color,transform,box-shadow] duration-150 ease-out active:scale-[0.97] shadow-[0_2px_10px_rgba(146,37,207,0.3)] hover:shadow-[0_0_18px_rgba(146,37,207,0.5)] inline-flex items-center"
                 >
                     {t('signUp')}
