@@ -24,7 +24,6 @@ import {
 } from '@phosphor-icons/react';
 
 import DotGrid from '@/components/reactbits/DotGrid';
-import { HoverEffect } from '@/components/ui/card-hover-effect';
 import { HoverBorderGradient, AceternityLogo } from '@/components/ui/hover-border-gradient';
 
 const CURATED_GAMES = [
@@ -759,10 +758,50 @@ export default function NewStyleLanding({
                     </div>
 
                     <div className="relative">
-                        <HoverEffect
-                            items={PROCESS_STEPS}
-                            className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-0"
-                        />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-12 xl:gap-20 relative z-10">
+                            {PROCESS_STEPS.map((item, idx) => (
+                                <div key={item.step} className="relative flex flex-col items-center">
+                                    {/* Connecting line & glowing pulse node between cards on desktop */}
+                                    {idx > 0 && (
+                                        <div
+                                            className="hidden lg:flex absolute right-full top-[44px] -translate-y-1/2 w-12 xl:w-20 items-center justify-center pointer-events-none z-20"
+                                            aria-hidden="true"
+                                        >
+                                            {/* Glowing connecting line */}
+                                            <div className="w-full h-[2px] bg-gradient-to-r from-purple-500/20 via-purple-300 to-purple-500/20 shadow-[0_0_10px_rgba(146,37,207,0.7)]" />
+
+                                            {/* Central pulsing node */}
+                                            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex h-3.5 w-3.5 items-center justify-center">
+                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75" />
+                                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#9225CF] shadow-[0_0_12px_#9225CF] border border-purple-300/60" />
+                                            </span>
+                                        </div>
+                                    )}
+
+                                    <motion.div
+                                        whileHover={{ y: -3, borderColor: 'rgba(146, 37, 207, 0.4)' }}
+                                        transition={{ duration: 0.2 }}
+                                        className="w-full flex flex-col items-center text-center rounded-2xl border border-white/[0.08] bg-zinc-900/50 p-5 shadow-lg backdrop-blur-md transition-all hover:bg-zinc-900/80 hover:shadow-black/50"
+                                    >
+                                        <div className="relative flex h-12 w-12 items-center justify-center rounded-xl border border-[#9225CF]/30 bg-[#9225CF]/10 shadow-[0_0_14px_rgba(146,37,207,0.15)]">
+                                            {item.icon}
+                                        </div>
+
+                                        <span className="mt-4 inline-block rounded-full bg-white/[0.03] px-2 py-0.5 text-[10px] font-mono font-semibold tracking-wider text-purple-400 border border-[#9225CF]/20">
+                                            {item.step}
+                                        </span>
+
+                                        <h3 className="mt-2 text-sm font-bold text-white tracking-tight">
+                                            {item.title}
+                                        </h3>
+
+                                        <p className="mt-1.5 text-[11px] leading-relaxed text-zinc-400 font-normal">
+                                            {item.description}
+                                        </p>
+                                    </motion.div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
