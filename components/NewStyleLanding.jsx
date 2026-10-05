@@ -25,6 +25,7 @@ import {
 
 import DotGrid from '@/components/reactbits/DotGrid';
 import { HoverEffect } from '@/components/ui/card-hover-effect';
+import { HoverBorderGradient, AceternityLogo } from '@/components/ui/hover-border-gradient';
 
 const CURATED_GAMES = [
     {
@@ -272,19 +273,8 @@ export default function NewStyleLanding({
     faqs = DEFAULT_FAQS,
 }) {
     const router = useRouter();
-    const [searchQuery, setSearchQuery] = useState('');
     const [serviceFilter, setServiceFilter] = useState('all');
     const [openFaq, setOpenFaq] = useState(0);
-
-    const handleSearchSubmit = (e) => {
-        e.preventDefault();
-        const q = searchQuery.trim();
-        if (q) {
-            router.push(`/store?search=${encodeURIComponent(q)}`);
-        } else {
-            router.push('/store');
-        }
-    };
 
     // Filter services
     const filterButtons = [
@@ -521,26 +511,18 @@ export default function NewStyleLanding({
                         Instant automated fulfillment with 24/7 direct operator support.
                     </p>
 
-                    {/* Search Bar */}
-                    <form onSubmit={handleSearchSubmit} className="mx-auto mt-8 max-w-lg">
-                        <div className="relative flex items-center rounded-2xl border border-white/10 bg-zinc-900/90 p-1.5 shadow-2xl backdrop-blur-md transition-all focus-within:border-[#9225CF]/60">
-                            <MagnifyingGlass size={18} className="ml-3 text-zinc-500 shrink-0" />
-                            <input
-                                type="text"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                placeholder="Search GTA V, Red Dead Redemption 2, CS2..."
-                                className="w-full bg-transparent px-3 py-2 text-xs sm:text-sm text-white placeholder-zinc-500 outline-none"
-                            />
-                            <button
-                                type="submit"
-                                className="flex items-center gap-1.5 rounded-xl bg-[#9225CF] px-5 py-2.5 text-xs font-bold text-white hover:bg-[#a83ff0] transition-all shadow-[0_0_15px_rgba(146,37,207,0.4)] shrink-0 cursor-pointer"
-                            >
-                                <span>Explore</span>
-                                <ArrowRight size={14} weight="bold" />
-                            </button>
-                        </div>
-                    </form>
+                    {/* Explore Store CTA Button */}
+                    <div className="mt-9 flex justify-center text-center">
+                        <HoverBorderGradient
+                            containerClassName="rounded-full"
+                            as="button"
+                            onClick={() => router.push('/store')}
+                            className="bg-black text-white flex items-center space-x-2.5 px-6 py-3 font-semibold text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(146,37,207,0.35)] cursor-pointer"
+                        >
+                            <AceternityLogo />
+                            <span>EXPLORE STORE</span>
+                        </HoverBorderGradient>
+                    </div>
                 </div>
             </section>
 
