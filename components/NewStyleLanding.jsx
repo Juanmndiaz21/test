@@ -48,13 +48,6 @@ const CURATED_GAMES = [
         image: '/store/cs2.webp',
         tag: 'Trending',
     },
-    {
-        name: 'EA SPORTS FC',
-        short: 'FC 27 / 24',
-        slug: 'ea-sports-fc',
-        image: '/store/fc27.webp',
-        tag: 'Hot Release',
-    },
 ];
 
 const DEFAULT_SERVICES = [
@@ -544,7 +537,7 @@ export default function NewStyleLanding({
                         </Link>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         {CURATED_GAMES.map((game) => (
                             <motion.div
                                 key={game.name}
