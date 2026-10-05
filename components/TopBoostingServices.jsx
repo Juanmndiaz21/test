@@ -97,7 +97,7 @@ export default function TopBoostingServices({ products = [] }) {
             {/* Header: Title on Left, Filter Pills on Right matching screenshot */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-7">
                 <div className="flex items-center gap-3">
-                    <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                    <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[#9225CF]/15 border border-[#9225CF]/30 text-purple-400">
                         <Icon name="bolt" className="w-5 h-5" />
                     </span>
                     <div>
@@ -128,7 +128,7 @@ export default function TopBoostingServices({ products = [] }) {
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs font-mono font-bold tracking-wide transition-all duration-150 cursor-pointer whitespace-nowrap select-none ${
                                     isActive
-                                        ? 'bg-emerald-500 text-zinc-950 border border-emerald-400 shadow-[0_0_16px_rgba(16,185,129,0.3)] font-black'
+                                        ? 'bg-[#9225CF] text-white border border-[#9225CF] shadow-[0_0_16px_rgba(146,37,207,0.4)] font-black'
                                         : 'bg-white/5 border border-white/10 text-zinc-400 hover:text-white hover:border-white/25 hover:bg-white/[0.08]'
                                 }`}
                             >
@@ -165,7 +165,7 @@ export default function TopBoostingServices({ products = [] }) {
                         <Link
                             key={product.id}
                             href={`/store/${slug}`}
-                            className="group relative p-3 sm:p-3.5 rounded-2xl border border-white/10 bg-zinc-900 hover:bg-zinc-800/80 hover:border-emerald-500/60 hover:shadow-[0_12px_28px_rgba(0,0,0,0.5),0_0_22px_rgba(16,185,129,0.15)] transition-all duration-200 flex items-center gap-3 sm:gap-3.5 select-none cursor-pointer overflow-hidden"
+                            className="group relative p-3 sm:p-3.5 rounded-2xl border border-white/10 bg-zinc-900 hover:bg-zinc-800/80 hover:border-[#9225CF]/60 hover:shadow-[0_12px_28px_rgba(0,0,0,0.5),0_0_22px_rgba(146,37,207,0.2)] transition-all duration-200 flex items-center gap-3 sm:gap-3.5 select-none cursor-pointer overflow-hidden"
                         >
                             {/* Left Thumbnail (Square with rounded corners) */}
                             <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-xl overflow-hidden bg-black/50 border border-white/10 shrink-0 relative flex items-center justify-center">
@@ -193,11 +193,11 @@ export default function TopBoostingServices({ products = [] }) {
                                 <div className="flex items-start justify-between gap-1.5">
                                     <h3
                                         title={product.name}
-                                        className="text-xs sm:text-sm font-bold text-white leading-snug line-clamp-2 group-hover:text-emerald-400 transition-colors"
+                                        className="text-xs sm:text-sm font-bold text-white leading-snug line-clamp-2 group-hover:text-purple-300 transition-colors"
                                     >
                                         {product.name}
                                     </h3>
-                                    <span className="shrink-0 px-2 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 ml-1">
+                                    <span className="shrink-0 px-2 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-[#9225CF]/15 text-purple-300 border border-[#9225CF]/30 ml-1">
                                         {badgeLabel}
                                     </span>
                                 </div>
@@ -214,7 +214,7 @@ export default function TopBoostingServices({ products = [] }) {
                                             ${wasPrice.toFixed(2)}
                                         </span>
                                     )}
-                                    <span className="text-sm sm:text-base font-black text-white group-hover:text-emerald-400 transition-colors">
+                                    <span className="text-sm sm:text-base font-black text-white group-hover:text-purple-400 transition-colors">
                                         ${price.toFixed(2)}
                                     </span>
                                 </div>
@@ -228,10 +228,10 @@ export default function TopBoostingServices({ products = [] }) {
             <div className="mt-8 flex justify-center">
                 <Link
                     href="/store"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 hover:border-emerald-500/50 hover:bg-emerald-500/10 text-xs font-mono font-bold uppercase tracking-wider text-zinc-300 hover:text-white transition-all shadow-sm"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 hover:border-[#9225CF]/50 hover:bg-[#9225CF]/10 text-xs font-mono font-bold uppercase tracking-wider text-zinc-300 hover:text-white transition-all shadow-sm"
                 >
                     <span>View All Services Catalog</span>
-                    <Icon name="arrow-right" className="w-3.5 h-3.5 text-emerald-400" />
+                    <Icon name="arrow-right" className="w-3.5 h-3.5 text-purple-400" />
                 </Link>
             </div>
         </section>

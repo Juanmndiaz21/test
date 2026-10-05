@@ -65,7 +65,7 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
 
     return (
         <div className="max-w-7xl mx-auto px-5 py-12 md:py-16">
-            <Link href={`/store/game/${gameToSlug(product.game || 'general')}`} className="text-sm text-zinc-400 hover:text-emerald-400 transition-colors">{t('backTo', { game: product.game || 'game' })}</Link>
+            <Link href={`/store/game/${gameToSlug(product.game || 'general')}`} className="text-sm text-zinc-400 hover:text-purple-400 transition-colors">{t('backTo', { game: product.game || 'game' })}</Link>
             <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 mt-8 items-start">
                 <section className="panel-surface rounded-2xl p-7 md:p-10 bg-zinc-900/60 border border-white/10">
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-8 bg-black/40">
@@ -77,10 +77,10 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
 
                     <div className="flex justify-between gap-4 mb-8">
                         <span className="eyebrow">{common('allPlatforms')}</span>
-                        <span className="inline-flex items-center gap-1.5 text-xs text-emerald-400 border border-emerald-500/25 bg-emerald-500/10 rounded-full px-3 py-1 font-mono">
+                        <span className="inline-flex items-center gap-1.5 text-xs text-purple-400 border border-[#9225CF]/30 bg-[#9225CF]/10 rounded-full px-3 py-1 font-mono">
                             <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-60" />
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-400" />
                             </span>
                             {common('available')}
                         </span>
@@ -110,7 +110,7 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
                         <GtaOrderConfigurator product={product} />
                     ) : (
                         <section className="panel-surface rounded-2xl p-7 md:p-8 bg-zinc-900 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-                            <p className="eyebrow mb-3 text-emerald-400">{t(isCS2 ? 'commendsMatchConfig' : 'matchConfig')}</p>
+                            <p className="eyebrow mb-3 text-purple-400">{t(isCS2 ? 'commendsMatchConfig' : 'matchConfig')}</p>
                             <h2 className="text-2xl font-black text-white mb-7">{t(isCS2 ? 'configureCommends' : 'configureBoost')}</h2>
 
                             <label className="block text-sm font-bold text-zinc-300 mb-2">{t('platform')}</label>
@@ -130,13 +130,13 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
                                             onClick={() => setPlatform(p)}
                                             className={`py-3 px-2.5 rounded-xl text-xs sm:text-sm font-bold transition-[border-color,background-color,color,box-shadow,transform] duration-150 ease-out cursor-pointer border flex items-center justify-center gap-2 ${
                                                 active
-                                                    ? 'bg-emerald-500/15 border-emerald-500 text-white shadow-[0_4px_16px_rgba(0,0,0,0.3)] font-black ring-1 ring-emerald-500/50'
-                                                    : 'bg-black/30 border-white/10 text-zinc-300 hover:border-emerald-500/50 hover:text-white'
+                                                    ? 'bg-[#9225CF]/20 border-[#9225CF] text-white shadow-[0_4px_16px_rgba(146,37,207,0.3)] font-black ring-1 ring-[#9225CF]/60'
+                                                    : 'bg-black/30 border-white/10 text-zinc-300 hover:border-[#9225CF]/50 hover:text-white'
                                             }`}
                                         >
-                                            {p === 'PlayStation' && <PlayStationIcon className={`w-4 h-4 ${active ? 'text-emerald-400' : 'text-zinc-400'}`} />}
-                                            {p === 'Xbox' && <XboxIcon className={`w-4 h-4 ${active ? 'text-emerald-400' : 'text-zinc-400'}`} />}
-                                            {p === 'PC' && <PcIcon className={`w-4 h-4 ${active ? 'text-emerald-400' : 'text-zinc-400'}`} />}
+                                            {p === 'PlayStation' && <PlayStationIcon className={`w-4 h-4 ${active ? 'text-purple-400' : 'text-zinc-400'}`} />}
+                                            {p === 'Xbox' && <XboxIcon className={`w-4 h-4 ${active ? 'text-purple-400' : 'text-zinc-400'}`} />}
+                                            {p === 'PC' && <PcIcon className={`w-4 h-4 ${active ? 'text-purple-400' : 'text-zinc-400'}`} />}
                                             <span>{p}</span>
                                         </button>
                                     );
@@ -144,7 +144,7 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
                             </div>
 
                             <label className="block text-sm font-bold text-zinc-300 mb-2" htmlFor="boost-amount">{t(isCS2 ? 'commendsAmount' : 'boostAmount')}</label>
-                            <select id="boost-amount" value={boostAmount} onChange={(event) => setBoostAmount(event.target.value)} className="w-full bg-zinc-950 border border-white/10 rounded-lg p-3 text-white focus:border-emerald-500 focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:outline-none">
+                            <select id="boost-amount" value={boostAmount} onChange={(event) => setBoostAmount(event.target.value)} className="w-full bg-zinc-950 border border-white/10 rounded-lg p-3 text-white focus:border-[#9225CF] focus-visible:ring-2 focus-visible:ring-[#9225CF]/40 focus-visible:outline-none">
                                 {options.map(({ amount, label, price }) => (
                                     <option key={amount} value={amount}>
                                         {label}{price ? ` — $${Number(price).toFixed(2)}` : ''}
@@ -156,10 +156,10 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
                                 <span className="text-zinc-400 text-sm">{t('servicePrice')}</span>
                                 <strong key={activePrice} className="animate-ladder-row text-4xl text-white data-readout font-bold">${activePrice.toFixed(2)}<small className="text-base text-zinc-400 ml-1.5 uppercase font-mono">{common('usd')}</small></strong>
                             </div>
-                            <button type="button" onClick={handleAddToCart} className="w-full mt-7 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-black uppercase tracking-wide py-4 rounded-lg transition-[background-color,color,box-shadow,transform] duration-150 ease-out active:scale-[0.98] shadow-[0_0_20px_rgba(16,185,129,0.3)] focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none cursor-pointer">
+                            <button type="button" onClick={handleAddToCart} className="w-full mt-7 bg-[#9225CF] hover:bg-[#a83ff0] text-white font-black uppercase tracking-wide py-4 rounded-lg transition-[background-color,color,box-shadow,transform] duration-150 ease-out active:scale-[0.98] shadow-[0_0_20px_rgba(146,37,207,0.35)] hover:shadow-[0_0_25px_rgba(146,37,207,0.5)] focus-visible:ring-2 focus-visible:ring-[#9225CF] focus-visible:outline-none cursor-pointer">
                                 {added ? t('addedToCart') : t('addConfiguration')}
                             </button>
-                            {added && <Link href="/checkout" className="block text-center text-sm text-emerald-400 hover:text-white mt-4">{t('proceedToCheckout')}</Link>}
+                            {added && <Link href="/checkout" className="block text-center text-sm text-purple-400 hover:text-white mt-4">{t('proceedToCheckout')}</Link>}
                         </section>
                     )}
                 </div>

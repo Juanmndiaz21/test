@@ -30,13 +30,13 @@ export default function PlatformFilterBar({ activePlatform = 'all', onSelectPlat
                         aria-pressed={isActive}
                         className={`relative px-3.5 py-2.5 sm:px-4 sm:py-2.5 rounded-xl transition-[color,background-color,border-color,transform] duration-140 ease-[var(--ease-out)] active:scale-[0.94] cursor-pointer flex items-center justify-center ${
                             isActive
-                                ? 'text-emerald-400 bg-emerald-500/15 border border-emerald-500/40 shadow-[0_4px_12px_rgba(0,0,0,0.3)]'
+                                ? 'text-purple-300 bg-[#9225CF]/20 border border-[#9225CF]/50 shadow-[0_4px_12px_rgba(146,37,207,0.25)]'
                                 : 'text-zinc-400 hover:text-white hover:bg-white/5 border border-transparent'
                         }`}
                     >
                         <IconComponent className="w-5 h-5" />
                         {isActive && (
-                            <span className="absolute bottom-1 inset-x-3.5 h-0.5 rounded-full bg-emerald-400" />
+                            <span className="absolute bottom-1 inset-x-3.5 h-0.5 rounded-full bg-purple-400" />
                         )}
                     </button>
                 );

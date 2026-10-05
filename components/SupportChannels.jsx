@@ -21,8 +21,8 @@ export default function SupportChannels({ translations = {} }) {
                 : (translations.liveChatAction || 'Sign In to Start Chat'),
             href: isLoggedIn ? '/contact' : '/login?callbackUrl=/help',
             isExternal: false,
-            buttonStyle: 'bg-emerald-500 hover:bg-emerald-400 active:scale-[0.98] text-zinc-950 font-black shadow-[0_0_15px_rgba(16,185,129,0.3)]',
-            iconBg: 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-400',
+            buttonStyle: 'bg-[#9225CF] hover:bg-[#a83ff0] active:scale-[0.98] text-white font-black shadow-[0_0_15px_rgba(146,37,207,0.35)]',
+            iconBg: 'bg-[#9225CF]/15 border border-[#9225CF]/30 text-purple-400',
         },
         {
             id: 'discord',
@@ -43,8 +43,8 @@ export default function SupportChannels({ translations = {} }) {
             actionText: translations.emailAction || 'Send Email',
             href: 'mailto:support@ogmodz.com',
             isExternal: true,
-            buttonStyle: 'bg-emerald-500 hover:bg-emerald-400 active:scale-[0.98] text-zinc-950 font-black shadow-[0_0_15px_rgba(16,185,129,0.3)]',
-            iconBg: 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-400',
+            buttonStyle: 'bg-[#9225CF] hover:bg-[#a83ff0] active:scale-[0.98] text-white font-black shadow-[0_0_15px_rgba(146,37,207,0.35)]',
+            iconBg: 'bg-[#9225CF]/15 border border-[#9225CF]/30 text-purple-400',
         },
     ];
 
@@ -72,7 +72,7 @@ export default function SupportChannels({ translations = {} }) {
                     animate="visible"
                     whileHover={shouldReduceMotion ? undefined : { y: -4 }}
                     transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                    className="rounded-2xl bg-zinc-900 border border-white/10 p-6 sm:p-7 flex flex-col justify-between group transition-all duration-150 hover:border-emerald-500/40 shadow-lg"
+                    className="rounded-2xl bg-zinc-900 border border-white/10 p-6 sm:p-7 flex flex-col justify-between group transition-all duration-150 hover:border-[#9225CF]/40 shadow-lg"
                 >
                     <div className="flex-1 flex flex-col justify-start">
                         {/* Channel Icon Badge */}

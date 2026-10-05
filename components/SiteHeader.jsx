@@ -39,9 +39,6 @@ export default function SiteHeader() {
                         loading="eager"
                         className="h-7 sm:h-7.5 md:h-8 w-auto object-contain"
                     />
-                    <span className="hidden sm:inline-flex rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-mono font-medium text-emerald-400 border border-emerald-500/20">
-                        PRO
-                    </span>
                 </Link>
 
                 <nav aria-label="Main navigation" className="hidden md:flex items-center gap-7 text-sm font-semibold text-zinc-400">
@@ -49,7 +46,7 @@ export default function SiteHeader() {
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-emerald-500 ${isActive(item.href) ? 'text-emerald-400 font-bold' : ''}`}
+                            className={`transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-[#9225CF] ${isActive(item.href) ? 'text-purple-400 font-bold' : ''}`}
                         >
                             {item.label}
                         </Link>
@@ -57,7 +54,7 @@ export default function SiteHeader() {
                 </nav>
 
                 <div className="flex items-center gap-3">
-                    <CartLink className="min-h-[44px] min-w-[44px] h-11 w-11 rounded-full border border-white/10 bg-zinc-900/80 text-zinc-300 hover:text-emerald-400 hover:border-emerald-500/50 hover:bg-zinc-800 transition-[color,border-color,background-color,transform] duration-150 ease-out active:scale-[0.95] inline-flex items-center justify-center focus-visible:outline-2 focus-visible:outline-emerald-500" />
+                    <CartLink className="min-h-[44px] min-w-[44px] h-11 w-11 rounded-full border border-white/10 bg-zinc-900/80 text-zinc-300 hover:text-purple-400 hover:border-[#9225CF]/50 hover:bg-zinc-800 transition-[color,border-color,background-color,transform] duration-150 ease-out active:scale-[0.95] inline-flex items-center justify-center focus-visible:outline-2 focus-visible:outline-[#9225CF]" />
                     <div className="hidden md:block">
                         <UserNav />
                     </div>
@@ -120,7 +117,7 @@ function MobileMenu({ pathname, session }) {
                 aria-label={open ? 'Close menu' : 'Open menu'}
                 aria-expanded={open}
                 onClick={() => setOpen((value) => !value)}
-                className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] h-11 w-11 rounded-xl border border-white/10 bg-zinc-900/80 text-zinc-300 hover:border-emerald-500/40 hover:text-emerald-400 transition-[color,border-color,background-color] duration-150 active:scale-[0.95] focus-visible:outline-2 focus-visible:outline-emerald-500"
+                className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] h-11 w-11 rounded-xl border border-white/10 bg-zinc-900/80 text-zinc-300 hover:border-[#9225CF]/40 hover:text-purple-400 transition-[color,border-color,background-color] duration-150 active:scale-[0.95] focus-visible:outline-2 focus-visible:outline-[#9225CF]"
             >
                 <Icon name="menu" className="w-5 h-5" strokeWidth={2.2} />
             </button>
@@ -147,18 +144,15 @@ function MobileMenu({ pathname, session }) {
                                         priority
                                         className="h-7 sm:h-7.5 w-auto object-contain"
                                     />
-                                    <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-mono font-medium text-emerald-400 border border-emerald-500/20">
-                                        PRO
-                                    </span>
                                 </Link>
 
                                 <div className="flex items-center gap-3">
-                                    <CartLink className="min-h-[44px] min-w-[44px] h-11 w-11 rounded-full border border-white/15 bg-zinc-900/80 text-zinc-300 hover:text-emerald-400 inline-flex items-center justify-center" />
+                                    <CartLink className="min-h-[44px] min-w-[44px] h-11 w-11 rounded-full border border-white/15 bg-zinc-900/80 text-zinc-300 hover:text-purple-400 inline-flex items-center justify-center" />
                                     <button
                                         type="button"
                                         aria-label="Close menu"
                                         onClick={close}
-                                        className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] h-11 w-11 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-colors active:scale-[0.95] focus-visible:outline-2 focus-visible:outline-emerald-500"
+                                        className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] h-11 w-11 rounded-xl border border-[#9225CF]/30 bg-[#9225CF]/10 text-purple-400 hover:bg-[#9225CF]/20 transition-colors active:scale-[0.95] focus-visible:outline-2 focus-visible:outline-[#9225CF]"
                                     >
                                         <Icon name="x" className="w-5 h-5" strokeWidth={2.2} />
                                     </button>
@@ -185,7 +179,7 @@ function MobileMenu({ pathname, session }) {
                                                     href={item.href}
                                                     onClick={close}
                                                     className={`flex items-center justify-between py-3.5 border-b border-white/5 font-display text-2xl uppercase tracking-wider transition-colors ${
-                                                        active ? 'text-emerald-400 font-bold' : 'text-zinc-200 hover:text-emerald-400'
+                                                        active ? 'text-purple-400 font-bold' : 'text-zinc-200 hover:text-purple-400'
                                                     }`}
                                                 >
                                                     <span>{item.label}</span>
@@ -209,8 +203,8 @@ function MobileMenu({ pathname, session }) {
                                                 className="block text-xs text-zinc-400 bg-zinc-900/60 hover:bg-zinc-900 p-3.5 rounded-xl border border-white/10 transition-colors group"
                                             >
                                                 <div className="flex items-center justify-between">
-                                                    <p className="font-bold text-white truncate group-hover:text-emerald-400 transition-colors">{user.email}</p>
-                                                    <span className="text-[11px] font-semibold text-emerald-400 inline-flex items-center gap-1">
+                                                    <p className="font-bold text-white truncate group-hover:text-purple-400 transition-colors">{user.email}</p>
+                                                    <span className="text-[11px] font-semibold text-purple-400 inline-flex items-center gap-1">
                                                         {t('myProfile')}
                                                         <Icon name="arrow-right" className="w-3 h-3" />
                                                     </span>
@@ -222,9 +216,9 @@ function MobileMenu({ pathname, session }) {
                                                 <Link
                                                     href="/admin"
                                                     onClick={close}
-                                                    className="flex items-center justify-center gap-2 w-full text-center bg-emerald-500/15 border border-emerald-500/30 hover:bg-emerald-500/25 text-emerald-400 font-bold py-3 rounded-xl transition-colors text-sm"
+                                                    className="flex items-center justify-center gap-2 w-full text-center bg-[#9225CF]/15 border border-[#9225CF]/30 hover:bg-[#9225CF]/25 text-purple-400 font-bold py-3 rounded-xl transition-colors text-sm"
                                                 >
-                                                    <Icon name="box" className="w-4 h-4 text-emerald-400" />
+                                                    <Icon name="box" className="w-4 h-4 text-purple-400" />
                                                     {t('controlRoom')}
                                                 </Link>
                                             )}
@@ -252,7 +246,7 @@ function MobileMenu({ pathname, session }) {
                                             <Link
                                                 href="/login"
                                                 onClick={close}
-                                                className="flex items-center justify-center gap-2 w-full text-center bg-emerald-500 text-zinc-950 font-black py-3.5 rounded-xl transition-colors hover:bg-emerald-400 text-sm shadow-lg shadow-emerald-500/20"
+                                                className="flex items-center justify-center gap-2 w-full text-center bg-[#9225CF] text-white font-black py-3.5 rounded-xl transition-colors hover:bg-[#a83ff0] text-sm shadow-lg shadow-[#9225CF]/25"
                                             >
                                                 {t('signIn')}
                                             </Link>

@@ -73,14 +73,14 @@ export default function Cart() {
                                                 {item.addons.map((addon, aIdx) => (
                                                     <span
                                                         key={aIdx}
-                                                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-[11px] font-mono"
+                                                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#9225CF]/15 border border-[#9225CF]/30 text-purple-300 text-[11px] font-mono"
                                                     >
-                                                        <span className="text-emerald-400">✓</span> {addon}
+                                                        <span className="text-purple-400">✓</span> {addon}
                                                     </span>
                                                 ))}
                                             </div>
                                         )}
-                                        <p className="text-xs text-emerald-400 mt-2 font-mono">
+                                        <p className="text-xs text-purple-400 mt-2 font-mono">
                                             ${item.price} × {item.quantity} = <span className="font-bold">${(item.price * item.quantity).toFixed(2)}</span>
                                         </p>
                                     </div>
@@ -104,7 +104,7 @@ export default function Cart() {
                                                 updateQuantity(item.key, item.quantity - 1);
                                             }}
                                             aria-label={t('decreaseQuantity')}
-                                            className="h-7 w-7 rounded-lg border border-white/10 text-white text-base font-black hover:border-emerald-500 hover:text-emerald-400 transition-colors cursor-pointer"
+                                            className="h-7 w-7 rounded-lg border border-white/10 text-white text-base font-black hover:border-[#9225CF] hover:text-purple-400 transition-colors cursor-pointer"
                                         >
                                             −
                                         </button>
@@ -116,12 +116,12 @@ export default function Cart() {
                                                 updateQuantity(item.key, item.quantity + 1);
                                             }}
                                             aria-label={t('increaseQuantity')}
-                                            className="h-7 w-7 rounded-lg border border-white/10 text-white text-base font-black hover:border-emerald-500 hover:text-emerald-400 transition-colors cursor-pointer"
+                                            className="h-7 w-7 rounded-lg border border-white/10 text-white text-base font-black hover:border-[#9225CF] hover:text-purple-400 transition-colors cursor-pointer"
                                         >
                                             +
                                         </button>
                                     </div>
-                                    <strong className="font-bold text-emerald-400 font-mono text-sm">${(item.price * item.quantity).toFixed(2)}</strong>
+                                    <strong className="font-bold text-purple-400 font-mono text-sm">${(item.price * item.quantity).toFixed(2)}</strong>
                                 </div>
                             </div>
                         </SwipeRow>

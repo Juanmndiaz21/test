@@ -21,8 +21,8 @@ export default function ToastViewport() {
                         : item.type === 'warning'
                         ? '#f59e0b'
                         : item.type === 'success'
-                        ? '#10b981'
-                        : '#059669';
+                        ? '#9225CF'
+                        : '#7e22ce';
 
                 const defaultTitle =
                     item.title ||

@@ -27,10 +27,10 @@
   );
 
   /* Colors for particles matching theme */
-  --color-1: #10b981;
-  --color-2: #34d399;
-  --color-3: #059669;
-  --color-4: #6ee7b7;
+  --color-1: #9225CF;
+  --color-2: #c084fc;
+  --color-3: #7e22ce;
+  --color-4: #e9d5ff;
 }
 
 .gooey-nav-container {

@@ -28,9 +28,9 @@ export default async function Footer() {
                         </p>
                         <div className="mt-6 flex items-center gap-2 text-xs font-mono text-zinc-400">
                             <span className="relative flex h-2 w-2" aria-hidden="true">
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#9225CF]" />
                             </span>
-                            <span className="data-readout tracking-wider uppercase text-emerald-400/90">VERIFIED BOOSTING MARKETPLACE</span>
+                            <span className="data-readout tracking-wider uppercase text-purple-400/90">VERIFIED BOOSTING MARKETPLACE</span>
                         </div>
 
                         {/* Social Links */}
@@ -55,19 +55,19 @@ export default async function Footer() {
                         </p>
                         <ul className="space-y-3 text-sm">
                             <li>
-                                <Link href="/" className="text-zinc-400 hover:text-emerald-400 transition-colors">{common('home')}</Link>
+                                <Link href="/" className="text-zinc-400 hover:text-purple-400 transition-colors">{common('home')}</Link>
                             </li>
                             <li>
-                                <Link href="/store" className="text-zinc-400 hover:text-emerald-400 transition-colors">{common('store')}</Link>
+                                <Link href="/store" className="text-zinc-400 hover:text-purple-400 transition-colors">{common('store')}</Link>
                             </li>
                             <li>
-                                <Link href="/about" className="text-zinc-400 hover:text-emerald-400 transition-colors">About Us</Link>
+                                <Link href="/about" className="text-zinc-400 hover:text-purple-400 transition-colors">About Us</Link>
                             </li>
                             <li>
-                                <Link href="/blog" className="text-zinc-400 hover:text-emerald-400 transition-colors">Blog & Guides</Link>
+                                <Link href="/blog" className="text-zinc-400 hover:text-purple-400 transition-colors">Blog & Guides</Link>
                             </li>
                             <li>
-                                <Link href="/help" className="text-zinc-400 hover:text-emerald-400 transition-colors">{common('support')}</Link>
+                                <Link href="/help" className="text-zinc-400 hover:text-purple-400 transition-colors">{common('support')}</Link>
                             </li>
                         </ul>
                     </div>
@@ -79,14 +79,14 @@ export default async function Footer() {
                         </p>
                         <ul className="space-y-3 text-sm">
                             <li>
-                                <Link href="/contact" className="text-zinc-400 hover:text-emerald-400 transition-colors">
+                                <Link href="/contact" className="text-zinc-400 hover:text-purple-400 transition-colors">
                                     {t('contactUs')}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/work-with-us" className="text-zinc-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-2">
+                                <Link href="/work-with-us" className="text-zinc-400 hover:text-purple-400 transition-colors inline-flex items-center gap-2">
                                     <span>{t('workWithUs')}</span>
-                                    <span className="text-[11px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase">
+                                    <span className="text-[11px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#9225CF]/15 text-purple-300 border border-[#9225CF]/30 uppercase">
                                         HIRING
                                     </span>
                                 </Link>
@@ -103,7 +103,7 @@ export default async function Footer() {
                                 </a>
                             </li>
                             <li>
-                                <Link href="/refunds" className="text-zinc-400 hover:text-emerald-400 transition-colors">
+                                <Link href="/refunds" className="text-zinc-400 hover:text-purple-400 transition-colors">
                                     {t('refunds')}
                                 </Link>
                             </li>
@@ -117,22 +117,22 @@ export default async function Footer() {
                         </p>
                         <ul className="space-y-3 text-sm">
                             <li>
-                                <Link href="/terms" className="text-zinc-400 hover:text-emerald-400 transition-colors">
+                                <Link href="/terms" className="text-zinc-400 hover:text-purple-400 transition-colors">
                                     {t('terms')}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/privacy" className="text-zinc-400 hover:text-emerald-400 transition-colors">
+                                <Link href="/privacy" className="text-zinc-400 hover:text-purple-400 transition-colors">
                                     {t('privacy')}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/refunds" className="text-zinc-400 hover:text-emerald-400 transition-colors">
+                                <Link href="/refunds" className="text-zinc-400 hover:text-purple-400 transition-colors">
                                     {t('refunds')}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/cookies" className="text-zinc-400 hover:text-emerald-400 transition-colors">
+                                <Link href="/cookies" className="text-zinc-400 hover:text-purple-400 transition-colors">
                                     Cookie Policy
                                 </Link>
                             </li>
@@ -147,7 +147,7 @@ export default async function Footer() {
                             <span className="font-bold text-white">OGmodz Marketplace</span> · Operated for independent digital gaming services & coaching.
                         </div>
                         <div className="flex items-center gap-4 text-xs font-mono">
-                            <span>Email: <a href="mailto:support@ogmodz.com" className="text-emerald-400 hover:underline">support@ogmodz.com</a></span>
+                            <span>Email: <a href="mailto:support@ogmodz.com" className="text-purple-400 hover:underline">support@ogmodz.com</a></span>
                             <span>·</span>
                             <span>Avg. Response: &lt; 24h</span>
                         </div>

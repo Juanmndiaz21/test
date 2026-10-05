@@ -107,7 +107,7 @@ export default function GameServicesCatalog({ products = [], game = '' }) {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder={t('searchServices')}
-                                className="w-full bg-zinc-950 border border-white/10 focus:border-emerald-500/60 focus:ring-1 focus:ring-emerald-500/30 text-white placeholder-zinc-500 text-xs sm:text-sm rounded-xl pl-10 pr-9 py-2.5 outline-none transition-all shadow-inner"
+                                className="w-full bg-zinc-950 border border-white/10 focus:border-[#9225CF]/60 focus:ring-1 focus:ring-[#9225CF]/30 text-white placeholder-zinc-500 text-xs sm:text-sm rounded-xl pl-10 pr-9 py-2.5 outline-none transition-all shadow-inner"
                             />
                             {searchQuery && (
                                 <button
@@ -126,7 +126,7 @@ export default function GameServicesCatalog({ products = [], game = '' }) {
                     <div className="flex flex-wrap items-center gap-2.5">
                         {/* Price Range Filter */}
                         <div className="flex items-center gap-1.5 bg-zinc-950 border border-white/10 rounded-xl px-3 py-2 text-xs">
-                            <Icon name="tag" className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                            <Icon name="tag" className="w-3.5 h-3.5 text-purple-400 shrink-0" />
                             <span className="text-zinc-400 font-mono hidden sm:inline">{t('filterByPrice')}:</span>
                             <select
                                 value={priceRange}
@@ -144,7 +144,7 @@ export default function GameServicesCatalog({ products = [], game = '' }) {
 
                         {/* Sort Select */}
                         <div className="flex items-center gap-1.5 bg-zinc-950 border border-white/10 rounded-xl px-3 py-2 text-xs">
-                            <Icon name="sliders" className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                            <Icon name="sliders" className="w-3.5 h-3.5 text-purple-400 shrink-0" />
                             <span className="text-zinc-400 font-mono hidden sm:inline">{t('sortBy')}:</span>
                             <select
                                 value={sortBy}
@@ -176,7 +176,7 @@ export default function GameServicesCatalog({ products = [], game = '' }) {
                         <span className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-400">
                             {t('allPlatforms')}:
                         </span>
-                        <span className="text-xs font-mono text-emerald-400 font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                        <span className="text-xs font-mono text-purple-400 font-bold px-2.5 py-0.5 rounded-full bg-[#9225CF]/15 border border-[#9225CF]/30">
                             {t('servicesCountBadge', { count: filteredProducts.length })}
                         </span>
                     </div>
@@ -191,7 +191,7 @@ export default function GameServicesCatalog({ products = [], game = '' }) {
             {/* Section Heading */}
             <div className="flex items-center justify-between pt-2">
                 <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white flex items-center gap-2.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" aria-hidden="true" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-purple-400" aria-hidden="true" />
                     <span>{game ? `${game} Boosting Packages` : 'Available Packages'}</span>
                 </h2>
             </div>
@@ -216,7 +216,7 @@ export default function GameServicesCatalog({ products = [], game = '' }) {
                         <button
                             type="button"
                             onClick={resetFilters}
-                            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500 text-emerald-400 hover:text-zinc-950 border border-emerald-500/30 text-xs font-mono font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#9225CF]/20 hover:bg-[#9225CF] text-purple-300 hover:text-white border border-[#9225CF]/35 text-xs font-mono font-bold uppercase tracking-wider transition-colors cursor-pointer"
                         >
                             {searchQuery.trim() ? t('clearAllFilters') : t('showAllPlatforms')}
                         </button>

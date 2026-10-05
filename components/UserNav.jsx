@@ -45,13 +45,13 @@ export default function UserNav() {
             <div className="flex items-center gap-3 text-sm font-semibold">
                 <Link
                     href="/login"
-                    className="text-zinc-300 hover:text-emerald-400 transition-[color,transform] duration-150 active:scale-[0.97] inline-flex items-center"
+                    className="text-zinc-300 hover:text-purple-400 transition-[color,transform] duration-150 active:scale-[0.97] inline-flex items-center"
                 >
                     {t('signIn')}
                 </Link>
                 <Link
                     href="/login"
-                    className="bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold px-4 py-2 rounded-lg transition-[background-color,color,transform,box-shadow] duration-150 ease-out active:scale-[0.97] shadow-[0_2px_10px_rgba(16,185,129,0.25)] hover:shadow-[0_0_18px_rgba(16,185,129,0.45)] inline-flex items-center"
+                    className="bg-[#9225CF] hover:bg-[#a83ff0] text-white font-bold px-4 py-2 rounded-lg transition-[background-color,color,transform,box-shadow] duration-150 ease-out active:scale-[0.97] shadow-[0_2px_10px_rgba(146,37,207,0.3)] hover:shadow-[0_0_18px_rgba(146,37,207,0.5)] inline-flex items-center"
                 >
                     {t('signUp')}
                 </Link>
@@ -74,14 +74,14 @@ export default function UserNav() {
                 aria-haspopup="menu"
                 aria-label={t('myProfile')}
                 title={`${email}${isAdmin ? ' (Admin)' : ''}`}
-                className={`relative flex items-center justify-center h-8.5 w-8.5 rounded-full border transition-[border-color,box-shadow,transform] duration-150 cursor-pointer active:scale-[0.95] focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:outline-none ${
+                className={`relative flex items-center justify-center h-8.5 w-8.5 rounded-full border transition-[border-color,box-shadow,transform] duration-150 cursor-pointer active:scale-[0.95] focus-visible:ring-2 focus-visible:ring-[#9225CF] focus-visible:outline-none ${
                     open
-                        ? 'border-emerald-500 ring-2 ring-emerald-500/40 shadow-[0_0_16px_rgba(16,185,129,0.4)]'
-                        : 'border-white/20 bg-white/5 hover:border-emerald-500 hover:shadow-[0_0_12px_rgba(16,185,129,0.3)]'
+                        ? 'border-[#9225CF] ring-2 ring-[#9225CF]/40 shadow-[0_0_16px_rgba(146,37,207,0.4)]'
+                        : 'border-white/20 bg-white/5 hover:border-[#9225CF] hover:shadow-[0_0_12px_rgba(146,37,207,0.3)]'
                 }`}
             >
                 {avatarFailed ? (
-                    <span className="h-full w-full rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 text-zinc-950 flex items-center justify-center text-xs font-black select-none">
+                    <span className="h-full w-full rounded-full bg-gradient-to-br from-[#9225CF] to-purple-600 text-white flex items-center justify-center text-xs font-black select-none">
                         {initial}
                     </span>
                 ) : (
@@ -95,7 +95,7 @@ export default function UserNav() {
                 {/* Active status indicator dot */}
                 <span
                     className={`absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-zinc-950 ${
-                        isAdmin ? 'bg-emerald-400 shadow-[0_0_6px_rgba(16,185,129,0.8)]' : 'bg-emerald-400'
+                        isAdmin ? 'bg-purple-400 shadow-[0_0_6px_rgba(146,37,207,0.8)]' : 'bg-purple-400'
                     }`}
                     aria-hidden="true"
                 />
@@ -121,7 +121,7 @@ export default function UserNav() {
                         >
                             <div className="relative shrink-0">
                                 {avatarFailed ? (
-                                    <span className="h-10 w-10 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 text-zinc-950 flex items-center justify-center font-black text-sm">
+                                    <span className="h-10 w-10 rounded-full bg-gradient-to-br from-[#9225CF] to-purple-600 text-white flex items-center justify-center font-black text-sm">
                                         {initial}
                                     </span>
                                 ) : (
@@ -129,18 +129,18 @@ export default function UserNav() {
                                         src={avatarUrl}
                                         alt="User profile avatar"
                                         onError={() => setAvatarFailed(true)}
-                                        className="h-10 w-10 rounded-full object-cover border border-emerald-500/40 group-hover:border-emerald-500 transition-colors"
+                                        className="h-10 w-10 rounded-full object-cover border border-[#9225CF]/40 group-hover:border-[#9225CF] transition-colors"
                                     />
                                 )}
-                                <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-emerald-400 border-2 border-zinc-900" />
+                                <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-purple-400 border-2 border-zinc-900" />
                             </div>
                             <div className="min-w-0 flex-1">
                                 <div className="flex items-center justify-between">
-                                    <p className="text-sm font-bold text-white truncate group-hover:text-emerald-400 transition-colors" title={email}>{email}</p>
-                                    <Icon name="arrow-right" className="w-3.5 h-3.5 text-zinc-500 group-hover:text-emerald-400 transition-colors shrink-0" />
+                                    <p className="text-sm font-bold text-white truncate group-hover:text-purple-400 transition-colors" title={email}>{email}</p>
+                                    <Icon name="arrow-right" className="w-3.5 h-3.5 text-zinc-500 group-hover:text-purple-400 transition-colors shrink-0" />
                                 </div>
                                 {isAdmin ? (
-                                    <span className="inline-flex items-center gap-1 mt-0.5 px-2 py-0.5 rounded-md bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[10px] font-mono font-bold uppercase tracking-wider">
+                                    <span className="inline-flex items-center gap-1 mt-0.5 px-2 py-0.5 rounded-md bg-[#9225CF]/15 border border-[#9225CF]/30 text-purple-400 text-[10px] font-mono font-bold uppercase tracking-wider">
                                         <Icon name="crown" className="w-3 h-3" />
                                         Admin
                                     </span>
@@ -154,49 +154,49 @@ export default function UserNav() {
 
                         {/* Admin Panel Section - housed cleanly inside dropdown */}
                         {isAdmin && (
-                            <div className="p-2 bg-emerald-500/[0.03]">
-                                <div className="px-2.5 pt-1 pb-1.5 flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-400">
+                            <div className="p-2 bg-[#9225CF]/[0.05]">
+                                <div className="px-2.5 pt-1 pb-1.5 flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-widest text-purple-400">
                                     <span className="flex items-center gap-1.5">
-                                        <Icon name="crown" className="w-3.5 h-3.5 text-emerald-400" />
+                                        <Icon name="crown" className="w-3.5 h-3.5 text-purple-400" />
                                         {t('adminPanel')}
                                     </span>
-                                    <span className="text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded font-mono">STAFF</span>
+                                    <span className="text-[9px] bg-[#9225CF]/20 text-purple-300 px-1.5 py-0.5 rounded font-mono">STAFF</span>
                                 </div>
                                 <div className="space-y-0.5">
                                     <RawLink
                                         href="/admin"
                                         role="menuitem"
                                         onClick={() => setOpen(false)}
-                                        className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-zinc-200 hover:bg-emerald-500 hover:text-zinc-950 transition-colors group"
+                                        className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-zinc-200 hover:bg-[#9225CF] hover:text-white transition-colors group"
                                     >
-                                        <Icon name="dashboard" className="w-4 h-4 text-emerald-400 group-hover:text-zinc-950 transition-colors shrink-0" />
+                                        <Icon name="dashboard" className="w-4 h-4 text-purple-400 group-hover:text-white transition-colors shrink-0" />
                                         <span>{t('dashboard')}</span>
                                     </RawLink>
                                     <RawLink
                                         href="/admin/products"
                                         role="menuitem"
                                         onClick={() => setOpen(false)}
-                                        className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-zinc-200 hover:bg-emerald-500 hover:text-zinc-950 transition-colors group"
+                                        className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-zinc-200 hover:bg-[#9225CF] hover:text-white transition-colors group"
                                     >
-                                        <Icon name="box" className="w-4 h-4 text-emerald-400 group-hover:text-zinc-950 transition-colors shrink-0" />
+                                        <Icon name="box" className="w-4 h-4 text-purple-400 group-hover:text-white transition-colors shrink-0" />
                                         <span>{t('services')}</span>
                                     </RawLink>
                                     <RawLink
                                         href="/admin/orders"
                                         role="menuitem"
                                         onClick={() => setOpen(false)}
-                                        className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-zinc-200 hover:bg-emerald-500 hover:text-zinc-950 transition-colors group"
+                                        className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-zinc-200 hover:bg-[#9225CF] hover:text-white transition-colors group"
                                     >
-                                        <Icon name="clipboard" className="w-4 h-4 text-emerald-400 group-hover:text-zinc-950 transition-colors shrink-0" />
+                                        <Icon name="clipboard" className="w-4 h-4 text-purple-400 group-hover:text-white transition-colors shrink-0" />
                                         <span>{t('orders')}</span>
                                     </RawLink>
                                     <RawLink
                                         href="/admin/reviews"
                                         role="menuitem"
                                         onClick={() => setOpen(false)}
-                                        className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-zinc-200 hover:bg-emerald-500 hover:text-zinc-950 transition-colors group"
+                                        className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-zinc-200 hover:bg-[#9225CF] hover:text-white transition-colors group"
                                     >
-                                        <Icon name="star" className="w-4 h-4 text-emerald-400 group-hover:text-zinc-950 transition-colors shrink-0" />
+                                        <Icon name="star" className="w-4 h-4 text-purple-400 group-hover:text-white transition-colors shrink-0" />
                                         <span>{t('reviews')}</span>
                                     </RawLink>
                                 </div>
@@ -206,7 +206,7 @@ export default function UserNav() {
                         {/* Customer note if not admin */}
                         {!isAdmin && (
                             <div className="px-3.5 py-2.5 text-xs text-zinc-400 flex items-center gap-2 bg-white/[0.01]">
-                                <Icon name="shield" className="w-4 h-4 shrink-0 text-emerald-400" />
+                                <Icon name="shield" className="w-4 h-4 shrink-0 text-purple-400" />
                                 <span>{t('customerNote')}</span>
                             </div>
                         )}
@@ -217,27 +217,27 @@ export default function UserNav() {
                                 href="/profile"
                                 role="menuitem"
                                 onClick={() => setOpen(false)}
-                                className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-zinc-200 hover:bg-emerald-500 hover:text-zinc-950 transition-colors group"
+                                className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-zinc-200 hover:bg-[#9225CF] hover:text-white transition-colors group"
                             >
-                                <Icon name="users" className="w-4 h-4 text-emerald-400 group-hover:text-zinc-950 transition-colors shrink-0" />
+                                <Icon name="users" className="w-4 h-4 text-purple-400 group-hover:text-white transition-colors shrink-0" />
                                 <span>{t('myProfile')}</span>
                             </Link>
                             <Link
                                 href="/checkout"
                                 role="menuitem"
                                 onClick={() => setOpen(false)}
-                                className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-zinc-200 hover:bg-emerald-500 hover:text-zinc-950 transition-colors group"
+                                className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-zinc-200 hover:bg-[#9225CF] hover:text-white transition-colors group"
                             >
-                                <Icon name="cart" className="w-4 h-4 text-zinc-400 group-hover:text-zinc-950 transition-colors shrink-0" />
+                                <Icon name="cart" className="w-4 h-4 text-zinc-400 group-hover:text-white transition-colors shrink-0" />
                                 <span>{t('myCart')}</span>
                             </Link>
                             <Link
                                 href="/track"
                                 role="menuitem"
                                 onClick={() => setOpen(false)}
-                                className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-zinc-200 hover:bg-emerald-500 hover:text-zinc-950 transition-colors group"
+                                className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-semibold text-zinc-200 hover:bg-[#9225CF] hover:text-white transition-colors group"
                             >
-                                <Icon name="radar" className="w-4 h-4 text-emerald-400 group-hover:text-zinc-950 transition-colors shrink-0" />
+                                <Icon name="radar" className="w-4 h-4 text-purple-400 group-hover:text-white transition-colors shrink-0" />
                                 <span>{t('trackOrder')}</span>
                             </Link>
                             <button

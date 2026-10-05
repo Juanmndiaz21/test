@@ -124,7 +124,7 @@ export default function Checkout() {
     return (
         <div className="panel-surface p-6 sm:p-8 rounded-2xl relative overflow-hidden border border-white/10 bg-zinc-900">
             <div className="flex items-center gap-3 mb-2">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="h-2 w-2 rounded-full bg-purple-400 animate-pulse" />
                 <h2 className="display-font text-2xl uppercase tracking-wider text-zinc-100">
                     {t('infoTitle')}
                 </h2>
@@ -145,12 +145,12 @@ export default function Checkout() {
                             name="name"
                             type="text"
                             placeholder={t('namePlaceholder')}
-                            className="w-full bg-zinc-950/80 border border-white/10 rounded-lg p-3 text-white placeholder-zinc-500 focus:border-emerald-500 outline-none transition-colors"
+                            className="w-full bg-zinc-950/80 border border-white/10 rounded-lg p-3 text-white placeholder-zinc-500 focus:border-[#9225CF] focus-visible:ring-1 focus-visible:ring-[#9225CF] outline-none transition-colors"
                         />
                     </div>
                     <div>
                         <label htmlFor="checkout-email" className="block text-xs uppercase tracking-wider font-semibold text-zinc-300 mb-1.5">
-                            {t('emailLabel')} <span className="text-emerald-400">*</span>
+                            {t('emailLabel')} <span className="text-purple-400">*</span>
                         </label>
                         <input
                             key={session?.user?.email || 'anon'}
@@ -160,7 +160,7 @@ export default function Checkout() {
                             required
                             defaultValue={session?.user?.email || ''}
                             placeholder={t('emailPlaceholder')}
-                            className="w-full bg-zinc-950/80 border border-white/10 rounded-lg p-3 text-white placeholder-zinc-500 focus:border-emerald-500 outline-none transition-colors"
+                            className="w-full bg-zinc-950/80 border border-white/10 rounded-lg p-3 text-white placeholder-zinc-500 focus:border-[#9225CF] focus-visible:ring-1 focus-visible:ring-[#9225CF] outline-none transition-colors"
                         />
                     </div>
                 </div>
@@ -191,18 +191,18 @@ export default function Checkout() {
                                             }
                                         }}
                                         placeholder={t('couponPlaceholder')}
-                                        className="w-full bg-zinc-950/80 border border-white/10 rounded-lg pl-10 pr-3 py-2.5 text-white placeholder-zinc-500 text-sm focus:border-emerald-500 uppercase font-mono tracking-wider outline-none transition-colors"
+                                        className="w-full bg-zinc-950/80 border border-white/10 rounded-lg pl-10 pr-3 py-2.5 text-white placeholder-zinc-500 text-sm focus:border-[#9225CF] uppercase font-mono tracking-wider outline-none transition-colors"
                                     />
                                 </div>
                                 <button
                                     type="button"
                                     onClick={handleApplyCoupon}
                                     disabled={isCheckingCoupon || !couponInput.trim()}
-                                    className="px-4 py-2.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500 hover:text-zinc-950 text-xs font-bold uppercase tracking-wider transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 cursor-pointer"
+                                    className="px-4 py-2.5 rounded-lg bg-[#9225CF]/20 border border-[#9225CF]/35 text-purple-300 hover:bg-[#9225CF] hover:text-white text-xs font-bold uppercase tracking-wider transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 cursor-pointer"
                                 >
                                     {isCheckingCoupon ? (
                                         <>
-                                            <span className="h-3 w-3 rounded-full border-2 border-emerald-500/40 border-t-emerald-500 animate-spin" />
+                                            <span className="h-3 w-3 rounded-full border-2 border-purple-400/40 border-t-purple-400 animate-spin" />
                                             {t('applyingCoupon')}
                                         </>
                                     ) : (
@@ -218,9 +218,9 @@ export default function Checkout() {
                             )}
                         </div>
                     ) : (
-                        <div className="flex items-center justify-between p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
+                        <div className="flex items-center justify-between p-3 rounded-lg bg-[#9225CF]/10 border border-[#9225CF]/30">
                             <div className="flex items-center gap-2.5">
-                                <span className="p-1 rounded-md bg-emerald-500/20 text-emerald-400">
+                                <span className="p-1 rounded-md bg-[#9225CF]/20 text-purple-400">
                                     <Icon name="tag" className="w-4 h-4" />
                                 </span>
                                 <div>
@@ -228,13 +228,13 @@ export default function Checkout() {
                                         <span className="font-mono font-bold text-white text-sm">
                                             {appliedCoupon.code}
                                         </span>
-                                        <span className="text-[11px] font-semibold text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded-full">
+                                        <span className="text-[11px] font-semibold text-purple-200 bg-[#9225CF]/30 px-2 py-0.5 rounded-full">
                                             {appliedCoupon.discountType === 'percentage'
                                                 ? `-${appliedCoupon.discountValue}%`
                                                 : `-$${appliedCoupon.discountValue}`}
                                         </span>
                                     </div>
-                                    <p className="text-xs text-emerald-300/80">
+                                    <p className="text-xs text-purple-300/90">
                                         You save: <span className="font-bold font-mono">-${appliedCoupon.discountAmount.toFixed(2)} USD</span>
                                     </p>
                                 </div>
@@ -279,17 +279,17 @@ export default function Checkout() {
                                     onClick={() => setPaymentMethod('stripe')}
                                     className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between cursor-pointer ${
                                         paymentMethod === 'stripe'
-                                            ? 'bg-emerald-500/15 border-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.15)] text-white'
+                                            ? 'bg-[#9225CF]/20 border-[#9225CF] shadow-[0_0_15px_rgba(146,37,207,0.25)] text-white'
                                             : 'bg-zinc-950/50 border-white/10 hover:border-white/20 text-zinc-300'
                                     }`}
                                 >
                                     <div className="flex items-center justify-between mb-2">
                                         <span className="text-sm font-bold flex items-center gap-1.5">
-                                            <Icon name="shield" className="w-4 h-4 text-emerald-400" />
+                                            <Icon name="shield" className="w-4 h-4 text-purple-400" />
                                             Card
                                         </span>
                                         {paymentMethod === 'stripe' && (
-                                            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                                            <span className="h-2 w-2 rounded-full bg-purple-400" />
                                         )}
                                     </div>
                                     <span className="text-[11px] text-zinc-400">
@@ -305,7 +305,7 @@ export default function Checkout() {
                                     onClick={() => setPaymentMethod('paypal')}
                                     className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between cursor-pointer ${
                                         paymentMethod === 'paypal'
-                                            ? 'bg-emerald-500/15 border-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.15)] text-white'
+                                            ? 'bg-[#9225CF]/20 border-[#9225CF] shadow-[0_0_15px_rgba(146,37,207,0.25)] text-white'
                                             : 'bg-zinc-950/50 border-white/10 hover:border-white/20 text-zinc-300'
                                     }`}
                                 >
@@ -315,7 +315,7 @@ export default function Checkout() {
                                             PayPal
                                         </span>
                                         {paymentMethod === 'paypal' && (
-                                            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                                            <span className="h-2 w-2 rounded-full bg-purple-400" />
                                         )}
                                     </div>
                                     <span className="text-[11px] text-zinc-400">
@@ -331,17 +331,17 @@ export default function Checkout() {
                                     onClick={() => setPaymentMethod('crypto')}
                                     className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between cursor-pointer ${
                                         paymentMethod === 'crypto'
-                                            ? 'bg-emerald-500/15 border-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.15)] text-white'
+                                            ? 'bg-[#9225CF]/20 border-[#9225CF] shadow-[0_0_15px_rgba(146,37,207,0.25)] text-white'
                                             : 'bg-zinc-950/50 border-white/10 hover:border-white/20 text-zinc-300'
                                     }`}
                                 >
                                     <div className="flex items-center justify-between mb-2">
                                         <span className="text-sm font-bold flex items-center gap-1.5">
-                                            <Icon name="wallet" className="w-4 h-4 text-emerald-400" />
+                                            <Icon name="wallet" className="w-4 h-4 text-purple-400" />
                                             Web3 / Crypto
                                         </span>
                                         {paymentMethod === 'crypto' && (
-                                            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                                            <span className="h-2 w-2 rounded-full bg-purple-400" />
                                         )}
                                     </div>
                                     <span className="text-[11px] text-zinc-400">
@@ -357,7 +357,7 @@ export default function Checkout() {
                                     onClick={() => setPaymentMethod('crypto_discord')}
                                     className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between cursor-pointer ${
                                         paymentMethod === 'crypto_discord'
-                                            ? 'bg-emerald-500/15 border-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.15)] text-white'
+                                            ? 'bg-[#9225CF]/20 border-[#9225CF] shadow-[0_0_15px_rgba(146,37,207,0.25)] text-white'
                                             : 'bg-zinc-950/50 border-white/10 hover:border-white/20 text-zinc-300'
                                     }`}
                                 >
@@ -367,7 +367,7 @@ export default function Checkout() {
                                             <span className="truncate">{activeMethods.crypto_discord_title || 'Binance Pay'}</span>
                                         </span>
                                         {paymentMethod === 'crypto_discord' && (
-                                            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                                            <span className="h-2 w-2 rounded-full bg-purple-400" />
                                         )}
                                     </div>
                                     <span className="text-[11px] text-zinc-400">
@@ -392,7 +392,7 @@ export default function Checkout() {
                                 href={activeMethods.crypto_discord_url || 'https://discord.gg/qwyQjn4Aqx'}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 text-xs text-emerald-400 font-bold hover:underline"
+                                className="inline-flex items-center gap-1.5 text-xs text-purple-400 font-bold hover:underline"
                             >
                                 <Icon name="discord" className="w-3.5 h-3.5 text-[#5865F2]" />
                                 Open Discord Server →
@@ -409,7 +409,7 @@ export default function Checkout() {
                     </div>
 
                     {appliedCoupon && (
-                        <div className="flex justify-between items-center text-xs text-emerald-400">
+                        <div className="flex justify-between items-center text-xs text-purple-400">
                             <span className="flex items-center gap-1">
                                 <Icon name="tag" className="w-3 h-3" />
                                 {t('discountLabel')} ({appliedCoupon.code})
@@ -418,7 +418,7 @@ export default function Checkout() {
                         </div>
                     )}
 
-                    <div className="flex justify-between items-center text-xs text-emerald-400">
+                    <div className="flex justify-between items-center text-xs text-purple-400">
                         <span>Taxes & Processing Fees</span>
                         <span className="font-mono font-medium">Included ($0.00)</span>
                     </div>
@@ -436,7 +436,7 @@ export default function Checkout() {
                     </div>
 
                     <div className="pt-2 border-t border-white/5 flex items-center gap-1.5 text-[11px] text-zinc-300">
-                        <Icon name="shield" className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                        <Icon name="shield" className="w-3.5 h-3.5 text-purple-400 shrink-0" />
                         <span>Guaranteed Final Price — No hidden checkout fees; taxes & gateway processing included.</span>
                     </div>
                 </div>
@@ -454,13 +454,13 @@ export default function Checkout() {
                             name="consent_terms"
                             required
                             defaultChecked={false}
-                            className="mt-0.5 h-4 w-4 rounded border-white/20 bg-zinc-950 text-emerald-500 accent-emerald-500 focus:ring-2 focus:ring-emerald-500 focus:outline-none cursor-pointer"
+                            className="mt-0.5 h-4 w-4 rounded border-white/20 bg-zinc-950 text-[#9225CF] accent-[#9225CF] focus:ring-2 focus:ring-[#9225CF] focus:outline-none cursor-pointer"
                         />
                         <span className="leading-relaxed">
                             I confirm I am at least 16 years of age (or have parental authorization) and I agree to the{' '}
-                            <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-emerald-400 underline hover:text-white">Terms of Service</a>,{' '}
-                            <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-emerald-400 underline hover:text-white">Privacy Policy</a>, and{' '}
-                            <a href="/refunds" target="_blank" rel="noopener noreferrer" className="text-emerald-400 underline hover:text-white">Refund Policy</a>.
+                            <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-purple-400 underline hover:text-white">Terms of Service</a>,{' '}
+                            <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-purple-400 underline hover:text-white">Privacy Policy</a>, and{' '}
+                            <a href="/refunds" target="_blank" rel="noopener noreferrer" className="text-purple-400 underline hover:text-white">Refund Policy</a>.
                         </span>
                     </label>
                 </div>
@@ -470,31 +470,31 @@ export default function Checkout() {
                     <button
                         type="submit"
                         disabled={isPending}
-                        className="w-full flex justify-center items-center gap-2.5 bg-emerald-500 text-zinc-950 font-black text-base uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-emerald-400 hover:shadow-[0_0_25px_rgba(16,185,129,0.35)] disabled:opacity-60 disabled:cursor-not-allowed transition-[background-color,box-shadow,transform] duration-150 ease-out active:scale-[0.98] cursor-pointer"
+                        className="w-full flex justify-center items-center gap-2.5 bg-[#9225CF] text-white font-black text-base uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-[#a83ff0] hover:shadow-[0_0_25px_rgba(146,37,207,0.4)] disabled:opacity-60 disabled:cursor-not-allowed transition-[background-color,box-shadow,transform] duration-150 ease-out active:scale-[0.98] cursor-pointer"
                     >
                         {isPending ? (
                             <>
-                                <span className="h-4 w-4 rounded-full border-2 border-zinc-950/40 border-t-zinc-950 animate-spin" />
+                                <span className="h-4 w-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
                                 {t('placeInProgress')}
                             </>
                         ) : paymentMethod === 'stripe' ? (
                             <>
-                                <Icon name="shield" className="w-5 h-5 text-zinc-950" />
+                                <Icon name="shield" className="w-5 h-5 text-white" />
                                 {t('payWithCard')} · ${finalTotal.toFixed(2)}
                             </>
                         ) : paymentMethod === 'paypal' ? (
                             <>
-                                <span className="font-serif italic font-black text-lg">P</span>
+                                <span className="font-serif italic font-black text-lg text-white">P</span>
                                 {t('payWithPayPal')} · ${finalTotal.toFixed(2)}
                             </>
                         ) : paymentMethod === 'crypto' ? (
                             <>
-                                <Icon name="wallet" className="w-5 h-5 text-zinc-950" />
+                                <Icon name="wallet" className="w-5 h-5 text-white" />
                                 {t('payWithCrypto')} · ${finalTotal.toFixed(2)}
                             </>
                         ) : (
                             <>
-                                <Icon name="wallet" className="w-5 h-5 text-zinc-950" />
+                                <Icon name="wallet" className="w-5 h-5 text-white" />
                                 Pay with Crypto (Discord Ticket) · ${finalTotal.toFixed(2)}
                             </>
                         )}

@@ -46,7 +46,7 @@ export default function CookieConsentBanner() {
             className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-lg z-50 p-5 rounded-2xl border border-white/10 bg-zinc-950/95 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.85)] text-zinc-100 transition-all duration-200"
         >
             <div className="flex items-start gap-3 mb-3">
-                <div className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shrink-0 mt-0.5">
+                <div className="p-2 rounded-xl bg-[#9225CF]/15 border border-[#9225CF]/30 text-purple-400 shrink-0 mt-0.5">
                     <Icon name="shield" className="w-5 h-5" />
                 </div>
                 <div>
@@ -66,7 +66,7 @@ export default function CookieConsentBanner() {
                             <span className="font-bold text-white block">Strictly Necessary</span>
                             <span className="text-zinc-400 text-[11px]">Authentication, cart state, CSRF & bot security</span>
                         </div>
-                        <span className="font-mono text-[11px] text-emerald-400 font-bold px-2 py-0.5 rounded bg-emerald-500/10">Required</span>
+                        <span className="font-mono text-[11px] text-purple-400 font-bold px-2 py-0.5 rounded bg-[#9225CF]/15">Required</span>
                     </div>
 
                     <div className="flex items-center justify-between p-2.5 rounded-lg bg-black/30 border border-white/5">
@@ -82,7 +82,7 @@ export default function CookieConsentBanner() {
                                 className="sr-only peer"
                                 aria-label="Allow Anonymous Analytics"
                             />
-                            <div className="w-9 h-5 bg-white/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500" />
+                            <div className="w-9 h-5 bg-white/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#9225CF]" />
                         </label>
                     </div>
 
@@ -90,7 +90,7 @@ export default function CookieConsentBanner() {
                         <button
                             type="button"
                             onClick={handleSavePreferences}
-                            className="flex-1 py-2 px-3 rounded-lg bg-emerald-500 text-zinc-950 text-xs font-bold uppercase tracking-wider hover:bg-emerald-400 transition-colors focus-visible:ring-2 focus-visible:ring-emerald-400 cursor-pointer"
+                            className="flex-1 py-2 px-3 rounded-lg bg-[#9225CF] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#a83ff0] transition-colors focus-visible:ring-2 focus-visible:ring-[#9225CF] cursor-pointer"
                         >
                             Save Choices
                         </button>
@@ -109,13 +109,13 @@ export default function CookieConsentBanner() {
                 <div className="flex items-center gap-3 text-[11px]">
                     <Link
                         href="/cookies"
-                        className="text-emerald-400 hover:text-white underline underline-offset-2 transition-colors"
+                        className="text-purple-400 hover:text-white underline underline-offset-2 transition-colors"
                     >
                         Cookie Policy
                     </Link>
                     <Link
                         href="/privacy"
-                        className="text-emerald-400 hover:text-white underline underline-offset-2 transition-colors"
+                        className="text-purple-400 hover:text-white underline underline-offset-2 transition-colors"
                     >
                         Privacy Policy
                     </Link>
@@ -126,21 +126,21 @@ export default function CookieConsentBanner() {
                         <button
                             type="button"
                             onClick={() => setShowCustomize(true)}
-                            className="py-1.5 px-2.5 rounded-lg border border-white/15 bg-white/5 hover:bg-white/10 text-zinc-300 text-xs font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-emerald-400 cursor-pointer"
+                            className="py-1.5 px-2.5 rounded-lg border border-white/15 bg-white/5 hover:bg-white/10 text-zinc-300 text-xs font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-[#9225CF] cursor-pointer"
                         >
                             Customize
                         </button>
                         <button
                             type="button"
                             onClick={handleEssentialOnly}
-                            className="py-1.5 px-3 rounded-lg border border-white/15 bg-white/5 hover:bg-white/10 text-zinc-200 text-xs font-bold uppercase tracking-wide transition-colors focus-visible:ring-2 focus-visible:ring-emerald-400 cursor-pointer"
+                            className="py-1.5 px-3 rounded-lg border border-white/15 bg-white/5 hover:bg-white/10 text-zinc-200 text-xs font-bold uppercase tracking-wide transition-colors focus-visible:ring-2 focus-visible:ring-[#9225CF] cursor-pointer"
                         >
                             Essential Only
                         </button>
                         <button
                             type="button"
                             onClick={handleAcceptAll}
-                            className="py-1.5 px-3.5 rounded-lg bg-emerald-500 text-zinc-950 hover:bg-emerald-400 text-xs font-bold uppercase tracking-wide transition-colors shadow-sm focus-visible:ring-2 focus-visible:ring-emerald-400 cursor-pointer"
+                            className="py-1.5 px-3.5 rounded-lg bg-[#9225CF] text-white hover:bg-[#a83ff0] text-xs font-bold uppercase tracking-wide transition-colors shadow-sm focus-visible:ring-2 focus-visible:ring-[#9225CF] cursor-pointer"
                         >
                             Accept All
                         </button>

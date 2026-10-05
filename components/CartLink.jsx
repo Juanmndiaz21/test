@@ -37,7 +37,7 @@ export default function CartLink({ className = '', iconClassName = 'w-[19px] h-[
                             duration: shouldReduceMotion ? 0.1 : 0.18,
                             ease: [0.23, 1, 0.32, 1],
                         }}
-                        className="absolute -top-1 -right-1 min-w-4 h-4 px-1 rounded-full bg-emerald-500 text-zinc-950 text-[10px] font-black flex items-center justify-center leading-none shadow-[0_0_10px_rgba(16,185,129,0.4)]"
+                        className="absolute -top-1 -right-1 min-w-4 h-4 px-1 rounded-full bg-[#9225CF] text-white text-[10px] font-black flex items-center justify-center leading-none shadow-[0_0_10px_rgba(146,37,207,0.5)]"
                     >
                         {displayCount > 99 ? '99+' : displayCount}
                     </motion.span>

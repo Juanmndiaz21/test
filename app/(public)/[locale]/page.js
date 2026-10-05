@@ -4,7 +4,7 @@ import { getApprovedReviews } from '@/lib/reviews';
 import { ensureAppSchema } from '@/lib/schema';
 import NewStyleLanding from '@/components/NewStyleLanding';
 
-export const revalidate = 3600;
+export const revalidate = 120;
 
 export async function generateMetadata() {
     return {
@@ -39,15 +39,28 @@ export default async function Home({ params }) {
             sql`
                 SELECT * FROM products
                 ORDER BY id DESC
-                LIMIT 32
+                LIMIT 48
             `,
         ]);
         ladder = rows;
-        dbApprovedReviews = reviewsData;
         featuredProducts = featuredRows || [];
+
+        const productMap = Object.fromEntries(featuredProducts.map((p) => [String(p.id), p]));
+        dbApprovedReviews = (reviewsData || []).map((r) => {
+            const prod = productMap[String(r.product_id)];
+            return {
+                ...r,
+                productName: prod?.name || null,
+                game: prod?.game || prod?.name || r.game || 'GTA V Online',
+            };
+        });
     } catch {
         ladder = [];
-        dbApprovedReviews = await getApprovedReviews().catch(() => []);
+        const rawReviews = await getApprovedReviews().catch(() => []);
+        dbApprovedReviews = (rawReviews || []).map((r) => ({
+            ...r,
+            game: r.game || 'GTA V Online',
+        }));
         featuredProducts = [];
     }
 

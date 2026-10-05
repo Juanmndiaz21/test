@@ -48,7 +48,7 @@ export default function ProductCard({ product, index = 0 }) {
         >
             <Link
                 href={`/store/${product.slug || productToSlug(product.id, product.name)}`}
-                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/70 p-5 flex flex-col justify-between flex-1 transition-[border-color,box-shadow,background-color,transform] duration-180 ease-[var(--ease-out)] hover:border-emerald-500/50 hover:bg-zinc-900 hover:shadow-[0_16px_36px_-8px_rgba(0,0,0,0.6),0_0_0_1px_rgba(16,185,129,0.15)] active:scale-[0.985] active:duration-100 focus-visible:outline-2 focus-visible:outline-emerald-500 select-none cursor-pointer"
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/70 p-5 flex flex-col justify-between flex-1 transition-[border-color,box-shadow,background-color,transform] duration-180 ease-[var(--ease-out)] hover:border-[#9225CF]/50 hover:bg-zinc-900 hover:shadow-[0_16px_36px_-8px_rgba(0,0,0,0.6),0_0_0_1px_rgba(146,37,207,0.25)] active:scale-[0.985] active:duration-100 focus-visible:outline-2 focus-visible:outline-[#9225CF] select-none cursor-pointer"
             >
                 <div>
                     {/* Artwork with Overlaid Platform Badges */}
@@ -69,15 +69,15 @@ export default function ProductCard({ product, index = 0 }) {
                     </div>
 
                     {/* Product Title */}
-                    <h3 className="text-base sm:text-lg font-black text-white leading-snug group-hover:text-emerald-400 transition-colors duration-160 line-clamp-2">
+                    <h3 className="text-base sm:text-lg font-black text-white leading-snug group-hover:text-purple-400 transition-colors duration-160 line-clamp-2">
                         {product.name}
                     </h3>
 
-                    {/* Bullet Points with Promotion Emerald Accent Dots */}
+                    {/* Bullet Points with Promotion Purple Accent Dots */}
                     <ul className="my-4 space-y-2 text-xs text-zinc-300 font-medium">
                         {features.map((feat, i) => (
                             <li key={i} className="flex items-center gap-2">
-                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0" />
+                                <span className="h-1.5 w-1.5 rounded-full bg-purple-400 shrink-0" />
                                 <span className="truncate">{feat}</span>
                             </li>
                         ))}
@@ -95,13 +95,13 @@ export default function ProductCard({ product, index = 0 }) {
                                 WAS ${wasPrice.toFixed(2)}
                             </span>
                         )}
-                        <strong className="text-2xl font-black text-emerald-400 data-readout leading-tight block">
+                        <strong className="text-2xl font-black text-purple-400 data-readout leading-tight block">
                             ${price.toFixed(2)}
                         </strong>
                     </div>
 
                     <span
-                        className="w-10 h-10 rounded-full bg-white/5 border border-white/15 text-white flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-zinc-950 group-hover:border-emerald-500 group-hover:shadow-[0_4px_14px_rgba(0,0,0,0.3)] group-active:scale-95 transition-[background-color,border-color,color,box-shadow,transform] duration-140 ease-[var(--ease-out)] shrink-0 cursor-pointer"
+                        className="w-10 h-10 rounded-full bg-white/5 border border-white/15 text-white flex items-center justify-center group-hover:bg-[#9225CF] group-hover:text-white group-hover:border-[#9225CF] group-hover:shadow-[0_0_15px_rgba(146,37,207,0.4)] group-active:scale-95 transition-[background-color,border-color,color,box-shadow,transform] duration-140 ease-[var(--ease-out)] shrink-0 cursor-pointer"
                         aria-label="View product"
                     >
                         <Icon name="arrow-right" className="w-4 h-4 transition-transform duration-140 ease-[var(--ease-out)] group-hover:translate-x-0.5" strokeWidth={2.4} />

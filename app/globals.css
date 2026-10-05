@@ -5,7 +5,7 @@
   --background-deep: #09090b;
   --foreground: #f4f4f5;
   --line: rgba(255, 255, 255, 0.08);
-  --acid: #10b981;
+  --acid: #9225CF;
 
   /* Emil Kowalski Motion Tokens */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -19,22 +19,36 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  --color-lime-100: #d1fae5;
-  --color-lime-200: #a7f3d0;
-  --color-lime-300: #6ee7b7;
-  --color-lime-400: #34d399;
-  --color-lime-500: #10b981;
-  --color-lime-600: #059669;
-  --color-lime-700: #047857;
-  --color-lime-800: #065f46;
-  --color-lime-900: #064e3b;
+  --color-brand: #9225CF;
+  --color-brand-hover: #a83ff0;
+  --color-brand-light: #c084fc;
+
+  --color-lime-100: #f3e8ff;
+  --color-lime-200: #e9d5ff;
+  --color-lime-300: #d8b4fe;
+  --color-lime-400: #c084fc;
+  --color-lime-500: #9225CF;
+  --color-lime-600: #7e22ce;
+  --color-lime-700: #6b21a8;
+  --color-lime-800: #581c87;
+  --color-lime-900: #3b0764;
+
+  --color-emerald-100: #f3e8ff;
+  --color-emerald-200: #e9d5ff;
+  --color-emerald-300: #d8b4fe;
+  --color-emerald-400: #c084fc;
+  --color-emerald-500: #9225CF;
+  --color-emerald-600: #7e22ce;
+  --color-emerald-700: #6b21a8;
+  --color-emerald-800: #581c87;
+  --color-emerald-900: #3b0764;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Trebuchet MS", "Segoe UI", sans-serif;
-  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.06), transparent 70%), radial-gradient(ellipse 60% 40% at 85% 100%, rgba(16, 185, 129, 0.04), transparent 60%);
+  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(146, 37, 207, 0.08), transparent 70%), radial-gradient(ellipse 60% 40% at 85% 100%, rgba(146, 37, 207, 0.05), transparent 60%);
   background-size: auto, auto, auto;
   caret-color: var(--acid);
 }
@@ -58,8 +72,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 
 ::selection {
-  background: rgba(16, 185, 129, 0.28);
-  color: #6ee7b7;
+  background: rgba(146, 37, 207, 0.35);
+  color: #f3e8ff;
 }
 
 input,
@@ -84,7 +98,7 @@ textarea {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(16, 185, 129, 0.45);
+  background: rgba(146, 37, 207, 0.55);
 }
 
 @keyframes hero-rise {
@@ -254,7 +268,7 @@ details.faq-row[open] .faq-toggle {
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0.03) 0%,
-    rgba(16, 185, 129, 0.08) 40%,
+    rgba(146, 37, 207, 0.12) 40%,
     rgba(255, 255, 255, 0.03) 80%
   );
   background-size: 200% 100%;
