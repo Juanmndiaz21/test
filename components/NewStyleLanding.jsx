@@ -480,7 +480,7 @@ export default function NewStyleLanding({
     return (
         <div className="relative w-full bg-zinc-950 text-zinc-100 selection:bg-[#9225CF]/30 selection:text-purple-300">
             {/* ── 1. HERO SECTION WITH DOTGRID CANVAS ── */}
-            <section className="relative overflow-hidden border-b border-white/[0.06] bg-zinc-950 pt-16 pb-20 sm:pt-24 sm:pb-28 md:pt-32 md:pb-36">
+            <section className="relative overflow-hidden border-b border-white/[0.06] bg-zinc-950 pt-28 pb-32 sm:pt-36 sm:pb-40 md:pt-44 md:pb-48 lg:min-h-[70vh] flex flex-col justify-center">
                 {/* DotGrid Canvas Background */}
                 <DotGrid
                     dotSize={1.5}
@@ -492,31 +492,31 @@ export default function NewStyleLanding({
                 {/* Soft ambient radial glow */}
                 <div
                     aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_20%,rgba(146,37,207,0.09),transparent_70%)]"
+                    className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_20%,rgba(146,37,207,0.12),transparent_70%)]"
                 />
 
-                <div className="relative z-10 mx-auto max-w-4xl px-5 sm:px-6 text-center">
+                <div className="relative z-10 mx-auto max-w-5xl px-5 sm:px-6 text-center">
                     {/* Main Headline */}
-                    <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
-                        Dominate Your Favorite Games{' '}
+                    <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-white leading-[1.08]">
+                        OGmodz{' '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-purple-400 to-[#c084fc]">
-                            Without The Endless Grind.
+                            Boosting Services
                         </span>
                     </h1>
 
                     {/* Subtitle */}
-                    <p className="mx-auto mt-6 max-w-2xl text-sm sm:text-base md:text-lg text-zinc-400 leading-relaxed font-light">
+                    <p className="mx-auto mt-7 max-w-2xl text-base sm:text-lg md:text-xl text-zinc-300/90 leading-relaxed font-light">
                         Safe boosting services, cash injection packages, pre-modded accounts & unlock all.
                         Instant automated fulfillment with 24/7 direct operator support.
                     </p>
 
                     {/* Explore Store CTA Button */}
-                    <div className="mt-9 flex justify-center text-center">
+                    <div className="mt-12 flex justify-center text-center">
                         <HoverBorderGradient
                             containerClassName="rounded-full"
                             as="button"
                             onClick={() => router.push('/store')}
-                            className="bg-black text-white flex items-center space-x-2.5 px-6 py-3 font-semibold text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(146,37,207,0.35)] cursor-pointer"
+                            className="bg-black text-white flex items-center space-x-2.5 px-7 py-3.5 font-bold text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_30px_rgba(146,37,207,0.4)] cursor-pointer"
                         >
                             <AceternityLogo />
                             <span>EXPLORE STORE</span>
@@ -535,17 +535,13 @@ export default function NewStyleLanding({
                             </h2>
                             <p className="mt-1 text-2xl font-bold tracking-tight text-white">Popular Games</p>
                         </div>
-                        <a
-                            href="#browse-games"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                document.getElementById('browse-games')?.scrollIntoView({ behavior: 'smooth' });
-                            }}
-                            className="inline-flex items-center gap-1.5 rounded-xl border border-white/10 bg-zinc-900/70 px-3.5 py-1.5 text-xs font-semibold text-zinc-300 hover:border-[#9225CF]/50 hover:bg-[#9225CF]/15 hover:text-white transition-all shadow-sm group cursor-pointer"
+                        <Link
+                            href="/store"
+                            className="inline-flex items-center gap-1.5 rounded-xl border border-white/10 bg-zinc-900/70 px-4 py-2 text-xs font-semibold text-zinc-300 hover:border-[#9225CF]/50 hover:bg-[#9225CF]/15 hover:text-white transition-all shadow-sm group cursor-pointer"
                         >
                             <span>Browse All Games</span>
                             <ArrowRight size={13} weight="bold" className="text-purple-400 group-hover:translate-x-0.5 transition-transform" />
-                        </a>
+                        </Link>
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

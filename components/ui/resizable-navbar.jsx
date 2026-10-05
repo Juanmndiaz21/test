@@ -55,29 +55,59 @@ export const NavBody = ({ children, className }) => {
     );
 };
 
-export const NavItems = ({ items = [], className }) => {
+export const NavItems = ({ items = [], pathname, className }) => {
     const [hovered, setHovered] = useState(null);
 
+    const isItemActive = (link) => {
+        if (!pathname) return false;
+        const cleanPath = pathname.replace(/\/$/, '') || '/';
+        const cleanLink = (link || '').replace(/\/$/, '') || '/';
+        if (cleanLink === '/') {
+            return cleanPath === '/';
+        }
+        return cleanPath === cleanLink || cleanPath.startsWith(cleanLink + '/');
+    };
+
     return (
-        <nav aria-label="Main Navigation" className={cn('flex items-center gap-1', className)}>
-            {items.map((item, idx) => (
-                <Link
-                    key={(item.link || item.href) + idx}
-                    href={item.link || item.href || '#'}
-                    onMouseEnter={() => setHovered(idx)}
-                    onMouseLeave={() => setHovered(null)}
-                    className="relative px-3.5 py-1.5 text-sm font-semibold text-zinc-300 hover:text-white transition-colors"
-                >
-                    {hovered === idx && (
-                        <motion.span
-                            layoutId="nav-hover-pill"
-                            className="absolute inset-0 rounded-full bg-white/[0.08] border border-white/10"
-                            transition={{ type: 'spring', bounce: 0.2, duration: 0.3 }}
-                        />
-                    )}
-                    <span className="relative z-10">{item.name || item.label}</span>
-                </Link>
-            ))}
+        <nav aria-label="Main Navigation" className={cn('flex items-center gap-1.5', className)}>
+            {items.map((item, idx) => {
+                const linkHref = item.link || item.href || '#';
+                const isActive = isItemActive(linkHref);
+
+                return (
+                    <Link
+                        key={linkHref + idx}
+                        href={linkHref}
+                        onMouseEnter={() => setHovered(idx)}
+                        onMouseLeave={() => setHovered(null)}
+                        className={cn(
+                            'relative px-3.5 py-1.5 text-sm font-semibold transition-colors duration-150 select-none',
+                            isActive ? 'text-white' : 'text-zinc-400 hover:text-white'
+                        )}
+                    >
+                        {isActive && (
+                            <motion.span
+                                layoutId="nav-active-pill"
+                                className="absolute inset-0 rounded-full bg-[#9225CF]/20 border border-[#9225CF]/50 shadow-[0_0_14px_rgba(146,37,207,0.35)]"
+                                transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                            />
+                        )}
+                        {hovered === idx && !isActive && (
+                            <motion.span
+                                layoutId="nav-hover-pill"
+                                className="absolute inset-0 rounded-full bg-white/[0.06] border border-white/10"
+                                transition={{ type: 'spring', bounce: 0.2, duration: 0.25 }}
+                            />
+                        )}
+                        <span className={cn('relative z-10 flex items-center gap-1.5', isActive && 'text-purple-200 font-bold')}>
+                            {isActive && (
+                                <span className="h-1.5 w-1.5 rounded-full bg-[#9225CF] shadow-[0_0_8px_#9225CF]" />
+                            )}
+                            <span>{item.name || item.label}</span>
+                        </span>
+                    </Link>
+                );
+            })}
         </nav>
     );
 };
