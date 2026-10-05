@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import SignupFormDemo from '@/components/SignupForm';
 import { useRouter } from 'next/navigation';
 

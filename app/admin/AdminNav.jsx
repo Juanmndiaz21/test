@@ -24,11 +24,11 @@ export default function AdminNav({ session }) {
 
     return (
         <>
-            <div className="text-xs text-slate-400 mb-4 bg-[#171229] p-2.5 rounded-xl border border-white/10 space-y-1">
+            <div className="text-xs text-slate-400 mb-4 bg-zinc-900 p-2.5 rounded-xl border border-white/10 space-y-1">
                 <p className="truncate text-slate-300 font-medium">Admin: {email}</p>
                 <p className="inline-flex items-center gap-1.5">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#9d7cff]" />
-                    <span className="font-bold text-[#9d7cff] uppercase tracking-wider text-[11px] font-mono">Role · {role || '—'}</span>
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#9225CF]" />
+                    <span className="font-bold text-purple-400 uppercase tracking-wider text-[11px] font-mono">Role · {role || '—'}</span>
                 </p>
             </div>
 
@@ -41,17 +41,17 @@ export default function AdminNav({ session }) {
                             href={item.href}
                             className={`flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors ${
                                 isActive
-                                    ? 'bg-[#9d7cff] text-[#0d0914] font-black shadow-[0_4px_12px_rgba(157,124,255,0.25)]'
+                                    ? 'bg-[#9225CF] text-white font-bold shadow-[0_4px_12px_rgba(146,37,207,0.35)]'
                                     : 'text-slate-300 hover:text-white hover:bg-white/5'
                             }`}
                         >
-                            <Icon name={item.icon} className={`w-4 h-4 shrink-0 ${isActive ? 'text-[#0d0914]' : 'text-slate-400'}`} />
+                            <Icon name={item.icon} className={`w-4 h-4 shrink-0 ${isActive ? 'text-white' : 'text-slate-400'}`} />
                             <span className="text-sm">{item.label}</span>
                         </Link>
                     );
                 })}
 
-                <Link href="/" className="flex items-center gap-3 text-slate-400 hover:text-[#9d7cff] mt-8 text-sm px-3 py-2 transition-colors">
+                <Link href="/" className="flex items-center gap-3 text-slate-400 hover:text-purple-400 mt-8 text-sm px-3 py-2 transition-colors">
                     <Icon name="store" className="w-4 h-4 shrink-0" />
                     Back to the store
                 </Link>

@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState } from 'react';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
@@ -60,7 +61,6 @@ export function SignupFormDemo({ onSwitchToLogin, onSuccess }) {
             if (res?.success) {
                 toast.success('Account created successfully! Signing you in...');
 
-                // Auto sign in with credentials
                 const loginRes = await signIn('credentials', {
                     redirect: false,
                     email,
@@ -123,7 +123,7 @@ export function SignupFormDemo({ onSwitchToLogin, onSuccess }) {
             )}
 
             <form className="my-6" onSubmit={handleSubmit}>
-                {/* First name only — Last name omitted as requested */}
+                {/* First name only � Last name omitted as requested */}
                 <LabelInputContainer className="mb-4">
                     <Label htmlFor="firstname">First name</Label>
                     <Input
@@ -153,7 +153,7 @@ export function SignupFormDemo({ onSwitchToLogin, onSuccess }) {
                     <Label htmlFor="password">Password</Label>
                     <Input
                         id="password"
-                        placeholder="••••••••"
+                        placeholder="��������"
                         type="password"
                         required
                         minLength={8}
