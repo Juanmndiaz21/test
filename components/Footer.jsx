@@ -36,7 +36,7 @@ export default async function Footer() {
                         {/* Social Links */}
                         <div className="mt-6 flex items-center gap-3">
                             <a
-                                href="https://discord.gg/qwyQjn4Aqx"
+                                href="https://discord.gg/eaYMP2hnm4"
                                 target="_blank"
                                 rel="nofollow noopener noreferrer"
                                 aria-label="Join our Discord community"
@@ -93,7 +93,7 @@ export default async function Footer() {
                             </li>
                             <li>
                                 <a
-                                    href="https://discord.gg/qwyQjn4Aqx"
+                                    href="https://discord.gg/eaYMP2hnm4"
                                     target="_blank"
                                     rel="nofollow noopener noreferrer"
                                     className="text-zinc-400 hover:text-[#5865F2] transition-colors inline-flex items-center gap-1.5"
@@ -164,7 +164,7 @@ export default async function Footer() {
                     <span>{t('rights', { year })} · All trademarks belong to their respective owners.</span>
                     <div className="flex items-center gap-4">
                         <a
-                            href="https://discord.gg/qwyQjn4Aqx"
+                            href="https://discord.gg/eaYMP2hnm4"
                             target="_blank"
                             rel="nofollow noopener noreferrer"
                             className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-[#5865F2] transition-colors"

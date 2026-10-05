@@ -15,7 +15,7 @@ export default function CheckoutSuccessPage({ searchParams }) {
     const [copied, setCopied] = useState(false);
     const [discordInfo, setDiscordInfo] = useState({
         title: 'Crypto / Binance Pay (Discord Ticket)',
-        url: 'https://discord.gg/qwyQjn4Aqx',
+        url: 'https://discord.gg/eaYMP2hnm4',
         instructions: 'To pay with Binance Pay or cryptocurrency, please open a ticket on our Discord server and share your Order Code. A member of our team will immediately provide the Binance Pay QR / ID or wallet address to activate your service instantly.',
     });
 
@@ -30,7 +30,7 @@ export default function CheckoutSuccessPage({ searchParams }) {
             if (settings) {
                 setDiscordInfo({
                     title: settings.crypto_discord_title || 'Crypto / Binance Pay (Discord Ticket)',
-                    url: settings.crypto_discord_url || 'https://discord.gg/qwyQjn4Aqx',
+                    url: settings.crypto_discord_url || 'https://discord.gg/eaYMP2hnm4',
                     instructions: settings.crypto_discord_instructions || 'To pay with Binance Pay or cryptocurrency, please open a ticket on our Discord server and share your Order Code. A member of our team will immediately provide the Binance Pay QR / ID or wallet address to activate your service instantly.',
                 });
             }

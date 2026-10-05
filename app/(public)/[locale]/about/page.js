@@ -40,7 +40,7 @@ export default async function AboutPage({ params }) {
             name: 'OGmodz',
             url: baseUrl,
             logo: `${baseUrl}/logo.png`,
-            sameAs: ['https://discord.gg/qwyQjn4Aqx'],
+            sameAs: ['https://discord.gg/eaYMP2hnm4'],
         },
     };
 

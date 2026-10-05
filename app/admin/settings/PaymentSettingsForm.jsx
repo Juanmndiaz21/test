@@ -16,7 +16,7 @@ export default function PaymentSettingsForm({ initialSettings = {} }) {
     const [cryptoDiscord, setCryptoDiscord] = useState(Boolean(initialSettings.crypto_discord));
 
     const [title, setTitle] = useState(initialSettings.crypto_discord_title || 'Crypto / Binance Pay (Discord Ticket)');
-    const [discordUrl, setDiscordUrl] = useState(initialSettings.crypto_discord_url || 'https://discord.gg/qwyQjn4Aqx');
+    const [discordUrl, setDiscordUrl] = useState(initialSettings.crypto_discord_url || 'https://discord.gg/eaYMP2hnm4');
     const [instructions, setInstructions] = useState(
         initialSettings.crypto_discord_instructions ||
         'Upon placing your order, your purchase code will be generated. Please open a ticket on our Discord server and share your code to receive payment details (Binance Pay / USDT) and activate your service instantly.'
@@ -163,7 +163,7 @@ export default function PaymentSettingsForm({ initialSettings = {} }) {
                                     </span>
                                 </div>
                                 <p className="text-xs text-slate-400 mt-1 max-w-xl leading-relaxed">
-                                    Creates the order and directs the customer to open a ticket in Discord (<code className="text-[#9d7cff]">discord.gg/qwyQjn4Aqx</code>) with their Order Code to pay via Binance Pay or Crypto.
+                                    Creates the order and directs the customer to open a ticket in Discord (<code className="text-[#9d7cff]">discord.gg/eaYMP2hnm4</code>) with their Order Code to pay via Binance Pay or Crypto.
                                 </p>
                             </div>
                         </div>

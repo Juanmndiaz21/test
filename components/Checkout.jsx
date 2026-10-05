@@ -41,7 +41,7 @@ export default function Checkout() {
         crypto_discord: true,
         crypto_discord_title: 'Crypto / Binance Pay (Discord Ticket)',
         crypto_discord_instructions: 'Upon placing your order, your purchase code will be generated. Please open a ticket on our Discord server and share your code to receive payment details (Binance Pay / USDT) and activate your service instantly.',
-        crypto_discord_url: 'https://discord.gg/qwyQjn4Aqx',
+        crypto_discord_url: 'https://discord.gg/eaYMP2hnm4',
     });
     const [paymentMethod, setPaymentMethod] = useState('paypal');
     const [couponInput, setCouponInput] = useState('');
@@ -389,7 +389,7 @@ export default function Checkout() {
                                 {activeMethods.crypto_discord_instructions || 'Upon placing your order, your purchase code will be generated. Please open a ticket on our Discord server and share your code to receive payment details (Binance Pay / USDT) and activate your service instantly.'}
                             </p>
                             <a
-                                href={activeMethods.crypto_discord_url || 'https://discord.gg/qwyQjn4Aqx'}
+                                href={activeMethods.crypto_discord_url || 'https://discord.gg/eaYMP2hnm4'}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1.5 text-xs text-purple-400 font-bold hover:underline"

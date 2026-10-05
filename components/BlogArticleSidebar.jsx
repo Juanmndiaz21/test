@@ -93,7 +93,7 @@ export default function BlogArticleSidebar({
                         <Icon name="arrow-right" className="w-4 h-4" />
                     </Link>
                     <a
-                        href="https://discord.gg/qwyQjn4Aqx"
+                        href="https://discord.gg/eaYMP2hnm4"
                         target="_blank"
                         rel="nofollow noopener noreferrer"
                         className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 font-bold text-xs transition-colors cursor-pointer"

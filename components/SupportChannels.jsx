@@ -30,7 +30,7 @@ export default function SupportChannels({ translations = {} }) {
             title: translations.discordTitle || 'Discord Community',
             desc: translations.discordDesc || 'Join our Discord server for instant support and community help.',
             actionText: translations.discordAction || 'Join Discord',
-            href: 'https://discord.gg/qwyQjn4Aqx',
+            href: 'https://discord.gg/eaYMP2hnm4',
             isExternal: true,
             buttonStyle: 'bg-[#5865F2] hover:bg-[#4752c4] active:scale-[0.98] text-white font-bold',
             iconBg: 'bg-[#5865F2]/20 border border-[#5865F2]/40 text-[#5865F2]',

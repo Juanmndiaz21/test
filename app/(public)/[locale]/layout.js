@@ -140,7 +140,7 @@ export default async function LocaleLayout({ children, params }) {
                 logo: `${baseUrl}/logo.png`,
                 description: 'Professional video game boosting and progression services for competitive titles.',
                 sameAs: [
-                    'https://discord.gg/qwyQjn4Aqx',
+                    'https://discord.gg/eaYMP2hnm4',
                 ],
                 contactPoint: {
                     '@type': 'ContactPoint',

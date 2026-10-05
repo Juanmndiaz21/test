@@ -1047,7 +1047,7 @@ export default function NewStyleLanding({
                                     <ArrowRight size={16} weight="bold" />
                                 </Link>
                                 <a
-                                    href="https://discord.gg/qwyQjn4Aqx"
+                                    href="https://discord.gg/eaYMP2hnm4"
                                     target="_blank"
                                     rel="noreferrer"
                                     className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-6 py-3.5 text-xs sm:text-sm font-semibold text-zinc-300 hover:bg-white/10 hover:text-white transition-colors"

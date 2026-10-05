@@ -330,7 +330,7 @@ export default async function BlogIndexPage({ params, searchParams }) {
                                     Explore Store
                                 </Link>
                                 <a
-                                    href="https://discord.gg/qwyQjn4Aqx"
+                                    href="https://discord.gg/eaYMP2hnm4"
                                     target="_blank"
                                     rel="nofollow noopener noreferrer"
                                     className="px-5 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 text-white font-bold text-sm border border-white/10 transition-colors cursor-pointer"
