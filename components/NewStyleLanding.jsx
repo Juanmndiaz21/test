@@ -48,6 +48,13 @@ const CURATED_GAMES = [
         image: '/store/cs2.webp',
         tag: 'Trending',
     },
+    {
+        name: 'Steam',
+        short: 'Steam',
+        slug: 'steam',
+        image: '/uploads/1790875677127-Firefly.webp',
+        tag: 'Popular',
+    },
 ];
 
 const DEFAULT_SERVICES = [
@@ -444,6 +451,40 @@ export default function NewStyleLanding({
         return () => clearInterval(interval);
     }, [isMouseDown, isHovered]);
 
+    // Curated Popular Games (4 created games in catalog)
+    const popularGames = useMemo(() => {
+        if (dbGames && dbGames.length >= 4) {
+            const curatedLookup = {
+                'gta v': { name: 'Grand Theft Auto V', slug: 'gta-5', image: '/store/GTA V.webp', tag: 'Best Seller' },
+                'gta 5': { name: 'Grand Theft Auto V', slug: 'gta-5', image: '/store/GTA V.webp', tag: 'Best Seller' },
+                'rdr2': { name: 'Red Dead Redemption 2', slug: 'rdr2', image: '/store/rdr2.webp', tag: 'Popular' },
+                'cs2': { name: 'Counter-Strike 2', slug: 'cs2', image: '/store/cs2.webp', tag: 'Trending' },
+                'steam': { name: 'Steam', slug: 'steam', image: '/uploads/1790875677127-Firefly.webp', tag: 'Popular' },
+            };
+            return dbGames.slice(0, 4).map((g) => {
+                const key = String(g.name).toLowerCase().trim();
+                const curated = curatedLookup[key];
+                if (curated) {
+                    return {
+                        name: curated.name,
+                        short: g.name,
+                        slug: curated.slug,
+                        image: curated.image || g.image_url,
+                        tag: curated.tag,
+                    };
+                }
+                return {
+                    name: g.name,
+                    short: g.name,
+                    slug: gameToSlug(g.name),
+                    image: g.image_url || `/store/${g.name}.webp`,
+                    tag: 'Popular',
+                };
+            });
+        }
+        return CURATED_GAMES;
+    }, [dbGames]);
+
     // All available games list
     const allGamesList = useMemo(() => {
         if (dbGames && dbGames.length > 0) {
@@ -458,7 +499,7 @@ export default function NewStyleLanding({
             { name: 'GTA V', image: '/store/GTA V.webp', count: '18 services', slug: 'gta-5' },
             { name: 'Red Dead 2', image: '/store/rdr2.webp', count: '12 services', slug: 'rdr2' },
             { name: 'Counter-Strike 2', image: '/store/cs2.webp', count: '9 services', slug: 'cs2' },
-            { name: 'FC 27 / FIFA', image: '/store/fc27.webp', count: '14 services', slug: 'ea-sports-fc' },
+            { name: 'Steam', image: '/uploads/1790875677127-Firefly.webp', count: '1 service', slug: 'steam' },
             { name: 'Call of Duty', icon: '🎖️', count: '11 services', slug: 'call-of-duty' },
             { name: 'Rust', icon: '⚡', count: '8 services', slug: 'rust' },
             { name: 'Apex Legends', icon: '🛡️', count: '10 services', slug: 'apex-legends' },
@@ -537,8 +578,8 @@ export default function NewStyleLanding({
                         </Link>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        {CURATED_GAMES.map((game) => (
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {popularGames.map((game) => (
                             <motion.div
                                 key={game.name}
                                 whileHover={{ y: -3, borderColor: 'rgba(146, 37, 207, 0.4)' }}
