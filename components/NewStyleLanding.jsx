@@ -646,29 +646,31 @@ export default function NewStyleLanding({
                         {filterButtons.map((btn) => {
                             const isActive = serviceFilter === btn.id;
                             return (
-                                <button
+                                <motion.button
                                     key={btn.id}
                                     type="button"
                                     onClick={() => setServiceFilter(btn.id)}
-                                    className={`relative rounded-xl px-4 py-2 text-xs font-semibold tracking-wide transition-colors ${
+                                    whileTap={{ scale: 0.95 }}
+                                    className={`relative rounded-xl px-4 py-2 text-xs font-semibold tracking-wide cursor-pointer transition-colors duration-200 outline-none select-none border ${
                                         isActive
-                                            ? 'text-white font-bold'
-                                            : 'border border-white/10 bg-zinc-900/60 text-zinc-400 hover:border-white/20 hover:bg-zinc-800 hover:text-white'
+                                            ? 'text-white border-transparent'
+                                            : 'border-white/10 bg-zinc-900/60 text-zinc-400 hover:border-white/20 hover:bg-zinc-800 hover:text-white'
                                     }`}
                                 >
                                     {isActive && (
                                         <motion.div
                                             layoutId="category-filter-pill"
-                                            className="absolute inset-0 rounded-xl bg-[#9225CF] shadow-md shadow-[#9225CF]/25"
+                                            className="absolute inset-0 rounded-xl bg-[#9225CF] shadow-[0_0_20px_rgba(146,37,207,0.35)]"
                                             transition={{
                                                 type: 'spring',
-                                                stiffness: 450,
-                                                damping: 32,
+                                                stiffness: 260,
+                                                damping: 26,
+                                                mass: 0.7,
                                             }}
                                         />
                                     )}
                                     <span className="relative z-10">{btn.label}</span>
-                                </button>
+                                </motion.button>
                             );
                         })}
                     </div>
