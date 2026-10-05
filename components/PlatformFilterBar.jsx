@@ -14,7 +14,7 @@ export default function PlatformFilterBar({ activePlatform = 'all', onSelectPlat
         <div
             role="group"
             aria-label="Filter by platform"
-            className={`inline-flex items-center gap-1.5 p-1 rounded-2xl bg-[#171229] border border-white/10 shadow-[0_8px_20px_rgba(0,0,0,0.3)] ${className}`}
+            className={`inline-flex items-center gap-1.5 p-1 rounded-2xl bg-zinc-900/90 border border-white/10 shadow-[0_8px_20px_rgba(0,0,0,0.3)] ${className}`}
         >
             {PLATFORMS.map((platform) => {
                 const IconComponent = platform.icon;
@@ -30,13 +30,13 @@ export default function PlatformFilterBar({ activePlatform = 'all', onSelectPlat
                         aria-pressed={isActive}
                         className={`relative px-3.5 py-2.5 sm:px-4 sm:py-2.5 rounded-xl transition-[color,background-color,border-color,transform] duration-140 ease-[var(--ease-out)] active:scale-[0.94] cursor-pointer flex items-center justify-center ${
                             isActive
-                                ? 'text-white bg-[#9d7cff]/20 border border-[#9d7cff]/40 shadow-[0_4px_12px_rgba(0,0,0,0.3)]'
-                                : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+                                ? 'text-emerald-400 bg-emerald-500/15 border border-emerald-500/40 shadow-[0_4px_12px_rgba(0,0,0,0.3)]'
+                                : 'text-zinc-400 hover:text-white hover:bg-white/5 border border-transparent'
                         }`}
                     >
                         <IconComponent className="w-5 h-5" />
                         {isActive && (
-                            <span className="absolute bottom-1 inset-x-3.5 h-0.5 rounded-full bg-[#9d7cff]" />
+                            <span className="absolute bottom-1 inset-x-3.5 h-0.5 rounded-full bg-emerald-400" />
                         )}
                     </button>
                 );

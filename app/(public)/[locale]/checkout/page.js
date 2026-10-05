@@ -24,14 +24,14 @@ export default function CheckoutPage() {
 
     if (!mounted) {
         return (
-            <div className="min-h-screen bg-[#120e1c] text-slate-100 pb-20">
+            <div className="min-h-screen bg-zinc-950 text-zinc-100 pb-20">
                 <PageHeaderBanner
                     title={t('title')}
                     subtitle={bannerSubtitle}
                     maxWidth="max-w-7xl"
                 />
                 <div className="max-w-7xl mx-auto px-5 py-10 sm:py-16">
-                    <div className="rounded-2xl bg-[#171229] border border-white/10 p-12 text-center text-slate-300 shadow-xl flex flex-col items-center justify-center">
+                    <div className="rounded-2xl bg-zinc-900 border border-white/10 p-12 text-center text-zinc-300 shadow-xl flex flex-col items-center justify-center">
                         <LoadingWheel size="lg" showLogo={true} label={t('placeInProgress')} />
                     </div>
                 </div>
@@ -40,7 +40,7 @@ export default function CheckoutPage() {
     }
 
     return (
-        <div className="min-h-screen bg-[#120e1c] text-slate-100 pb-20">
+        <div className="min-h-screen bg-zinc-950 text-zinc-100 pb-20">
             <PageHeaderBanner
                 title={t('title')}
                 subtitle={bannerSubtitle}
@@ -50,12 +50,12 @@ export default function CheckoutPage() {
 
             <div className="max-w-7xl mx-auto px-5 py-10 sm:py-12">
                 {itemCount === 0 ? (
-                    <div className="rounded-2xl bg-[#171229] border border-white/10 p-10 md:p-14 text-center">
+                    <div className="rounded-2xl bg-zinc-900 border border-white/10 p-10 md:p-14 text-center">
                         <h2 className="display-font text-2xl md:text-3xl font-black uppercase text-white">{t('emptyTitle')}</h2>
-                        <p className="text-slate-300 mt-4 max-w-md mx-auto leading-relaxed font-sans">
+                        <p className="text-zinc-300 mt-4 max-w-md mx-auto leading-relaxed font-sans">
                             {t('emptyText')}
                         </p>
-                        <Link href="/store" className="inline-flex items-center gap-2 mt-8 bg-[#9d7cff] hover:bg-[#b59dff] text-[#0d0914] font-['Trebuchet_MS',sans-serif] font-black uppercase tracking-wider px-8 py-3.5 rounded-xl transition-all duration-150">
+                        <Link href="/store" className="inline-flex items-center gap-2 mt-8 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-['Trebuchet_MS',sans-serif] font-black uppercase tracking-wider px-8 py-3.5 rounded-xl transition-all duration-150">
                             {t('viewLadder')}
                         </Link>
                     </div>

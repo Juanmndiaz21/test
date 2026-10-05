@@ -12,7 +12,7 @@ function Stars({ rating, starsAria }) {
                 key={i}
                 viewBox="0 0 24 24"
                 aria-hidden="true"
-                className={`w-3.5 h-3.5 ${i <= rating ? 'fill-[#9d7cff]' : 'fill-white/20'}`}
+                className={`w-3.5 h-3.5 ${i <= rating ? 'fill-emerald-400' : 'fill-white/20'}`}
             >
                 <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
             </svg>
@@ -236,19 +236,19 @@ export default function ReviewGrid({ reviews = [], starsAria }) {
     const renderCard = (review, idx, setPrefix) => (
         <figure
             key={`${setPrefix}-${review.id || 'rev'}-${idx}`}
-            className="panel-surface rounded-2xl p-6 md:p-7 w-[300px] sm:w-[360px] md:w-[400px] shrink-0 flex flex-col justify-between border border-white/10 bg-[#171229] hover:border-[#9d7cff]/50 transition-colors duration-150 relative overflow-hidden select-none shadow-[0_16px_36px_rgba(0,0,0,0.35)]"
+            className="rounded-2xl p-6 md:p-7 w-[300px] sm:w-[360px] md:w-[400px] shrink-0 flex flex-col justify-between border border-white/10 bg-zinc-900 hover:border-emerald-500/50 transition-colors duration-150 relative overflow-hidden select-none shadow-[0_16px_36px_rgba(0,0,0,0.35)]"
         >
             <div>
                 <div className="flex items-center justify-between gap-2 mb-3.5">
                     <Stars rating={review.rating || 5} starsAria={starsAria} />
-                    <span className="text-[11px] font-mono font-bold tracking-wider text-[#9d7cff] bg-[#9d7cff]/10 px-2.5 py-1 rounded-full border border-[#9d7cff]/20 uppercase">
+                    <span className="text-[11px] font-mono font-bold tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 uppercase">
                         Verified
                     </span>
                 </div>
                 <p className="font-['Trebuchet_MS',sans-serif] font-bold text-white text-base mb-2 line-clamp-1">
                     {review.title || 'Verified Climb'}
                 </p>
-                <blockquote className="text-slate-300 text-sm md:text-base leading-relaxed line-clamp-4 font-normal">
+                <blockquote className="text-zinc-300 text-sm md:text-base leading-relaxed line-clamp-4 font-normal">
                     &ldquo;{review.content}&rdquo;
                 </blockquote>
             </div>
@@ -256,7 +256,7 @@ export default function ReviewGrid({ reviews = [], starsAria }) {
                 <strong className="block text-white font-bold text-sm truncate">
                     {review.author || 'Player'}
                 </strong>
-                <span suppressHydrationWarning className="text-xs text-slate-400 data-readout font-mono">
+                <span suppressHydrationWarning className="text-xs text-zinc-400 data-readout font-mono">
                     {formatReviewDate(review.created_at)}
                 </span>
             </figcaption>
@@ -272,12 +272,12 @@ export default function ReviewGrid({ reviews = [], starsAria }) {
             <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
                 <div className="flex items-center gap-3">
                     <span className="relative flex h-2 w-2" aria-hidden="true">
-                        <span className={`relative inline-flex rounded-full h-2 w-2 ${isPaused ? 'bg-slate-400' : 'bg-[#9d7cff] animate-pulse'}`} />
+                        <span className={`relative inline-flex rounded-full h-2 w-2 ${isPaused ? 'bg-zinc-400' : 'bg-emerald-400 animate-pulse'}`} />
                     </span>
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 data-readout">
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-300 data-readout">
                         {isPaused ? (t ? t('paused') : 'PAUSED') : (t ? t('autoRotating') : 'ROTATING')}
                     </span>
-                    <span className="hidden sm:inline-block text-xs font-mono text-slate-400 bg-white/5 border border-white/10 rounded-full px-3 py-1 data-readout">
+                    <span className="hidden sm:inline-block text-xs font-mono text-zinc-400 bg-white/5 border border-white/10 rounded-full px-3 py-1 data-readout">
                         {t ? t('dragToScrub') : 'DRAG TO SCRUB'}
                     </span>
                 </div>
@@ -289,7 +289,7 @@ export default function ReviewGrid({ reviews = [], starsAria }) {
                         onClick={() => setIsPaused((p) => !p)}
                         aria-label={isPaused ? (t ? t('play') : 'Play') : (t ? t('pause') : 'Pause')}
                         title={isPaused ? (t ? t('play') : 'Play') : (t ? t('pause') : 'Pause')}
-                        className="min-h-[40px] px-3.5 rounded-lg border border-white/15 bg-white/5 text-slate-300 hover:border-[#9d7cff]/50 hover:text-[#9d7cff] hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-[#9d7cff] transition-colors flex items-center gap-1.5 cursor-pointer text-xs font-mono font-bold"
+                        className="min-h-[40px] px-3.5 rounded-lg border border-white/15 bg-white/5 text-zinc-300 hover:border-emerald-500/50 hover:text-emerald-400 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-emerald-500 transition-colors flex items-center gap-1.5 cursor-pointer text-xs font-mono font-bold"
                     >
                         <Icon name={isPaused ? 'play' : 'pause'} className="w-3.5 h-3.5" />
                         <span className="uppercase">{isPaused ? (t ? t('play') : 'PLAY') : (t ? t('pause') : 'PAUSE')}</span>
@@ -301,7 +301,7 @@ export default function ReviewGrid({ reviews = [], starsAria }) {
                         onClick={() => handleNudge('left')}
                         aria-label={t ? t('prevReviews') : 'Previous reviews'}
                         title={t ? t('prevReviews') : 'Previous'}
-                        className="min-h-[40px] min-w-[40px] h-10 w-10 rounded-lg border border-white/15 bg-white/5 text-slate-300 hover:border-[#9d7cff]/50 hover:text-[#9d7cff] hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-[#9d7cff] transition-colors flex items-center justify-center cursor-pointer"
+                        className="min-h-[40px] min-w-[40px] h-10 w-10 rounded-lg border border-white/15 bg-white/5 text-zinc-300 hover:border-emerald-500/50 hover:text-emerald-400 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-emerald-500 transition-colors flex items-center justify-center cursor-pointer"
                     >
                         <Icon name="chevron-left" className="w-4 h-4" strokeWidth={2.4} />
                     </button>
@@ -310,7 +310,7 @@ export default function ReviewGrid({ reviews = [], starsAria }) {
                         onClick={() => handleNudge('right')}
                         aria-label={t ? t('nextReviews') : 'Next reviews'}
                         title={t ? t('nextReviews') : 'Next'}
-                        className="min-h-[40px] min-w-[40px] h-10 w-10 rounded-lg border border-white/15 bg-white/5 text-slate-300 hover:border-[#9d7cff]/50 hover:text-[#9d7cff] hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-[#9d7cff] transition-colors flex items-center justify-center cursor-pointer"
+                        className="min-h-[40px] min-w-[40px] h-10 w-10 rounded-lg border border-white/15 bg-white/5 text-zinc-300 hover:border-emerald-500/50 hover:text-emerald-400 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-emerald-500 transition-colors flex items-center justify-center cursor-pointer"
                     >
                         <Icon name="chevron-right" className="w-4 h-4" strokeWidth={2.4} />
                     </button>
@@ -331,13 +331,13 @@ export default function ReviewGrid({ reviews = [], starsAria }) {
                 {/* Left Gradient Fade */}
                 <div
                     aria-hidden="true"
-                    className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-24 md:w-32 bg-gradient-to-r from-[#120e1c] via-[#120e1c]/80 to-transparent z-10"
+                    className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-24 md:w-32 bg-gradient-to-r from-zinc-950 via-zinc-950/80 to-transparent z-10"
                 />
 
                 {/* Right Gradient Fade */}
                 <div
                     aria-hidden="true"
-                    className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-24 md:w-32 bg-gradient-to-l from-[#120e1c] via-[#120e1c]/80 to-transparent z-10"
+                    className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-24 md:w-32 bg-gradient-to-l from-zinc-950 via-zinc-950/80 to-transparent z-10"
                 />
 
                 {/* Moving Track */}

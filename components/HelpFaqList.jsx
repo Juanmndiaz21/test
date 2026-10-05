@@ -31,12 +31,12 @@ export default function HelpFaqList({ faqs = [] }) {
                     viewport={{ once: true, margin: '-20px' }}
                     whileHover={shouldReduceMotion ? undefined : { y: -2 }}
                     transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                    className="rounded-xl bg-[#252530] p-5 sm:p-6 transition-colors duration-150 hover:bg-[#282836]"
+                    className="rounded-2xl bg-zinc-900 border border-white/10 p-5 sm:p-6 transition-colors duration-150 hover:border-emerald-500/30"
                 >
                     <h3 className="font-['Trebuchet_MS',sans-serif] text-base font-bold text-white mb-2 leading-snug">
                         {faq.q || faq.title}
                     </h3>
-                    <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-line max-w-4xl">
+                    <p className="text-zinc-400 text-sm leading-relaxed whitespace-pre-line max-w-4xl">
                         {faq.a || faq.content}
                     </p>
                 </motion.div>

@@ -37,7 +37,7 @@ export default async function PrivacyPage({ params }) {
     ];
 
     return (
-        <div className="min-h-screen bg-[#120e1c] text-slate-100 pb-20">
+        <div className="min-h-screen bg-zinc-950 text-zinc-100 pb-20">
             <PageHeaderBanner
                 title={t('title')}
                 subtitle={t('lastUpdated')}
@@ -48,11 +48,11 @@ export default async function PrivacyPage({ params }) {
                 <div className="space-y-4">
                     {sections.map((section, index) => (
                         <Reveal key={index} delay={0.05 * (index + 1)}>
-                            <div className="rounded-xl bg-[#252530] p-6 sm:p-7 border border-white/5">
+                            <div className="rounded-2xl bg-zinc-900 p-6 sm:p-7 border border-white/10">
                                 <h2 className="font-['Trebuchet_MS',sans-serif] text-lg sm:text-xl font-bold text-white mb-2.5">
                                     {section.title}
                                 </h2>
-                                <p className="text-sm sm:text-base leading-relaxed text-slate-300">
+                                <p className="text-sm sm:text-base leading-relaxed text-zinc-300">
                                     {section.text}
                                 </p>
                             </div>
@@ -60,18 +60,18 @@ export default async function PrivacyPage({ params }) {
                     ))}
 
                     <Reveal delay={0.4}>
-                        <div className="rounded-xl bg-[#1c162b] p-6 sm:p-7 border border-[#9d7cff]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                        <div className="rounded-2xl bg-zinc-900 p-6 sm:p-7 border border-emerald-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xl">
                             <div>
                                 <h2 className="font-['Trebuchet_MS',sans-serif] text-lg sm:text-xl font-bold text-white mb-2">
                                     Request Data Erasure or Export
                                 </h2>
-                                <p className="text-sm leading-relaxed text-slate-300 max-w-xl">
+                                <p className="text-sm leading-relaxed text-zinc-400 max-w-xl">
                                     Under GDPR Art. 17 and CCPA, you have the right to request full deletion or a copy of your personal data at any time.
                                 </p>
                             </div>
                             <Link
                                 href="/contact?subject=Data+Deletion+Request"
-                                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#9d7cff] text-[#0d0914] hover:bg-[#b59dff] font-['Trebuchet_MS',sans-serif] text-xs font-bold uppercase tracking-wider transition-colors shrink-0 focus-visible:outline-2 focus-visible:outline-[#9d7cff]"
+                                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 text-zinc-950 hover:bg-emerald-400 font-['Trebuchet_MS',sans-serif] text-xs font-black uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] shrink-0 focus-visible:outline-2 focus-visible:outline-emerald-500 cursor-pointer"
                             >
                                 <span>Submit Deletion Request</span>
                                 <Icon name="arrow-right" className="w-4 h-4" />

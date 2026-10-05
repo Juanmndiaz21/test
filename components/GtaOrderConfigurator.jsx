@@ -216,38 +216,38 @@ export default function GtaOrderConfigurator({ product }) {
     const visiblePackages = showAllPackages ? packages : packages.slice(0, 6);
 
     return (
-        <div className="panel-surface rounded-2xl p-6 sm:p-8 border border-white/10 bg-[#171229] space-y-7 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        <div className="panel-surface rounded-2xl p-6 sm:p-8 border border-white/10 bg-zinc-900 space-y-7 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
             {/* Header */}
             <div className="flex items-center justify-between gap-4 pb-5 border-b border-white/10">
                 <div className="flex items-center gap-3.5">
-                    <div className="w-10 h-10 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/25 text-[#9d7cff] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(157,124,255,0.2)]">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
                         <Icon name="sliders" className="w-5 h-5" />
                     </div>
                     <div>
                         <h2 className="display-font text-xl uppercase tracking-wide text-white leading-tight">
                             Configure your order
                         </h2>
-                        <p className="text-xs text-slate-400 mt-0.5">
+                        <p className="text-xs text-zinc-400 mt-0.5">
                             Choose your platform and setup step by step
                         </p>
                     </div>
                 </div>
 
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#9d7cff]/10 border border-[#9d7cff]/25 text-[#9d7cff] text-[11px] font-mono font-bold uppercase tracking-wider">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#9d7cff] animate-pulse" />
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-mono font-bold uppercase tracking-wider">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                     Secure
                 </span>
             </div>
 
             {/* STEP 1: SELECT YOUR PLATFORM */}
             <div className="animate-ladder-row">
-                <label className="flex items-center justify-between text-xs font-mono font-bold uppercase tracking-wider text-slate-300 mb-3">
+                <label className="flex items-center justify-between text-xs font-mono font-bold uppercase tracking-wider text-zinc-300 mb-3">
                     <span className="flex items-center gap-2">
-                        <span className="text-[#9d7cff] font-black">[01]</span>
+                        <span className="text-emerald-400 font-black">[01]</span>
                         <span>SELECT YOUR PLATFORM</span>
                     </span>
                     {platform && (
-                        <span className="text-[10px] text-[#9d7cff] font-mono lowercase">selected: {platform}</span>
+                        <span className="text-[10px] text-emerald-400 font-mono lowercase">selected: {platform}</span>
                     )}
                 </label>
 
@@ -270,13 +270,13 @@ export default function GtaOrderConfigurator({ product }) {
                                 }}
                                 className={`py-3 px-2.5 rounded-xl text-xs sm:text-sm font-bold transition-[border-color,background-color,color,box-shadow,transform] duration-150 ease-out cursor-pointer border flex items-center justify-center gap-2 ${
                                     active
-                                        ? 'bg-[#9d7cff]/15 border-[#9d7cff] text-white shadow-[0_4px_16px_rgba(0,0,0,0.3)] font-black ring-1 ring-[#9d7cff]/50'
-                                        : 'bg-black/30 border-white/10 text-slate-300 hover:border-[#9d7cff]/50 hover:text-white'
+                                        ? 'bg-emerald-500/15 border-emerald-500 text-white shadow-[0_4px_16px_rgba(0,0,0,0.3)] font-black ring-1 ring-emerald-500/50'
+                                        : 'bg-black/30 border-white/10 text-zinc-300 hover:border-emerald-500/50 hover:text-white'
                                 }`}
                             >
-                                {p === 'PlayStation' && <PlayStationIcon className={`w-4 h-4 ${active ? 'text-[#9d7cff]' : 'text-slate-400'}`} />}
-                                {p === 'Xbox' && <XboxIcon className={`w-4 h-4 ${active ? 'text-[#9d7cff]' : 'text-slate-400'}`} />}
-                                {p === 'PC' && <PcIcon className={`w-4 h-4 ${active ? 'text-[#9d7cff]' : 'text-slate-400'}`} />}
+                                {p === 'PlayStation' && <PlayStationIcon className={`w-4 h-4 ${active ? 'text-emerald-400' : 'text-zinc-400'}`} />}
+                                {p === 'Xbox' && <XboxIcon className={`w-4 h-4 ${active ? 'text-emerald-400' : 'text-zinc-400'}`} />}
+                                {p === 'PC' && <PcIcon className={`w-4 h-4 ${active ? 'text-emerald-400' : 'text-zinc-400'}`} />}
                                 <span>{p}</span>
                             </button>
                         );
@@ -284,8 +284,8 @@ export default function GtaOrderConfigurator({ product }) {
                 </div>
 
                 {/* Account Notice Box */}
-                <div className="mt-3.5 p-3.5 rounded-xl bg-black/40 border border-white/5 text-xs text-slate-300 leading-relaxed flex items-start gap-2.5">
-                    <Icon name="check" className="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5" />
+                <div className="mt-3.5 p-3.5 rounded-xl bg-black/40 border border-white/5 text-xs text-zinc-300 leading-relaxed flex items-start gap-2.5">
+                    <Icon name="check" className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                     <span>This boost will be applied to your account. Account information will be collected after checkout.</span>
                 </div>
             </div>
@@ -293,13 +293,13 @@ export default function GtaOrderConfigurator({ product }) {
             {/* STEP 2: SELECT YOUR VERSION (Revealed after Platform is chosen) */}
             {platform && (
                 <div className="animate-ladder-row pt-5 border-t border-white/10 space-y-3">
-                    <label className="flex items-center justify-between text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
+                    <label className="flex items-center justify-between text-xs font-mono font-bold uppercase tracking-wider text-zinc-300">
                         <span className="flex items-center gap-2">
-                            <span className="text-[#9d7cff] font-black">[02]</span>
+                            <span className="text-emerald-400 font-black">[02]</span>
                             <span>SELECT YOUR VERSION</span>
                         </span>
                         {version && (
-                            <span className="text-[10px] text-[#9d7cff] font-mono">ready</span>
+                            <span className="text-[10px] text-emerald-400 font-mono">ready</span>
                         )}
                     </label>
 
@@ -313,8 +313,8 @@ export default function GtaOrderConfigurator({ product }) {
                                     onClick={() => setVersion(v.id)}
                                     className={`py-3 px-3.5 rounded-xl text-xs sm:text-sm font-bold transition-[border-color,background-color,color,box-shadow,transform] duration-150 ease-out cursor-pointer border text-center ${
                                         active
-                                            ? 'bg-[#9d7cff]/15 border-[#9d7cff] text-white shadow-[0_0_20px_rgba(157,124,255,0.3)] font-black ring-1 ring-[#9d7cff]/50'
-                                            : 'bg-black/30 border-white/10 text-slate-300 hover:border-[#9d7cff]/50 hover:text-white'
+                                            ? 'bg-emerald-500/15 border-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.25)] font-black ring-1 ring-emerald-500/50'
+                                            : 'bg-black/30 border-white/10 text-zinc-300 hover:border-emerald-500/50 hover:text-white'
                                     }`}
                                 >
                                     {v.label}
@@ -331,12 +331,12 @@ export default function GtaOrderConfigurator({ product }) {
                     {/* STEP 3: SELECT YOUR PACKAGE */}
                     <div className="animate-ladder-row pt-5 border-t border-white/10 space-y-3">
                         <div className="flex items-center justify-between">
-                            <label className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
-                                <span className="text-[#9d7cff] font-black">[03]</span>
+                            <label className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-zinc-300">
+                                <span className="text-emerald-400 font-black">[03]</span>
                                 <span>SELECT YOUR PACKAGE</span>
                             </label>
 
-                            <span className="text-[11px] font-mono text-slate-400">
+                            <span className="text-[11px] font-mono text-zinc-400">
                                 {packages.length} packages available
                             </span>
                         </div>
@@ -354,8 +354,8 @@ export default function GtaOrderConfigurator({ product }) {
                                         onClick={() => setSelectedPackageId(pkg.id)}
                                         className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,color,box-shadow,transform] duration-150 ease-out cursor-pointer flex items-center justify-between gap-2 ${
                                             active
-                                                ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_20px_rgba(157,124,255,0.25)] ring-1 ring-[#9d7cff]/50'
-                                                : 'bg-black/30 border-white/10 hover:border-[#9d7cff]/40 hover:bg-black/40'
+                                                ? 'bg-emerald-500/15 border-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.25)] ring-1 ring-emerald-500/50'
+                                                : 'bg-black/30 border-white/10 hover:border-emerald-500/40 hover:bg-black/40'
                                         }`}
                                     >
                                         <div className="min-w-0">
@@ -363,14 +363,14 @@ export default function GtaOrderConfigurator({ product }) {
                                                 {pkg.label}
                                             </strong>
                                             {pkgWas > pkgPrice && (
-                                                <span className="text-[11px] font-mono text-slate-400 line-through mt-0.5 block">
+                                                <span className="text-[11px] font-mono text-zinc-400 line-through mt-0.5 block">
                                                     ${pkgWas.toFixed(2)}
                                                 </span>
                                             )}
                                         </div>
 
                                         <div className="text-right shrink-0">
-                                            <span className="text-sm sm:text-base font-black text-[#9d7cff] data-readout">
+                                            <span className="text-sm sm:text-base font-black text-emerald-400 data-readout">
                                                 ${pkgPrice.toFixed(2)}
                                             </span>
                                         </div>
@@ -383,7 +383,7 @@ export default function GtaOrderConfigurator({ product }) {
                             <button
                                 type="button"
                                 onClick={() => setShowAllPackages(!showAllPackages)}
-                                className="w-full py-2.5 px-4 rounded-xl border border-white/10 bg-white/5 hover:border-[#9d7cff]/50 hover:text-white text-xs font-mono font-bold uppercase tracking-wider text-[#9d7cff] transition-[border-color,color,background-color] duration-150 ease-out cursor-pointer flex items-center justify-center gap-2"
+                                className="w-full py-2.5 px-4 rounded-xl border border-white/10 bg-white/5 hover:border-emerald-500/50 hover:text-white text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 transition-[border-color,color,background-color] duration-150 ease-out cursor-pointer flex items-center justify-center gap-2"
                             >
                                 <span>{showAllPackages ? 'Show fewer packages' : `Show all ${packages.length} packages`}</span>
                                 <Icon
@@ -400,12 +400,12 @@ export default function GtaOrderConfigurator({ product }) {
                     {availableAddons.length > 0 && (
                         <div className="animate-ladder-row pt-5 border-t border-white/10 space-y-3">
                             <div className="flex items-center justify-between">
-                                <label className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
-                                    <span className="text-[#9d7cff] font-black">[04]</span>
+                                <label className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-zinc-300">
+                                    <span className="text-emerald-400 font-black">[04]</span>
                                     <span>SAVE 50% WITH ADDONS</span>
                                 </label>
 
-                                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#9d7cff]/15 border border-[#9d7cff]/30 text-[#9d7cff] font-bold">
+                                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-bold">
                                     10% OFF APPLIED
                                 </span>
                             </div>
@@ -421,7 +421,7 @@ export default function GtaOrderConfigurator({ product }) {
                                             key={addon.id}
                                             className={`p-3.5 rounded-xl border transition-[border-color,background-color,color,box-shadow] duration-150 ease-out cursor-pointer flex items-center justify-between gap-3 ${
                                                 checked
-                                                    ? 'bg-[#9d7cff]/10 border-[#9d7cff]/50 shadow-[0_0_15px_rgba(157,124,255,0.15)]'
+                                                    ? 'bg-emerald-500/10 border-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.15)]'
                                                     : 'bg-black/30 border-white/10 hover:border-white/20'
                                             }`}
                                         >
@@ -430,7 +430,7 @@ export default function GtaOrderConfigurator({ product }) {
                                                     type="checkbox"
                                                     checked={checked}
                                                     onChange={() => toggleAddon(addon.id)}
-                                                    className="w-4 h-4 rounded accent-[#9d7cff] cursor-pointer shrink-0"
+                                                    className="w-4 h-4 rounded accent-emerald-500 cursor-pointer shrink-0"
                                                 />
                                                 <span className="text-xs sm:text-sm font-bold text-white leading-tight">
                                                     {addon.label}
@@ -439,11 +439,11 @@ export default function GtaOrderConfigurator({ product }) {
 
                                             <div className="text-right shrink-0 flex items-center gap-2">
                                                 {origPrice > discPrice && (
-                                                    <span className="text-[11px] font-mono text-slate-400 line-through">
+                                                    <span className="text-[11px] font-mono text-zinc-400 line-through">
                                                         ${origPrice.toFixed(2)}
                                                     </span>
                                                 )}
-                                                <span className="px-2.5 py-1 rounded-full bg-[#9d7cff]/15 border border-[#9d7cff]/25 text-xs font-mono font-bold text-[#9d7cff]">
+                                                <span className="px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/25 text-xs font-mono font-bold text-emerald-400">
                                                     ${discPrice.toFixed(2)}
                                                 </span>
                                             </div>
@@ -456,13 +456,13 @@ export default function GtaOrderConfigurator({ product }) {
 
                     {/* TOTAL SUMMARY & ADD TO CART */}
                     <div className="animate-ladder-row pt-6 border-t border-white/10 space-y-4">
-                        <div className="p-4 rounded-xl bg-black/40 border border-[#9d7cff]/30 flex items-center justify-between shadow-[0_0_20px_rgba(157,124,255,0.12)]">
-                            <span className="text-xs font-mono uppercase tracking-widest font-bold text-slate-400">
+                        <div className="p-4 rounded-xl bg-black/40 border border-emerald-500/30 flex items-center justify-between shadow-[0_0_20px_rgba(16,185,129,0.12)]">
+                            <span className="text-xs font-mono uppercase tracking-widest font-bold text-zinc-400">
                                 TOTAL
                             </span>
                             <div className="text-right">
                                 {wasTotal > finalTotal && (
-                                    <span className="text-xs font-mono text-slate-400 line-through mr-2">
+                                    <span className="text-xs font-mono text-zinc-400 line-through mr-2">
                                         ${wasTotal.toFixed(2)}
                                     </span>
                                 )}
@@ -475,7 +475,7 @@ export default function GtaOrderConfigurator({ product }) {
                         <button
                             type="button"
                             onClick={handleAddToCart}
-                            className="w-full bg-[#9d7cff] hover:bg-white text-[#0d0914] font-black uppercase tracking-wider py-4 rounded-xl transition-[background-color,color,box-shadow,transform] duration-150 ease-out active:scale-[0.98] shadow-[0_0_25px_rgba(157,124,255,0.35)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] cursor-pointer text-sm"
+                            className="w-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-black uppercase tracking-wider py-4 rounded-xl transition-[background-color,color,box-shadow,transform] duration-150 ease-out active:scale-[0.98] shadow-[0_0_25px_rgba(16,185,129,0.35)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] cursor-pointer text-sm"
                         >
                             {added ? 'Added to cart! (Add more)' : 'Add to cart'}
                         </button>
@@ -483,7 +483,7 @@ export default function GtaOrderConfigurator({ product }) {
                         {added && (
                             <Link
                                 href="/checkout"
-                                className="block text-center text-xs font-mono font-bold uppercase tracking-wider text-[#9d7cff] hover:text-white transition-colors"
+                                className="block text-center text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 hover:text-white transition-colors"
                             >
                                 Proceed to Checkout →
                             </Link>

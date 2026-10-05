@@ -13,7 +13,7 @@ export default function StoreLoading() {
                 {Array.from({ length: 8 }).map((_, index) => (
                     <div
                         key={index}
-                        className="rounded-2xl border border-white/5 bg-[#171229] overflow-hidden"
+                        className="rounded-2xl border border-white/5 bg-zinc-900 overflow-hidden"
                     >
                         <div className="aspect-video skeleton-shimmer" />
                         <div className="p-5 space-y-3">

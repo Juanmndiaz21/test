@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #120e1c;
-  --background-deep: #0d0914;
-  --foreground: #f1ecfb;
-  --line: rgba(157, 124, 255, 0.16);
-  --acid: #9d7cff;
+  --background: #09090b;
+  --background-deep: #09090b;
+  --foreground: #f4f4f5;
+  --line: rgba(255, 255, 255, 0.08);
+  --acid: #10b981;
 
   /* Emil Kowalski Motion Tokens */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -19,22 +19,22 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  --color-lime-100: #e5daff;
-  --color-lime-200: #c6affe;
-  --color-lime-300: #9d7cff;
-  --color-lime-400: #855fe8;
-  --color-lime-500: #7955ef;
-  --color-lime-600: #6640d6;
-  --color-lime-700: #5532ae;
-  --color-lime-800: #3c2478;
-  --color-lime-900: #271a4a;
+  --color-lime-100: #d1fae5;
+  --color-lime-200: #a7f3d0;
+  --color-lime-300: #6ee7b7;
+  --color-lime-400: #34d399;
+  --color-lime-500: #10b981;
+  --color-lime-600: #059669;
+  --color-lime-700: #047857;
+  --color-lime-800: #065f46;
+  --color-lime-900: #064e3b;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Trebuchet MS", "Segoe UI", sans-serif;
-  background-image: radial-gradient(circle at 50% -12%, rgba(157, 124, 255, 0.18), transparent 46rem), radial-gradient(circle at 85% 110%, rgba(102, 64, 214, 0.12), transparent 36rem), radial-gradient(circle at 6% 100%, rgba(157, 124, 255, 0.05), transparent 28rem);
+  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.06), transparent 70%), radial-gradient(ellipse 60% 40% at 85% 100%, rgba(16, 185, 129, 0.04), transparent 60%);
   background-size: auto, auto, auto;
   caret-color: var(--acid);
 }
@@ -58,8 +58,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 
 ::selection {
-  background: var(--acid);
-  color: var(--background-deep);
+  background: rgba(16, 185, 129, 0.28);
+  color: #6ee7b7;
 }
 
 input,
@@ -78,13 +78,13 @@ textarea {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(157, 124, 255, 0.22);
+  background: rgba(255, 255, 255, 0.14);
   border: 3px solid var(--background);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(157, 124, 255, 0.42);
+  background: rgba(16, 185, 129, 0.45);
 }
 
 @keyframes hero-rise {
@@ -174,7 +174,7 @@ textarea {
 }
 
 .panel-surface {
-  background: rgba(22, 16, 36, 0.9);
+  background: rgba(24, 24, 27, 0.85);
   border: 1px solid var(--line);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
 }
@@ -253,9 +253,9 @@ details.faq-row[open] .faq-toggle {
 .skeleton-shimmer {
   background: linear-gradient(
     90deg,
-    rgba(157, 124, 255, 0.04) 0%,
-    rgba(157, 124, 255, 0.12) 40%,
-    rgba(157, 124, 255, 0.04) 80%
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(16, 185, 129, 0.08) 40%,
+    rgba(255, 255, 255, 0.03) 80%
   );
   background-size: 200% 100%;
   animation: shimmer 2.8s ease-in-out infinite;

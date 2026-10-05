@@ -110,7 +110,7 @@ export default async function Store({ params }) {
     };
 
     return (
-        <div className="min-h-screen bg-[#120e1c] text-slate-100 pb-20">
+        <div className="min-h-screen bg-zinc-950 text-zinc-100 pb-20">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

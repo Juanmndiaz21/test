@@ -126,7 +126,7 @@ function renderInline(text) {
             tokens.push(
                 <code
                     key={key++}
-                    className="px-1.5 py-0.5 rounded bg-white/10 text-[#c084fc] font-mono text-[0.9em]"
+                    className="px-1.5 py-0.5 rounded bg-white/10 text-emerald-400 font-mono text-[0.9em]"
                 >
                     {codeMatch[1]}
                 </code>
@@ -139,7 +139,7 @@ function renderInline(text) {
         const imageMatch = remaining.match(/^!\[(.*?)\]\((.*?)\)/);
         if (imageMatch) {
             tokens.push(
-                <figure key={key++} className="my-6 block rounded-2xl overflow-hidden border border-white/10 bg-[#120e1c] shadow-lg">
+                <figure key={key++} className="my-6 block rounded-2xl overflow-hidden border border-white/10 bg-zinc-900 shadow-lg">
                     <img
                         src={imageMatch[2]}
                         alt={imageMatch[1] || 'Blog visual'}
@@ -147,7 +147,7 @@ function renderInline(text) {
                         loading="lazy"
                     />
                     {imageMatch[1] && (
-                        <figcaption className="p-2.5 text-center text-xs text-slate-400 bg-[#161126] border-t border-white/5 font-mono">
+                        <figcaption className="p-2.5 text-center text-xs text-zinc-400 bg-zinc-900 border-t border-white/5 font-mono">
                             {imageMatch[1]}
                         </figcaption>
                     )}
@@ -166,7 +166,7 @@ function renderInline(text) {
                     href={linkMatch[2]}
                     target={linkMatch[2].startsWith('http') ? '_blank' : undefined}
                     rel={linkMatch[2].startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="text-[#9d7cff] hover:underline underline-offset-4 font-semibold"
+                    className="text-emerald-400 hover:underline underline-offset-4 font-semibold"
                 >
                     {linkMatch[1]}
                 </a>
@@ -222,7 +222,7 @@ export default function BlogMarkdown({ content }) {
             const alt = standaloneImageMatch[1];
             const src = standaloneImageMatch[2];
             elements.push(
-                <figure key={key++} className="my-8 rounded-2xl overflow-hidden border border-white/10 bg-[#120e1c] shadow-xl">
+                <figure key={key++} className="my-8 rounded-2xl overflow-hidden border border-white/10 bg-zinc-900 shadow-xl">
                     <img
                         src={src}
                         alt={alt || 'Article visual'}
@@ -230,7 +230,7 @@ export default function BlogMarkdown({ content }) {
                         loading="lazy"
                     />
                     {alt && (
-                        <figcaption className="p-3 text-center text-xs font-mono text-slate-400 bg-[#161126] border-t border-white/5">
+                        <figcaption className="p-3 text-center text-xs font-mono text-zinc-400 bg-zinc-900 border-t border-white/5">
                             {alt}
                         </figcaption>
                     )}
@@ -270,22 +270,22 @@ export default function BlogMarkdown({ content }) {
                 }
 
                 const stepIcons = [
-                    <svg key="1" className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg key="1" className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
                     </svg>,
-                    <svg key="2" className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg key="2" className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>,
-                    <svg key="3" className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg key="3" className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>,
-                    <svg key="4" className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg key="4" className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>,
-                    <svg key="5" className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg key="5" className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>,
-                    <svg key="6" className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg key="6" className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -302,11 +302,11 @@ export default function BlogMarkdown({ content }) {
                 });
 
                 elements.push(
-                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/30 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-5 sm:p-7 md:p-8">
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 border border-white/10 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-5 sm:p-7 md:p-8">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-[#9d7cff]/15 border border-[#9d7cff]/30 flex items-center justify-center shrink-0">
-                                    <svg className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                                    <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                                     </svg>
                                 </div>
@@ -315,10 +315,10 @@ export default function BlogMarkdown({ content }) {
                                 </h4>
                             </div>
                             <div className="flex items-center gap-2 self-start sm:self-auto">
-                                <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-[#9d7cff]/15 border border-[#9d7cff]/30 text-[#c084fc] shrink-0 whitespace-nowrap">
+                                <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 shrink-0 whitespace-nowrap">
                                     {customBadge}
                                 </span>
-                                <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300 shrink-0 whitespace-nowrap">
+                                <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 shrink-0 whitespace-nowrap">
                                     {parsedSteps.length} Steps
                                 </span>
                             </div>
@@ -330,22 +330,22 @@ export default function BlogMarkdown({ content }) {
                                 return (
                                     <div
                                         key={sIdx}
-                                        className="relative rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#9d7cff]/40 transition-all duration-200 p-5 flex flex-col justify-between group shadow-sm"
+                                        className="relative rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-emerald-500/40 transition-all duration-200 p-5 flex flex-col justify-between group shadow-sm"
                                     >
                                         <div>
                                             <div className="flex items-center justify-between mb-3 gap-2">
-                                                <div className="w-8 h-8 rounded-lg bg-[#9d7cff]/10 border border-[#9d7cff]/25 flex items-center justify-center shrink-0">
+                                                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center shrink-0">
                                                     {icon}
                                                 </div>
-                                                <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-[#9d7cff]/15 text-[#c084fc] border border-[#9d7cff]/25 shrink-0 whitespace-nowrap">
+                                                <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 shrink-0 whitespace-nowrap">
                                                     STEP 0{sIdx + 1}
                                                 </span>
                                             </div>
-                                            <h5 className="font-bold text-white text-base group-hover:text-[#c084fc] transition-colors leading-snug">
+                                            <h5 className="font-bold text-white text-base group-hover:text-emerald-400 transition-colors leading-snug">
                                                 {step.title}
                                             </h5>
                                             {step.description && (
-                                                <p className="text-xs text-slate-200 mt-2 leading-relaxed">
+                                                <p className="text-xs text-zinc-200 mt-2 leading-relaxed">
                                                     {step.description}
                                                 </p>
                                             )}
@@ -418,16 +418,16 @@ export default function BlogMarkdown({ content }) {
                             </div>
                         </div>
 
-                        <div className="relative pl-6 sm:pl-8 border-l-2 border-[#9d7cff]/30 space-y-6 sm:space-y-8 my-2">
+                        <div className="relative pl-6 sm:pl-8 border-l-2 border-emerald-500/30 space-y-6 sm:space-y-8 my-2">
                             {parsedTimeline.map((item, tIdx) => (
                                 <div key={tIdx} className="relative group">
-                                    <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#0a0614] border-2 border-cyan-400 flex items-center justify-center group-hover:scale-125 transition-transform shadow-[0_0_10px_rgba(6,182,212,0.4)]">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-cyan-300" />
+                                    <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-zinc-950 border-2 border-emerald-400 flex items-center justify-center group-hover:scale-125 transition-transform shadow-[0_0_10px_rgba(16,185,129,0.4)]">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-300" />
                                     </div>
 
-                                    <div className="rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-cyan-500/40 p-4 sm:p-5 transition-all">
+                                    <div className="rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-emerald-500/40 p-4 sm:p-5 transition-all">
                                         <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                                            <span className="text-xs font-mono font-bold text-cyan-400 px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20 shrink-0 whitespace-nowrap">
+                                            <span className="text-xs font-mono font-bold text-emerald-400 px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 shrink-0 whitespace-nowrap">
                                                 {item.time}
                                             </span>
                                             {item.badge && (
@@ -436,11 +436,11 @@ export default function BlogMarkdown({ content }) {
                                                 </span>
                                             )}
                                         </div>
-                                        <h5 className="font-bold text-white text-base group-hover:text-cyan-300 transition-colors">
+                                        <h5 className="font-bold text-white text-base group-hover:text-emerald-300 transition-colors">
                                             {item.title}
                                         </h5>
                                         {item.description && (
-                                            <p className="text-xs text-slate-200 mt-2 leading-relaxed">
+                                            <p className="text-xs text-zinc-200 mt-2 leading-relaxed">
                                                 {item.description}
                                             </p>
                                         )}
@@ -476,11 +476,11 @@ export default function BlogMarkdown({ content }) {
                 });
 
                 elements.push(
-                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/30 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-5 sm:p-7 md:p-8">
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 border border-white/10 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-5 sm:p-7 md:p-8">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center shrink-0">
-                                    <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                                    <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                                     </svg>
                                 </div>
@@ -488,7 +488,7 @@ export default function BlogMarkdown({ content }) {
                                     {customTitle}
                                 </h4>
                             </div>
-                            <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 self-start sm:self-auto shrink-0 whitespace-nowrap">
+                            <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 self-start sm:self-auto shrink-0 whitespace-nowrap">
                                 {customBadge}
                             </span>
                         </div>
@@ -502,19 +502,19 @@ export default function BlogMarkdown({ content }) {
                                         className={`rounded-xl border p-5 sm:p-6 transition-all ${
                                             isFirst
                                                 ? 'bg-gradient-to-b from-emerald-500/[0.08] to-transparent border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.08)]'
-                                                : 'bg-gradient-to-b from-[#9d7cff]/[0.08] to-transparent border-[#9d7cff]/40 shadow-[0_0_20px_rgba(157,124,255,0.08)]'
+                                                : 'bg-white/[0.03] border-white/10 hover:border-emerald-500/40'
                                         }`}
                                     >
                                         <div className="flex items-center justify-between gap-2 mb-3">
                                             <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded-full border shrink-0 whitespace-nowrap ${
                                                 isFirst
                                                     ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
-                                                    : 'bg-[#9d7cff]/20 text-[#c084fc] border-[#9d7cff]/30'
+                                                    : 'bg-white/10 text-zinc-300 border-white/10'
                                             }`}>
                                                 {isFirst ? 'RECOMMENDED' : 'ALTERNATIVE'}
                                             </span>
                                             {card.subtitle && (
-                                                <span className="text-xs font-mono text-slate-300 shrink-0 whitespace-nowrap">
+                                                <span className="text-xs font-mono text-zinc-300 shrink-0 whitespace-nowrap">
                                                     {card.subtitle}
                                                 </span>
                                             )}
@@ -524,8 +524,8 @@ export default function BlogMarkdown({ content }) {
                                         </h5>
                                         <ul className="space-y-2.5">
                                             {card.points.map((pt, pIdx) => (
-                                                <li key={pIdx} className="text-xs text-slate-200 flex items-start gap-2.5 leading-relaxed">
-                                                    <svg className={`w-4 h-4 mt-0.5 shrink-0 ${isFirst ? 'text-emerald-400' : 'text-[#c084fc]'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                                <li key={pIdx} className="text-xs text-zinc-200 flex items-start gap-2.5 leading-relaxed">
+                                                    <svg className={`w-4 h-4 mt-0.5 shrink-0 ${isFirst ? 'text-emerald-400' : 'text-zinc-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                                     </svg>
                                                     <span>{pt}</span>
@@ -758,19 +758,19 @@ export default function BlogMarkdown({ content }) {
                 const tierColors = [
                     'border-amber-400/40 bg-amber-500/[0.08] text-amber-200',
                     'border-rose-400/40 bg-rose-500/[0.08] text-rose-200',
-                    'border-purple-400/40 bg-purple-500/[0.08] text-[#c084fc]',
+                    'border-emerald-400/40 bg-emerald-500/[0.08] text-emerald-400',
                     'border-cyan-400/40 bg-cyan-500/[0.08] text-cyan-200',
-                    'border-slate-500/30 bg-white/[0.03] text-slate-300'
+                    'border-zinc-700/30 bg-white/[0.03] text-zinc-300'
                 ];
 
                 const tierWidths = ['max-w-md', 'max-w-lg', 'max-w-xl', 'max-w-2xl', 'max-w-3xl'];
 
                 elements.push(
-                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/30 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-5 sm:p-7 md:p-8">
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 border border-white/10 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-5 sm:p-7 md:p-8">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center shrink-0">
-                                    <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                                    <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                                     </svg>
                                 </div>
@@ -778,7 +778,7 @@ export default function BlogMarkdown({ content }) {
                                     {customTitle}
                                 </h4>
                             </div>
-                            <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 self-start sm:self-auto shrink-0 whitespace-nowrap">
+                            <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 self-start sm:self-auto shrink-0 whitespace-nowrap">
                                 {customBadge} ({parsedTiers.length} Levels)
                             </span>
                         </div>
@@ -926,11 +926,11 @@ export default function BlogMarkdown({ content }) {
                 });
 
                 elements.push(
-                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/30 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-5 sm:p-7 md:p-8">
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 border border-white/10 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-5 sm:p-7 md:p-8">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center shrink-0">
-                                    <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                                    <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                                     </svg>
                                 </div>
@@ -938,7 +938,7 @@ export default function BlogMarkdown({ content }) {
                                     {customTitle}
                                 </h4>
                             </div>
-                            <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 self-start sm:self-auto shrink-0 whitespace-nowrap">
+                            <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 self-start sm:self-auto shrink-0 whitespace-nowrap">
                                 {customBadge}
                             </span>
                         </div>
@@ -952,18 +952,18 @@ export default function BlogMarkdown({ content }) {
                                         className={`rounded-xl border p-5 transition-all ${
                                             isTopRight
                                                 ? 'bg-emerald-500/[0.06] border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.06)]'
-                                                : 'bg-white/[0.03] border-white/10 hover:border-purple-500/40'
+                                                : 'bg-white/[0.03] border-white/10 hover:border-emerald-500/40'
                                         }`}
                                     >
                                         <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded-full border shrink-0 whitespace-nowrap ${
-                                            isTopRight ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-white/10 text-slate-300 border-white/10'
+                                            isTopRight ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-white/10 text-zinc-300 border-white/10'
                                         }`}>
                                             {q.quadrant}
                                         </span>
                                         <h5 className="font-bold text-white text-base mt-2.5 mb-1.5 leading-snug">
                                             {q.title}
                                         </h5>
-                                        <p className="text-xs text-slate-200 leading-relaxed">
+                                        <p className="text-xs text-zinc-200 leading-relaxed">
                                             {q.description}
                                         </p>
                                     </div>
@@ -1001,11 +1001,11 @@ export default function BlogMarkdown({ content }) {
                 const hasOneWideAndThreeOthers = parsedBento.length === 4 && parsedBento.filter(i => i.layout.includes('wide') || i.layout.includes('full')).length === 1;
 
                 elements.push(
-                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-[#16102a] via-[#100a1c] to-[#0a0614] border border-[#9d7cff]/30 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-5 sm:p-7 md:p-8">
+                    <div key={key++} className="my-10 rounded-2xl bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 border border-white/10 shadow-[0_16px_36px_rgba(0,0,0,0.4)] p-5 sm:p-7 md:p-8">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-[#9d7cff]/15 border border-[#9d7cff]/30 flex items-center justify-center shrink-0">
-                                    <svg className="w-5 h-5 text-[#c084fc]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                                    <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
                                     </svg>
                                 </div>
@@ -1013,7 +1013,7 @@ export default function BlogMarkdown({ content }) {
                                     {customTitle}
                                 </h4>
                             </div>
-                            <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-[#9d7cff]/15 border border-[#9d7cff]/30 text-[#c084fc] self-start sm:self-auto shrink-0 whitespace-nowrap">
+                            <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 self-start sm:self-auto shrink-0 whitespace-nowrap">
                                 {customBadge}
                             </span>
                         </div>
@@ -1035,7 +1035,7 @@ export default function BlogMarkdown({ content }) {
                                 return (
                                     <div
                                         key={bIdx}
-                                        className={`${spanClass} rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#9d7cff]/40 p-5 sm:p-6 flex flex-col justify-between transition-all`}
+                                        className={`${spanClass} rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-emerald-500/40 p-5 sm:p-6 flex flex-col justify-between transition-all`}
                                     >
                                         <div>
                                             <div className="flex items-start justify-between gap-3 mb-2.5">
@@ -1043,12 +1043,12 @@ export default function BlogMarkdown({ content }) {
                                                     {item.title}
                                                 </h5>
                                                 {item.badge && (
-                                                    <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-[#9d7cff]/15 text-[#c084fc] border border-[#9d7cff]/25 shrink-0 whitespace-nowrap">
+                                                    <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 shrink-0 whitespace-nowrap">
                                                         {item.badge}
                                                     </span>
                                                 )}
                                             </div>
-                                            <p className="text-xs text-slate-200 leading-relaxed">
+                                            <p className="text-xs text-zinc-200 leading-relaxed">
                                                 {item.description}
                                             </p>
                                         </div>
@@ -1061,18 +1061,18 @@ export default function BlogMarkdown({ content }) {
             } else {
                 // High-polish terminal code / command block
                 elements.push(
-                    <div key={key++} className="my-6 rounded-2xl overflow-hidden border border-white/10 bg-[#0c0816] shadow-xl">
+                    <div key={key++} className="my-6 rounded-2xl overflow-hidden border border-white/10 bg-zinc-950 shadow-xl">
                         {/* Terminal title bar with macOS-like dots */}
-                        <div className="flex items-center justify-between px-4 py-2.5 bg-[#140e24] border-b border-white/5">
+                        <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-900 border-b border-white/5">
                             <div className="flex items-center gap-1.5">
                                 <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
                                 <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
                                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
-                                <span className="ml-2 text-[11px] font-mono text-slate-400 uppercase tracking-wider">
+                                <span className="ml-2 text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
                                     {lang || 'Code'}
                                 </span>
                             </div>
-                            <span className="text-xs font-mono text-slate-500">Terminal</span>
+                            <span className="text-xs font-mono text-zinc-500">Terminal</span>
                         </div>
                         <pre className="p-4 sm:p-5 overflow-x-auto text-xs sm:text-sm font-mono text-emerald-300/90 leading-relaxed scrollbar-thin">
                             <code>{codeLines.join('\n')}</code>
@@ -1107,12 +1107,12 @@ export default function BlogMarkdown({ content }) {
                     id={headingId}
                     className="text-xl sm:text-2xl font-bold text-white mt-10 mb-4 tracking-tight flex items-center gap-2.5 scroll-mt-28 group"
                 >
-                    <span className="w-1.5 h-6 bg-[#9d7cff] rounded-full inline-block group-hover:scale-y-110 transition-transform" />
+                    <span className="w-1.5 h-6 bg-emerald-400 rounded-full inline-block group-hover:scale-y-110 transition-transform" />
                     <span>{renderInline(rawTitle)}</span>
                     <a
                         href={`#${headingId}`}
                         aria-label={`Link to ${rawTitle}`}
-                        className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-[#9d7cff] text-sm ml-1 transition-opacity"
+                        className="opacity-0 group-hover:opacity-100 text-zinc-500 hover:text-emerald-400 text-sm ml-1 transition-opacity"
                     >
                         #
                     </a>
@@ -1130,13 +1130,13 @@ export default function BlogMarkdown({ content }) {
                 <h3
                     key={key++}
                     id={headingId}
-                    className="text-lg sm:text-xl font-bold text-[#c084fc] mt-6 mb-2.5 scroll-mt-28 group flex items-center gap-2"
+                    className="text-lg sm:text-xl font-bold text-emerald-400 mt-6 mb-2.5 scroll-mt-28 group flex items-center gap-2"
                 >
                     <span>{renderInline(rawTitle)}</span>
                     <a
                         href={`#${headingId}`}
                         aria-label={`Link to ${rawTitle}`}
-                        className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-[#9d7cff] text-xs transition-opacity"
+                        className="opacity-0 group-hover:opacity-100 text-zinc-500 hover:text-emerald-400 text-xs transition-opacity"
                     >
                         #
                     </a>
@@ -1156,7 +1156,7 @@ export default function BlogMarkdown({ content }) {
             elements.push(
                 <blockquote
                     key={key++}
-                    className="border border-[#9d7cff]/20 bg-[#161126]/40 px-6 py-5 rounded-xl my-6 text-slate-200 italic text-base leading-relaxed"
+                    className="border border-emerald-500/20 bg-zinc-900 px-6 py-5 rounded-xl my-6 text-zinc-200 italic text-base leading-relaxed"
                 >
                     {quoteLines.map((ql, qIdx) => (
                         <p key={qIdx} className={qIdx > 0 ? 'mt-2' : ''}>
@@ -1178,8 +1178,8 @@ export default function BlogMarkdown({ content }) {
             elements.push(
                 <ul key={key++} className="space-y-2.5 my-4 list-none pl-1">
                     {listItems.map((item, lIdx) => (
-                        <li key={lIdx} className="flex items-start gap-3 text-slate-300 text-base leading-relaxed">
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#9d7cff] shrink-0 mt-2.5" />
+                        <li key={lIdx} className="flex items-start gap-3 text-zinc-300 text-base leading-relaxed">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0 mt-2.5" />
                             <span>{renderInline(item)}</span>
                         </li>
                     ))}
@@ -1202,8 +1202,8 @@ export default function BlogMarkdown({ content }) {
             elements.push(
                 <ol key={key++} className="space-y-2.5 my-4 list-none pl-1">
                     {listItems.map((item, lIdx) => (
-                        <li key={lIdx} className="flex items-start gap-3 text-slate-300 text-base leading-relaxed">
-                            <span className="px-1.5 py-0.5 rounded bg-white/10 text-xs font-mono font-bold text-[#c084fc] shrink-0 mt-0.5">
+                        <li key={lIdx} className="flex items-start gap-3 text-zinc-300 text-base leading-relaxed">
+                            <span className="px-1.5 py-0.5 rounded bg-white/10 text-xs font-mono font-bold text-emerald-400 shrink-0 mt-0.5">
                                 {item.number}
                             </span>
                             <span>{renderInline(item.text)}</span>
@@ -1233,18 +1233,18 @@ export default function BlogMarkdown({ content }) {
                 const bodyRows = tableLines.slice(1).filter((r) => !/^[\|\-\s:]+$/.test(r)).map(parseRow);
 
                 elements.push(
-                    <div key={key++} className="overflow-x-auto my-6 rounded-2xl border border-white/10 panel-surface shadow-lg">
+                    <div key={key++} className="overflow-x-auto my-6 rounded-2xl border border-white/10 bg-zinc-900 shadow-lg">
                         <table className="w-full text-left text-sm">
-                            <thead className="bg-[#171229] border-b border-white/10 font-bold text-white font-mono text-xs uppercase tracking-wider">
+                            <thead className="bg-zinc-900 border-b border-white/10 font-bold text-white font-mono text-xs uppercase tracking-wider">
                                 <tr>
                                     {headers.map((h, hIdx) => (
-                                        <th key={hIdx} className="py-3.5 px-4 text-slate-200">
+                                        <th key={hIdx} className="py-3.5 px-4 text-zinc-200">
                                             {renderInline(h)}
                                         </th>
                                     ))}
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-white/5 text-slate-300">
+                            <tbody className="divide-y divide-white/5 text-zinc-300">
                                 {bodyRows.map((cols, rIdx) => (
                                     <tr key={rIdx} className="hover:bg-white/[0.03] transition-colors">
                                         {cols.map((col, cIdx) => (

@@ -84,7 +84,7 @@ export default function TrackOrderPage({ searchParams }) {
         : null;
 
     return (
-        <div className="min-h-screen bg-[#0d0914] text-slate-100 pb-28">
+        <div className="min-h-screen bg-zinc-950 text-zinc-100 pb-28">
             <PageHeaderBanner
                 title={t('title')}
                 subtitle={t('subtitle')}
@@ -98,31 +98,31 @@ export default function TrackOrderPage({ searchParams }) {
                         e.preventDefault();
                         handleTrack();
                     }}
-                    className="panel-surface p-3.5 sm:p-5 rounded-2xl border border-[#9d7cff]/25 flex flex-col sm:flex-row gap-3 shadow-[0_20px_50px_rgba(0,0,0,0.65)]"
+                    className="bg-zinc-900 p-3.5 sm:p-5 rounded-2xl border border-white/10 flex flex-col sm:flex-row gap-3 shadow-2xl"
                 >
                     <div className="relative flex-grow flex items-center">
-                        <Icon name="search" className="w-5 h-5 text-[#9d7cff] absolute left-4 pointer-events-none" />
+                        <Icon name="search" className="w-5 h-5 text-emerald-400 absolute left-4 pointer-events-none" />
                         <input
                             type="text"
                             value={code}
                             onChange={(e) => setCode(e.target.value)}
                             placeholder={t('inputPlaceholder')}
-                            className="w-full bg-black/40 border border-white/10 rounded-xl py-3.5 pl-12 pr-4 text-white placeholder-slate-500 font-mono tracking-wider uppercase focus:border-[#9d7cff] focus:ring-2 focus:ring-[#9d7cff]/20 outline-none transition-all text-sm sm:text-base"
+                            className="w-full bg-zinc-950 border border-white/10 rounded-xl py-3.5 pl-12 pr-4 text-white placeholder-zinc-500 font-mono tracking-wider uppercase focus:border-emerald-500/60 focus:ring-1 focus:ring-emerald-500/30 outline-none transition-all text-sm sm:text-base"
                         />
                     </div>
                     <button
                         type="submit"
                         disabled={isPending || !code.trim()}
-                        className="bg-[#9d7cff] hover:bg-white text-[#0d0914] font-black uppercase tracking-wider px-8 py-3.5 rounded-xl transition-[background-color,color,transform,box-shadow] duration-150 ease-out active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed shrink-0 flex items-center justify-center gap-2.5 cursor-pointer shadow-[0_4px_16px_rgba(157,124,255,0.25)] hover:shadow-[0_0_24px_rgba(157,124,255,0.45)] text-sm"
+                        className="bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-black uppercase tracking-wider px-8 py-3.5 rounded-xl transition-all duration-150 ease-out active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed shrink-0 flex items-center justify-center gap-2.5 cursor-pointer shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] text-sm"
                     >
                         {isPending ? (
                             <>
-                                <span className="w-4 h-4 border-2 border-[#0d0914] border-t-transparent rounded-full animate-loading-spin" />
+                                <span className="w-4 h-4 border-2 border-zinc-950 border-t-transparent rounded-full animate-loading-spin" />
                                 <span>{t('searching')}</span>
                             </>
                         ) : (
                             <>
-                                <Icon name="radar" className="w-4 h-4 text-[#0d0914]" />
+                                <Icon name="radar" className="w-4 h-4 text-zinc-950" />
                                 <span>{t('button')}</span>
                             </>
                         )}
@@ -137,7 +137,7 @@ export default function TrackOrderPage({ searchParams }) {
                             animate={{ opacity: 1, transform: 'translateY(0) scale(1)' }}
                             exit={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateY(-10px)' }}
                             transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-                            className="mt-8 panel-surface p-8 sm:p-10 rounded-2xl border border-rose-500/30 text-center shadow-[0_20px_50px_rgba(0,0,0,0.6)] relative overflow-hidden"
+                            className="mt-8 bg-zinc-900 p-8 sm:p-10 rounded-2xl border border-rose-500/30 text-center shadow-2xl relative overflow-hidden"
                         >
                             <div className="w-14 h-14 rounded-2xl bg-rose-500/10 border border-rose-500/25 flex items-center justify-center mx-auto mb-4 text-rose-400">
                                 <Icon name="alert-circle" className="w-7 h-7" />
@@ -145,7 +145,7 @@ export default function TrackOrderPage({ searchParams }) {
                             <h3 className="display-font text-2xl font-black uppercase text-white mb-2 tracking-wide">
                                 {t('notFound')}
                             </h3>
-                            <p className="text-slate-400 text-sm max-w-md mx-auto leading-relaxed mb-6 font-sans">
+                            <p className="text-zinc-400 text-sm max-w-md mx-auto leading-relaxed mb-6 font-sans">
                                 {t('notFoundDesc')}
                             </p>
                             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -153,13 +153,13 @@ export default function TrackOrderPage({ searchParams }) {
                                     href="/help"
                                     className="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-2"
                                 >
-                                    <Icon name="message" className="w-4 h-4 text-[#9d7cff]" />
+                                    <Icon name="message" className="w-4 h-4 text-emerald-400" />
                                     <span>{t('contactSupport')}</span>
                                 </Link>
                                 <button
                                     type="button"
                                     onClick={() => setCode('')}
-                                    className="px-5 py-2.5 rounded-xl text-slate-400 hover:text-white text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer"
+                                    className="px-5 py-2.5 rounded-xl text-zinc-400 hover:text-white text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer"
                                 >
                                     Clear search
                                 </button>
@@ -184,12 +184,12 @@ export default function TrackOrderPage({ searchParams }) {
                             animate={{ opacity: 1, transform: 'translateY(0)' }}
                             exit={{ opacity: 0, transform: shouldReduceMotion ? 'none' : 'translateY(-16px)' }}
                             transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
-                            className="mt-8 panel-surface rounded-2xl border border-[#9d7cff]/30 p-6 sm:p-10 space-y-8 shadow-[0_24px_70px_rgba(0,0,0,0.7)]"
+                            className="mt-8 bg-zinc-900 rounded-2xl border border-white/10 p-6 sm:p-10 space-y-8 shadow-2xl"
                         >
                             {/* Order Header Banner */}
-                            <div className="p-5 sm:p-6 rounded-xl bg-black/40 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div className="p-5 sm:p-6 rounded-xl bg-zinc-950 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                                 <div>
-                                    <span className="text-[11px] uppercase font-mono tracking-widest text-[#9d7cff] font-bold block mb-1">
+                                    <span className="text-[11px] uppercase font-mono tracking-widest text-emerald-400 font-bold block mb-1">
                                         {t('orderCodeLabel')}
                                     </span>
                                     <div className="flex flex-wrap items-center gap-3">
@@ -199,12 +199,12 @@ export default function TrackOrderPage({ searchParams }) {
                                         <button
                                             type="button"
                                             onClick={handleCopyCode}
-                                            className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-[#9d7cff] text-slate-300 hover:text-[#0d0914] border border-white/10 hover:border-[#9d7cff] transition-[background-color,color,border-color,transform] duration-150 active:scale-95 text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer"
+                                            className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-emerald-500 text-zinc-300 hover:text-zinc-950 border border-white/10 hover:border-emerald-500 transition-all duration-150 active:scale-95 text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer"
                                             title={t('copyCode')}
                                         >
                                             <Icon
                                                 name={copied ? 'check' : 'clipboard'}
-                                                className={`w-3.5 h-3.5 ${copied ? 'text-emerald-400 group-hover:text-[#0d0914]' : ''}`}
+                                                className={`w-3.5 h-3.5 ${copied ? 'text-emerald-400' : ''}`}
                                             />
                                             <span>{copied ? t('codeCopied') : t('copyCode')}</span>
                                         </button>
@@ -212,7 +212,7 @@ export default function TrackOrderPage({ searchParams }) {
                                 </div>
 
                                 <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 pt-3 sm:pt-0 border-white/10">
-                                    <span className="text-[11px] uppercase text-slate-400 font-semibold mb-1 block">
+                                    <span className="text-[11px] uppercase text-zinc-400 font-semibold mb-1 block">
                                         {t('currentStatus')}
                                     </span>
                                     <span
@@ -221,7 +221,7 @@ export default function TrackOrderPage({ searchParams }) {
                                                 ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
                                                 : result.status === 'cancelled'
                                                 ? 'bg-rose-500/15 text-rose-300 border border-rose-500/30'
-                                                : 'bg-[#9d7cff]/15 text-[#c8b4ff] border border-[#9d7cff]/30'
+                                                : 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
                                         }`}
                                     >
                                         <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
@@ -242,10 +242,10 @@ export default function TrackOrderPage({ searchParams }) {
                                     {/* Connector Bar Fill */}
                                     <div
                                         aria-hidden="true"
-                                        className="absolute top-5 left-[12%] h-[3px] bg-gradient-to-r from-[#9d7cff] to-[#c8b4ff] -translate-y-1/2 hidden sm:block rounded-full transition-all duration-500 ease-out shadow-[0_0_10px_rgba(157,124,255,0.5)]"
+                                        className="absolute top-5 left-[12%] h-[3px] bg-emerald-500 -translate-y-1/2 hidden sm:block rounded-full transition-all duration-500 ease-out shadow-[0_0_10px_rgba(16,185,129,0.5)]"
                                         style={{
                                             width: isCancelled
-                                                ? '0%'
+                                                 ? '0%'
                                                 : `${Math.min(76, Math.max(0, (currentStepIdx / (STATUS_STEPS.length - 1)) * 76))}%`,
                                         }}
                                     />
@@ -260,18 +260,18 @@ export default function TrackOrderPage({ searchParams }) {
                                                     <div
                                                         className={`w-10 h-10 rounded-full flex items-center justify-center font-mono text-xs font-black transition-all duration-200 ${
                                                             isDone
-                                                                ? 'bg-[#9d7cff] text-[#0d0914] shadow-[0_0_16px_rgba(157,124,255,0.45)]'
+                                                                ? 'bg-emerald-500 text-zinc-950 shadow-[0_0_16px_rgba(16,185,129,0.45)]'
                                                                 : isCurrent
-                                                                ? 'bg-white text-[#0d0914] ring-4 ring-[#9d7cff]/40 shadow-[0_0_20px_rgba(255,255,255,0.5)] scale-105'
-                                                                : 'bg-[#120e1c] border border-white/15 text-slate-400'
+                                                                ? 'bg-white text-zinc-950 ring-4 ring-emerald-500/40 shadow-[0_0_20px_rgba(255,255,255,0.5)] scale-105'
+                                                                : 'bg-zinc-950 border border-white/15 text-zinc-400'
                                                         }`}
                                                     >
                                                         {isDone ? (
                                                             <Icon name="check" className="w-5 h-5 stroke-[2.5]" />
                                                         ) : isCurrent ? (
                                                             <span className="relative flex h-3 w-3">
-                                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9d7cff] opacity-75" />
-                                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#0d0914]" />
+                                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-zinc-950" />
                                                             </span>
                                                         ) : (
                                                             idx + 1
@@ -282,13 +282,13 @@ export default function TrackOrderPage({ searchParams }) {
                                                             isCurrent
                                                                 ? 'text-white'
                                                                 : isDone
-                                                                ? 'text-[#c8b4ff]'
-                                                                : 'text-slate-400'
+                                                                ? 'text-emerald-400'
+                                                                : 'text-zinc-400'
                                                         }`}
                                                     >
                                                         {step.label}
                                                     </span>
-                                                    <span className="mt-1 text-[11px] text-slate-400 max-w-[150px] leading-tight hidden sm:block">
+                                                    <span className="mt-1 text-[11px] text-zinc-400 max-w-[150px] leading-tight hidden sm:block">
                                                         {step.sub}
                                                     </span>
                                                 </div>
@@ -301,12 +301,12 @@ export default function TrackOrderPage({ searchParams }) {
                             {/* Metadata Overview Tiles */}
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                 {/* Assigned Booster Tile */}
-                                <div className="p-4 rounded-xl bg-black/40 border border-white/10 flex items-center gap-3.5">
-                                    <div className="w-10 h-10 rounded-xl bg-[#9d7cff]/15 border border-[#9d7cff]/30 flex items-center justify-center text-[#9d7cff] shrink-0">
+                                <div className="p-4 rounded-xl bg-zinc-950 border border-white/10 flex items-center gap-3.5">
+                                    <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
                                         <Icon name="users" className="w-5 h-5" />
                                     </div>
                                     <div className="min-w-0">
-                                        <span className="text-[11px] uppercase text-slate-400 font-semibold block">
+                                        <span className="text-[11px] uppercase text-zinc-400 font-semibold block">
                                             {t('assignedBooster')}
                                         </span>
                                         {result.booster ? (
@@ -319,7 +319,7 @@ export default function TrackOrderPage({ searchParams }) {
                                                 </span>
                                             </div>
                                         ) : (
-                                            <span className="text-xs font-medium text-slate-300 block truncate">
+                                            <span className="text-xs font-medium text-zinc-300 block truncate">
                                                 {t('unassignedQueue')}
                                             </span>
                                         )}
@@ -327,12 +327,12 @@ export default function TrackOrderPage({ searchParams }) {
                                 </div>
 
                                 {/* Order Date Tile */}
-                                <div className="p-4 rounded-xl bg-black/40 border border-white/10 flex items-center gap-3.5">
-                                    <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 shrink-0">
+                                <div className="p-4 rounded-xl bg-zinc-950 border border-white/10 flex items-center gap-3.5">
+                                    <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-zinc-300 shrink-0">
                                         <Icon name="clock" className="w-5 h-5" />
                                     </div>
                                     <div className="min-w-0">
-                                        <span className="text-[11px] uppercase text-slate-400 font-semibold block">
+                                        <span className="text-[11px] uppercase text-zinc-400 font-semibold block">
                                             {t('orderDate')}
                                         </span>
                                         <span className="text-sm font-mono font-bold text-white block truncate">
@@ -342,15 +342,15 @@ export default function TrackOrderPage({ searchParams }) {
                                 </div>
 
                                 {/* Total Paid Tile */}
-                                <div className="p-4 rounded-xl bg-black/40 border border-white/10 flex items-center gap-3.5">
-                                    <div className="w-10 h-10 rounded-xl bg-[#9d7cff]/15 border border-[#9d7cff]/30 flex items-center justify-center text-[#9d7cff] shrink-0 font-mono font-black text-sm">
+                                <div className="p-4 rounded-xl bg-zinc-950 border border-white/10 flex items-center gap-3.5">
+                                    <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0 font-mono font-black text-sm">
                                         $
                                     </div>
                                     <div className="min-w-0">
-                                        <span className="text-[11px] uppercase text-slate-400 font-semibold block">
+                                        <span className="text-[11px] uppercase text-zinc-400 font-semibold block">
                                             {t('totalPaid')}
                                         </span>
-                                        <span className="text-sm font-mono font-black text-[#9d7cff] block">
+                                        <span className="text-sm font-mono font-black text-emerald-400 block">
                                             ${result.total} USD
                                         </span>
                                     </div>
@@ -360,11 +360,11 @@ export default function TrackOrderPage({ searchParams }) {
                             {/* Services Included */}
                             <div>
                                 <div className="flex items-center justify-between mb-3">
-                                    <h3 className="text-xs uppercase font-mono tracking-widest text-slate-300 font-bold flex items-center gap-2">
-                                        <Icon name="box" className="w-4 h-4 text-[#9d7cff]" />
+                                    <h3 className="text-xs uppercase font-mono tracking-widest text-zinc-300 font-bold flex items-center gap-2">
+                                        <Icon name="box" className="w-4 h-4 text-emerald-400" />
                                         <span>{t('servicesIncluded')}</span>
                                     </h3>
-                                    <span className="text-xs font-mono text-slate-400 font-semibold">
+                                    <span className="text-xs font-mono text-zinc-400 font-semibold">
                                         {result.items.length} {result.items.length === 1 ? 'item' : 'items'}
                                     </span>
                                 </div>
@@ -373,16 +373,16 @@ export default function TrackOrderPage({ searchParams }) {
                                     {result.items.map((item) => (
                                         <div
                                             key={item.id}
-                                            className="p-3.5 sm:p-4 rounded-xl bg-white/[0.03] hover:bg-white/[0.05] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm transition-colors"
+                                            className="p-3.5 sm:p-4 rounded-xl bg-zinc-950/80 hover:bg-zinc-950 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm transition-colors"
                                         >
                                             <div className="flex items-center gap-3">
-                                                <span className="font-mono text-xs text-[#0d0914] bg-[#9d7cff] font-black px-2 py-0.5 rounded">
+                                                <span className="font-mono text-xs text-zinc-950 bg-emerald-500 font-black px-2 py-0.5 rounded">
                                                     {item.quantity}x
                                                 </span>
                                                 <div className="min-w-0">
                                                     <p className="font-bold text-white truncate">{item.name}</p>
                                                     {item.game && (
-                                                        <span className="text-[11px] text-slate-400 font-semibold">
+                                                        <span className="text-[11px] text-zinc-400 font-semibold">
                                                             {item.game}
                                                         </span>
                                                     )}
@@ -391,12 +391,12 @@ export default function TrackOrderPage({ searchParams }) {
 
                                             <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
                                                 {item.platform && (
-                                                    <span className="text-xs font-mono uppercase px-2.5 py-1 rounded-md bg-black/50 text-slate-300 border border-white/10 font-bold">
+                                                    <span className="text-xs font-mono uppercase px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 border border-white/10 font-bold">
                                                         {item.platform}
                                                     </span>
                                                 )}
                                                 {item.boostAmount && (
-                                                    <span className="text-xs font-mono px-2.5 py-1 rounded-md bg-[#9d7cff]/15 text-[#c8b4ff] border border-[#9d7cff]/30 font-bold">
+                                                    <span className="text-xs font-mono px-2.5 py-1 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold">
                                                         +{item.boostAmount} Boost
                                                     </span>
                                                 )}
@@ -407,14 +407,14 @@ export default function TrackOrderPage({ searchParams }) {
                             </div>
 
                             {/* Help & Direct Support Footer */}
-                            <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+                            <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-400">
                                 <div className="flex items-center gap-2">
-                                    <Icon name="shield" className="w-4 h-4 text-[#9d7cff] shrink-0" />
+                                    <Icon name="shield" className="w-4 h-4 text-emerald-400 shrink-0" />
                                     <span>{t('helpNote')}</span>
                                 </div>
                                 <Link
                                     href={`/contact?subject=Order%20${result.orderCode}`}
-                                    className="px-4 py-2 rounded-lg bg-white/5 hover:bg-[#9d7cff] text-slate-200 hover:text-[#0d0914] border border-white/10 hover:border-[#9d7cff] font-bold uppercase tracking-wider text-xs transition-[background-color,color,border-color] inline-flex items-center gap-2"
+                                    className="px-4 py-2 rounded-lg bg-white/5 hover:bg-emerald-500 text-zinc-200 hover:text-zinc-950 border border-white/10 hover:border-emerald-500 font-black uppercase tracking-wider text-xs transition-all inline-flex items-center gap-2 cursor-pointer"
                                 >
                                     <span>{t('contactSupport')}</span>
                                     <Icon name="arrow-right" className="w-3.5 h-3.5" />
@@ -439,56 +439,56 @@ export default function TrackOrderPage({ searchParams }) {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div className="panel-surface p-6 rounded-2xl border border-white/10 hover:border-[#9d7cff]/40 transition-colors">
-                                <div className="w-10 h-10 rounded-xl bg-[#9d7cff]/15 border border-[#9d7cff]/30 flex items-center justify-center text-[#9d7cff] mb-4 font-mono font-bold text-sm">
+                            <div className="bg-zinc-900 p-6 rounded-2xl border border-white/10 hover:border-emerald-500/40 transition-colors">
+                                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4 font-mono font-bold text-sm">
                                     01
                                 </div>
                                 <h3 className="font-bold text-white text-base mb-2">
                                     {t('howToTrackStep1Title')}
                                 </h3>
-                                <p className="text-slate-400 text-xs leading-relaxed font-sans">
+                                <p className="text-zinc-400 text-xs leading-relaxed font-sans">
                                     {t('howToTrackStep1Desc')}
                                 </p>
                             </div>
 
-                            <div className="panel-surface p-6 rounded-2xl border border-white/10 hover:border-[#9d7cff]/40 transition-colors">
-                                <div className="w-10 h-10 rounded-xl bg-[#9d7cff]/15 border border-[#9d7cff]/30 flex items-center justify-center text-[#9d7cff] mb-4 font-mono font-bold text-sm">
+                            <div className="bg-zinc-900 p-6 rounded-2xl border border-white/10 hover:border-emerald-500/40 transition-colors">
+                                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4 font-mono font-bold text-sm">
                                     02
                                 </div>
                                 <h3 className="font-bold text-white text-base mb-2">
                                     {t('howToTrackStep2Title')}
                                 </h3>
-                                <p className="text-slate-400 text-xs leading-relaxed font-sans">
+                                <p className="text-zinc-400 text-xs leading-relaxed font-sans">
                                     {t('howToTrackStep2Desc')}
                                 </p>
                             </div>
 
-                            <div className="panel-surface p-6 rounded-2xl border border-white/10 hover:border-[#9d7cff]/40 transition-colors">
-                                <div className="w-10 h-10 rounded-xl bg-[#9d7cff]/15 border border-[#9d7cff]/30 flex items-center justify-center text-[#9d7cff] mb-4 font-mono font-bold text-sm">
+                            <div className="bg-zinc-900 p-6 rounded-2xl border border-white/10 hover:border-emerald-500/40 transition-colors">
+                                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4 font-mono font-bold text-sm">
                                     03
                                 </div>
                                 <h3 className="font-bold text-white text-base mb-2">
                                     {t('howToTrackStep3Title')}
                                 </h3>
-                                <p className="text-slate-400 text-xs leading-relaxed font-sans">
+                                <p className="text-zinc-400 text-xs leading-relaxed font-sans">
                                     {t('howToTrackStep3Desc')}
                                 </p>
                             </div>
                         </div>
 
                         {/* Direct Support Touchpoint */}
-                        <div className="panel-surface p-6 rounded-2xl border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+                        <div className="bg-zinc-900 p-6 rounded-2xl border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
                             <div>
                                 <h4 className="font-bold text-white text-sm">
                                     Purchased as a guest or can&apos;t find your code?
                                 </h4>
-                                <p className="text-slate-400 text-xs mt-1">
+                                <p className="text-zinc-400 text-xs mt-1">
                                     Send us your purchase email address and our team will grant you instant access.
                                 </p>
                             </div>
                             <Link
                                 href="/contact"
-                                className="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-[#9d7cff] text-slate-200 hover:text-[#0d0914] border border-white/10 hover:border-[#9d7cff] text-xs font-bold uppercase tracking-wider transition-all shrink-0 inline-flex items-center gap-2"
+                                className="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-emerald-500 text-zinc-200 hover:text-zinc-950 border border-white/10 hover:border-emerald-500 text-xs font-black uppercase tracking-wider transition-all shrink-0 inline-flex items-center gap-2 cursor-pointer"
                             >
                                 <Icon name="headset" className="w-4 h-4" />
                                 <span>{t('contactSupport')}</span>

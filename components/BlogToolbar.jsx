@@ -52,21 +52,21 @@ export default function BlogToolbar({ categories = [], activeCategory = 'All', i
                 <div className="relative flex items-center">
                     <Icon
                         name="search"
-                        className="absolute left-4 w-5 h-5 text-slate-400 pointer-events-none"
+                        className="absolute left-4 w-5 h-5 text-zinc-400 pointer-events-none"
                     />
                     <input
                         type="text"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         placeholder="Search guides, game tips, strategies, and meta updates..."
-                        className="w-full bg-[#120e1c] border border-white/10 hover:border-white/20 focus:border-[#9d7cff] rounded-2xl pl-12 pr-28 py-3.5 text-sm md:text-base text-white placeholder-slate-500 shadow-[0_4px_24px_rgba(0,0,0,0.4)] focus:outline-none transition-all"
+                        className="w-full bg-zinc-950 border border-white/10 hover:border-white/20 focus:border-emerald-500/60 focus:ring-1 focus:ring-emerald-500/30 rounded-2xl pl-12 pr-28 py-3.5 text-sm md:text-base text-white placeholder-zinc-500 shadow-xl focus:outline-none transition-all"
                     />
                     <div className="absolute right-2 flex items-center gap-1.5">
                         {search && (
                             <button
                                 type="button"
                                 onClick={handleClearSearch}
-                                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+                                className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-white/10 transition-colors"
                             >
                                 <Icon name="x" className="w-4 h-4" />
                             </button>
@@ -74,7 +74,7 @@ export default function BlogToolbar({ categories = [], activeCategory = 'All', i
                         <button
                             type="submit"
                             disabled={isPending}
-                            className="px-4 py-2 rounded-xl bg-[#9d7cff] hover:bg-[#8c67ff] text-[#0d0914] font-bold text-xs uppercase tracking-wider transition-transform active:scale-95 shadow-md cursor-pointer disabled:opacity-50"
+                            className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-black text-xs uppercase tracking-wider transition-all active:scale-95 shadow-[0_0_15px_rgba(16,185,129,0.3)] cursor-pointer disabled:opacity-50"
                         >
                             {isPending ? '...' : 'Search'}
                         </button>
@@ -92,8 +92,8 @@ export default function BlogToolbar({ categories = [], activeCategory = 'All', i
                             onClick={() => handleCategoryClick(cat)}
                             className={`px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                                 isActive
-                                    ? 'bg-[#9d7cff] text-[#0d0914] shadow-[0_0_16px_rgba(157,124,255,0.4)]'
-                                    : 'bg-[#161126] text-slate-300 hover:text-white hover:bg-white/10 border border-white/10'
+                                    ? 'bg-emerald-500 text-zinc-950 font-black shadow-[0_0_16px_rgba(16,185,129,0.4)]'
+                                    : 'bg-zinc-900 text-zinc-300 hover:text-white hover:bg-white/10 border border-white/10'
                             }`}
                         >
                             {cat}

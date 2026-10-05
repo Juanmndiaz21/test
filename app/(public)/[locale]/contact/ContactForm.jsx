@@ -77,12 +77,12 @@ export default function ContactForm({ initialSubject = '' }) {
     };
 
     const inputClass =
-        'w-full bg-[#120e1c]/80 border border-white/10 rounded-lg px-4 py-3 text-slate-100 placeholder:text-slate-400 focus:border-[#9d7cff] outline-none transition-colors';
+        'w-full bg-zinc-950 border border-white/10 rounded-xl px-4 py-3 text-zinc-100 placeholder:text-zinc-500 focus:border-emerald-500/60 focus:ring-1 focus:ring-emerald-500/30 outline-none transition-all';
 
     return (
-        <form onSubmit={handleSubmit} className="panel-surface rounded-2xl p-7 md:p-9 space-y-5 border border-white/10" noValidate>
+        <form onSubmit={handleSubmit} className="bg-zinc-900 rounded-2xl p-7 md:p-9 space-y-5 border border-white/10 shadow-xl" noValidate>
             {formError && (
-                <div role="alert" className="bg-rose-950/60 border border-rose-500 text-rose-200 p-3.5 rounded-lg text-sm flex items-center gap-2">
+                <div role="alert" className="bg-rose-950/60 border border-rose-500 text-rose-200 p-3.5 rounded-xl text-sm flex items-center gap-2">
                     <Icon name="alert-circle" className="w-4 h-4 shrink-0 text-rose-400" />
                     <span>{formError}</span>
                 </div>
@@ -90,21 +90,21 @@ export default function ContactForm({ initialSubject = '' }) {
 
             <div className="grid sm:grid-cols-2 gap-5">
                 <div>
-                    <label htmlFor="contact-name" className="block text-sm font-semibold text-slate-300 mb-1.5">
-                        {t('name')} <span className="text-[#9d7cff]">*</span>
+                    <label htmlFor="contact-name" className="block text-sm font-semibold text-zinc-300 mb-1.5">
+                        {t('name')} <span className="text-emerald-400">*</span>
                     </label>
                     <input id="contact-name" name="name" type="text" required className={inputClass} placeholder="Your name or Discord tag" />
                 </div>
                 <div>
-                    <label htmlFor="contact-email" className="block text-sm font-semibold text-slate-300 mb-1.5">
-                        {t('email')} <span className="text-[#9d7cff]">*</span>
+                    <label htmlFor="contact-email" className="block text-sm font-semibold text-zinc-300 mb-1.5">
+                        {t('email')} <span className="text-emerald-400">*</span>
                     </label>
                     <input id="contact-email" name="email" type="email" required className={inputClass} placeholder="you@example.com" />
                 </div>
             </div>
 
             <div>
-                <label htmlFor="contact-subject" className="block text-sm font-semibold text-slate-300 mb-1.5">
+                <label htmlFor="contact-subject" className="block text-sm font-semibold text-zinc-300 mb-1.5">
                     {t('subject')}
                 </label>
                 <input
@@ -123,10 +123,10 @@ export default function ContactForm({ initialSubject = '' }) {
                             key={topic}
                             type="button"
                             onClick={() => setSubject(topic)}
-                            className={`text-[11px] px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${
+                            className={`text-[11px] px-2.5 py-1 rounded-full border transition-all cursor-pointer ${
                                 subject === topic
-                                    ? 'bg-[#9d7cff]/20 border-[#9d7cff] text-white font-semibold'
-                                    : 'bg-white/5 border-white/10 text-slate-300 hover:border-white/25 hover:text-white'
+                                    ? 'bg-emerald-500/15 border-emerald-500 text-emerald-400 font-bold'
+                                    : 'bg-white/5 border-white/10 text-zinc-300 hover:border-white/25 hover:text-white'
                             }`}
                         >
                             {topic}
@@ -136,8 +136,8 @@ export default function ContactForm({ initialSubject = '' }) {
             </div>
 
             <div>
-                <label htmlFor="contact-message" className="block text-sm font-semibold text-slate-300 mb-1.5">
-                    {t('message')} <span className="text-[#9d7cff]">*</span>
+                <label htmlFor="contact-message" className="block text-sm font-semibold text-zinc-300 mb-1.5">
+                    {t('message')} <span className="text-emerald-400">*</span>
                 </label>
                 <textarea
                     id="contact-message"
@@ -151,16 +151,16 @@ export default function ContactForm({ initialSubject = '' }) {
 
             {/* Explicit Consent Checkbox (Opt-in) */}
             <div className="pt-1">
-                <label className="flex items-start gap-2.5 text-xs text-slate-300 select-none cursor-pointer">
+                <label className="flex items-start gap-2.5 text-xs text-zinc-300 select-none cursor-pointer">
                     <input
                         type="checkbox"
                         checked={consent}
                         onChange={(e) => setConsent(e.target.checked)}
-                        className="mt-0.5 h-4 w-4 rounded border-white/20 bg-[#120e1c] text-[#9d7cff] accent-[#9d7cff] focus:ring-2 focus:ring-[#9d7cff] focus:outline-none cursor-pointer"
+                        className="mt-0.5 h-4 w-4 rounded border-white/20 bg-zinc-950 text-emerald-500 accent-emerald-500 focus:ring-2 focus:ring-emerald-500 focus:outline-none cursor-pointer"
                     />
                     <span className="leading-relaxed">
                         I agree that OGmodz may process my contact details to reply to my message in accordance with the{' '}
-                        <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-[#c8b4ff] underline hover:text-white">
+                        <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-emerald-400 underline hover:text-white">
                             Privacy Policy
                         </a>.
                     </span>
@@ -179,11 +179,11 @@ export default function ContactForm({ initialSubject = '' }) {
                 <button
                     type="submit"
                     disabled={status === 'submitting'}
-                    className="inline-flex items-center justify-center gap-2 bg-[#9d7cff] hover:bg-[#b59dff] disabled:opacity-50 text-[#0d0914] font-black uppercase tracking-wider py-3.5 px-8 rounded-xl transition-all shadow-[0_4px_16px_rgba(157,124,255,0.3)] hover:scale-105 active:scale-95 cursor-pointer focus-visible:outline-2 focus-visible:outline-[#9d7cff]"
+                    className="inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-zinc-950 font-black uppercase tracking-wider py-3.5 px-8 rounded-xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] active:scale-95 cursor-pointer focus-visible:outline-2 focus-visible:outline-emerald-500"
                 >
                     {status === 'submitting' ? (
                         <>
-                            <span className="h-4 w-4 rounded-full border-2 border-black/30 border-t-black animate-spin" />
+                            <span className="h-4 w-4 rounded-full border-2 border-zinc-950/30 border-t-zinc-950 animate-spin" />
                             {t('submitting')}
                         </>
                     ) : (
@@ -193,9 +193,9 @@ export default function ContactForm({ initialSubject = '' }) {
                         </>
                     )}
                 </button>
-                <div className="text-xs text-slate-300 space-y-0.5">
+                <div className="text-xs text-zinc-300 space-y-0.5">
                     <p className="font-medium text-white">{t('responseTime')}</p>
-                    <p className="text-slate-400">{t('privacyNote')}</p>
+                    <p className="text-zinc-400">{t('privacyNote')}</p>
                 </div>
             </div>
         </form>

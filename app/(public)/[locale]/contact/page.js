@@ -28,7 +28,7 @@ export default async function ContactPage({ params, searchParams }) {
     const t = await getTranslations('contact');
 
     return (
-        <div className="min-h-screen bg-[#120e1c] text-slate-100 pb-20">
+        <div className="min-h-screen bg-zinc-950 text-zinc-100 pb-20">
             <PageHeaderBanner
                 title={t('title')}
                 subtitle={t('subtitle')}

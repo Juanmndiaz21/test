@@ -508,10 +508,10 @@ function GameLogo({ name = '', imageUrl = null, className = '' }) {
     if (key === 'psnavatars') {
         return (
             <div className={`flex flex-col items-center justify-center text-center select-none ${className}`}>
-                <div className="w-5 h-5 rounded-full bg-[#171229] border border-white/20 flex items-center justify-center text-[#9d7cff] mb-0.5">
+                <div className="w-5 h-5 rounded-full bg-zinc-800 border border-white/20 flex items-center justify-center text-emerald-400 mb-0.5">
                     <FaPlaystation className="w-3 h-3" />
                 </div>
-                <span className="font-mono text-[8px] text-slate-300 font-bold uppercase">
+                <span className="font-mono text-[8px] text-zinc-300 font-bold uppercase">
                     PSN AVATARS
                 </span>
             </div>
@@ -608,10 +608,10 @@ function GameLogo({ name = '', imageUrl = null, className = '' }) {
 
     return (
         <div className={`flex flex-col items-center justify-center text-center select-none ${className}`}>
-            <span className="display-font text-sm sm:text-base text-[#9d7cff] font-bold">
+            <span className="display-font text-sm sm:text-base text-emerald-400 font-bold">
                 {initials}
             </span>
-            <span className="text-[8px] font-mono text-slate-400 truncate max-w-[80px]">
+            <span className="text-[8px] font-mono text-zinc-400 truncate max-w-[80px]">
                 {name}
             </span>
         </div>

@@ -22,7 +22,7 @@ export default function BackToTop() {
             aria-hidden={!visible}
             tabIndex={visible ? 0 : -1}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className={`fixed bottom-5 right-5 z-[90] h-11 w-11 rounded-xl border border-[#9d7cff]/30 bg-[#171229]/90 backdrop-blur text-[#9d7cff] flex items-center justify-center hover:bg-[#9d7cff] hover:text-[#0d0914] shadow-[0_4px_16px_rgba(0,0,0,0.4)] transition-[transform,opacity,background-color,color] duration-200 ease-out active:scale-[0.92] cursor-pointer ${
+            className={`fixed bottom-5 right-5 z-[90] h-11 w-11 rounded-xl border border-white/10 bg-zinc-900/90 backdrop-blur text-emerald-400 flex items-center justify-center hover:bg-emerald-500 hover:text-zinc-950 shadow-[0_4px_16px_rgba(0,0,0,0.4)] transition-[transform,opacity,background-color,color] duration-200 ease-out active:scale-[0.92] cursor-pointer ${
                 visible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-90 pointer-events-none'
             }`}
         >

@@ -122,14 +122,14 @@ export default function Checkout() {
     if (cart.length === 0) return null;
 
     return (
-        <div className="panel-surface p-6 sm:p-8 rounded-2xl relative overflow-hidden border border-white/10">
+        <div className="panel-surface p-6 sm:p-8 rounded-2xl relative overflow-hidden border border-white/10 bg-zinc-900">
             <div className="flex items-center gap-3 mb-2">
-                <span className="h-2 w-2 rounded-full bg-[#9d7cff] animate-pulse" />
-                <h2 className="display-font text-2xl uppercase tracking-wider text-slate-100">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                <h2 className="display-font text-2xl uppercase tracking-wider text-zinc-100">
                     {t('infoTitle')}
                 </h2>
             </div>
-            <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+            <p className="text-zinc-400 text-sm mb-6 leading-relaxed">
                 {t('infoText')}
             </p>
 
@@ -137,7 +137,7 @@ export default function Checkout() {
                 {/* Contact Information */}
                 <div className="space-y-4">
                     <div>
-                        <label htmlFor="checkout-name" className="block text-xs uppercase tracking-wider font-semibold text-slate-300 mb-1.5">
+                        <label htmlFor="checkout-name" className="block text-xs uppercase tracking-wider font-semibold text-zinc-300 mb-1.5">
                             {t('nameLabel')}
                         </label>
                         <input
@@ -145,12 +145,12 @@ export default function Checkout() {
                             name="name"
                             type="text"
                             placeholder={t('namePlaceholder')}
-                            className="w-full bg-[#120e1c]/80 border border-white/10 rounded-lg p-3 text-white placeholder-slate-500 focus:border-[#9d7cff] outline-none transition-colors"
+                            className="w-full bg-zinc-950/80 border border-white/10 rounded-lg p-3 text-white placeholder-zinc-500 focus:border-emerald-500 outline-none transition-colors"
                         />
                     </div>
                     <div>
-                        <label htmlFor="checkout-email" className="block text-xs uppercase tracking-wider font-semibold text-slate-300 mb-1.5">
-                            {t('emailLabel')} <span className="text-[#9d7cff]">*</span>
+                        <label htmlFor="checkout-email" className="block text-xs uppercase tracking-wider font-semibold text-zinc-300 mb-1.5">
+                            {t('emailLabel')} <span className="text-emerald-400">*</span>
                         </label>
                         <input
                             key={session?.user?.email || 'anon'}
@@ -160,14 +160,14 @@ export default function Checkout() {
                             required
                             defaultValue={session?.user?.email || ''}
                             placeholder={t('emailPlaceholder')}
-                            className="w-full bg-[#120e1c]/80 border border-white/10 rounded-lg p-3 text-white placeholder-slate-500 focus:border-[#9d7cff] outline-none transition-colors"
+                            className="w-full bg-zinc-950/80 border border-white/10 rounded-lg p-3 text-white placeholder-zinc-500 focus:border-emerald-500 outline-none transition-colors"
                         />
                     </div>
                 </div>
 
                 {/* Discount Coupon Section */}
                 <div className="pt-2 border-t border-white/10">
-                    <label htmlFor="checkout-coupon-input" className="block text-xs uppercase tracking-wider font-semibold text-slate-300 mb-2">
+                    <label htmlFor="checkout-coupon-input" className="block text-xs uppercase tracking-wider font-semibold text-zinc-300 mb-2">
                         {t('couponLabel')}
                     </label>
 
@@ -177,7 +177,7 @@ export default function Checkout() {
                                 <div className="relative flex-1">
                                     <Icon
                                         name="tag"
-                                        className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
+                                        className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
                                     />
                                     <input
                                         id="checkout-coupon-input"
@@ -191,18 +191,18 @@ export default function Checkout() {
                                             }
                                         }}
                                         placeholder={t('couponPlaceholder')}
-                                        className="w-full bg-[#120e1c]/80 border border-white/10 rounded-lg pl-10 pr-3 py-2.5 text-white placeholder-slate-500 text-sm focus:border-[#9d7cff] uppercase font-mono tracking-wider outline-none transition-colors"
+                                        className="w-full bg-zinc-950/80 border border-white/10 rounded-lg pl-10 pr-3 py-2.5 text-white placeholder-zinc-500 text-sm focus:border-emerald-500 uppercase font-mono tracking-wider outline-none transition-colors"
                                     />
                                 </div>
                                 <button
                                     type="button"
                                     onClick={handleApplyCoupon}
                                     disabled={isCheckingCoupon || !couponInput.trim()}
-                                    className="px-4 py-2.5 rounded-lg bg-[#9d7cff]/20 border border-[#9d7cff]/40 text-[#c8b4ff] hover:bg-[#9d7cff]/30 text-xs font-bold uppercase tracking-wider transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5"
+                                    className="px-4 py-2.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500 hover:text-zinc-950 text-xs font-bold uppercase tracking-wider transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 cursor-pointer"
                                 >
                                     {isCheckingCoupon ? (
                                         <>
-                                            <span className="h-3 w-3 rounded-full border-2 border-[#9d7cff]/40 border-t-[#9d7cff] animate-spin" />
+                                            <span className="h-3 w-3 rounded-full border-2 border-emerald-500/40 border-t-emerald-500 animate-spin" />
                                             {t('applyingCoupon')}
                                         </>
                                     ) : (
@@ -218,9 +218,9 @@ export default function Checkout() {
                             )}
                         </div>
                     ) : (
-                        <div className="flex items-center justify-between p-3 rounded-lg bg-[#9d7cff]/10 border border-[#9d7cff]/40">
+                        <div className="flex items-center justify-between p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
                             <div className="flex items-center gap-2.5">
-                                <span className="p-1 rounded-md bg-[#9d7cff]/20 text-[#9d7cff]">
+                                <span className="p-1 rounded-md bg-emerald-500/20 text-emerald-400">
                                     <Icon name="tag" className="w-4 h-4" />
                                 </span>
                                 <div>
@@ -228,13 +228,13 @@ export default function Checkout() {
                                         <span className="font-mono font-bold text-white text-sm">
                                             {appliedCoupon.code}
                                         </span>
-                                        <span className="text-[11px] font-semibold text-[#c8b4ff] bg-[#9d7cff]/20 px-2 py-0.5 rounded-full">
+                                        <span className="text-[11px] font-semibold text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded-full">
                                             {appliedCoupon.discountType === 'percentage'
                                                 ? `-${appliedCoupon.discountValue}%`
                                                 : `-$${appliedCoupon.discountValue}`}
                                         </span>
                                     </div>
-                                    <p className="text-xs text-[#c8b4ff]/80">
+                                    <p className="text-xs text-emerald-300/80">
                                         You save: <span className="font-bold font-mono">-${appliedCoupon.discountAmount.toFixed(2)} USD</span>
                                     </p>
                                 </div>
@@ -242,7 +242,7 @@ export default function Checkout() {
                             <button
                                 type="button"
                                 onClick={handleRemoveCoupon}
-                                className="text-slate-400 hover:text-rose-400 p-1 rounded-md hover:bg-white/5 transition-colors text-xs font-semibold flex items-center gap-1 cursor-pointer"
+                                className="text-zinc-400 hover:text-rose-400 p-1 rounded-md hover:bg-white/5 transition-colors text-xs font-semibold flex items-center gap-1 cursor-pointer"
                                 title={t('removeCoupon')}
                             >
                                 <Icon name="x" className="w-4 h-4" />
@@ -254,7 +254,7 @@ export default function Checkout() {
 
                 {/* Payment Gateway Selector */}
                 <div className="pt-2 border-t border-white/10">
-                    <label className="block text-xs uppercase tracking-wider font-semibold text-slate-300 mb-3">
+                    <label className="block text-xs uppercase tracking-wider font-semibold text-zinc-300 mb-3">
                         {t('paymentMethod')}
                     </label>
 
@@ -277,22 +277,22 @@ export default function Checkout() {
                                 <button
                                     type="button"
                                     onClick={() => setPaymentMethod('stripe')}
-                                    className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between ${
+                                    className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between cursor-pointer ${
                                         paymentMethod === 'stripe'
-                                            ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_15px_rgba(157,124,255,0.15)] text-white'
-                                            : 'bg-[#120e1c]/50 border-white/10 hover:border-white/20 text-slate-300'
+                                            ? 'bg-emerald-500/15 border-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.15)] text-white'
+                                            : 'bg-zinc-950/50 border-white/10 hover:border-white/20 text-zinc-300'
                                     }`}
                                 >
                                     <div className="flex items-center justify-between mb-2">
                                         <span className="text-sm font-bold flex items-center gap-1.5">
-                                            <Icon name="shield" className="w-4 h-4 text-[#9d7cff]" />
+                                            <Icon name="shield" className="w-4 h-4 text-emerald-400" />
                                             Card
                                         </span>
                                         {paymentMethod === 'stripe' && (
-                                            <span className="h-2 w-2 rounded-full bg-[#9d7cff]" />
+                                            <span className="h-2 w-2 rounded-full bg-emerald-400" />
                                         )}
                                     </div>
-                                    <span className="text-[11px] text-slate-400">
+                                    <span className="text-[11px] text-zinc-400">
                                         Stripe · Apple Pay · Cards
                                     </span>
                                 </button>
@@ -303,10 +303,10 @@ export default function Checkout() {
                                 <button
                                     type="button"
                                     onClick={() => setPaymentMethod('paypal')}
-                                    className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between ${
+                                    className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between cursor-pointer ${
                                         paymentMethod === 'paypal'
-                                            ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_15px_rgba(157,124,255,0.15)] text-white'
-                                            : 'bg-[#120e1c]/50 border-white/10 hover:border-white/20 text-slate-300'
+                                            ? 'bg-emerald-500/15 border-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.15)] text-white'
+                                            : 'bg-zinc-950/50 border-white/10 hover:border-white/20 text-zinc-300'
                                     }`}
                                 >
                                     <div className="flex items-center justify-between mb-2">
@@ -315,10 +315,10 @@ export default function Checkout() {
                                             PayPal
                                         </span>
                                         {paymentMethod === 'paypal' && (
-                                            <span className="h-2 w-2 rounded-full bg-[#9d7cff]" />
+                                            <span className="h-2 w-2 rounded-full bg-emerald-400" />
                                         )}
                                     </div>
-                                    <span className="text-[11px] text-slate-400">
+                                    <span className="text-[11px] text-zinc-400">
                                         Balance & Cards
                                     </span>
                                 </button>
@@ -329,10 +329,10 @@ export default function Checkout() {
                                 <button
                                     type="button"
                                     onClick={() => setPaymentMethod('crypto')}
-                                    className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between ${
+                                    className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between cursor-pointer ${
                                         paymentMethod === 'crypto'
-                                            ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_15px_rgba(157,124,255,0.15)] text-white'
-                                            : 'bg-[#120e1c]/50 border-white/10 hover:border-white/20 text-slate-300'
+                                            ? 'bg-emerald-500/15 border-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.15)] text-white'
+                                            : 'bg-zinc-950/50 border-white/10 hover:border-white/20 text-zinc-300'
                                     }`}
                                 >
                                     <div className="flex items-center justify-between mb-2">
@@ -341,24 +341,24 @@ export default function Checkout() {
                                             Web3 / Crypto
                                         </span>
                                         {paymentMethod === 'crypto' && (
-                                            <span className="h-2 w-2 rounded-full bg-[#9d7cff]" />
+                                            <span className="h-2 w-2 rounded-full bg-emerald-400" />
                                         )}
                                     </div>
-                                    <span className="text-[11px] text-slate-400">
+                                    <span className="text-[11px] text-zinc-400">
                                         USDT · BTC · ETH
                                     </span>
                                 </button>
                             )}
 
-                            {/* 4. NEW: Crypto (Discord Ticket / Binance Pay) - Wallet Icon */}
+                            {/* 4. Crypto (Discord Ticket / Binance Pay) */}
                             {activeMethods.crypto_discord && (
                                 <button
                                     type="button"
                                     onClick={() => setPaymentMethod('crypto_discord')}
-                                    className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between ${
+                                    className={`p-3.5 rounded-xl border text-left transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out relative flex flex-col justify-between cursor-pointer ${
                                         paymentMethod === 'crypto_discord'
-                                            ? 'bg-[#9d7cff]/15 border-[#9d7cff] shadow-[0_0_15px_rgba(157,124,255,0.15)] text-white'
-                                            : 'bg-[#120e1c]/50 border-white/10 hover:border-white/20 text-slate-300'
+                                            ? 'bg-emerald-500/15 border-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.15)] text-white'
+                                            : 'bg-zinc-950/50 border-white/10 hover:border-white/20 text-zinc-300'
                                     }`}
                                 >
                                     <div className="flex items-center justify-between mb-2">
@@ -367,10 +367,10 @@ export default function Checkout() {
                                             <span className="truncate">{activeMethods.crypto_discord_title || 'Binance Pay'}</span>
                                         </span>
                                         {paymentMethod === 'crypto_discord' && (
-                                            <span className="h-2 w-2 rounded-full bg-[#9d7cff]" />
+                                            <span className="h-2 w-2 rounded-full bg-emerald-400" />
                                         )}
                                     </div>
-                                    <span className="text-[11px] text-slate-400">
+                                    <span className="text-[11px] text-zinc-400">
                                         Discord Ticket
                                     </span>
                                 </button>
@@ -380,19 +380,19 @@ export default function Checkout() {
 
                     {/* Discord Ticket Notice for Crypto Discord */}
                     {paymentMethod === 'crypto_discord' && activeMethods.crypto_discord && (
-                        <div className="mt-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-slate-200">
+                        <div className="mt-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-zinc-200">
                             <div className="flex items-center gap-2 text-white font-bold mb-1.5">
                                 <Icon name="wallet" className="w-4 h-4 text-amber-400" />
                                 <span>{activeMethods.crypto_discord_title || 'Crypto / Binance Pay (Discord Ticket)'}</span>
                             </div>
-                            <p className="text-slate-300 leading-relaxed text-[11px] mb-2.5">
+                            <p className="text-zinc-300 leading-relaxed text-[11px] mb-2.5">
                                 {activeMethods.crypto_discord_instructions || 'Upon placing your order, your purchase code will be generated. Please open a ticket on our Discord server and share your code to receive payment details (Binance Pay / USDT) and activate your service instantly.'}
                             </p>
                             <a
                                 href={activeMethods.crypto_discord_url || 'https://discord.gg/qwyQjn4Aqx'}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 text-xs text-[#9d7cff] font-bold hover:underline"
+                                className="inline-flex items-center gap-1.5 text-xs text-emerald-400 font-bold hover:underline"
                             >
                                 <Icon name="discord" className="w-3.5 h-3.5 text-[#5865F2]" />
                                 Open Discord Server →
@@ -402,14 +402,14 @@ export default function Checkout() {
                 </div>
 
                 {/* Pricing Breakdown Summary */}
-                <div className="p-4 rounded-xl bg-[#120e1c]/60 border border-white/10 space-y-2">
-                    <div className="flex justify-between items-center text-xs text-slate-400">
+                <div className="p-4 rounded-xl bg-zinc-950/60 border border-white/10 space-y-2">
+                    <div className="flex justify-between items-center text-xs text-zinc-400">
                         <span>{t('subtotalLabel')}</span>
-                        <span className="font-mono text-slate-200">${subtotal.toFixed(2)}</span>
+                        <span className="font-mono text-zinc-200">${subtotal.toFixed(2)}</span>
                     </div>
 
                     {appliedCoupon && (
-                        <div className="flex justify-between items-center text-xs text-[#9d7cff]">
+                        <div className="flex justify-between items-center text-xs text-emerald-400">
                             <span className="flex items-center gap-1">
                                 <Icon name="tag" className="w-3 h-3" />
                                 {t('discountLabel')} ({appliedCoupon.code})
@@ -431,11 +431,11 @@ export default function Checkout() {
                             <span className="font-mono text-2xl font-black text-white">
                                 ${finalTotal.toFixed(2)}
                             </span>
-                            <span className="ml-1 text-xs text-slate-400 font-sans">USD</span>
+                            <span className="ml-1 text-xs text-zinc-400 font-sans">USD</span>
                         </div>
                     </div>
 
-                    <div className="pt-2 border-t border-white/5 flex items-center gap-1.5 text-[11px] text-slate-300">
+                    <div className="pt-2 border-t border-white/5 flex items-center gap-1.5 text-[11px] text-zinc-300">
                         <Icon name="shield" className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                         <span>Guaranteed Final Price — No hidden checkout fees; taxes & gateway processing included.</span>
                     </div>
@@ -448,19 +448,19 @@ export default function Checkout() {
 
                 {/* Explicit Consent Checkbox (Opt-in, non-preselected) */}
                 <div className="pt-1">
-                    <label className="flex items-start gap-2.5 text-xs text-slate-300 select-none cursor-pointer">
+                    <label className="flex items-start gap-2.5 text-xs text-zinc-300 select-none cursor-pointer">
                         <input
                             type="checkbox"
                             name="consent_terms"
                             required
                             defaultChecked={false}
-                            className="mt-0.5 h-4 w-4 rounded border-white/20 bg-[#120e1c] text-[#9d7cff] accent-[#9d7cff] focus:ring-2 focus:ring-[#9d7cff] focus:outline-none cursor-pointer"
+                            className="mt-0.5 h-4 w-4 rounded border-white/20 bg-zinc-950 text-emerald-500 accent-emerald-500 focus:ring-2 focus:ring-emerald-500 focus:outline-none cursor-pointer"
                         />
                         <span className="leading-relaxed">
                             I confirm I am at least 16 years of age (or have parental authorization) and I agree to the{' '}
-                            <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-[#c8b4ff] underline hover:text-white">Terms of Service</a>,{' '}
-                            <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-[#c8b4ff] underline hover:text-white">Privacy Policy</a>, and{' '}
-                            <a href="/refunds" target="_blank" rel="noopener noreferrer" className="text-[#c8b4ff] underline hover:text-white">Refund Policy</a>.
+                            <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-emerald-400 underline hover:text-white">Terms of Service</a>,{' '}
+                            <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-emerald-400 underline hover:text-white">Privacy Policy</a>, and{' '}
+                            <a href="/refunds" target="_blank" rel="noopener noreferrer" className="text-emerald-400 underline hover:text-white">Refund Policy</a>.
                         </span>
                     </label>
                 </div>
@@ -470,16 +470,16 @@ export default function Checkout() {
                     <button
                         type="submit"
                         disabled={isPending}
-                        className="w-full flex justify-center items-center gap-2.5 bg-[#9d7cff] text-[#120e1c] font-black text-base uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-[#8b63fc] hover:shadow-[0_0_25px_rgba(157,124,255,0.4)] disabled:opacity-60 disabled:cursor-not-allowed transition-[background-color,box-shadow,transform] duration-150 ease-out active:scale-[0.98]"
+                        className="w-full flex justify-center items-center gap-2.5 bg-emerald-500 text-zinc-950 font-black text-base uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-emerald-400 hover:shadow-[0_0_25px_rgba(16,185,129,0.35)] disabled:opacity-60 disabled:cursor-not-allowed transition-[background-color,box-shadow,transform] duration-150 ease-out active:scale-[0.98] cursor-pointer"
                     >
                         {isPending ? (
                             <>
-                                <span className="h-4 w-4 rounded-full border-2 border-[#120e1c]/40 border-t-[#120e1c] animate-spin" />
+                                <span className="h-4 w-4 rounded-full border-2 border-zinc-950/40 border-t-zinc-950 animate-spin" />
                                 {t('placeInProgress')}
                             </>
                         ) : paymentMethod === 'stripe' ? (
                             <>
-                                <Icon name="shield" className="w-5 h-5 text-[#120e1c]" />
+                                <Icon name="shield" className="w-5 h-5 text-zinc-950" />
                                 {t('payWithCard')} · ${finalTotal.toFixed(2)}
                             </>
                         ) : paymentMethod === 'paypal' ? (
@@ -489,12 +489,12 @@ export default function Checkout() {
                             </>
                         ) : paymentMethod === 'crypto' ? (
                             <>
-                                <Icon name="wallet" className="w-5 h-5 text-[#120e1c]" />
+                                <Icon name="wallet" className="w-5 h-5 text-zinc-950" />
                                 {t('payWithCrypto')} · ${finalTotal.toFixed(2)}
                             </>
                         ) : (
                             <>
-                                <Icon name="wallet" className="w-5 h-5 text-[#120e1c]" />
+                                <Icon name="wallet" className="w-5 h-5 text-zinc-950" />
                                 Pay with Crypto (Discord Ticket) · ${finalTotal.toFixed(2)}
                             </>
                         )}

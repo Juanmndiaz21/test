@@ -159,7 +159,7 @@ export default function BlogCoverUpload({
 
             {/* Current Cover Preview Card (when value is present) */}
             {value ? (
-                <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-[#120e1c] shadow-xl group">
+                <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-zinc-900 shadow-xl group">
                     <div className="aspect-[16/9] w-full max-h-72 overflow-hidden relative bg-black/60">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
@@ -168,17 +168,17 @@ export default function BlogCoverUpload({
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                             onError={(e) => {
                                 e.currentTarget.src =
-                                    'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="225" viewBox="0 0 400 225"><rect width="400" height="225" fill="%231a1528"/><text x="50%" y="50%" fill="%239d7cff" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14">Image failed to load</text></svg>';
+                                    'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="225" viewBox="0 0 400 225"><rect width="400" height="225" fill="%2318181b"/><text x="50%" y="50%" fill="%2310b981" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14">Image failed to load</text></svg>';
                             }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
                         {/* Top Badges */}
                         <div className="absolute top-3 left-3 flex items-center gap-2">
-                            <span className="px-2.5 py-1 rounded-md text-[11px] font-mono font-bold uppercase tracking-wider bg-[#0d0914]/80 backdrop-blur-md text-[#9d7cff] border border-white/10">
+                            <span className="px-2.5 py-1 rounded-md text-[11px] font-mono font-bold uppercase tracking-wider bg-zinc-950/80 backdrop-blur-md text-emerald-400 border border-white/10">
                                 16:9 Cover
                             </span>
-                            <span className="px-2.5 py-1 rounded-md text-[11px] font-mono font-bold uppercase tracking-wider bg-[#0d0914]/80 backdrop-blur-md text-emerald-400 border border-white/10">
+                            <span className="px-2.5 py-1 rounded-md text-[11px] font-mono font-bold uppercase tracking-wider bg-zinc-950/80 backdrop-blur-md text-emerald-400 border border-white/10">
                                 {isInternalUpload ? 'Stored in DB / Cloud' : 'External Web URL'}
                             </span>
                         </div>
@@ -203,7 +203,7 @@ export default function BlogCoverUpload({
                                 <button
                                     type="button"
                                     onClick={() => fileInputRef.current?.click()}
-                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#9d7cff] hover:bg-[#8c67ff] text-[#0d0914] text-xs font-bold transition-all shadow-md cursor-pointer"
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-zinc-950 text-xs font-black transition-all shadow-[0_0_12px_rgba(16,185,129,0.3)] cursor-pointer"
                                 >
                                     <LuRefreshCw className="w-3.5 h-3.5" />
                                     <span>Replace Cover</span>
@@ -215,7 +215,7 @@ export default function BlogCoverUpload({
             ) : null}
 
             {/* Upload Selector & Modals (shown always when no image, or as an alternative) */}
-            <div className="rounded-2xl border border-white/10 bg-[#161126] p-4 space-y-4">
+            <div className="rounded-2xl border border-white/10 bg-zinc-900 p-4 space-y-4">
                 {/* Mode Selector Tabs */}
                 <div className="flex items-center gap-2 border-b border-white/10 pb-3">
                     <button
@@ -223,8 +223,8 @@ export default function BlogCoverUpload({
                         onClick={() => handleSelectMode('upload')}
                         className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                             uploadMode === 'upload'
-                                ? 'bg-[#9d7cff] text-[#0d0914] shadow-[0_2px_10px_rgba(157,124,255,0.3)]'
-                                : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
+                                ? 'bg-emerald-500 text-zinc-950 shadow-[0_0_12px_rgba(16,185,129,0.3)] font-black'
+                                : 'bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10'
                         }`}
                     >
                         <LuUpload className="w-3.5 h-3.5" />
@@ -236,8 +236,8 @@ export default function BlogCoverUpload({
                         onClick={() => handleSelectMode('gallery')}
                         className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                             uploadMode === 'gallery'
-                                ? 'bg-[#9d7cff] text-[#0d0914] shadow-[0_2px_10px_rgba(157,124,255,0.3)]'
-                                : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
+                                ? 'bg-emerald-500 text-zinc-950 shadow-[0_0_12px_rgba(16,185,129,0.3)] font-black'
+                                : 'bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10'
                         }`}
                     >
                         <LuFolderOpen className="w-3.5 h-3.5" />
@@ -249,8 +249,8 @@ export default function BlogCoverUpload({
                         onClick={() => handleSelectMode('url')}
                         className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                             uploadMode === 'url'
-                                ? 'bg-[#9d7cff] text-[#0d0914] shadow-[0_2px_10px_rgba(157,124,255,0.3)]'
-                                : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
+                                ? 'bg-emerald-500 text-zinc-950 shadow-[0_0_12px_rgba(16,185,129,0.3)] font-black'
+                                : 'bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10'
                         }`}
                     >
                         <LuLink className="w-3.5 h-3.5" />
@@ -267,26 +267,26 @@ export default function BlogCoverUpload({
                         onClick={() => fileInputRef.current?.click()}
                         className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all ${
                             isDragOver
-                                ? 'border-[#9d7cff] bg-[#9d7cff]/10 scale-[1.01]'
-                                : 'border-white/15 bg-black/20 hover:border-[#9d7cff]/50 hover:bg-[#1a142e]'
+                                ? 'border-emerald-500 bg-emerald-500/10 scale-[1.01]'
+                                : 'border-white/15 bg-black/20 hover:border-emerald-500/50 hover:bg-zinc-800/50'
                         }`}
                     >
                         {isUploading ? (
                             <div className="py-4 space-y-2">
-                                <LuLoader className="w-8 h-8 mx-auto text-[#9d7cff] animate-spin" />
+                                <LuLoader className="w-8 h-8 mx-auto text-emerald-400 animate-spin" />
                                 <p className="text-sm font-bold text-white">Uploading cover image to storage...</p>
-                                <p className="text-xs text-slate-400">Saving to database &amp; serverless CDN</p>
+                                <p className="text-xs text-zinc-400">Saving to database &amp; serverless CDN</p>
                             </div>
                         ) : (
                             <div className="space-y-2.5">
-                                <div className="w-12 h-12 rounded-xl bg-[#9d7cff]/15 text-[#9d7cff] border border-[#9d7cff]/30 mx-auto flex items-center justify-center">
+                                <div className="w-12 h-12 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 mx-auto flex items-center justify-center">
                                     <LuUpload className="w-6 h-6" />
                                 </div>
                                 <div>
                                     <p className="text-sm font-bold text-white">
                                         Click to browse or drag &amp; drop your cover photo
                                     </p>
-                                    <p className="text-xs text-slate-400 mt-1">
+                                    <p className="text-xs text-zinc-400 mt-1">
                                         PNG, JPG, WEBP, or GIF up to 5 MB • Ideal 16:9 banner
                                     </p>
                                 </div>
@@ -298,12 +298,12 @@ export default function BlogCoverUpload({
                 {/* TAB 2: Media Gallery */}
                 {uploadMode === 'gallery' && (
                     <div className="space-y-3">
-                        <div className="flex items-center justify-between text-xs text-slate-400">
+                        <div className="flex items-center justify-between text-xs text-zinc-400">
                             <span>Select any image previously uploaded to the store:</span>
                             <button
                                 type="button"
                                 onClick={fetchGallery}
-                                className="text-[#9d7cff] hover:underline inline-flex items-center gap-1 font-bold cursor-pointer"
+                                className="text-emerald-400 hover:underline inline-flex items-center gap-1 font-bold cursor-pointer"
                             >
                                 <LuRefreshCw className="w-3 h-3" />
                                 Refresh
@@ -311,12 +311,12 @@ export default function BlogCoverUpload({
                         </div>
 
                         {isLoadingGallery ? (
-                            <div className="py-8 text-center text-xs text-slate-400 flex items-center justify-center gap-2">
-                                <LuLoader className="w-4 h-4 animate-spin text-[#9d7cff]" />
+                            <div className="py-8 text-center text-xs text-zinc-400 flex items-center justify-center gap-2">
+                                <LuLoader className="w-4 h-4 animate-spin text-emerald-400" />
                                 <span>Loading uploaded images...</span>
                             </div>
                         ) : galleryImages.length === 0 ? (
-                            <div className="py-8 text-center text-xs text-slate-400 italic bg-black/20 rounded-xl border border-white/5">
+                            <div className="py-8 text-center text-xs text-zinc-400 italic bg-black/20 rounded-xl border border-white/5">
                                 No previous uploads found. Use the &quot;Upload from PC&quot; tab to upload an image.
                             </div>
                         ) : (
@@ -331,10 +331,10 @@ export default function BlogCoverUpload({
                                                 if (onChange) onChange(img.url);
                                                 toast.success('Cover image selected from gallery!');
                                             }}
-                                            className={`group relative aspect-video rounded-lg border bg-[#120e1c] flex flex-col items-center justify-center transition-all cursor-pointer overflow-hidden ${
+                                            className={`group relative aspect-video rounded-lg border bg-zinc-800 flex flex-col items-center justify-center transition-all cursor-pointer overflow-hidden ${
                                                 isSelected
-                                                    ? 'border-[#9d7cff] ring-2 ring-[#9d7cff]/60'
-                                                    : 'border-white/10 hover:border-[#9d7cff]/60 hover:scale-105'
+                                                    ? 'border-emerald-500 ring-2 ring-emerald-500/60'
+                                                    : 'border-white/10 hover:border-emerald-500/60 hover:scale-105'
                                             }`}
                                             title={img.filename}
                                         >
@@ -345,7 +345,7 @@ export default function BlogCoverUpload({
                                                 className="w-full h-full object-cover"
                                             />
                                             {isSelected && (
-                                                <div className="absolute top-1 right-1 w-4 h-4 rounded-full bg-[#9d7cff] text-[#0d0914] flex items-center justify-center shadow">
+                                                <div className="absolute top-1 right-1 w-4 h-4 rounded-full bg-emerald-500 text-zinc-950 flex items-center justify-center shadow">
                                                     <LuCheck className="w-2.5 h-2.5 stroke-[3]" />
                                                 </div>
                                             )}
@@ -372,12 +372,12 @@ export default function BlogCoverUpload({
                                         handleApplyUrl();
                                     }
                                 }}
-                                className="flex-1 bg-[#120e1c] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#9d7cff] transition-colors"
+                                className="flex-1 bg-zinc-950 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 transition-colors"
                             />
                             <button
                                 type="button"
                                 onClick={handleApplyUrl}
-                                className="px-4 py-2.5 rounded-xl bg-[#9d7cff] hover:bg-[#8c67ff] text-[#0d0914] text-xs font-black transition-all cursor-pointer shrink-0"
+                                className="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 text-xs font-black transition-all cursor-pointer shrink-0 shadow-[0_0_12px_rgba(16,185,129,0.3)]"
                             >
                                 Set URL
                             </button>

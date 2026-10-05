@@ -21,26 +21,26 @@ const GameCardItem = memo(function GameCardItem({ game, gameProducts, image, t, 
         >
             <Link
                 href={`/store/game/${gameToSlug(game)}`}
-                className="h-full flex items-center justify-between text-left group relative overflow-hidden panel-surface rounded-2xl p-4.5 border border-white/10 bg-[#171229] transition-[border-color,box-shadow,background-color,transform] duration-160 ease-[var(--ease-out)] hover:border-[#9d7cff]/60 hover:bg-[#1a142c] hover:shadow-[0_4px_20px_rgba(157,124,255,0.14)] active:scale-[0.985] active:duration-100 focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-[-2px] select-none cursor-pointer"
+                className="h-full flex items-center justify-between text-left group relative overflow-hidden panel-surface rounded-2xl p-4.5 border border-white/10 bg-zinc-900/60 transition-[border-color,box-shadow,background-color,transform] duration-160 ease-[var(--ease-out)] hover:border-emerald-500/50 hover:bg-zinc-900/90 hover:shadow-[0_8px_24px_rgba(0,0,0,0.5)] active:scale-[0.985] active:duration-100 focus-visible:outline-2 focus-visible:outline-emerald-500 focus-visible:outline-offset-[-2px] select-none cursor-pointer"
             >
                 <div className="flex items-center gap-4 min-w-0 flex-1 mr-3">
-                    <div className="w-12 h-12 rounded-xl bg-[#14101e] border border-white/10 p-1 flex items-center justify-center shrink-0 group-hover:border-[#9d7cff]/50 group-hover:bg-[#1a1428] transition-[border-color,background-color] duration-160 ease-[var(--ease-out)]">
+                    <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-white/10 p-1 flex items-center justify-center shrink-0 group-hover:border-emerald-500/40 group-hover:bg-zinc-900 transition-[border-color,background-color] duration-160 ease-[var(--ease-out)]">
                         <GameLogo name={game} imageUrl={image} />
                     </div>
                     <div className="min-w-0 flex-1">
-                        <strong className="block text-white text-base font-bold leading-tight truncate group-hover:text-[#9d7cff] transition-colors duration-140">
+                        <strong className="block text-white text-base font-bold leading-tight truncate group-hover:text-emerald-400 transition-colors duration-140">
                             {game}
                         </strong>
-                        <span className="block text-slate-400 uppercase tracking-wider mt-1.5 inline-flex items-center gap-2 text-xs font-mono">
+                        <span className="block text-zinc-400 uppercase tracking-wider mt-1.5 inline-flex items-center gap-2 text-xs font-mono">
                             <span className="relative flex h-1.5 w-1.5 shrink-0" aria-hidden="true">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9d7cff] opacity-40 duration-1000" />
-                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#9d7cff]" />
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-40 duration-1000" />
+                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
                             </span>
                             <span className="data-readout">{t('serviceCount', { count: gameProducts.length })}</span>
                         </span>
                     </div>
                 </div>
-                <span className="w-8 h-8 rounded-full border border-white/15 bg-white/5 text-slate-300 flex items-center justify-center group-hover:bg-[#9d7cff] group-hover:text-[#0d0914] group-hover:border-[#9d7cff] group-active:scale-95 transition-[background-color,border-color,color,transform] duration-140 ease-[var(--ease-out)] shrink-0">
+                <span className="w-8 h-8 rounded-full border border-white/15 bg-white/5 text-zinc-300 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-zinc-950 group-hover:border-emerald-500 group-active:scale-95 transition-[background-color,border-color,color,transform] duration-140 ease-[var(--ease-out)] shrink-0">
                     <Icon name="arrow-right" className="w-3.5 h-3.5 transition-transform duration-140 ease-[var(--ease-out)] group-hover:translate-x-0.5" />
                 </span>
             </Link>
@@ -134,9 +134,9 @@ export default function ProductList({ products, games: catalogGames = [] }) {
                         }}
                         placeholder={t('searchPlaceholder')}
                         aria-label={t('searchLabel')}
-                        className="w-full bg-[#171229] border border-white/10 rounded-2xl pl-12 pr-12 py-3.5 text-sm font-['Trebuchet_MS',sans-serif] text-white placeholder:text-slate-400 focus:border-[#9d7cff] focus-visible:outline-2 focus-visible:outline-[#9d7cff] focus-visible:outline-offset-2 transition-[border-color,box-shadow] duration-160 ease-[var(--ease-out)] shadow-inner"
+                        className="w-full bg-zinc-900 border border-white/10 rounded-2xl pl-12 pr-12 py-3.5 text-sm font-['Trebuchet_MS',sans-serif] text-white placeholder:text-zinc-500 focus:border-emerald-500/60 focus-visible:outline-2 focus-visible:outline-emerald-500 focus-visible:outline-offset-2 transition-[border-color,box-shadow] duration-160 ease-[var(--ease-out)] shadow-inner"
                     />
-                    <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-500">
                         <Icon name="search" className="w-4 h-4" />
                     </div>
                     {searchQuery && (
@@ -144,7 +144,7 @@ export default function ProductList({ products, games: catalogGames = [] }) {
                             type="button"
                             onClick={() => setSearchQuery('')}
                             aria-label={t('clearSearch')}
-                            className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 active:scale-90 transition-[color,background-color,transform] duration-140 ease-[var(--ease-out)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] cursor-pointer animate-in fade-in zoom-in-90"
+                            className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-white/10 active:scale-90 transition-[color,background-color,transform] duration-140 ease-[var(--ease-out)] focus-visible:outline-2 focus-visible:outline-emerald-500 cursor-pointer animate-in fade-in zoom-in-90"
                         >
                             <Icon name="x" className="w-4 h-4" />
                         </button>
@@ -153,16 +153,16 @@ export default function ProductList({ products, games: catalogGames = [] }) {
             </div>
 
             {/* Jump To Letter Filter */}
-            <div className="panel-surface rounded-2xl p-4 md:p-5 mb-10 flex flex-col md:flex-row md:items-center gap-4 border border-white/10 bg-[#171229]">
-                <span className="eyebrow md:w-32 shrink-0 text-slate-300">{t('jumpTo')}</span>
+            <div className="panel-surface rounded-2xl p-4 md:p-5 mb-10 flex flex-col md:flex-row md:items-center gap-4 border border-white/10 bg-zinc-900/70">
+                <span className="eyebrow md:w-32 shrink-0 text-zinc-300">{t('jumpTo')}</span>
                 <div className="flex flex-wrap gap-2">
                     <button
                         type="button"
                         onClick={() => setActiveLetter('ALL')}
-                        className={`min-h-[36px] min-w-[36px] px-3.5 rounded-lg border text-xs font-bold transition-[color,background-color,border-color,transform] duration-140 ease-[var(--ease-out)] cursor-pointer active:scale-[0.93] focus-visible:outline-2 focus-visible:outline-[#9d7cff] ${
+                        className={`min-h-[36px] min-w-[36px] px-3.5 rounded-lg border text-xs font-bold transition-[color,background-color,border-color,transform] duration-140 ease-[var(--ease-out)] cursor-pointer active:scale-[0.93] focus-visible:outline-2 focus-visible:outline-emerald-500 ${
                             activeLetter === 'ALL'
-                                ? 'bg-[#9d7cff] text-[#0d0914] border-[#9d7cff] font-black'
-                                : 'border-white/10 text-slate-300 hover:border-[#9d7cff]/50 hover:text-white bg-white/5'
+                                ? 'bg-emerald-500 text-zinc-950 border-emerald-500 font-black'
+                                : 'border-white/10 text-zinc-300 hover:border-emerald-500/50 hover:text-white bg-zinc-900/60'
                         }`}
                     >
                         {t('all')}
@@ -177,12 +177,12 @@ export default function ProductList({ products, games: catalogGames = [] }) {
                                 type="button"
                                 disabled={!enabled}
                                 onClick={() => setActiveLetter(letter)}
-                                className={`min-h-[36px] min-w-[36px] px-2.5 rounded-lg border text-xs font-bold transition-[color,background-color,border-color,transform] duration-140 ease-[var(--ease-out)] focus-visible:outline-2 focus-visible:outline-[#9d7cff] ${
+                                className={`min-h-[36px] min-w-[36px] px-2.5 rounded-lg border text-xs font-bold transition-[color,background-color,border-color,transform] duration-140 ease-[var(--ease-out)] focus-visible:outline-2 focus-visible:outline-emerald-500 ${
                                     activeLetter === letter
-                                        ? 'bg-[#9d7cff] text-[#0d0914] border-[#9d7cff] font-black cursor-pointer active:scale-[0.93]'
+                                        ? 'bg-emerald-500 text-zinc-950 border-emerald-500 font-black cursor-pointer active:scale-[0.93]'
                                         : enabled
-                                        ? 'border-white/10 text-slate-300 hover:border-[#9d7cff]/50 hover:text-white bg-white/5 cursor-pointer active:scale-[0.93]'
-                                        : 'border-white/5 text-slate-600 bg-white/[0.02] cursor-not-allowed opacity-40'
+                                        ? 'border-white/10 text-zinc-300 hover:border-emerald-500/50 hover:text-white bg-zinc-900/60 cursor-pointer active:scale-[0.93]'
+                                        : 'border-white/5 text-zinc-600 bg-white/[0.02] cursor-not-allowed opacity-40'
                                 }`}
                             >
                                 {letter}
@@ -208,8 +208,8 @@ export default function ProductList({ products, games: catalogGames = [] }) {
 
             {/* Game Grid or Empty State */}
             {visibleGames.length === 0 ? (
-                <div className="panel-surface rounded-2xl text-center py-16 border border-white/10 bg-[#171229]">
-                    <p className="text-base text-slate-300 mb-2">
+                <div className="rounded-2xl text-center py-16 border border-white/10 bg-zinc-900">
+                    <p className="text-base text-zinc-300 mb-2">
                         {searchQuery ? t('noGamesMatch', { query: searchQuery.trim() }) : t('noGamesLetter')}
                     </p>
                     {(searchQuery || activeLetter !== 'ALL') && (
@@ -219,7 +219,7 @@ export default function ProductList({ products, games: catalogGames = [] }) {
                                 setSearchQuery('');
                                 setActiveLetter('ALL');
                             }}
-                            className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/15 bg-white/5 hover:border-[#9d7cff] hover:text-[#9d7cff] text-xs font-mono font-bold tracking-wider text-slate-200 transition-colors focus-visible:outline-2 focus-visible:outline-[#9d7cff] cursor-pointer"
+                            className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/15 bg-white/5 hover:border-emerald-500 hover:text-emerald-400 text-xs font-mono font-bold tracking-wider text-zinc-200 transition-colors focus-visible:outline-2 focus-visible:outline-emerald-500 cursor-pointer"
                         >
                             <Icon name="x" className="w-3.5 h-3.5" />
                             <span>{t('clearSearch')}</span>

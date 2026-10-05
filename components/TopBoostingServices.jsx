@@ -97,20 +97,20 @@ export default function TopBoostingServices({ products = [] }) {
             {/* Header: Title on Left, Filter Pills on Right matching screenshot */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-7">
                 <div className="flex items-center gap-3">
-                    <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/20 text-[#9d7cff]">
+                    <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
                         <Icon name="bolt" className="w-5 h-5" />
                     </span>
                     <div>
                         <h2 className="display-font text-3xl sm:text-4xl uppercase text-white tracking-tight">
                             Top Boosting Services
                         </h2>
-                        <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+                        <p className="text-xs sm:text-sm text-zinc-400 mt-0.5">
                             Popular player picks, high-demand cash drops and recovery packages
                         </p>
                     </div>
                 </div>
 
-                {/* Filter Pills with Website Night Violet Glowing Theme */}
+                {/* Filter Pills with Website Dark Zinc Glowing Theme */}
                 <div
                     role="tablist"
                     aria-label="Filter top boosting services"
@@ -128,8 +128,8 @@ export default function TopBoostingServices({ products = [] }) {
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs font-mono font-bold tracking-wide transition-all duration-150 cursor-pointer whitespace-nowrap select-none ${
                                     isActive
-                                        ? 'bg-[#1b142d] text-white border border-[#9d7cff] shadow-[0_0_16px_rgba(157,124,255,0.4)] ring-1 ring-[#9d7cff]/30'
-                                        : 'bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:border-white/25 hover:bg-white/[0.08]'
+                                        ? 'bg-emerald-500 text-zinc-950 border border-emerald-400 shadow-[0_0_16px_rgba(16,185,129,0.3)] font-black'
+                                        : 'bg-white/5 border border-white/10 text-zinc-400 hover:text-white hover:border-white/25 hover:bg-white/[0.08]'
                                 }`}
                             >
                                 {tab.label}
@@ -165,7 +165,7 @@ export default function TopBoostingServices({ products = [] }) {
                         <Link
                             key={product.id}
                             href={`/store/${slug}`}
-                            className="group relative p-3 sm:p-3.5 rounded-2xl border border-white/10 bg-[#161126] hover:bg-[#1c1532] hover:border-[#9d7cff]/60 hover:shadow-[0_12px_28px_rgba(0,0,0,0.5),0_0_22px_rgba(157,124,255,0.18)] transition-all duration-200 flex items-center gap-3 sm:gap-3.5 select-none cursor-pointer overflow-hidden"
+                            className="group relative p-3 sm:p-3.5 rounded-2xl border border-white/10 bg-zinc-900 hover:bg-zinc-800/80 hover:border-emerald-500/60 hover:shadow-[0_12px_28px_rgba(0,0,0,0.5),0_0_22px_rgba(16,185,129,0.15)] transition-all duration-200 flex items-center gap-3 sm:gap-3.5 select-none cursor-pointer overflow-hidden"
                         >
                             {/* Left Thumbnail (Square with rounded corners) */}
                             <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-xl overflow-hidden bg-black/50 border border-white/10 shrink-0 relative flex items-center justify-center">
@@ -178,7 +178,7 @@ export default function TopBoostingServices({ products = [] }) {
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
                                     />
                                 ) : (
-                                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1b142d] to-[#0d0914] p-2">
+                                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-950 p-2">
                                         <GameLogo
                                             name={product.game || product.name}
                                             className="w-10 h-10 object-contain drop-shadow"
@@ -193,28 +193,28 @@ export default function TopBoostingServices({ products = [] }) {
                                 <div className="flex items-start justify-between gap-1.5">
                                     <h3
                                         title={product.name}
-                                        className="text-xs sm:text-sm font-bold text-white leading-snug line-clamp-2 group-hover:text-[#9d7cff] transition-colors"
+                                        className="text-xs sm:text-sm font-bold text-white leading-snug line-clamp-2 group-hover:text-emerald-400 transition-colors"
                                     >
                                         {product.name}
                                     </h3>
-                                    <span className="shrink-0 px-2 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-[#9d7cff]/20 text-[#d8c7ff] border border-[#9d7cff]/40 ml-1">
+                                    <span className="shrink-0 px-2 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 ml-1">
                                         {badgeLabel}
                                     </span>
                                 </div>
 
                                 {/* Row 2: Subtitle snippet */}
-                                <p className="text-[11px] text-slate-400 line-clamp-1 mt-1 font-normal">
+                                <p className="text-[11px] text-zinc-400 line-clamp-1 mt-1 font-normal">
                                     {subtitle}
                                 </p>
 
                                 {/* Row 3: Pricing */}
                                 <div className="mt-1.5 flex items-baseline gap-1.5 font-mono">
                                     {wasPrice && (
-                                        <span className="text-[11px] text-slate-400 line-through">
+                                        <span className="text-[11px] text-zinc-400 line-through">
                                             ${wasPrice.toFixed(2)}
                                         </span>
                                     )}
-                                    <span className="text-sm sm:text-base font-black text-white group-hover:text-[#9d7cff] transition-colors">
+                                    <span className="text-sm sm:text-base font-black text-white group-hover:text-emerald-400 transition-colors">
                                         ${price.toFixed(2)}
                                     </span>
                                 </div>
@@ -228,10 +228,10 @@ export default function TopBoostingServices({ products = [] }) {
             <div className="mt-8 flex justify-center">
                 <Link
                     href="/store"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 hover:border-[#9d7cff]/50 hover:bg-[#9d7cff]/10 text-xs font-mono font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-all shadow-sm"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 hover:border-emerald-500/50 hover:bg-emerald-500/10 text-xs font-mono font-bold uppercase tracking-wider text-zinc-300 hover:text-white transition-all shadow-sm"
                 >
                     <span>View All Services Catalog</span>
-                    <Icon name="arrow-right" className="w-3.5 h-3.5 text-[#9d7cff]" />
+                    <Icon name="arrow-right" className="w-3.5 h-3.5 text-emerald-400" />
                 </Link>
             </div>
         </section>

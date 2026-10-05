@@ -34,7 +34,7 @@ export default function PlatformBadges({ platform = 'PC', size = 'md' }) {
             {hasPlayStation && (
                 <span
                     title="PlayStation"
-                    className={`${sizeClasses} rounded-full bg-[#171229]/90 backdrop-blur-md border border-white/20 text-slate-200 hover:text-white hover:border-[#9d7cff]/60 flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-colors`}
+                    className={`${sizeClasses} rounded-full bg-zinc-900/90 backdrop-blur-md border border-white/20 text-zinc-200 hover:text-white hover:border-emerald-500/60 flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-colors`}
                 >
                     <PlayStationIcon className={iconSize} />
                 </span>
@@ -42,7 +42,7 @@ export default function PlatformBadges({ platform = 'PC', size = 'md' }) {
             {hasXbox && (
                 <span
                     title="Xbox"
-                    className={`${sizeClasses} rounded-full bg-[#171229]/90 backdrop-blur-md border border-white/20 text-slate-200 hover:text-white hover:border-[#9d7cff]/60 flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-colors`}
+                    className={`${sizeClasses} rounded-full bg-zinc-900/90 backdrop-blur-md border border-white/20 text-zinc-200 hover:text-white hover:border-emerald-500/60 flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-colors`}
                 >
                     <XboxIcon className={iconSize} />
                 </span>
@@ -50,7 +50,7 @@ export default function PlatformBadges({ platform = 'PC', size = 'md' }) {
             {hasPc && (
                 <span
                     title="PC"
-                    className={`${sizeClasses} rounded-full bg-[#171229]/90 backdrop-blur-md border border-white/20 text-slate-200 hover:text-white hover:border-[#9d7cff]/60 flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-colors`}
+                    className={`${sizeClasses} rounded-full bg-zinc-900/90 backdrop-blur-md border border-white/20 text-zinc-200 hover:text-white hover:border-emerald-500/60 flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-colors`}
                 >
                     <PcIcon className={iconSize} />
                 </span>

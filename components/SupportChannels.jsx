@@ -21,8 +21,8 @@ export default function SupportChannels({ translations = {} }) {
                 : (translations.liveChatAction || 'Sign In to Start Chat'),
             href: isLoggedIn ? '/contact' : '/login?callbackUrl=/help',
             isExternal: false,
-            buttonStyle: 'bg-[#9333EA] hover:bg-[#8229b8] active:scale-[0.98] text-white',
-            iconBg: 'bg-[#9333EA]',
+            buttonStyle: 'bg-emerald-500 hover:bg-emerald-400 active:scale-[0.98] text-zinc-950 font-black shadow-[0_0_15px_rgba(16,185,129,0.3)]',
+            iconBg: 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-400',
         },
         {
             id: 'discord',
@@ -32,8 +32,8 @@ export default function SupportChannels({ translations = {} }) {
             actionText: translations.discordAction || 'Join Discord',
             href: 'https://discord.gg/qwyQjn4Aqx',
             isExternal: true,
-            buttonStyle: 'bg-[#5865F2] hover:bg-[#4752c4] active:scale-[0.98] text-white',
-            iconBg: 'bg-[#5865F2]',
+            buttonStyle: 'bg-[#5865F2] hover:bg-[#4752c4] active:scale-[0.98] text-white font-bold',
+            iconBg: 'bg-[#5865F2]/20 border border-[#5865F2]/40 text-[#5865F2]',
         },
         {
             id: 'email',
@@ -43,8 +43,8 @@ export default function SupportChannels({ translations = {} }) {
             actionText: translations.emailAction || 'Send Email',
             href: 'mailto:support@ogmodz.com',
             isExternal: true,
-            buttonStyle: 'bg-[#9333EA] hover:bg-[#8229b8] active:scale-[0.98] text-white',
-            iconBg: 'bg-[#9333EA]',
+            buttonStyle: 'bg-emerald-500 hover:bg-emerald-400 active:scale-[0.98] text-zinc-950 font-black shadow-[0_0_15px_rgba(16,185,129,0.3)]',
+            iconBg: 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-400',
         },
     ];
 
@@ -72,13 +72,13 @@ export default function SupportChannels({ translations = {} }) {
                     animate="visible"
                     whileHover={shouldReduceMotion ? undefined : { y: -4 }}
                     transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                    className="rounded-xl bg-[#252530] p-6 sm:p-7 flex flex-col justify-between group transition-colors duration-150 hover:bg-[#282836]"
+                    className="rounded-2xl bg-zinc-900 border border-white/10 p-6 sm:p-7 flex flex-col justify-between group transition-all duration-150 hover:border-emerald-500/40 shadow-lg"
                 >
                     <div className="flex-1 flex flex-col justify-start">
                         {/* Channel Icon Badge */}
                         <div
                             aria-hidden="true"
-                            className={`w-10 h-10 rounded-lg ${channel.iconBg} text-white flex items-center justify-center mb-5 shrink-0 transition-transform duration-200 ease-out group-hover:scale-105 group-hover:-rotate-2`}
+                            className={`w-10 h-10 rounded-xl ${channel.iconBg} flex items-center justify-center mb-5 shrink-0 transition-transform duration-200 ease-out group-hover:scale-105 group-hover:-rotate-2`}
                         >
                             <Icon name={channel.icon} className="w-5 h-5" />
                         </div>
@@ -89,7 +89,7 @@ export default function SupportChannels({ translations = {} }) {
                         </h3>
 
                         {/* Description with AAA contrast */}
-                        <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                        <p className="text-zinc-400 text-sm leading-relaxed mb-6">
                             {channel.desc}
                         </p>
                     </div>
@@ -101,7 +101,7 @@ export default function SupportChannels({ translations = {} }) {
                             target={channel.href.startsWith('http') ? '_blank' : undefined}
                             rel={channel.href.startsWith('http') ? 'nofollow noopener noreferrer' : undefined}
                             aria-label={`${channel.title}: ${channel.actionText}`}
-                            className={`w-full min-h-[44px] py-2.5 px-4 rounded-lg font-['Trebuchet_MS',sans-serif] font-medium text-sm text-center flex items-center justify-center transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#252530] ${channel.buttonStyle}`}
+                            className={`w-full min-h-[44px] py-2.5 px-4 rounded-xl font-['Trebuchet_MS',sans-serif] text-sm text-center flex items-center justify-center uppercase tracking-wider transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 cursor-pointer ${channel.buttonStyle}`}
                         >
                             {channel.actionText}
                         </a>
@@ -109,7 +109,7 @@ export default function SupportChannels({ translations = {} }) {
                         <Link
                             href={channel.href}
                             aria-label={`${channel.title}: ${channel.actionText}`}
-                            className={`w-full min-h-[44px] py-2.5 px-4 rounded-lg font-['Trebuchet_MS',sans-serif] font-medium text-sm text-center flex items-center justify-center transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#252530] ${channel.buttonStyle}`}
+                            className={`w-full min-h-[44px] py-2.5 px-4 rounded-xl font-['Trebuchet_MS',sans-serif] text-sm text-center flex items-center justify-center uppercase tracking-wider transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 cursor-pointer ${channel.buttonStyle}`}
                         >
                             {channel.actionText}
                         </Link>

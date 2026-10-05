@@ -18,7 +18,7 @@ export function generateStaticParams() {
 }
 
 export const viewport = {
-    themeColor: '#0d0914',
+    themeColor: '#09090b',
     width: 'device-width',
     initialScale: 1,
     viewportFit: 'cover',
@@ -205,13 +205,13 @@ export default async function LocaleLayout({ children, params }) {
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
                 />
             </head>
-            <body suppressHydrationWarning className="text-slate-50 selection:bg-[#9d7cff] selection:text-[#0d0914] min-h-screen flex flex-col">
+            <body suppressHydrationWarning className="bg-zinc-950 text-zinc-100 antialiased selection:bg-emerald-500/30 selection:text-emerald-300 min-h-screen flex flex-col">
                 <AuthSession>
                     <NextIntlClientProvider messages={messages}>
                         <MotionSystem />
                         <a
                             href="#main-content"
-                            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-[#9d7cff] focus:text-[#0d0914] focus:font-black focus:rounded-lg focus:shadow-[0_0_25px_rgba(157,124,255,0.6)] focus:outline-none"
+                            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-emerald-500 focus:text-zinc-950 focus:font-black focus:rounded-lg focus:shadow-[0_0_25px_rgba(16,185,129,0.5)] focus:outline-none"
                         >
                             Skip to main content
                         </a>

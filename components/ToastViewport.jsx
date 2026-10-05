@@ -21,8 +21,8 @@ export default function ToastViewport() {
                         : item.type === 'warning'
                         ? '#f59e0b'
                         : item.type === 'success'
-                        ? '#9d7cff'
-                        : '#4e2691';
+                        ? '#10b981'
+                        : '#059669';
 
                 const defaultTitle =
                     item.title ||
@@ -43,8 +43,8 @@ export default function ToastViewport() {
                         description={item.message}
                         actionLabel={item.actionLabel}
                         onAction={item.onAction}
-                        background="#171229"
-                        color="#f5f5f5"
+                        background="#18181b"
+                        color="#f4f4f5"
                         fuseColor={fuseColor}
                         width="100%"
                         radius={14}

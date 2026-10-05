@@ -72,7 +72,7 @@ export default async function AboutPage({ params }) {
     ];
 
     return (
-        <div className="min-h-screen bg-[#120e1c] text-slate-100 pb-20">
+        <div className="min-h-screen bg-zinc-950 text-zinc-100 pb-20">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
@@ -87,16 +87,16 @@ export default async function AboutPage({ params }) {
             <div className="max-w-4xl mx-auto px-5 py-10 sm:py-12 space-y-12">
                 {/* Mission Section */}
                 <Reveal>
-                    <section className="panel-surface rounded-2xl border border-white/10 bg-[#171229] p-7 sm:p-10 shadow-[0_16px_36px_rgba(0,0,0,0.35)]">
+                    <section className="rounded-2xl border border-white/10 bg-zinc-900 p-7 sm:p-10 shadow-xl">
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/20 text-[#9d7cff]">
+                            <span className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
                                 <Icon name="sparkles" className="w-5 h-5" />
                             </span>
                             <h2 className="display-font text-3xl sm:text-4xl uppercase text-white">
                                 {t('missionTitle')}
                             </h2>
                         </div>
-                        <p className="text-slate-300 text-base sm:text-lg leading-relaxed font-normal mt-4">
+                        <p className="text-zinc-300 text-base sm:text-lg leading-relaxed font-normal mt-4">
                             {t('missionText')}
                         </p>
                     </section>
@@ -113,21 +113,21 @@ export default async function AboutPage({ params }) {
                             {pillars.map((pillar) => (
                                 <div
                                     key={pillar.title}
-                                    className="panel-surface rounded-2xl border border-white/10 bg-[#141022] p-6 sm:p-7 flex flex-col justify-between hover:border-[#9d7cff]/40 transition-[border-color,transform] duration-200"
+                                    className="rounded-2xl border border-white/10 bg-zinc-900 p-6 sm:p-7 flex flex-col justify-between hover:border-emerald-500/40 transition-[border-color,transform] duration-200"
                                 >
                                     <div>
                                         <div className="flex items-center justify-between mb-4">
-                                            <div className="h-10 w-10 rounded-xl bg-[#9d7cff]/10 border border-[#9d7cff]/20 text-[#9d7cff] flex items-center justify-center">
+                                            <div className="h-10 w-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center">
                                                 <Icon name={pillar.icon} className="w-5 h-5" />
                                             </div>
-                                            <span className="font-mono text-[11px] font-bold tracking-wider text-[#9d7cff] bg-[#9d7cff]/10 px-2.5 py-1 rounded-full border border-[#9d7cff]/20 uppercase">
+                                            <span className="font-mono text-[11px] font-bold tracking-wider text-emerald-400 bg-emerald-500/15 px-2.5 py-1 rounded-full border border-emerald-500/30 uppercase">
                                                 {pillar.badge}
                                             </span>
                                         </div>
                                         <h3 className="font-['Trebuchet_MS',sans-serif] text-lg font-bold text-white mb-2">
                                             {pillar.title}
                                         </h3>
-                                        <p className="text-sm text-slate-300 leading-relaxed">
+                                        <p className="text-sm text-zinc-400 leading-relaxed">
                                             {pillar.desc}
                                         </p>
                                     </div>
@@ -139,24 +139,25 @@ export default async function AboutPage({ params }) {
 
                 {/* Direct Action Hub */}
                 <Reveal delay={0.2}>
-                    <section className="rounded-2xl border border-[#9d7cff]/30 bg-gradient-to-br from-[#1b1431] to-[#120e1e] p-8 text-center shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
-                        <h3 className="display-font text-3xl uppercase text-white mb-3">
+                    <section className="rounded-2xl border border-emerald-500/30 bg-zinc-900 p-8 sm:p-10 text-center shadow-2xl relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+                        <h3 className="display-font text-3xl uppercase text-white mb-3 relative z-10">
                             Ready to Boost Your Game?
                         </h3>
-                        <p className="text-slate-300 text-sm sm:text-base max-w-xl mx-auto mb-6">
+                        <p className="text-zinc-300 text-sm sm:text-base max-w-xl mx-auto mb-6 relative z-10">
                             Explore our live catalog of GTA V, CS2, and Red Dead Redemption 2 services with instant dispatch and guaranteed safety.
                         </p>
-                        <div className="flex flex-wrap items-center justify-center gap-4">
+                        <div className="flex flex-wrap items-center justify-center gap-4 relative z-10">
                             <Link
                                 href="/store"
-                                className="px-6 py-3 rounded-xl bg-[#9d7cff] text-[#0d0914] hover:bg-[#b59dff] font-['Trebuchet_MS',sans-serif] text-sm font-black uppercase tracking-wider transition-colors inline-flex items-center gap-2"
+                                className="px-6 py-3 rounded-xl bg-emerald-500 text-zinc-950 hover:bg-emerald-400 font-['Trebuchet_MS',sans-serif] text-sm font-black uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] inline-flex items-center gap-2 cursor-pointer"
                             >
                                 <span>Browse Services</span>
                                 <Icon name="arrow-right" className="w-4 h-4" />
                             </Link>
                             <Link
                                 href="/contact"
-                                className="px-6 py-3 rounded-xl border border-white/15 bg-white/5 hover:border-[#9d7cff]/50 text-slate-200 hover:text-white font-['Trebuchet_MS',sans-serif] text-sm font-bold uppercase tracking-wider transition-colors"
+                                className="px-6 py-3 rounded-xl border border-white/15 bg-white/5 hover:border-emerald-500/50 text-zinc-200 hover:text-white font-['Trebuchet_MS',sans-serif] text-sm font-bold uppercase tracking-wider transition-colors cursor-pointer"
                             >
                                 Contact Support
                             </Link>

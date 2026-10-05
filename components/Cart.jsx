@@ -26,17 +26,16 @@ export default function Cart() {
     };
 
     return (
-        <div className="panel-surface p-6 rounded-2xl">
+        <div className="panel-surface p-6 rounded-2xl bg-zinc-900/70 border border-white/10">
             <div className="flex justify-between items-center mb-6">
                 <div>
-                    <h2 className="display-font text-2xl uppercase text-slate-200">{t('yourSelection')}</h2>
-                    <p className="text-xs text-slate-400 mt-1">{t('itemCount', { count: getItemCount() })}</p>
+                    <h2 className="display-font text-2xl uppercase text-zinc-100">{t('yourSelection')}</h2>
+                    <p className="text-xs text-zinc-400 mt-1">{t('itemCount', { count: getItemCount() })}</p>
                 </div>
-                <button onClick={handleClear} className="text-xs text-red-300 hover:text-white transition-colors cursor-pointer">
+                <button onClick={handleClear} className="text-xs text-rose-400 hover:text-white transition-colors cursor-pointer">
                     {t('clearList')}
                 </button>
             </div>
-
 
             <ul className="space-y-3 mb-6">
                 <AnimatePresence initial={false}>
@@ -50,9 +49,9 @@ export default function Cart() {
                             onAction={action => console.log(action.id)}
                             onCommit={action => handleRemove(item)}
                             actionColor="#e5484d"
-                            drawerColor="#3f3f46"
-                            rowColor="#171229"
-                            textColor="#f5f5f5"
+                            drawerColor="#27272a"
+                            rowColor="#18181b"
+                            textColor="#f4f4f5"
                             radius={16}
                             actionWidth={80}
                             direction="left"
@@ -63,25 +62,25 @@ export default function Cart() {
                             fullSwipe
                             style={{ marginBottom: 8 }}
                         >
-                            <div className="p-4 border border-white/10 rounded-2xl bg-black/20">
+                            <div className="p-4 border border-white/10 rounded-2xl bg-zinc-950/60">
                                 <div className="flex justify-between items-start gap-3">
                                     <div className="min-w-0 flex-1">
                                         <div className="flex items-center gap-2">
-                                            <p className="font-medium text-slate-200 break-words">{item.name}</p>
+                                            <p className="font-medium text-zinc-200 break-words">{item.name}</p>
                                         </div>
                                         {Array.isArray(item.addons) && item.addons.length > 0 && (
                                             <div className="mt-2 flex flex-wrap gap-1">
                                                 {item.addons.map((addon, aIdx) => (
                                                     <span
                                                         key={aIdx}
-                                                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#9d7cff]/15 border border-[#9d7cff]/30 text-[#c8b4ff] text-[11px] font-mono"
+                                                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-[11px] font-mono"
                                                     >
-                                                        <span className="text-[#9d7cff]">✓</span> {addon}
+                                                        <span className="text-emerald-400">✓</span> {addon}
                                                     </span>
                                                 ))}
                                             </div>
                                         )}
-                                        <p className="text-xs text-[#9d7cff] mt-2 font-mono">
+                                        <p className="text-xs text-emerald-400 mt-2 font-mono">
                                             ${item.price} × {item.quantity} = <span className="font-bold">${(item.price * item.quantity).toFixed(2)}</span>
                                         </p>
                                     </div>
@@ -89,7 +88,7 @@ export default function Cart() {
                                         type="button"
                                         onClick={() => handleRemove(item)}
                                         aria-label={t('remove', { name: item.name })}
-                                        className="shrink-0 text-slate-500 hover:text-red-400 p-1 font-bold text-sm cursor-pointer transition-colors"
+                                        className="shrink-0 text-zinc-500 hover:text-rose-400 p-1 font-bold text-sm cursor-pointer transition-colors"
                                         title="Click or swipe left to remove"
                                     >
                                         ×
@@ -105,7 +104,7 @@ export default function Cart() {
                                                 updateQuantity(item.key, item.quantity - 1);
                                             }}
                                             aria-label={t('decreaseQuantity')}
-                                            className="h-7 w-7 rounded-lg border border-white/10 text-white text-base font-black hover:border-[#9d7cff] hover:text-[#9d7cff] transition-colors cursor-pointer"
+                                            className="h-7 w-7 rounded-lg border border-white/10 text-white text-base font-black hover:border-emerald-500 hover:text-emerald-400 transition-colors cursor-pointer"
                                         >
                                             −
                                         </button>
@@ -117,12 +116,12 @@ export default function Cart() {
                                                 updateQuantity(item.key, item.quantity + 1);
                                             }}
                                             aria-label={t('increaseQuantity')}
-                                            className="h-7 w-7 rounded-lg border border-white/10 text-white text-base font-black hover:border-[#9d7cff] hover:text-[#9d7cff] transition-colors cursor-pointer"
+                                            className="h-7 w-7 rounded-lg border border-white/10 text-white text-base font-black hover:border-emerald-500 hover:text-emerald-400 transition-colors cursor-pointer"
                                         >
                                             +
                                         </button>
                                     </div>
-                                    <strong className="font-bold text-[#9d7cff] font-mono text-sm">${(item.price * item.quantity).toFixed(2)}</strong>
+                                    <strong className="font-bold text-emerald-400 font-mono text-sm">${(item.price * item.quantity).toFixed(2)}</strong>
                                 </div>
                             </div>
                         </SwipeRow>
@@ -131,9 +130,9 @@ export default function Cart() {
             </ul>
 
             <div className="pt-4 border-t border-white/10 flex justify-between items-end">
-                <span className="text-slate-400 uppercase text-sm font-bold">{t('estimatedTotal')}</span>
+                <span className="text-zinc-400 uppercase text-sm font-bold">{t('estimatedTotal')}</span>
                 <div className="text-right text-3xl font-black text-white">
-                    ${getTotal().toFixed(2)} <span className="text-lg text-slate-400 font-medium">{common('usd')}</span>
+                    ${getTotal().toFixed(2)} <span className="text-lg text-zinc-400 font-medium">{common('usd')}</span>
                 </div>
             </div>
         </div>

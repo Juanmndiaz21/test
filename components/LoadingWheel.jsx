@@ -53,19 +53,19 @@ export default function LoadingWheel({
                 {/* Static hairline guide track */}
                 <div
                     aria-hidden="true"
-                    className="absolute inset-0 rounded-full border border-[#9d7cff]/20"
+                    className="absolute inset-0 rounded-full border border-emerald-500/20"
                 />
 
-                {/* Primary fast-spinning active violet arc */}
+                {/* Primary fast-spinning active emerald arc */}
                 <div
                     aria-hidden="true"
-                    className={`absolute inset-0 rounded-full border-transparent border-t-[#9d7cff] border-r-[#9d7cff]/70 animate-loading-spin ${sizeConfig.outerRing}`}
+                    className={`absolute inset-0 rounded-full border-transparent border-t-emerald-400 border-r-emerald-500/70 animate-loading-spin ${sizeConfig.outerRing}`}
                 />
 
                 {/* Secondary inner counter-rotating orbital ring for depth */}
                 <div
                     aria-hidden="true"
-                    className={`absolute rounded-full border-dashed border-[#9d7cff]/35 animate-loading-spin-reverse ${sizeConfig.innerRing}`}
+                    className={`absolute rounded-full border-dashed border-emerald-500/35 animate-loading-spin-reverse ${sizeConfig.innerRing}`}
                 />
 
                 {/* Center Hub: Brand logo or glowing core dot */}
@@ -81,7 +81,7 @@ export default function LoadingWheel({
                     ) : (
                         <span
                             aria-hidden="true"
-                            className={`rounded-full bg-[#9d7cff] ${sizeConfig.dot}`}
+                            className={`rounded-full bg-emerald-400 ${sizeConfig.dot}`}
                         />
                     )}
                 </div>
@@ -90,8 +90,8 @@ export default function LoadingWheel({
             {/* Readout label if specified */}
             {label && (
                 <div className="mt-5 flex items-center gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#9d7cff] animate-pulse" aria-hidden="true" />
-                    <span className="text-[11px] font-mono font-bold uppercase tracking-[0.22em] text-slate-300">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
+                    <span className="text-[11px] font-mono font-bold uppercase tracking-[0.22em] text-zinc-300">
                         {label}
                     </span>
                 </div>

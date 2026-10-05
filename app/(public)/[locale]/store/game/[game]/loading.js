@@ -4,11 +4,11 @@ export default function GameLoading() {
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-10" role="status" aria-label="Loading game services">
             {/* Banner with animated loading wheel */}
-            <div className="relative overflow-hidden rounded-3xl bg-[#171229] border border-[#9d7cff]/10 p-6 sm:p-10 md:p-12">
+            <div className="relative overflow-hidden rounded-3xl bg-zinc-900 border border-white/10 p-6 sm:p-10 md:p-12">
                 {/* Ambient glow shimmer */}
                 <div
                     aria-hidden="true"
-                    className="pointer-events-none absolute -top-24 -left-24 w-80 h-80 rounded-full bg-[#9d7cff]/10 blur-3xl animate-logo-pulse"
+                    className="pointer-events-none absolute -top-24 -left-24 w-80 h-80 rounded-full bg-emerald-500/10 blur-3xl animate-logo-pulse"
                 />
 
                 <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
@@ -16,7 +16,7 @@ export default function GameLoading() {
                         {/* Breadcrumb skeleton */}
                         <div className="flex items-center gap-2">
                             <div className="h-3.5 w-12 rounded skeleton-shimmer" />
-                            <span className="text-slate-600">/</span>
+                            <span className="text-zinc-600">/</span>
                             <div className="h-3.5 w-20 rounded skeleton-shimmer" />
                         </div>
 
@@ -47,7 +47,7 @@ export default function GameLoading() {
             </div>
 
             {/* Filter toolbar skeleton */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-4 rounded-2xl bg-[#171229] border border-white/10">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-4 rounded-2xl bg-zinc-900 border border-white/10">
                 {/* Search skeleton */}
                 <div className="h-10 w-full max-w-md rounded-xl skeleton-shimmer" />
 
@@ -74,7 +74,7 @@ export default function GameLoading() {
                         style={{ animationDelay: `${index * 100}ms` }}
                     >
                         <div className="aspect-video skeleton-shimmer" />
-                        <div className="p-4 space-y-3 bg-[#171229]">
+                        <div className="p-4 space-y-3 bg-zinc-900">
                             <div className="h-5 w-3/4 rounded skeleton-shimmer" />
                             <div className="h-3 w-1/2 rounded skeleton-shimmer" />
                             <div className="h-4 w-20 rounded skeleton-shimmer mt-3" />

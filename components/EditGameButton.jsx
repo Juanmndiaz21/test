@@ -58,7 +58,7 @@ export default function EditGameButton({ game }) {
                 }}
                 aria-label={`Edit category ${game?.name}`}
                 title={`Edit category ${game?.name}`}
-                className="border border-[#9d7cff]/40 text-[#9d7cff] hover:bg-[#9d7cff] hover:text-[#0d0914] font-bold text-xs uppercase tracking-wide px-4 py-3 rounded-lg transition-colors cursor-pointer"
+                className="border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500 hover:text-zinc-950 font-bold text-xs uppercase tracking-wide px-4 py-3 rounded-lg transition-colors cursor-pointer"
             >
                 Edit category
             </button>
@@ -80,7 +80,7 @@ export default function EditGameButton({ game }) {
                             animate={{ opacity: 1, transform: 'scale(1)' }}
                             exit={{ opacity: 0, transform: 'scale(0.96)' }}
                             transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-                            className="panel-surface rounded-2xl p-6 sm:p-7 w-full max-w-lg max-h-[90vh] overflow-y-auto bg-[#171229] border border-white/10"
+                            className="rounded-2xl p-6 sm:p-7 w-full max-w-lg max-h-[90vh] overflow-y-auto bg-zinc-900 border border-white/10"
                             role="dialog"
                             aria-modal="true"
                             aria-label={`Edit category ${game?.name}`}
@@ -90,12 +90,12 @@ export default function EditGameButton({ game }) {
 
                             <form onSubmit={save} className="space-y-5">
                                 <div>
-                                    <label htmlFor="edit-game-name" className="block text-sm font-bold text-slate-300 mb-2">Game name</label>
-                                    <input id="edit-game-name" value={name} onChange={(event) => setName(event.target.value)} required placeholder="e.g. GTA V" className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-[#9d7cff] outline-none" />
+                                    <label htmlFor="edit-game-name" className="block text-sm font-bold text-zinc-300 mb-2">Game name</label>
+                                    <input id="edit-game-name" value={name} onChange={(event) => setName(event.target.value)} required placeholder="e.g. GTA V" className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-emerald-500 outline-none" />
                                 </div>
                                 <div>
-                                    <label htmlFor="edit-game-mode" className="block text-sm font-bold text-slate-300 mb-2">Game mode</label>
-                                    <select id="edit-game-mode" value={mode} onChange={(event) => setMode(event.target.value)} className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-[#9d7cff] outline-none">
+                                    <label htmlFor="edit-game-mode" className="block text-sm font-bold text-zinc-300 mb-2">Game mode</label>
+                                    <select id="edit-game-mode" value={mode} onChange={(event) => setMode(event.target.value)} className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:border-emerald-500 outline-none">
                                         <option value="both">Multiplayer + Singleplayer</option>
                                         <option value="multiplayer">Multiplayer</option>
                                         <option value="singleplayer">Singleplayer</option>
@@ -109,10 +109,10 @@ export default function EditGameButton({ game }) {
                                 />
 
                                 <div className="flex gap-3 pt-2">
-                                    <button type="button" onClick={close} disabled={isPending} className="flex-1 border border-white/10 text-slate-300 hover:border-white/40 hover:text-white font-bold py-3 px-4 rounded-lg transition-colors cursor-pointer">
+                                    <button type="button" onClick={close} disabled={isPending} className="flex-1 border border-white/10 text-zinc-300 hover:border-white/40 hover:text-white font-bold py-3 px-4 rounded-lg transition-colors cursor-pointer">
                                         Cancel
                                     </button>
-                                    <button type="submit" disabled={isPending} className="flex-1 bg-[#9d7cff] hover:bg-white disabled:opacity-40 text-[#0d0914] font-black py-3 px-4 rounded-lg transition-colors cursor-pointer">
+                                    <button type="submit" disabled={isPending} className="flex-1 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-40 text-zinc-950 font-black py-3 px-4 rounded-lg transition-colors cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.3)]">
                                         {isPending ? 'SAVING...' : 'SAVE'}
                                     </button>
                                 </div>

@@ -9,7 +9,7 @@ import Icon from './Icon';
 function getHeadingIcon(title = '') {
     const lower = title.toLowerCase();
     if (lower.includes('flickr') || lower.includes('photo') || lower.includes('album') || lower.includes('picture')) {
-        return <Icon name="camera" className="w-4 h-4 text-[#9d7cff] shrink-0" stroke={2} />;
+        return <Icon name="camera" className="w-4 h-4 text-emerald-400 shrink-0" stroke={2} />;
     }
     if (
         lower.includes('service') ||
@@ -21,19 +21,19 @@ function getHeadingIcon(title = '') {
         lower.includes('guarantee') ||
         lower.includes('account')
     ) {
-        return <Icon name="shield-check" className="w-4 h-4 text-[#9d7cff] shrink-0" stroke={2} />;
+        return <Icon name="shield-check" className="w-4 h-4 text-emerald-400 shrink-0" stroke={2} />;
     }
     if (lower.includes('comment') || lower.includes('review') || lower.includes('rep') || lower.includes('feedback')) {
-        return <Icon name="message" className="w-4 h-4 text-[#9d7cff] shrink-0" stroke={2} />;
+        return <Icon name="message" className="w-4 h-4 text-emerald-400 shrink-0" stroke={2} />;
     }
     if (lower.includes('speed') || lower.includes('fast') || lower.includes('delivery') || lower.includes('instant') || lower.includes('boost')) {
-        return <Icon name="bolt" className="w-4 h-4 text-[#9d7cff] shrink-0" stroke={2} />;
+        return <Icon name="bolt" className="w-4 h-4 text-emerald-400 shrink-0" stroke={2} />;
     }
     if (lower.includes('car') || lower.includes('vehicle') || lower.includes('drift')) {
-        return <Icon name="car" className="w-4 h-4 text-[#9d7cff] shrink-0" stroke={2} />;
+        return <Icon name="car" className="w-4 h-4 text-emerald-400 shrink-0" stroke={2} />;
     }
     if (lower.includes('weapon') || lower.includes('gun') || lower.includes('tactical')) {
-        return <Icon name="target" className="w-4 h-4 text-[#9d7cff] shrink-0" stroke={2} />;
+        return <Icon name="target" className="w-4 h-4 text-emerald-400 shrink-0" stroke={2} />;
     }
     if (
         lower.includes('package') ||
@@ -42,15 +42,15 @@ function getHeadingIcon(title = '') {
         lower.includes('role') ||
         lower.includes('rank')
     ) {
-        return <Icon name="package" className="w-4 h-4 text-[#9d7cff] shrink-0" stroke={2} />;
+        return <Icon name="package" className="w-4 h-4 text-emerald-400 shrink-0" stroke={2} />;
     }
-    return <Icon name="sparkles" className="w-4 h-4 text-[#9d7cff] shrink-0" stroke={2} />;
+    return <Icon name="sparkles" className="w-4 h-4 text-emerald-400 shrink-0" stroke={2} />;
 }
 
 /**
  * Tabler Checkmark Icon
  */
-export function GreenCheckIcon({ className = 'w-4 h-4 text-[#9d7cff]' }) {
+export function GreenCheckIcon({ className = 'w-4 h-4 text-emerald-400' }) {
     return <Icon name="check-circle" className={className} stroke={2.5} />;
 }
 
@@ -133,7 +133,7 @@ function renderInlineFormatting(text) {
                     href={mdLinkMatch[2]}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#9d7cff] hover:underline underline-offset-4 inline-flex items-center gap-0.5 font-medium"
+                    className="text-emerald-400 hover:underline underline-offset-4 inline-flex items-center gap-0.5 font-medium"
                 >
                     <span>{mdLinkMatch[1]}</span>
                     <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -149,7 +149,7 @@ function renderInlineFormatting(text) {
                     href={part}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#9d7cff] hover:underline underline-offset-4 break-all font-mono text-xs"
+                    className="text-emerald-400 hover:underline underline-offset-4 break-all font-mono text-xs"
                 >
                     {part}
                 </a>
@@ -309,115 +309,115 @@ export default function ProductDescriptionRenderer({ content = '', className = '
     const blocks = parseDescriptionBlocks(content);
 
     return (
-        <div className={`space-y-4 text-slate-300 ${className}`}>
+        <div className={`space-y-4 text-zinc-300 ${className}`}>
             {blocks.map((block, idx) => {
-                if (block.type === 'heading') {
-                    return (
-                        <div key={`h-${idx}`} className="pt-2 first:pt-0">
-                            <h4 className="font-['Syne',sans-serif] text-xs sm:text-sm uppercase tracking-wider text-[#9d7cff] font-bold mb-3 flex items-center gap-2">
-                                {getHeadingIcon(block.text)}
-                                <span>{renderInlineFormatting(block.text)}</span>
-                            </h4>
-                        </div>
-                    );
-                }
+                 if (block.type === 'heading') {
+                     return (
+                         <div key={`h-${idx}`} className="pt-2 first:pt-0">
+                             <h4 className="font-['Syne',sans-serif] text-xs sm:text-sm uppercase tracking-wider text-emerald-400 font-bold mb-3 flex items-center gap-2">
+                                 {getHeadingIcon(block.text)}
+                                 <span>{renderInlineFormatting(block.text)}</span>
+                             </h4>
+                         </div>
+                     );
+                 }
 
-                if (block.type === 'checklist') {
-                    return (
-                        <div
-                            key={`cl-${idx}`}
-                            className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm font-sans my-3"
-                        >
-                            {block.items.map((item, itemIdx) => (
-                                <div
-                                    key={itemIdx}
-                                    className="flex items-center gap-2.5 p-2 sm:p-2.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-white/10 transition-colors"
-                                >
-                                    <Icon name="check-circle" className="w-4 h-4 sm:w-5 sm:h-5 text-[#9d7cff] shrink-0" stroke={2.5} />
-                                    <span className="text-slate-300 font-medium leading-snug">
-                                        {renderInlineFormatting(item)}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    );
-                }
+                 if (block.type === 'checklist') {
+                     return (
+                         <div
+                             key={`cl-${idx}`}
+                             className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm font-sans my-3"
+                         >
+                             {block.items.map((item, itemIdx) => (
+                                 <div
+                                     key={itemIdx}
+                                     className="flex items-center gap-2.5 p-2 sm:p-2.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-white/10 transition-colors"
+                                 >
+                                     <Icon name="check-circle" className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 shrink-0" stroke={2.5} />
+                                     <span className="text-zinc-300 font-medium leading-snug">
+                                         {renderInlineFormatting(item)}
+                                     </span>
+                                 </div>
+                             ))}
+                         </div>
+                     );
+                 }
 
-                if (block.type === 'buttons') {
-                    return (
-                        <div
-                            key={`btns-${idx}`}
-                            className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 my-3"
-                        >
-                            {block.buttons.map((btn, btnIdx) => (
-                                <a
-                                    key={btnIdx}
-                                    href={btn.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="p-3 sm:p-3.5 rounded-xl flex items-center justify-between bg-white/[0.04] border border-white/10 hover:border-[#9d7cff]/50 hover:bg-[#9d7cff]/10 transition-all duration-200 group no-underline shadow-sm cursor-pointer"
-                                >
-                                    <div className="flex items-center gap-2.5 min-w-0">
-                                        {btn.isFlickr ? (
-                                            <span className="flex items-center gap-1 shrink-0" aria-hidden="true" title="Flickr Photo Album">
-                                                <span className="w-2.5 h-2.5 rounded-full bg-[#0063dc] shadow-[0_0_8px_rgba(0,99,220,0.5)]" />
-                                                <span className="w-2.5 h-2.5 rounded-full bg-[#ff0084] shadow-[0_0_8px_rgba(255,0,132,0.5)]" />
-                                            </span>
-                                        ) : (
-                                            <span className="w-2.5 h-2.5 rounded-full bg-[#9d7cff] shrink-0" />
-                                        )}
-                                        <div className="min-w-0">
-                                            <div className="text-xs sm:text-sm font-bold text-white group-hover:text-[#9d7cff] truncate transition-colors">
-                                                {btn.title}
-                                            </div>
-                                            <div className="text-[10px] text-slate-400 font-mono truncate">
-                                                {btn.isFlickr ? 'Flickr Photo Catalog • Live Album' : 'External Showcase'}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <Icon name="arrow-up-right" className="w-4 h-4 text-slate-400 group-hover:text-white shrink-0 ml-2 transition-colors" stroke={2} />
-                                </a>
-                            ))}
-                        </div>
-                    );
-                }
+                 if (block.type === 'buttons') {
+                     return (
+                         <div
+                             key={`btns-${idx}`}
+                             className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 my-3"
+                         >
+                             {block.buttons.map((btn, btnIdx) => (
+                                 <a
+                                     key={btnIdx}
+                                     href={btn.url}
+                                     target="_blank"
+                                     rel="noopener noreferrer"
+                                     className="p-3 sm:p-3.5 rounded-xl flex items-center justify-between bg-white/[0.04] border border-white/10 hover:border-emerald-500/50 hover:bg-emerald-500/10 transition-all duration-200 group no-underline shadow-sm cursor-pointer"
+                                 >
+                                     <div className="flex items-center gap-2.5 min-w-0">
+                                         {btn.isFlickr ? (
+                                             <span className="flex items-center gap-1 shrink-0" aria-hidden="true" title="Flickr Photo Album">
+                                                 <span className="w-2.5 h-2.5 rounded-full bg-[#0063dc] shadow-[0_0_8px_rgba(0,99,220,0.5)]" />
+                                                 <span className="w-2.5 h-2.5 rounded-full bg-[#ff0084] shadow-[0_0_8px_rgba(255,0,132,0.5)]" />
+                                             </span>
+                                         ) : (
+                                             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0" />
+                                         )}
+                                         <div className="min-w-0">
+                                             <div className="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400 truncate transition-colors">
+                                                 {btn.title}
+                                             </div>
+                                             <div className="text-[10px] text-zinc-400 font-mono truncate">
+                                                 {btn.isFlickr ? 'Flickr Photo Catalog • Live Album' : 'External Showcase'}
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <Icon name="arrow-up-right" className="w-4 h-4 text-zinc-400 group-hover:text-white shrink-0 ml-2 transition-colors" stroke={2} />
+                                 </a>
+                             ))}
+                         </div>
+                     );
+                 }
 
-                if (block.type === 'property') {
-                    return (
-                        <div
-                            key={`prop-${idx}`}
-                            className="text-slate-200 text-xs sm:text-sm font-medium leading-relaxed"
-                        >
-                            <span className="text-white font-bold">{block.label}</span>{' '}
-                            <span>{renderInlineFormatting(block.value)}</span>
-                        </div>
-                    );
-                }
+                 if (block.type === 'property') {
+                     return (
+                         <div
+                             key={`prop-${idx}`}
+                             className="text-zinc-200 text-xs sm:text-sm font-medium leading-relaxed"
+                         >
+                             <span className="text-white font-bold">{block.label}</span>{' '}
+                             <span>{renderInlineFormatting(block.value)}</span>
+                         </div>
+                     );
+                 }
 
-                if (block.type === 'note') {
-                    return (
-                        <div
-                            key={`note-${idx}`}
-                            className="p-3.5 sm:p-4 rounded-xl border border-[#9d7cff]/30 bg-[#9d7cff]/10 text-xs sm:text-sm font-mono text-slate-200 flex items-start gap-2.5 sm:gap-3 my-4 shadow-[0_0_15px_rgba(157,124,255,0.07)]"
-                        >
-                            <Icon name="info-circle" className="w-4 h-4 text-[#9d7cff] shrink-0 mt-0.5" stroke={2} />
-                            <div className="leading-relaxed">
-                                <strong className="text-white mr-1.5">{block.prefix}</strong>
-                                <span>{renderInlineFormatting(block.text)}</span>
-                            </div>
-                        </div>
-                    );
-                }
+                 if (block.type === 'note') {
+                     return (
+                         <div
+                             key={`note-${idx}`}
+                             className="p-3.5 sm:p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-xs sm:text-sm font-mono text-zinc-200 flex items-start gap-2.5 sm:gap-3 my-4 shadow-[0_0_15px_rgba(16,185,129,0.07)]"
+                         >
+                             <Icon name="info-circle" className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" stroke={2} />
+                             <div className="leading-relaxed">
+                                 <strong className="text-white mr-1.5">{block.prefix}</strong>
+                                 <span>{renderInlineFormatting(block.text)}</span>
+                             </div>
+                         </div>
+                     );
+                 }
 
-                return (
-                    <p
-                        key={`p-${idx}`}
-                        className="text-slate-200 text-sm sm:text-base leading-relaxed"
-                    >
-                        {renderInlineFormatting(block.text)}
-                    </p>
-                );
-            })}
+                 return (
+                     <p
+                         key={`p-${idx}`}
+                         className="text-zinc-200 text-sm sm:text-base leading-relaxed"
+                     >
+                         {renderInlineFormatting(block.text)}
+                     </p>
+                 );
+             })}
         </div>
     );
 }

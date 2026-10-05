@@ -85,7 +85,7 @@ export default async function HelpPage({ params }) {
     };
 
     return (
-        <div className="min-h-screen bg-[#120e1c] text-slate-100 pb-20">
+        <div className="min-h-screen bg-zinc-950 text-zinc-100 pb-20">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -123,7 +123,7 @@ export default async function HelpPage({ params }) {
                         <div className="space-y-8">
                             {groups.map((group) => (
                                 <div key={group.id} className="space-y-3.5">
-                                    <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-[#9333EA] px-1">
+                                    <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 px-1">
                                         {t(`types.${group.id}`)}
                                     </h3>
                                     <HelpFaqList faqs={group.items} />
