@@ -41,7 +41,7 @@ export default function SupportChannels({ translations = {} }) {
             title: translations.emailTitle || 'Email Support',
             desc: translations.emailDesc || "Send us an email and we'll get back to you within 24 hours.",
             actionText: translations.emailAction || 'Send Email',
-            href: 'mailto:support@ogmodz.com',
+            href: 'mailto:admin@ogmodz.com',
             isExternal: true,
             buttonStyle: 'bg-[#9225CF] hover:bg-[#a83ff0] active:scale-[0.98] text-white font-black shadow-[0_0_15px_rgba(146,37,207,0.35)]',
             iconBg: 'bg-[#9225CF]/15 border border-[#9225CF]/30 text-purple-400',

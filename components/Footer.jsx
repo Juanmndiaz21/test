@@ -147,7 +147,7 @@ export default async function Footer() {
                             <span className="font-bold text-white">OGmodz Marketplace</span> · Operated for independent digital gaming services & coaching.
                         </div>
                         <div className="flex items-center gap-4 text-xs font-mono">
-                            <span>Email: <a href="mailto:support@ogmodz.com" className="text-purple-400 hover:underline">support@ogmodz.com</a></span>
+                            <span>Email: <a href="mailto:admin@ogmodz.com" className="text-purple-400 hover:underline">admin@ogmodz.com</a></span>
                             <span>·</span>
                             <span>Avg. Response: &lt; 24h</span>
                         </div>
