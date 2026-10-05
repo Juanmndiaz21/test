@@ -480,7 +480,7 @@ export default function NewStyleLanding({
     return (
         <div className="relative w-full bg-zinc-950 text-zinc-100 selection:bg-[#9225CF]/30 selection:text-purple-300">
             {/* ── 1. HERO SECTION WITH DOTGRID CANVAS ── */}
-            <section className="relative overflow-hidden border-b border-white/[0.06] bg-zinc-950 pt-28 pb-32 sm:pt-36 sm:pb-40 md:pt-44 md:pb-48 lg:min-h-[70vh] flex flex-col justify-center">
+            <section id="hero" className="relative overflow-hidden border-b border-white/[0.06] bg-zinc-950 pt-28 pb-32 sm:pt-36 sm:pb-40 md:pt-44 md:pb-48 lg:min-h-[70vh] flex flex-col justify-center">
                 {/* DotGrid Canvas Background */}
                 <DotGrid
                     dotSize={1.5}

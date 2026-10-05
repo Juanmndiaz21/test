@@ -55,6 +55,15 @@ export const NavBody = ({ children, className }) => {
     );
 };
 
+const scrollToPageTop = () => {
+    if (typeof window === 'undefined') return;
+    if (window.__lenis) {
+        window.__lenis.scrollTo(0, { duration: 1.2, smooth: true });
+    } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+};
+
 export const NavItems = ({ items = [], pathname, className }) => {
     const [hovered, setHovered] = useState(null);
 
@@ -68,6 +77,19 @@ export const NavItems = ({ items = [], pathname, className }) => {
         return cleanPath === cleanLink || cleanPath.startsWith(cleanLink + '/');
     };
 
+    const handleItemClick = (e, item, linkHref) => {
+        if (item.onClick) item.onClick(e);
+        if (linkHref === '/' || linkHref === '#') {
+            if (typeof window !== 'undefined') {
+                const isHome = window.location.pathname === '/' || /^\/[a-z]{2}\/?$/.test(window.location.pathname);
+                if (isHome) {
+                    e.preventDefault();
+                    scrollToPageTop();
+                }
+            }
+        }
+    };
+
     return (
         <nav aria-label="Main Navigation" className={cn('flex items-center gap-1.5', className)}>
             {items.map((item, idx) => {
@@ -78,10 +100,11 @@ export const NavItems = ({ items = [], pathname, className }) => {
                     <Link
                         key={linkHref + idx}
                         href={linkHref}
+                        onClick={(e) => handleItemClick(e, item, linkHref)}
                         onMouseEnter={() => setHovered(idx)}
                         onMouseLeave={() => setHovered(null)}
                         className={cn(
-                            'relative px-3.5 py-1.5 text-sm font-semibold transition-colors duration-150 select-none',
+                            'relative px-3.5 py-1.5 text-sm font-semibold transition-colors duration-150 select-none cursor-pointer',
                             isActive ? 'text-white' : 'text-zinc-400 hover:text-white'
                         )}
                     >
@@ -112,9 +135,25 @@ export const NavItems = ({ items = [], pathname, className }) => {
     );
 };
 
-export const NavbarLogo = ({ className, href = '/' }) => {
+export const NavbarLogo = ({ className, href = '/', onClick }) => {
+    const handleClick = (e) => {
+        if (onClick) onClick(e);
+        if (typeof window !== 'undefined') {
+            const isHome = window.location.pathname === '/' || /^\/[a-z]{2}\/?$/.test(window.location.pathname);
+            if (isHome) {
+                e.preventDefault();
+                scrollToPageTop();
+            }
+        }
+    };
+
     return (
-        <Link href={href} className={cn('shrink-0 flex items-center gap-2.5', className)} aria-label="OGMODZ Brand Logo">
+        <Link
+            href={href}
+            onClick={handleClick}
+            className={cn('shrink-0 flex items-center gap-2.5 cursor-pointer', className)}
+            aria-label="OGMODZ Brand Logo"
+        >
             <img
                 src="/logo-v3.svg"
                 alt="OGMODZ"

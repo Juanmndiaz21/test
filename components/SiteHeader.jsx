@@ -67,11 +67,28 @@ export default function SiteHeader() {
                             const cleanLink = (item.link || '').replace(/\/$/, '') || '/';
                             const isActive = cleanLink === '/' ? cleanPath === '/' : (cleanPath === cleanLink || cleanPath.startsWith(cleanLink + '/'));
 
+                            const handleMobileClick = (e) => {
+                                setIsMobileMenuOpen(false);
+                                if (item.link === '/' || item.link === '#') {
+                                    if (typeof window !== 'undefined') {
+                                        const isHome = window.location.pathname === '/' || /^\/[a-z]{2}\/?$/.test(window.location.pathname);
+                                        if (isHome) {
+                                            e.preventDefault();
+                                            if (window.__lenis) {
+                                                window.__lenis.scrollTo(0, { duration: 1.2, smooth: true });
+                                            } else {
+                                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            }
+                                        }
+                                    }
+                                }
+                            };
+
                             return (
                                 <Link
                                     key={`mobile-link-${idx}`}
                                     href={item.link}
-                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    onClick={handleMobileClick}
                                     className={cn(
                                         'px-3.5 py-2.5 rounded-xl font-semibold transition-all text-sm flex items-center justify-between',
                                         isActive
