@@ -759,7 +759,7 @@ export default function NewStyleLanding({
                     className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(146,37,207,0.06),transparent_70%)]"
                 />
 
-                <div className="mx-auto max-w-6xl px-5 sm:px-6 relative z-10">
+                <div className="mx-auto max-w-7xl px-5 sm:px-6 relative z-10">
                     <div className="text-center max-w-xl mx-auto mb-12">
                         <div className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-purple-400 mb-1.5">
                             <Sparkle size={13} weight="fill" />
@@ -774,18 +774,22 @@ export default function NewStyleLanding({
                     </div>
 
                     <div className="relative">
-                        {/* Connecting line on desktop */}
-                        <div className="hidden lg:block absolute top-[44px] left-[8%] right-[8%] h-[2px] bg-gradient-to-r from-[#9225CF]/20 via-purple-400/50 to-[#9225CF]/20 shadow-[0_0_12px_rgba(146,37,207,0.35)] z-0" />
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-12 xl:gap-20 relative z-10">
                             {PROCESS_STEPS.map((item, idx) => (
                                 <div key={item.step} className="relative flex flex-col items-center">
-                                    {/* Glowing pulsing node on desktop */}
+                                    {/* Connecting line & glowing pulse node between cards on desktop */}
                                     {idx > 0 && (
-                                        <div className="hidden lg:flex absolute -left-2 top-[44px] -translate-y-1/2 -translate-x-1/2 z-20 items-center justify-center">
-                                            <span className="relative flex h-3 w-3">
-                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-70" />
-                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#9225CF] shadow-[0_0_10px_#9225CF]" />
+                                        <div
+                                            className="hidden lg:flex absolute right-full top-[44px] -translate-y-1/2 w-12 xl:w-20 items-center justify-center pointer-events-none z-20"
+                                            aria-hidden="true"
+                                        >
+                                            {/* Glowing connecting line */}
+                                            <div className="w-full h-[2px] bg-gradient-to-r from-purple-500/20 via-purple-300 to-purple-500/20 shadow-[0_0_10px_rgba(146,37,207,0.7)]" />
+
+                                            {/* Central pulsing node */}
+                                            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex h-3.5 w-3.5 items-center justify-center">
+                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75" />
+                                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#9225CF] shadow-[0_0_12px_#9225CF] border border-purple-300/60" />
                                             </span>
                                         </div>
                                     )}
