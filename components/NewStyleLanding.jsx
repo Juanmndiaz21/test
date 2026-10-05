@@ -535,9 +535,17 @@ export default function NewStyleLanding({
                             </h2>
                             <p className="mt-1 text-2xl font-bold tracking-tight text-white">Popular Games</p>
                         </div>
-                        <span className="text-xs text-zinc-500 font-mono hidden sm:inline">
-                            Direct Rockstar & Steam Servers
-                        </span>
+                        <a
+                            href="#browse-games"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                document.getElementById('browse-games')?.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                            className="inline-flex items-center gap-1.5 rounded-xl border border-white/10 bg-zinc-900/70 px-3.5 py-1.5 text-xs font-semibold text-zinc-300 hover:border-[#9225CF]/50 hover:bg-[#9225CF]/15 hover:text-white transition-all shadow-sm group cursor-pointer"
+                        >
+                            <span>Browse All Games</span>
+                            <ArrowRight size={13} weight="bold" className="text-purple-400 group-hover:translate-x-0.5 transition-transform" />
+                        </a>
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
