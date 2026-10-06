@@ -53,6 +53,7 @@
   "overrides": {
     "next-auth": {
       "nodemailer": "$nodemailer"
-    }
+    },
+    "braces": "^3.0.3"
   }
 }
