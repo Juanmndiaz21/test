@@ -11,6 +11,8 @@ import BlogMarkdown, {
 import BlogReadingProgress from '@/components/BlogReadingProgress';
 import BlogArticleSidebar from '@/components/BlogArticleSidebar';
 import { getBlogPostBySlug, getBlogPosts } from '@/lib/blog';
+import { neon } from '@neondatabase/serverless';
+import { productToSlug, gameToSlug } from '@/lib/gameSlugs';
 
 export const revalidate = 60;
 
@@ -116,6 +118,47 @@ export default async function BlogPostPage({ params }) {
     const relatedPosts = allCategoryPosts
         .filter((p) => p.id !== post.id)
         .slice(0, 3);
+
+    // Fetch contextual top products for commercial Silo SEO linking
+    let contextualProducts = [];
+    try {
+        if (process.env.DATABASE_URL) {
+            const sql = neon(process.env.DATABASE_URL);
+            const catLower = (post.category || '').toLowerCase();
+            const titleLower = (post.title || '').toLowerCase();
+            const isGta = catLower.includes('gta') || titleLower.includes('gta');
+            const isCs = catLower.includes('cs') || titleLower.includes('cs') || titleLower.includes('counter');
+            const isRdr = catLower.includes('rdr') || catLower.includes('red dead') || titleLower.includes('rdr');
+
+            let gameFilter = 'Grand Theft Auto V';
+            if (isCs) gameFilter = 'Counter-Strike 2';
+            else if (isRdr) gameFilter = 'Red Dead Redemption 2';
+            else if (isGta) gameFilter = 'Grand Theft Auto V';
+
+            const pRows = await sql`
+                SELECT id, name, price, original_price, image_url, slug, game
+                FROM products
+                WHERE LOWER(game) LIKE ${'%' + (isCs ? 'counter' : isRdr ? 'red dead' : 'gta') + '%'}
+                   OR LOWER(game) LIKE ${'%' + (isCs ? 'cs' : isRdr ? 'rdr' : 'theft') + '%'}
+                ORDER BY id ASC
+                LIMIT 3
+            `;
+
+            if (pRows && pRows.length > 0) {
+                contextualProducts = pRows;
+            } else {
+                // Fallback to top featured products
+                contextualProducts = await sql`
+                    SELECT id, name, price, original_price, image_url, slug, game
+                    FROM products
+                    ORDER BY id ASC
+                    LIMIT 3
+                `;
+            }
+        }
+    } catch (e) {
+        console.warn('BlogPostPage: Failed to load contextual products:', e.message);
+    }
 
     const baseUrl =
         process.env.NEXT_PUBLIC_SITE_URL ||
@@ -339,15 +382,15 @@ export default async function BlogPostPage({ params }) {
                         </div>
 
                         {/* In-Article Contextual Boosting Promotion Banner */}
-                        <div className="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 border border-emerald-500/30 shadow-[0_16px_40px_rgba(0,0,0,0.5),0_0_30px_rgba(16,185,129,0.1)] relative overflow-hidden">
+                        <div className="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 border border-purple-500/30 shadow-[0_16px_40px_rgba(0,0,0,0.5),0_0_30px_rgba(146,37,207,0.1)] relative overflow-hidden">
                             <div
-                                className="absolute -right-10 -bottom-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"
+                                className="absolute -right-10 -bottom-10 w-64 h-64 bg-[#9225CF]/15 rounded-full blur-2xl pointer-events-none"
                                 aria-hidden="true"
                             />
                             <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
                                 <div className="text-center sm:text-left">
-                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-300 mb-2.5">
-                                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono font-bold uppercase tracking-wider text-purple-300 mb-2.5">
+                                        <span className="h-1.5 w-1.5 rounded-full bg-purple-400 animate-pulse" />
                                         <span>100% BAN-SAFE · INSTANT DELIVERY</span>
                                     </div>
                                     <h3 className="display-font text-2xl sm:text-3xl font-black uppercase text-white tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
@@ -359,12 +402,71 @@ export default async function BlogPostPage({ params }) {
                                 </div>
                                 <Link
                                     href="/store"
-                                    className="shrink-0 px-7 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-105 active:scale-95 cursor-pointer"
+                                    className="shrink-0 px-7 py-3.5 rounded-xl bg-[#9225CF] hover:bg-purple-600 text-white font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(146,37,207,0.3)] hover:scale-105 active:scale-95 cursor-pointer"
                                 >
                                     Browse Catalog
                                 </Link>
                             </div>
                         </div>
+
+                        {/* High-Intent Contextual Products (Silo SEO Linking) */}
+                        {contextualProducts.length > 0 && (
+                            <div className="p-6 sm:p-8 rounded-3xl bg-zinc-900/80 border border-white/10 shadow-xl">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+                                    <div>
+                                        <span className="text-xs font-mono font-bold uppercase tracking-wider text-purple-400">
+                                            RECOMMENDED IN-GAME PACKAGES
+                                        </span>
+                                        <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight mt-1">
+                                            Top Trending Boosts &amp; Services
+                                        </h3>
+                                    </div>
+                                    <Link
+                                        href="/store"
+                                        className="text-xs font-mono font-bold text-zinc-400 hover:text-white flex items-center gap-1 transition-colors"
+                                    >
+                                        View all offers <Icon name="arrow-right" className="w-3.5 h-3.5" />
+                                    </Link>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    {contextualProducts.map((prod) => {
+                                        const pSlug = prod.slug || productToSlug(prod.name || String(prod.id));
+                                        return (
+                                            <Link
+                                                key={prod.id}
+                                                href={`/store/${pSlug}`}
+                                                className="group flex flex-col justify-between rounded-2xl border border-white/10 bg-zinc-950/60 p-4 hover:border-purple-500/50 hover:bg-zinc-900 transition-all duration-200 hover:-translate-y-1 shadow-md"
+                                            >
+                                                <div className="aspect-[4/3] w-full rounded-xl overflow-hidden bg-zinc-900 mb-3 border border-white/5 relative">
+                                                    <img
+                                                        src={prod.image_url || '/store/GTAV-CASHBOOST.webp'}
+                                                        alt={prod.name}
+                                                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                                    />
+                                                    <span className="absolute top-2 right-2 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-black/70 text-purple-300 border border-purple-500/30">
+                                                        {prod.game || 'VERIFIED'}
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <h4 className="text-sm font-bold text-white group-hover:text-purple-400 transition-colors line-clamp-1">
+                                                        {prod.name}
+                                                    </h4>
+                                                    <div className="mt-2 flex items-baseline justify-between">
+                                                        <span className="text-xs text-emerald-400 font-mono font-semibold">
+                                                            Instant Delivery
+                                                        </span>
+                                                        <span className="text-base font-extrabold text-white font-mono">
+                                                            ${Number(prod.price || 0).toFixed(2)}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
 
                         {/* Author Bio Box */}
                         <div className="p-6 rounded-2xl bg-zinc-900 border border-white/10 flex items-start gap-4">

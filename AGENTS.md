@@ -17,3 +17,6 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Do not apply GSD workflows unless the user explicitly asks for them.
 - After completing any `gsd-*` command (or any deliverable it triggers: feature, bug fix, tests, docs, etc.), ALWAYS: (1) offer the user the next step by prompting via `ask_user`; repeat this feedback loop until the user explicitly indicates they are done.
 <!-- /GSD Configuration -->
+
+# Deployment Safety Rule
+- **CRITICAL**: NUNCA hagas deploy ni ejecutes `git push` bajo ninguna circunstancia a menos que el usuario lo pida explícitamente con palabras como "haz deploy" o "deploy". Solo realiza cambios, pruebas y commits locales.
