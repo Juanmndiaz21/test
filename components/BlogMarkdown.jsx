@@ -1,4 +1,5 @@
 import React from 'react';
+import { LinkPreview } from '@/components/ui/link-preview';
 
 export function slugifyHeading(text) {
     if (!text) return '';
@@ -160,17 +161,29 @@ function renderInline(text) {
         // Links: [text](url)
         const linkMatch = remaining.match(/^\[(.*?)\]\((.*?)\)/);
         if (linkMatch) {
-            tokens.push(
-                <a
-                    key={key++}
-                    href={linkMatch[2]}
-                    target={linkMatch[2].startsWith('http') ? '_blank' : undefined}
-                    rel={linkMatch[2].startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="text-emerald-400 hover:underline underline-offset-4 font-semibold"
-                >
-                    {linkMatch[1]}
-                </a>
-            );
+            const url = linkMatch[2];
+            const text = linkMatch[1];
+            if (url.startsWith('http')) {
+                tokens.push(
+                    <LinkPreview
+                        key={key++}
+                        url={url}
+                        className="text-purple-400 hover:text-purple-300 underline underline-offset-4 font-semibold"
+                    >
+                        {text}
+                    </LinkPreview>
+                );
+            } else {
+                tokens.push(
+                    <a
+                        key={key++}
+                        href={url}
+                        className="text-purple-400 hover:text-purple-300 underline underline-offset-4 font-semibold"
+                    >
+                        {text}
+                    </a>
+                );
+            }
             remaining = remaining.slice(linkMatch[0].length);
             continue;
         }
