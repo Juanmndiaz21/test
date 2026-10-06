@@ -115,6 +115,11 @@ export async function generateMetadata({ params }) {
                 { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
             ],
         },
+        verification: {
+            google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+            yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION || undefined,
+            bing: process.env.NEXT_PUBLIC_BING_VERIFICATION || undefined,
+        },
         manifest: '/site.webmanifest',
     };
 }

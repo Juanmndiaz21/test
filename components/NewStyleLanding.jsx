@@ -3,7 +3,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Link, useRouter } from '@/i18n/navigation';
-import { gameToSlug } from '@/lib/gameSlugs';
+import { gameToSlug, productToSlug } from '@/lib/gameSlugs';
 import {
     ShieldCheck,
     Lightning,
@@ -316,7 +316,7 @@ export default function NewStyleLanding({
                     badgeColor,
                     categories: cats,
                     image: p.image_url || '/store/GTAV-CASHBOOST.webp',
-                    link: `/store/${p.id}`,
+                    link: `/store/${p.slug || productToSlug(p.name || String(p.id))}`,
                 };
             });
         }

@@ -236,6 +236,54 @@ export default async function GameServicesPage({ params }) {
                 />
 
                 <GameServicesCatalog products={products} game={game} />
+
+                {/* Editorial Buyer Guide & FAQ for Search Engines & Buyers */}
+                <section className="mt-16 pt-12 border-t border-white/10">
+                    <div className="max-w-4xl mx-auto">
+                        <div className="text-center mb-10">
+                            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                                Frequently Asked Questions — {game} Boosting
+                            </h2>
+                            <p className="mt-2 text-sm text-zinc-400">
+                                Everything you need to know about safety, delivery speed, and order handling.
+                            </p>
+                        </div>
+
+                        <div className="space-y-4">
+                            {faqs.map((faq, idx) => (
+                                <div
+                                    key={idx}
+                                    className="rounded-2xl border border-white/10 bg-zinc-900/60 p-5 backdrop-blur-sm"
+                                >
+                                    <h3 className="text-base font-bold text-white flex items-center gap-2">
+                                        <span className="text-purple-400 font-mono text-sm">0{idx + 1}.</span>
+                                        {faq.q}
+                                    </h3>
+                                    <p className="mt-2 text-sm text-zinc-400 leading-relaxed pl-7">
+                                        {faq.a}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="mt-12 rounded-2xl border border-purple-500/20 bg-purple-950/20 p-6 sm:p-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
+                            <div>
+                                <h3 className="text-lg font-bold text-white">Need custom requirements for {game}?</h3>
+                                <p className="mt-1 text-sm text-zinc-300">
+                                    Our support operators are available 24/7 on Discord to configure bespoke orders.
+                                </p>
+                            </div>
+                            <a
+                                href="https://discord.gg/eaYMP2hnm4"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm transition-all shadow-lg shadow-purple-900/30"
+                            >
+                                Contact Live Support
+                            </a>
+                        </div>
+                    </div>
+                </section>
             </div>
         </>
     );

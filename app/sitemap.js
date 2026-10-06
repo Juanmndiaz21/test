@@ -21,8 +21,8 @@ export default async function sitemap() {
 
     const entries = [];
 
-    // Helper to generate clean canonical URLs
-    const getUrl = (path = '') => `${baseUrl}${path || '/'}`;
+    // Helper to generate clean canonical URLs (root matches canonical without trailing slash)
+    const getUrl = (path = '') => `${baseUrl}${path ? (path.startsWith('/') ? path : `/${path}`) : ''}`;
 
     // 1. Static routes
     for (const route of staticRoutes) {
