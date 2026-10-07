@@ -75,13 +75,6 @@ export async function generateMetadata({ params }) {
                 'max-snippet': -1,
             },
         },
-        alternates: {
-            canonical: baseUrl,
-            languages: {
-                en: baseUrl,
-                'x-default': baseUrl,
-            },
-        },
         openGraph: {
             title,
             description,

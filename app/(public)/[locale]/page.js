@@ -7,9 +7,14 @@ import NewStyleLanding from '@/components/NewStyleLanding';
 export const revalidate = 120;
 
 export async function generateMetadata() {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.ogmodz.com');
     return {
         alternates: {
-            canonical: '/',
+            canonical: baseUrl,
+            languages: {
+                en: baseUrl,
+                'x-default': baseUrl,
+            },
         },
     };
 }

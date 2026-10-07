@@ -33,7 +33,14 @@ export default async function ProductPage({ params }) {
                 products = await sql`SELECT * FROM products WHERE slug = ${rawSlug} OR id::text = ${rawSlug} LIMIT 1`;
                 if (!products || products.length === 0) {
                     const allProducts = await sql`SELECT * FROM products`;
-                    const matched = allProducts.find(p => (p.slug || productToSlug(p.name)) === rawSlug);
+                    const matched = allProducts.find(p => {
+                        const pSlug = (p.slug || productToSlug(p.name)).toLowerCase();
+                        if (pSlug === rawSlug) return true;
+                        // Match aliases without modifiers like "-cheap" or "-safe" (e.g. buy-gta-v-cash-boost -> buy-gta-v-cheap-cash-boost)
+                        const pNorm = pSlug.replace(/-cheap|-safe/g, '');
+                        const rNorm = rawSlug.replace(/-cheap|-safe/g, '');
+                        return pNorm === rNorm || pNorm === rawSlug || pSlug === rNorm;
+                    });
                     if (matched) products = [matched];
                 }
             }
@@ -209,12 +216,25 @@ export async function generateMetadata({ params }) {
             rows = await sql`SELECT id, name, description, game, image_url, slug FROM products WHERE slug = ${rawSlug} OR id::text = ${rawSlug} LIMIT 1`;
             if (!rows || rows.length === 0) {
                 const all = await sql`SELECT id, name, description, game, image_url, slug FROM products`;
-                const matched = all.find(p => (p.slug || productToSlug(p.name)) === rawSlug);
+                const matched = all.find(p => {
+                    const pSlug = (p.slug || productToSlug(p.name)).toLowerCase();
+                    if (pSlug === rawSlug) return true;
+                    const pNorm = pSlug.replace(/-cheap|-safe/g, '');
+                    const rNorm = rawSlug.replace(/-cheap|-safe/g, '');
+                    return pNorm === rNorm || pNorm === rawSlug || pSlug === rNorm;
+                });
                 if (matched) rows = [matched];
             }
         }
         const product = rows?.[0];
-        if (!product) return {};
+        if (!product) {
+            return {
+                robots: {
+                    index: false,
+                    follow: false,
+                },
+            };
+        }
 
         const slug = product.slug || productToSlug(product.name);
         const productPath = `/store/${slug}`;
