@@ -205,7 +205,7 @@ export default async function LocaleLayout({ children, params }) {
                 {/* Google tag (gtag.js) */}
                 <Script
                     strategy="afterInteractive"
-                    src="https://www.googletagmanager.com/gtag/js?id=G-VLP5EHBJZP"
+                    src="https://www.googletagmanager.com/gtag/js?id=G-MT5Y19ZSWX"
                 />
                 <Script
                     id="google-analytics"
@@ -230,7 +230,7 @@ export default async function LocaleLayout({ children, params }) {
                                 }
                             } catch(e) {}
 
-                            gtag('config', 'G-VLP5EHBJZP', {
+                            gtag('config', 'G-MT5Y19ZSWX', {
                                 page_path: window.location.pathname,
                             });
                         `,
