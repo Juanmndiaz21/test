@@ -22,18 +22,30 @@ export default function CookieConsentBanner() {
         }
     }, []);
 
+    const updateGtagConsent = (granted) => {
+        if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+            window.gtag('consent', 'update', {
+                analytics_storage: granted ? 'granted' : 'denied',
+                ad_storage: granted ? 'granted' : 'denied',
+            });
+        }
+    };
+
     const handleAcceptAll = () => {
         localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ essential: true, analytics: true, date: new Date().toISOString() }));
+        updateGtagConsent(true);
         setVisible(false);
     };
 
     const handleEssentialOnly = () => {
         localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ essential: true, analytics: false, date: new Date().toISOString() }));
+        updateGtagConsent(false);
         setVisible(false);
     };
 
     const handleSavePreferences = () => {
         localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ essential: true, analytics: analyticsAllowed, date: new Date().toISOString() }));
+        updateGtagConsent(analyticsAllowed);
         setVisible(false);
     };
 

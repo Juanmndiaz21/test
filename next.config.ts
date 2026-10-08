@@ -5,12 +5,12 @@ const withNextIntl = createNextIntlPlugin("./i18n/request.js");
 
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://challenges.cloudflare.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://challenges.cloudflare.com https://www.googletagmanager.com;
   style-src 'self' 'unsafe-inline';
-  img-src 'self' blob: data: https:;
+  img-src 'self' blob: data: https: https://www.googletagmanager.com https://*.google-analytics.com;
   font-src 'self' data:;
   frame-src 'self' https://challenges.cloudflare.com;
-  connect-src 'self' https://challenges.cloudflare.com https://api.iconify.design;
+  connect-src 'self' https://challenges.cloudflare.com https://api.iconify.design https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com;
   object-src 'none';
   base-uri 'self';
   form-action 'self';

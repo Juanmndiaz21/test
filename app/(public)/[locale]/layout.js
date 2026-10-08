@@ -12,6 +12,7 @@ import BisSkinCleaner from '../../../components/BisSkinCleaner';
 import CookieConsentBanner from '../../../components/CookieConsentBanner';
 import MotionSystem from '../../../components/MotionSystem';
 import { Analytics } from '@vercel/analytics/next';
+import Script from 'next/script';
 
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
@@ -200,6 +201,40 @@ export default async function LocaleLayout({ children, params }) {
                     type="application/ld+json"
                     suppressHydrationWarning
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+                />
+                {/* Google tag (gtag.js) */}
+                <Script
+                    strategy="afterInteractive"
+                    src="https://www.googletagmanager.com/gtag/js?id=G-VLP5EHBJZP"
+                />
+                <Script
+                    id="google-analytics"
+                    strategy="afterInteractive"
+                    dangerouslySetInnerHTML={{
+                        __html: `
+                            window.dataLayer = window.dataLayer || [];
+                            function gtag(){dataLayer.push(arguments);}
+                            gtag('js', new Date());
+
+                            // Check local storage consent
+                            try {
+                                var consent = localStorage.getItem('ogmodz_cookie_consent_v1');
+                                if (consent) {
+                                    var parsed = JSON.parse(consent);
+                                    if (parsed.analytics === false) {
+                                        gtag('consent', 'default', {
+                                            'analytics_storage': 'denied',
+                                            'ad_storage': 'denied'
+                                        });
+                                    }
+                                }
+                            } catch(e) {}
+
+                            gtag('config', 'G-VLP5EHBJZP', {
+                                page_path: window.location.pathname,
+                            });
+                        `,
+                    }}
                 />
             </head>
             <body suppressHydrationWarning className="bg-zinc-950 text-zinc-100 antialiased selection:bg-emerald-500/30 selection:text-emerald-300 min-h-screen flex flex-col">
