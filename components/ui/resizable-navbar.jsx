@@ -216,7 +216,7 @@ export const MobileNavToggle = ({ isOpen, onClick }) => {
             type="button"
             onClick={onClick}
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
-            className="p-2 rounded-xl text-zinc-300 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-xl text-zinc-300 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
         >
             {isOpen ? <IconX className="w-5 h-5 text-white" /> : <IconMenu2 className="w-5 h-5 text-white" />}
         </button>
@@ -238,7 +238,7 @@ export const MobileNavMenu = ({
                     exit={{ opacity: 0, y: -10, scale: 0.98 }}
                     transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
                     className={cn(
-                        'mt-2 w-full rounded-2xl border border-white/10 bg-zinc-900/95 p-5 backdrop-blur-2xl shadow-2xl flex flex-col gap-4 z-50',
+                        'mt-2 w-full max-h-[calc(100dvh-5.5rem)] overflow-y-auto rounded-2xl border border-white/10 bg-zinc-900/95 p-5 backdrop-blur-2xl shadow-2xl flex flex-col gap-4 z-50',
                         className
                     )}
                 >

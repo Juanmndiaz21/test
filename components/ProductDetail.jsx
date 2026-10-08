@@ -83,7 +83,7 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
             </nav>
 
             <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 mt-2 items-start">
-                <section className="panel-surface rounded-2xl p-7 md:p-10 bg-zinc-900/60 border border-white/10">
+                <section className="panel-surface rounded-2xl p-4 sm:p-7 md:p-10 bg-zinc-900/60 border border-white/10">
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-8 bg-black/40">
                         <GameArt name={product.name} image_url={product.image_url} className="w-full h-full object-cover" />
                         <div className="absolute top-3 right-3 z-10">
@@ -110,7 +110,7 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
                         </span>
                     </div>
 
-                    <h1 className="display-font text-4xl sm:text-5xl md:text-6xl uppercase text-white leading-[0.95]">{product.name}</h1>
+                    <h1 className="display-font text-2xl sm:text-4xl md:text-5xl lg:text-6xl uppercase text-white leading-tight break-words">{product.name}</h1>
                     <div className="mt-6">
                         <ProductDescriptionRenderer content={product.description || t('defaultDescription')} />
                     </div>

@@ -216,7 +216,7 @@ export default function GtaOrderConfigurator({ product }) {
     const visiblePackages = showAllPackages ? packages : packages.slice(0, 6);
 
     return (
-        <div className="panel-surface rounded-2xl p-6 sm:p-8 border border-white/10 bg-zinc-900 space-y-7 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        <div className="panel-surface rounded-2xl p-4 sm:p-6 md:p-8 border border-white/10 bg-zinc-900 space-y-7 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
             {/* Header */}
             <div className="flex items-center justify-between gap-4 pb-5 border-b border-white/10">
                 <div className="flex items-center gap-3.5">

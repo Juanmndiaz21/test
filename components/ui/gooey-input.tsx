@@ -216,13 +216,13 @@ export function GooeyInput({
           animate={isExpanded ? "expanded" : "collapsed"}
           transition={transition}
         >
-          <button
-            type="button"
-            disabled={disabled}
+          <div
+            role="search"
             onClick={handleExpand}
             className={cn(
-              "flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-full px-4 text-sm font-medium outline-none transition-[color,box-shadow] focus-visible:ring-2 focus-visible:ring-[#9225CF] focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 disabled:pointer-events-none disabled:opacity-50",
+              "flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-full px-4 text-sm font-medium outline-none transition-[color,box-shadow] focus-within:ring-2 focus-within:ring-[#9225CF] focus-within:ring-offset-2 focus-within:ring-offset-zinc-950",
               surfaceClass,
+              disabled && "pointer-events-none opacity-50",
               classNames?.trigger,
             )}
           >
@@ -249,7 +249,7 @@ export function GooeyInput({
                 classNames?.input,
               )}
             />
-          </button>
+          </div>
         </motion.div>
 
         <motion.div
