@@ -57,7 +57,7 @@ export default function ProductList({ products, games: catalogGames = [] }) {
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const params = new URLSearchParams(window.location.search);
-            const q = params.get('search') || params.get('q');
+            const q = params.get('search') || params.get('q') || params.get('game');
             if (q) setSearchQuery(q);
         }
     }, []);

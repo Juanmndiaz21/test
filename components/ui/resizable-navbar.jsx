@@ -196,7 +196,7 @@ export const NavbarButton = ({
 
 export const MobileNav = ({ children, className }) => {
     return (
-        <div className={cn('md:hidden w-full px-4', className)}>
+        <div className={cn('md:hidden w-full px-4 relative', className)}>
             {children}
         </div>
     );
@@ -204,7 +204,7 @@ export const MobileNav = ({ children, className }) => {
 
 export const MobileNavHeader = ({ children, className }) => {
     return (
-        <div className={cn('flex items-center justify-between w-full py-2.5 px-4 rounded-2xl bg-zinc-900/90 border border-white/10 backdrop-blur-xl shadow-lg', className)}>
+        <div className={cn('flex items-center justify-between w-full py-2.5 px-4 rounded-2xl bg-zinc-900/90 border border-white/10 backdrop-blur-xl shadow-lg relative z-50', className)}>
             {children}
         </div>
     );
@@ -232,18 +232,34 @@ export const MobileNavMenu = ({
     return (
         <AnimatePresence>
             {isOpen && (
-                <motion.div
-                    initial={{ opacity: 0, y: -10, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                    transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-                    className={cn(
-                        'mt-2 w-full max-h-[calc(100dvh-5.5rem)] overflow-y-auto rounded-2xl border border-white/10 bg-zinc-900/95 p-5 backdrop-blur-2xl shadow-2xl flex flex-col gap-4 z-50',
-                        className
-                    )}
-                >
-                    {children}
-                </motion.div>
+                <>
+                    {/* Backdrop to close menu on outside tap & block clicks on underlying elements */}
+                    <motion.div
+                        key="mobile-nav-backdrop"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.18 }}
+                        onClick={onClose}
+                        className="fixed inset-0 bg-black/75 backdrop-blur-sm z-40 md:hidden"
+                        aria-hidden="true"
+                    />
+
+                    {/* Floating Mobile Nav Drawer (Floats over content, does not displace layout) */}
+                    <motion.div
+                        key="mobile-nav-drawer"
+                        initial={{ opacity: 0, y: -10, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                        transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+                        className={cn(
+                            'absolute top-full left-4 right-4 mt-2 max-h-[calc(100dvh-5.5rem)] overflow-y-auto rounded-2xl border border-white/10 bg-zinc-900/95 p-5 backdrop-blur-2xl shadow-2xl flex flex-col gap-4 z-50',
+                            className
+                        )}
+                    >
+                        {children}
+                    </motion.div>
+                </>
             )}
         </AnimatePresence>
     );

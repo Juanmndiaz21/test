@@ -69,7 +69,7 @@ const DEFAULT_SERVICES = [
         badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
         categories: ['featured', 'onsale'],
         image: '/store/RDR2-CASH.webp',
-        link: '/store?game=rdr2',
+        link: '/store/game/rdr2',
     },
     {
         id: 'gtav-cash',
@@ -82,7 +82,7 @@ const DEFAULT_SERVICES = [
         badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
         categories: ['bestseller', 'onsale'],
         image: '/store/GTAV-CASHBOOST.webp',
-        link: '/store?game=gta-5',
+        link: '/store/game/gta-5',
     },
     {
         id: 'gtav-acc',
@@ -95,7 +95,7 @@ const DEFAULT_SERVICES = [
         badgeColor: 'bg-[#9225CF]/20 text-purple-300 border-[#9225CF]/30',
         categories: ['bestseller', 'featured'],
         image: '/store/GTAV-FULLACC.webp',
-        link: '/store?game=gta-5',
+        link: '/store/game/gta-5',
     },
     {
         id: 'rdr2-role',
@@ -108,7 +108,7 @@ const DEFAULT_SERVICES = [
         badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
         categories: ['onsale'],
         image: '/store/RDR2-MAXLVLROLE.webp',
-        link: '/store?game=rdr2',
+        link: '/store/game/rdr2',
     },
     {
         id: 'cs2-boost',
@@ -121,7 +121,7 @@ const DEFAULT_SERVICES = [
         badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
         categories: ['new', 'featured'],
         image: '/store/cs2.webp',
-        link: '/store?game=cs2',
+        link: '/store/game/cs2',
     },
     {
         id: 'gtav-unlock',
@@ -134,7 +134,7 @@ const DEFAULT_SERVICES = [
         badgeColor: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
         categories: ['bestseller', 'onsale'],
         image: '/store/GTAV-UNLOCKALL.webp',
-        link: '/store?game=gta-5',
+        link: '/store/game/gta-5',
     },
     {
         id: 'gtav-cars',
@@ -147,7 +147,7 @@ const DEFAULT_SERVICES = [
         badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
         categories: ['new', 'featured'],
         image: '/store/GTAV-CARS.webp',
-        link: '/store?game=gta-5',
+        link: '/store/game/gta-5',
     },
     {
         id: 'rdr2-gold',
@@ -160,7 +160,7 @@ const DEFAULT_SERVICES = [
         badgeColor: 'bg-[#9225CF]/20 text-purple-300 border-[#9225CF]/30',
         categories: ['bestseller', 'onsale'],
         image: '/store/RDR2-GOLD.webp',
-        link: '/store?game=rdr2',
+        link: '/store/game/rdr2',
     },
 ];
 

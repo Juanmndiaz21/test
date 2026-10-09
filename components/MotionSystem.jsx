@@ -112,7 +112,12 @@ export default function MotionSystem() {
         const restorers = [];
         const cleanups = [];
 
-        // New route always starts at the top, without a smooth-scroll glide
+        // New route always starts at the absolute top across desktop & mobile
+        if (typeof window !== 'undefined') {
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+            if (document.documentElement) document.documentElement.scrollTop = 0;
+            if (document.body) document.body.scrollTop = 0;
+        }
         window.__lenis?.scrollTo(0, { immediate: true });
 
         const ctx = gsap.context(() => {

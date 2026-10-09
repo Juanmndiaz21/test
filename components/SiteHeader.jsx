@@ -23,8 +23,21 @@ export default function SiteHeader() {
     const t = useTranslations('common');
     const { data: session } = useSession();
     const pathname = usePathname();
-    const router = useRouter();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    // Auto-close mobile drawer on any route change
+    React.useEffect(() => {
+        setIsMobileMenuOpen(false);
+    }, [pathname]);
+
+    // Close on Escape key press
+    React.useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') setIsMobileMenuOpen(false);
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
 
     const handleSearchSubmit = (searchTerm) => {
         if (searchTerm && searchTerm.trim()) {
