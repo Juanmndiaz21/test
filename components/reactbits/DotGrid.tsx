@@ -22,59 +22,53 @@ export default function DotGrid({
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    let animationFrameId: number;
+    let animationFrameId: number | null = null;
     let width = 0;
     let height = 0;
     let mouseX = -1000;
     let mouseY = -1000;
+    let isVisible = true;
+    let isDirty = true;
 
-    const resize = () => {
-      const parent = canvas.parentElement;
-      if (!parent) return;
-      width = canvas.width = parent.clientWidth;
-      height = canvas.height = parent.clientHeight;
-    };
+    const hasHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-    resize();
-    window.addEventListener("resize", resize);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
-    };
-
-    const handleMouseLeave = () => {
-      mouseX = -1000;
-      mouseY = -1000;
-    };
-
-    const parent = canvas.parentElement;
-    if (parent) {
-      parent.addEventListener("mousemove", handleMouseMove);
-      parent.addEventListener("mouseleave", handleMouseLeave);
-    }
-
-    const draw = () => {
+    const renderStatic = () => {
       ctx.clearRect(0, 0, width, height);
-
       const cols = Math.floor(width / gap);
       const rows = Math.floor(height / gap);
       const offsetX = (width - cols * gap) / 2;
       const offsetY = (height - rows * gap) / 2;
 
+      ctx.fillStyle = baseColor;
       for (let i = 0; i <= cols; i++) {
         for (let j = 0; j <= rows; j++) {
           const x = offsetX + i * gap;
           const y = offsetY + j * gap;
+          ctx.beginPath();
+          ctx.arc(x, y, dotSize, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    };
 
+    const renderInteractive = () => {
+      ctx.clearRect(0, 0, width, height);
+      const cols = Math.floor(width / gap);
+      const rows = Math.floor(height / gap);
+      const offsetX = (width - cols * gap) / 2;
+      const offsetY = (height - rows * gap) / 2;
+      const maxDist = 120;
+
+      for (let i = 0; i <= cols; i++) {
+        for (let j = 0; j <= rows; j++) {
+          const x = offsetX + i * gap;
+          const y = offsetY + j * gap;
           const dx = mouseX - x;
           const dy = mouseY - y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          const maxDist = 120;
 
           ctx.beginPath();
           if (dist < maxDist) {
@@ -88,19 +82,83 @@ export default function DotGrid({
           ctx.fill();
         }
       }
-
-      animationFrameId = requestAnimationFrame(draw);
+      isDirty = false;
     };
 
-    draw();
+    const loop = () => {
+      if (isVisible && isDirty) {
+        renderInteractive();
+      }
+      animationFrameId = null;
+    };
+
+    const scheduleDraw = () => {
+      if (!isDirty) {
+        isDirty = true;
+        if (!animationFrameId && isVisible) {
+          animationFrameId = requestAnimationFrame(loop);
+        }
+      }
+    };
+
+    const resize = () => {
+      const parent = canvas.parentElement;
+      if (!parent) return;
+      width = canvas.width = parent.clientWidth;
+      height = canvas.height = parent.clientHeight;
+      if (hasHover) {
+        isDirty = true;
+        renderInteractive();
+      } else {
+        renderStatic();
+      }
+    };
+
+    resize();
+    window.addEventListener("resize", resize, { passive: true });
+
+    // Pause rendering when offscreen using IntersectionObserver
+    const observer = new IntersectionObserver(
+      (entries) => {
+        isVisible = entries[0]?.isIntersecting ?? true;
+        if (isVisible && hasHover) {
+          scheduleDraw();
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
+
+    const parent = canvas.parentElement;
+    let handleMouseMove: ((e: MouseEvent) => void) | null = null;
+    let handleMouseLeave: (() => void) | null = null;
+
+    if (hasHover && parent) {
+      handleMouseMove = (e: MouseEvent) => {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+        scheduleDraw();
+      };
+
+      handleMouseLeave = () => {
+        mouseX = -1000;
+        mouseY = -1000;
+        scheduleDraw();
+      };
+
+      parent.addEventListener("mousemove", handleMouseMove, { passive: true });
+      parent.addEventListener("mouseleave", handleMouseLeave, { passive: true });
+    }
 
     return () => {
       window.removeEventListener("resize", resize);
-      if (parent) {
+      observer.disconnect();
+      if (parent && handleMouseMove && handleMouseLeave) {
         parent.removeEventListener("mousemove", handleMouseMove);
         parent.removeEventListener("mouseleave", handleMouseLeave);
       }
-      cancelAnimationFrame(animationFrameId);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, [dotSize, gap, baseColor, glowColor]);
 

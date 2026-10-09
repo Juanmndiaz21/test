@@ -38,8 +38,8 @@ export const NavBody = ({ children, className }) => {
                 boxShadow: scrolled
                     ? '0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px rgba(146, 37, 207, 0.2)'
                     : 'none',
-                paddingTop: scrolled ? '10px' : '14px',
-                paddingBottom: scrolled ? '10px' : '14px',
+                paddingTop: '12px',
+                paddingBottom: '12px',
             }}
             transition={{
                 duration: 0.25,
@@ -229,38 +229,26 @@ export const MobileNavMenu = ({
     children,
     className,
 }) => {
-    return (
-        <AnimatePresence>
-            {isOpen && (
-                <>
-                    {/* Backdrop to close menu on outside tap & block clicks on underlying elements */}
-                    <motion.div
-                        key="mobile-nav-backdrop"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.18 }}
-                        onClick={onClose}
-                        className="fixed inset-0 bg-black/75 backdrop-blur-sm z-40 md:hidden"
-                        aria-hidden="true"
-                    />
+    if (!isOpen) return null;
 
-                    {/* Floating Mobile Nav Drawer (Floats over content, does not displace layout) */}
-                    <motion.div
-                        key="mobile-nav-drawer"
-                        initial={{ opacity: 0, y: -10, scale: 0.98 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                        transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-                        className={cn(
-                            'absolute top-full left-4 right-4 mt-2 max-h-[calc(100dvh-5.5rem)] overflow-y-auto rounded-2xl border border-white/10 bg-zinc-900/95 p-5 backdrop-blur-2xl shadow-2xl flex flex-col gap-4 z-50',
-                            className
-                        )}
-                    >
-                        {children}
-                    </motion.div>
-                </>
-            )}
-        </AnimatePresence>
+    return (
+        <div className="md:hidden">
+            {/* Backdrop to close menu on outside tap & block clicks on underlying elements */}
+            <div
+                onClick={onClose}
+                className="fixed inset-0 bg-black/75 backdrop-blur-sm z-40 transition-opacity duration-150 animate-in fade-in"
+                aria-hidden="true"
+            />
+
+            {/* Floating Mobile Nav Drawer (Floats over content, never displaces layout) */}
+            <div
+                className={cn(
+                    'absolute top-full left-4 right-4 mt-2 max-h-[calc(100dvh-5.5rem)] overflow-y-auto rounded-2xl border border-white/10 bg-zinc-900/95 p-5 backdrop-blur-2xl shadow-2xl flex flex-col gap-4 z-50 animate-in fade-in slide-in-from-top-2 duration-150',
+                    className
+                )}
+            >
+                {children}
+            </div>
+        </div>
     );
 };

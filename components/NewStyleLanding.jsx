@@ -436,19 +436,32 @@ export default function NewStyleLanding({
         reviewTrackRef.current.scrollBy({ left: amount, behavior: 'smooth' });
     };
 
-    // Auto scroll when idle
+    // Auto scroll when idle (RAF-synced on fine pointers, disabled on touch devices to maximize INP & responsiveness)
     useEffect(() => {
-        if (isMouseDown || isHovered) return;
-        const interval = setInterval(() => {
-            if (!reviewTrackRef.current) return;
-            const el = reviewTrackRef.current;
-            if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 10) {
-                el.scrollLeft = 0;
-            } else {
-                el.scrollLeft += 1;
+        if (typeof window === 'undefined') return;
+        const isTouch = window.matchMedia('(pointer: coarse)').matches;
+        if (isTouch || isMouseDown || isHovered) return;
+
+        let frameId;
+        let lastTime = performance.now();
+
+        const step = (time) => {
+            if (time - lastTime >= 32) {
+                lastTime = time;
+                if (reviewTrackRef.current) {
+                    const el = reviewTrackRef.current;
+                    if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 10) {
+                        el.scrollLeft = 0;
+                    } else {
+                        el.scrollLeft += 1;
+                    }
+                }
             }
-        }, 30);
-        return () => clearInterval(interval);
+            frameId = requestAnimationFrame(step);
+        };
+
+        frameId = requestAnimationFrame(step);
+        return () => cancelAnimationFrame(frameId);
     }, [isMouseDown, isHovered]);
 
     // Curated Popular Games (4 created games in catalog)
