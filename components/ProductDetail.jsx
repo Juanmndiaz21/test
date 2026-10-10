@@ -191,8 +191,6 @@ export default function ProductDetail({ product, relatedProducts = [], defaultOp
 
             <section className="mt-16 max-w-4xl border-t border-white/10 pt-12">
                 <p className="eyebrow mb-3">{t('serviceGuide')}</p>
-                <EditableContentSection productId={product.id} section="description" title={t('sectionDescription')} initialItems={[product.description || t('fallbackDescription')]} renderItem={(item) => <ProductDescriptionRenderer content={item} />} />
-
                 <EditableContentSection productId={product.id} section="how_it_works" title={t('sectionHowItWorks')} initialItems={splitContent(product.how_it_works, t.raw('fallbackHowItWorks'))} />
                 <EditableContentSection productId={product.id} section="requirements" title={t('sectionRequirements')} initialItems={splitContent(product.requirements, t.raw('fallbackRequirements'))} />
                 <EditableContentSection productId={product.id} section="faqs" title={t('sectionFaqs')} initialItems={splitContent(product.faqs, t.raw('fallbackFaqs'))} renderItem={(item) => { const [question, answer] = item.split('|'); return <details><summary className="font-bold text-white cursor-pointer">{question.trim()}</summary><p className="text-slate-400 mt-3">{(answer || t('faqFallbackAnswer')).trim()}</p></details>; }} />
